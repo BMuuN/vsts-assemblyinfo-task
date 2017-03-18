@@ -1,0 +1,120 @@
+{
+  // Test
+  //"id": "F6C609D1-94DE-4FA6-B9E9-F146161EC47A",
+  //"name": "Assembly-Info-Task-Test",
+  //"friendlyName": "Assembly Info (Test)",
+  // Live
+  "id": "3EDC451E-360C-40E5-A221-A42D5C987AB8",
+  "name": "Assembly-Info-Task",
+  "friendlyName": "Assembly Info",
+  "description": "Set assembly information such as Version, Copyright and Trademark etc.",
+  "helpMarkDown": "[More Information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task)",
+  "category": "Build",
+  "author": "Bleddyn Richards",
+  "version": {
+    "Major": 1,
+    "Minor": 0,
+    "Patch": 34
+  },
+  "instanceNameFormat": "Set Assembly Manifest Data",
+  "visibility": [
+    "Build"
+  ],
+  "inputs": [
+    {
+      "name": "Path",
+      "type": "filePath",
+      "label": "Source folder",
+      "defaultValue": "$(Build.SourcesDirectory)",
+      "required": true,
+      "helpMarkDown": "Source folder for the file, can be root as it will find all files recursively."
+    },
+    {
+      "name": "Title",
+      "type": "string",
+      "label": "Title",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Specify a title name for the assembly."
+    },
+    {
+      "name": "Product",
+      "type": "string",
+      "label": "Product",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Provide the product information for the assembly."
+    },
+    {
+      "name": "Description",
+      "type": "string",
+      "label": "Description",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Provide a detailed description of the product or modules that comprise the assembly."
+    },
+    {
+      "name": "Company",
+      "type": "string",
+      "label": "Company",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Provide the company information for the assembly."
+    },
+    {
+      "name": "Copyright",
+      "type": "string",
+      "label": "Copyright",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Provide the assembly or product copyright information e.g. Copyright © $(date:yyyy) Example Ltd"
+    },
+    {
+      "name": "Trademark",
+      "type": "string",
+      "label": "Trademark",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Provide the assembly or product trademark information."
+    },
+    {
+      "name": "Culture",
+      "type": "string",
+      "label": "Culture",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Provide information on what language the assembly supports."
+    },
+    {
+      "name": "Configuration",
+      "type": "string",
+      "label": "Configuration",
+      "defaultValue": "$(BuildConfiguration)",
+      "required": false,
+      "helpMarkDown": "Provide the build configuration for the assembly, such as debug or release."
+    },
+    {
+      "name": "VersionNumber",
+      "type": "string",
+      "label": "Version Number",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Provide the assembly version. Must be in the format digit.digit.digit.digit see the marketplace listing for [more information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task)."
+    },
+    {
+      "name": "FileVersionNumber",
+      "type": "string",
+      "label": "File Version Number",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Provide the file version. Must be in the format digit.digit.digit.digit see the marketplace listing for [more information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task)."
+    }
+  ],
+  "execution": {
+    "PowerShell": {
+      "target": "$(currentDirectory)\\ApplyAssemblyInfo.ps1",
+      "argumentFormat": "",
+      "workingDirectory": "$(currentDirectory)"
+    }
+  }
+}

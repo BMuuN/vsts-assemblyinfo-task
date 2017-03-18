@@ -1,0 +1,77 @@
+{
+    "manifestVersion": 1,
+    "id": "Assembly-Info-Task",
+    "name": "Assembly Info",
+    "public": true,
+    "version": "1.0.22",
+    "publisher": "bleddynrichards",
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "description": "Set assembly information such as Version, Copyright and Trademark etc from Team Foundation Server / Team Services build.",
+    "icons": {
+        "default": "images/Logo128x128.png"
+    },
+    "categories": [
+        "Build and release"
+    ],
+    "tags": [
+        "Build",
+        "Release",
+        "Binary",
+        "Assembly",
+        "Version",
+        "Continuous Delivery",
+        "Continuous Integration",
+        "Management",
+        "Utility",
+        "Tasks"
+    ],
+    "screenshots": [
+        {
+            "path": "images/Task_List.png"
+        }
+    ],
+    "links": {
+        "support": { "uri": "https://github.com/BMuuN/vsts-assemblyinfo-task/issues" }
+    },
+    "repository": {
+        "type": "git",
+        "uri": "https://github.com/BMuuN/vsts-assemblyinfo-task"
+    },
+    "content": {
+        "details": {
+            "path": "readme.md"
+        },
+        "license": {
+            "path": "license.md"
+        }
+    },
+    "branding": {
+        "color": "#222730",
+        "theme": "dark"
+    },
+    "files": [
+        {
+            "path": "task"
+        },
+        {
+            "path": "images",
+            "addressable": true
+        }
+    ],
+    "contributions": [
+        {
+            "id": "Assembly-Info-Task",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "task"
+            }
+        }
+    ]
+}
