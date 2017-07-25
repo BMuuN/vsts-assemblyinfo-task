@@ -9,7 +9,7 @@
   "version": {
     "Major": 1,
     "Minor": 0,
-    "Patch": 34
+    "Patch": 35
   },
   "instanceNameFormat": "Set Assembly Manifest Data",
   "visibility": [
@@ -103,6 +103,14 @@
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "Provide the file version. Must be in the format digit.digit.digit.digit see the marketplace listing for [more information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task)."
+    },
+    {
+      "name": "InformationalVersion",
+      "type": "string",
+      "label": "Informational Version",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Provide the informational version. See the marketplace listing for [more information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task)."
     }
   ],
   "execution": {
