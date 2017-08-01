@@ -33,9 +33,9 @@ param (
 
     [Parameter(Mandatory=$false)]
     [string]$FileVersionNumber
-    
+
     [Parameter(Mandatory=$false)]
-    [string]$FileInformationalVersion
+    [string]$InformationalVersion
 )
 
 Function ValidateVersionNumber($number)
@@ -96,7 +96,7 @@ Write-Host "Version Parameter: $VersionNumber"
 Write-Host "Title: $Title"
 Write-Host "Version: $Version"
 Write-Host "File Version: $FileVersion"
-Write-Host "File Informational Version: $FileInformationalVersion"
+Write-Host "Informational Version: $InformationalVersion"
 Write-Host "Product: $Product"
 Write-Host "Company: $Company"
 Write-Host "Copyright: $Copyright"
@@ -133,10 +133,10 @@ if($files)
             $filecontent -replace "AssemblyFileVersion\(`"$VersionRegex`"\)", "AssemblyFileVersion(`"$FileVersion`")" | Out-File $file
             $filecontent = Get-Content($file)
         }
-
-        # set file informational version
-        if(![string]::IsNullOrWhiteSpace($FileInformationalVersion)) {
-            $filecontent -replace "AssemblyInformationalVersion\(`"$WordRegex`"\)", "AssemblyInformationalVersion(`"$FileInformationalVersion`")" | Out-File $file
+        
+        # set informational version
+        if(![string]::IsNullOrWhiteSpace($InformationalVersion)) {
+            $filecontent -replace "AssemblyInformationalVersion\(`"$WordRegex`"\)", "AssemblyInformationalVersion(`"$InformationalVersion`")" | Out-File $file
             $filecontent = Get-Content($file)
         }
         

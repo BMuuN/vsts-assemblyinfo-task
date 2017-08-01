@@ -17,7 +17,7 @@ The following fields can be set:
 | Configuration | Provides the build configuration for the assembly, such as debug or release. |
 | Version Number | Provides a version number for the application. |
 | File Version Number | Provides a file version number for the application. |
-| Informational Version | Provides the product Version string for the application |
+| Informational Version | Provides a text version for the application. |
 
 *If no value is specified for a particular field that field will be ignored and the default value in the AssemblyInfo source file will be used.*
 
@@ -63,7 +63,6 @@ Copyright © $(date:dd MMMM yyyy HH:mm tt) Example Ltd
 ```
 
 ## Release Notes
-
 > **v1.0.23**
 > - Added *Informational Version* task parameter.
 
