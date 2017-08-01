@@ -103,6 +103,14 @@
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "Provide the file version. Must be in the format digit.digit.digit.digit see the marketplace listing for [more information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task)."
+    },
+    {
+      "name": "InformationalVersion",
+      "type": "string",
+      "label": "Informational Version",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Provide the file informational version. Shown as Product Version in file properties view"
     }
   ],
   "execution": {
