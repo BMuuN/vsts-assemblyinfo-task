@@ -133,13 +133,13 @@ if($files)
             $filecontent -replace "AssemblyFileVersion\(`"$VersionRegex`"\)", "AssemblyFileVersion(`"$FileVersion`")" | Out-File $file
             $filecontent = Get-Content($file)
         }
-
+        
         # set informational version
-        if(![string]::IsNullOrWhiteSpace($FileVersion)) {
+        if(![string]::IsNullOrWhiteSpace($InformationalVersion)) {
             $filecontent -replace "AssemblyInformationalVersion\(`"$WordRegex`"\)", "AssemblyInformationalVersion(`"$InformationalVersion`")" | Out-File $file
             $filecontent = Get-Content($file)
         }
-
+        
         # set title
         if(![string]::IsNullOrWhiteSpace($Title)) {
             $filecontent -replace "AssemblyTitle\(`"$WordRegex`"\)", "AssemblyTitle(`"$Title`")" | Out-File $file
