@@ -9,7 +9,7 @@
   "version": {
     "Major": 1,
     "Minor": 0,
-    "Patch": 35
+    "Patch": 23
   },
   "instanceNameFormat": "Set Assembly Manifest Data",
   "visibility": [
@@ -19,10 +19,22 @@
     {
       "name": "Path",
       "type": "filePath",
-      "label": "Source folder",
+      "label": "Source Folder",
       "defaultValue": "$(Build.SourcesDirectory)",
       "required": true,
-      "helpMarkDown": "Source folder for the file, can be root as it will find all files recursively."
+      "helpMarkDown": "Source folder for the assembly info files, can be root as it will find all files recursively."
+    },
+    {
+      "name": "FileNames",
+      "type": "multiLine",
+      "label": "Source Files",
+      "defaultValue": "AssemblyInfo.cs\r\nAssemblyInfo.vb",
+      "required": true,
+      "helpMarkDown": "Specify the assembly info file names (AssemblyInfo.cs, AssemblyInfo.vb, GlobalInfo.cs). For .Net Core specify the project file (Project.csproj).",
+      "properties": {
+        "resizable": "true",
+        "rows": "6"
+      }
     },
     {
       "name": "Title",
@@ -30,7 +42,7 @@
       "label": "Title",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Specify a title name for the assembly."
+      "helpMarkDown": "Specify a friendly name for the assembly."
     },
     {
       "name": "Product",
@@ -46,7 +58,7 @@
       "label": "Description",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Provide a detailed description of the product or modules that comprise the assembly."
+      "helpMarkDown": "Provide a short description that summarizes the nature and purpose of the assembly."
     },
     {
       "name": "Company",
@@ -54,7 +66,7 @@
       "label": "Company",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Provide the company information for the assembly."
+      "helpMarkDown": "Provide the company name for the assembly."
     },
     {
       "name": "Copyright",
@@ -78,7 +90,7 @@
       "label": "Culture",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Provide information on what language the assembly supports."
+      "helpMarkDown": "Provide information on what culture the assembly supports. Leave empty for non-satellite assemblies."
     },
     {
       "name": "Configuration",
@@ -91,7 +103,7 @@
     {
       "name": "VersionNumber",
       "type": "string",
-      "label": "Version Number",
+      "label": "Assembly Version",
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "Provide the assembly version. Must be in the format digit.digit.digit.digit see the marketplace listing for [more information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task)."
@@ -99,7 +111,7 @@
     {
       "name": "FileVersionNumber",
       "type": "string",
-      "label": "File Version Number",
+      "label": "File Version",
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "Provide the file version. Must be in the format digit.digit.digit.digit see the marketplace listing for [more information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task)."
