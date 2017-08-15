@@ -68,6 +68,9 @@ Copyright © $(date:dd MMMM yyyy HH:mm tt) Example Ltd
 ```
 
 ## Release Notes
+> **v1.0.25**
+> - Bug fix: Array of file names not created when 2 files are specified.
+
 > **v1.0.23**
 > - Added support for .Net Core.
 > - Added *Source Files* task parameter.

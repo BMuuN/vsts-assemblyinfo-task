@@ -68,7 +68,8 @@ Function Main() {
                 Where-Object { $_ } | 
                 ForEach-Object { $_.Trim() }
 
-    $NetFrameworkFileNames = $FileNames | Where-Object { $_ -like "*.cs" }
+    [System.Collections.ArrayList]$NetFrameworkFileNames = @()
+    $NetFrameworkFileNames += $FileNames | Where-Object { $_ -like "*.cs" }
     $NetFrameworkFileNames += $FileNames | Where-Object { $_ -like "*.vb" }
     $NetCoreFileNames = $FileNames | Where-Object { $_ -like "*.csproj" }
 
