@@ -3,7 +3,7 @@
     "id": "Assembly-Info-Task",
     "name": "Assembly Info",
     "public": true,
-    "version": "1.0.25",
+    "version": "1.0.26",
     "publisher": "bleddynrichards",
     "targets": [
         {
