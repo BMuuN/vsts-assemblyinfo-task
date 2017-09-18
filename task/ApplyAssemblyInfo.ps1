@@ -154,6 +154,7 @@ Function NetFramework() {
         # set version
         if(![string]::IsNullOrWhiteSpace($Version)) {
             $filecontent -replace "AssemblyVersion\($WordRegex\)", "AssemblyVersion(`"$Version`")" | Out-File $file
+            $filecontent -replace "public const string AssemblyVersion = $WordRegex", "public const string AssemblyVersion =`"$Version`"" | Out-File $file
             $filecontent = Get-Content($file)
         }
 
