@@ -39,15 +39,20 @@ The following fields can be set:
   ![Assembly Info Set](images/Assembly_Manifest_Data.png)
 
 ## Version Number
-A version number must be specified in the format `digit.digit.digit.digit`:  
+A version number must be specified in the format `digit.digit[.digit[.digit]]`:
+Digits inside square brackets are optional  
 ```
-1.0.0.0
-2016.12.31.1
+1.0[.0.0]
+2016.12[.31.1]
 ```
 To achieve the best result:
 1. From the **General** tab set the **Build number format** to:
 ```
 $(Build.DefinitionName)_$(date:yyyy).$(date:MM).$(date:dd)$(rev:.r)
+```
+For SemVer support use
+```
+1.0.$(Rev:r)
 ```
 2. From the Assembly Info task set the **Version Number** to:
 ```
