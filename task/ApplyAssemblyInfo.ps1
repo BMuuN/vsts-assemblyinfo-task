@@ -46,7 +46,7 @@ param (
 $VerbosePreference = 'Continue' # equiv to -verbose
 
 # Regular expression pattern to find the version
-$VersionRegex = "\d+\.\d+\.\d+\.\d+"
+$VersionRegex = "\d+\.\d+\.?\d*\.?\d*"
 
 # Regular expression pattern to find any string
 $WordRegex = ".*"
