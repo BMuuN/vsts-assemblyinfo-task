@@ -43,7 +43,7 @@
     },
     "content": {
         "details": {
-            "path": "readme.md"
+            "path": "../readme.md"
         },
         "license": {
             "path": "license.md"
