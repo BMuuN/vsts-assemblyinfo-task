@@ -154,36 +154,42 @@ Function NetFramework() {
         # set version
         if(![string]::IsNullOrWhiteSpace($Version)) {
             $filecontent -replace "AssemblyVersion\($WordRegex\)", "AssemblyVersion(`"$Version`")" | Out-File $file
+            $filecontent -replace "AssemblyVersionAttribute\($WordRegex\)", "AssemblyVersion(`"$Version`")" | Out-File $file
             $filecontent = Get-Content($file)
         }
 
         # set file version
         if(![string]::IsNullOrWhiteSpace($FileVersion)) {
             $filecontent -replace "AssemblyFileVersion\($WordRegex\)", "AssemblyFileVersion(`"$FileVersion`")" | Out-File $file
+            $filecontent -replace "AssemblyFileVersionAttribute\($WordRegex\)", "AssemblyFileVersion(`"$FileVersion`")" | Out-File $file
             $filecontent = Get-Content($file)
         }
         
         # set informational version
         if(![string]::IsNullOrWhiteSpace($InformationalVersion)) {
             $filecontent -replace "AssemblyInformationalVersion\($WordRegex\)", "AssemblyInformationalVersion(`"$InformationalVersion`")" | Out-File $file
+            $filecontent -replace "AssemblyInformationalVersionAttribute\($WordRegex\)", "AssemblyInformationalVersion(`"$InformationalVersion`")" | Out-File $file
             $filecontent = Get-Content($file)
         }
         
         # set title
         if(![string]::IsNullOrWhiteSpace($Title)) {
             $filecontent -replace "AssemblyTitle\($WordRegex\)", "AssemblyTitle(`"$Title`")" | Out-File $file
+            $filecontent -replace "AssemblyTitleAttribute\($WordRegex\)", "AssemblyTitle(`"$Title`")" | Out-File $file
             $filecontent = Get-Content($file)
         }
 
         # set product
         if(![string]::IsNullOrWhiteSpace($Product)) {
             $filecontent -replace "AssemblyProduct\($WordRegex\)", "AssemblyProduct(`"$Product`")" | Out-File $file
+            $filecontent -replace "AssemblyProductAttribute\($WordRegex\)", "AssemblyProduct(`"$Product`")" | Out-File $file
             $filecontent = Get-Content($file)
         }
 
         # set company
         if(![string]::IsNullOrWhiteSpace($Company)) {
         $filecontent -replace "AssemblyCompany\($WordRegex\)", "AssemblyCompany(`"$Company`")" | Out-File $file
+        $filecontent -replace "AssemblyCompanyAttribute\($WordRegex\)", "AssemblyCompany(`"$Company`")" | Out-File $file
         $filecontent = Get-Content($file)
         }
 
@@ -191,30 +197,35 @@ Function NetFramework() {
         if(![string]::IsNullOrWhiteSpace($Copyright)) {
             $Copyright = [Regex]::Replace($Copyright, "\$\(date:$DateRegex\)", { Get-Date -format $args.Groups[1].Value })
             $filecontent -replace "AssemblyCopyright\($WordRegex\)", "AssemblyCopyright(`"$Copyright`")" | Out-File $file
+            $filecontent -replace "AssemblyCopyrightAttribute\($WordRegex\)", "AssemblyCopyright(`"$Copyright`")" | Out-File $file
             $filecontent = Get-Content($file)
         }
 
         # set trademark
         if(![string]::IsNullOrWhiteSpace($Trademark)) {
             $filecontent -replace "AssemblyTrademark\($WordRegex\)", "AssemblyTrademark(`"$Trademark`")" | Out-File $file
+            $filecontent -replace "AssemblyTrademarkAttribute\($WordRegex\)", "AssemblyTrademark(`"$Trademark`")" | Out-File $file
             $filecontent = Get-Content($file)
         }
 
         # set desription
         if(![string]::IsNullOrWhiteSpace($Description)) {
             $filecontent -replace "AssemblyDescription\($WordRegex\)", "AssemblyDescription(`"$Description`")" | Out-File $file
+            $filecontent -replace "AssemblyDescriptionAttribute\($WordRegex\)", "AssemblyDescription(`"$Description`")" | Out-File $file
             $filecontent = Get-Content($file)
         }
 
         # set culture
         if(![string]::IsNullOrWhiteSpace($Culture)) {
             $filecontent -replace "AssemblyCulture\($WordRegex\)", "AssemblyCulture(`"$Culture`")" | Out-File $file
+            $filecontent -replace "AssemblyCultureAttribute\($WordRegex\)", "AssemblyCulture(`"$Culture`")" | Out-File $file
             $filecontent = Get-Content($file)
         }
 
         # set configuration
         if(![string]::IsNullOrWhiteSpace($Configuration)) {
             $filecontent -replace "AssemblyConfiguration\($WordRegex\)", "AssemblyConfiguration(`"$Configuration`")" | Out-File $file
+            $filecontent -replace "AssemblyConfigurationAttribute\($WordRegex\)", "AssemblyConfiguration(`"$Configuration`")" | Out-File $file
             $filecontent = Get-Content($file)
         }
 

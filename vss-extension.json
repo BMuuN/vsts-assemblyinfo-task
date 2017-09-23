@@ -1,9 +1,9 @@
 {
     "manifestVersion": 1,
-    "id": "Assembly-Info-Task",
-    "name": "Assembly Info",
-    "public": true,
-    "version": "1.0.26",
+    "id": "Assembly-Info-Task-Test",
+    "name": "Assembly Info (Test)",
+    "public": false,
+    "version": "1.0.51",
     "publisher": "bleddynrichards",
     "targets": [
         {
