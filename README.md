@@ -1,3 +1,5 @@
+![vsts build badge](https://bmuun.visualstudio.com/_apis/public/build/definitions/86c93e13-9469-4df8-95f0-98c43c760a09/8/badge)
+
 # Assembly Info
 Assembly Info is an extension for Team Foundation Server / Team Services that sets assembly information from a build.
 
