@@ -3,7 +3,7 @@
     "id": "Assembly-Info-Task",
     "name": "Assembly Info",
     "public": true,
-    "version": "1.0.26",
+    "version": "1.0.27",
     "publisher": "bleddynrichards",
     "targets": [
         {
@@ -43,10 +43,10 @@
     },
     "content": {
         "details": {
-            "path": "readme.md"
+            "path": "Overview.md"
         },
         "license": {
-            "path": "license.md"
+            "path": "License.md"
         }
     },
     "branding": {

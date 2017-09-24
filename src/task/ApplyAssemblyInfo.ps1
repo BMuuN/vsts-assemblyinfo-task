@@ -74,23 +74,26 @@ Function Main() {
     $NetCoreFileNames = $FileNames | Where-Object { $_ -like "*.csproj" }
 
     # Validate version numbers
+    Write-Host "Validating Version Number: $VersionNumber"
     $Version = ValidateVersionNumber $VersionNumber
+    Write-Host "Validating File Version Number: $FileVersionNumber"
     $FileVersion = ValidateVersionNumber $FileVersionNumber
 
-    Write-Host "Source Directory: $Path"
-    $NetFrameworkFileNames | ForEach-Object { Write-Host "Net Framework File Names: $_" }
-    $NetCoreFileNames | ForEach-Object { Write-Host "Net Core File Names: $_" }
-    Write-Host "Title: $Title"
-    Write-Host "Product: $Product"
-    Write-Host "Description: $Description"
-    Write-Host "Company: $Company"
-    Write-Host "Copyright: $Copyright"
-    Write-Host "Trademark: $Trademark"
-    Write-Host "Culture: $Culture"
-    Write-Host "Configuration: $Configuration"
-    Write-Host "Version: $Version"
-    Write-Host "File Version: $FileVersion"
-    Write-Host "Informational Version: $InformationalVersion"
+    Write-Host "Task Parameters:"
+    Write-Host "`tSource Directory: $Path"
+    $NetFrameworkFileNames | ForEach-Object { Write-Host "`tNet Framework File Names: $_" }
+    $NetCoreFileNames | ForEach-Object { Write-Host "`tNet Core File Names: $_" }
+    Write-Host "`tTitle: $Title"
+    Write-Host "`tProduct: $Product"
+    Write-Host "`tDescription: $Description"
+    Write-Host "`tCompany: $Company"
+    Write-Host "`tCopyright: $Copyright"
+    Write-Host "`tTrademark: $Trademark"
+    Write-Host "`tCulture: $Culture"
+    Write-Host "`tConfiguration: $Configuration"
+    Write-Host "`tVersion: $Version"
+    Write-Host "`tFile Version: $FileVersion"
+    Write-Host "`tInformational Version: $InformationalVersion"
     
     if ($NetFrameworkFileNames) {
         NetFramework
@@ -103,8 +106,6 @@ Function Main() {
 
 Function ValidateVersionNumber($number)
 {
-    Write-Host "Validating: $number"
-
     if(![string]::IsNullOrWhiteSpace($number)) {
         $VersionData = [Regex]::Matches($number, $VersionRegex)
         switch($VersionData.Count)
@@ -151,74 +152,90 @@ Function NetFramework() {
         # get the file contents
         $filecontent = Get-Content($file)
 
+        # get the filename
+        $fileName = Split-Path $file -Leaf
+        Write-Host "File: $file"
+
         # set version
         if(![string]::IsNullOrWhiteSpace($Version)) {
-            $filecontent -replace "AssemblyVersion\($WordRegex\)", "AssemblyVersion(`"$Version`")" | Out-File $file
-            $filecontent = Get-Content($file)
+            $filecontent = $filecontent -replace "AssemblyVersion\($WordRegex\)", "AssemblyVersion(`"$Version`")"
+            $filecontent = $filecontent -replace "AssemblyVersionAttribute\($WordRegex\)", "AssemblyVersion(`"$Version`")"
+            Write-Host "`tAssemblyVersion: $Version"
         }
 
         # set file version
         if(![string]::IsNullOrWhiteSpace($FileVersion)) {
-            $filecontent -replace "AssemblyFileVersion\($WordRegex\)", "AssemblyFileVersion(`"$FileVersion`")" | Out-File $file
-            $filecontent = Get-Content($file)
+            $filecontent = $filecontent -replace "AssemblyFileVersion\($WordRegex\)", "AssemblyFileVersion(`"$FileVersion`")"
+            $filecontent = $filecontent -replace "AssemblyFileVersionAttribute\($WordRegex\)", "AssemblyFileVersion(`"$FileVersion`")"
+            Write-Host "`tAssemblyFileVersion: $FileVersion"
         }
         
         # set informational version
         if(![string]::IsNullOrWhiteSpace($InformationalVersion)) {
-            $filecontent -replace "AssemblyInformationalVersion\($WordRegex\)", "AssemblyInformationalVersion(`"$InformationalVersion`")" | Out-File $file
-            $filecontent = Get-Content($file)
+            $filecontent = $filecontent -replace "AssemblyInformationalVersion\($WordRegex\)", "AssemblyInformationalVersion(`"$InformationalVersion`")"
+            $filecontent = $filecontent -replace "AssemblyInformationalVersionAttribute\($WordRegex\)", "AssemblyInformationalVersion(`"$InformationalVersion`")"
+            Write-Host "`tAssemblyInformationalVersion: $InformationalVersion"
         }
         
         # set title
         if(![string]::IsNullOrWhiteSpace($Title)) {
-            $filecontent -replace "AssemblyTitle\($WordRegex\)", "AssemblyTitle(`"$Title`")" | Out-File $file
-            $filecontent = Get-Content($file)
+            $filecontent = $filecontent -replace "AssemblyTitle\($WordRegex\)", "AssemblyTitle(`"$Title`")"
+            $filecontent = $filecontent -replace "AssemblyTitleAttribute\($WordRegex\)", "AssemblyTitle(`"$Title`")"
+            Write-Host "`tAssemblyTitle: $Title"
         }
 
         # set product
         if(![string]::IsNullOrWhiteSpace($Product)) {
-            $filecontent -replace "AssemblyProduct\($WordRegex\)", "AssemblyProduct(`"$Product`")" | Out-File $file
-            $filecontent = Get-Content($file)
+            $filecontent = $filecontent -replace "AssemblyProduct\($WordRegex\)", "AssemblyProduct(`"$Product`")"
+            $filecontent = $filecontent -replace "AssemblyProductAttribute\($WordRegex\)", "AssemblyProduct(`"$Product`")"
+            Write-Host "`tAssemblyProduct: $Product"
         }
 
         # set company
         if(![string]::IsNullOrWhiteSpace($Company)) {
-        $filecontent -replace "AssemblyCompany\($WordRegex\)", "AssemblyCompany(`"$Company`")" | Out-File $file
-        $filecontent = Get-Content($file)
+            $filecontent = $filecontent -replace "AssemblyCompany\($WordRegex\)", "AssemblyCompany(`"$Company`")"
+            $filecontent = $filecontent -replace "AssemblyCompanyAttribute\($WordRegex\)", "AssemblyCompany(`"$Company`")"
+            Write-Host "`tAssemblyCompany: $Company"
         }
 
         # set copyright
         if(![string]::IsNullOrWhiteSpace($Copyright)) {
             $Copyright = [Regex]::Replace($Copyright, "\$\(date:$DateRegex\)", { Get-Date -format $args.Groups[1].Value })
-            $filecontent -replace "AssemblyCopyright\($WordRegex\)", "AssemblyCopyright(`"$Copyright`")" | Out-File $file
-            $filecontent = Get-Content($file)
+            $filecontent = $filecontent -replace "AssemblyCopyright\($WordRegex\)", "AssemblyCopyright(`"$Copyright`")"
+            $filecontent = $filecontent -replace "AssemblyCopyrightAttribute\($WordRegex\)", "AssemblyCopyright(`"$Copyright`")"
+            Write-Host "`tAssemblyCopyright: $Copyright"
         }
 
         # set trademark
         if(![string]::IsNullOrWhiteSpace($Trademark)) {
-            $filecontent -replace "AssemblyTrademark\($WordRegex\)", "AssemblyTrademark(`"$Trademark`")" | Out-File $file
-            $filecontent = Get-Content($file)
+            $filecontent = $filecontent -replace "AssemblyTrademark\($WordRegex\)", "AssemblyTrademark(`"$Trademark`")"
+            $filecontent = $filecontent -replace "AssemblyTrademarkAttribute\($WordRegex\)", "AssemblyTrademark(`"$Trademark`")"
+            Write-Host "`tAssemblyTrademark: $Trademark"
         }
 
         # set desription
         if(![string]::IsNullOrWhiteSpace($Description)) {
-            $filecontent -replace "AssemblyDescription\($WordRegex\)", "AssemblyDescription(`"$Description`")" | Out-File $file
-            $filecontent = Get-Content($file)
+            $filecontent = $filecontent -replace "AssemblyDescription\($WordRegex\)", "AssemblyDescription(`"$Description`")"
+            $filecontent = $filecontent -replace "AssemblyDescriptionAttribute\($WordRegex\)", "AssemblyDescription(`"$Description`")"
+            Write-Host "`tAssemblyDescription: $Description"
         }
 
         # set culture
         if(![string]::IsNullOrWhiteSpace($Culture)) {
-            $filecontent -replace "AssemblyCulture\($WordRegex\)", "AssemblyCulture(`"$Culture`")" | Out-File $file
-            $filecontent = Get-Content($file)
+            $filecontent = $filecontent -replace "AssemblyCulture\($WordRegex\)", "AssemblyCulture(`"$Culture`")"
+            $filecontent = $filecontent -replace "AssemblyCultureAttribute\($WordRegex\)", "AssemblyCulture(`"$Culture`")"
+            Write-Host "`tAssemblyCulture: $Culture"
         }
 
         # set configuration
         if(![string]::IsNullOrWhiteSpace($Configuration)) {
-            $filecontent -replace "AssemblyConfiguration\($WordRegex\)", "AssemblyConfiguration(`"$Configuration`")" | Out-File $file
-            $filecontent = Get-Content($file)
+            $filecontent = $filecontent -replace "AssemblyConfiguration\($WordRegex\)", "AssemblyConfiguration(`"$Configuration`")"
+            $filecontent = $filecontent -replace "AssemblyConfigurationAttribute\($WordRegex\)", "AssemblyConfiguration(`"$Configuration`")"
+            Write-Host "`tAssemblyConfiguration: $Configuration"
         }
 
-        Write-Host "$file - assembly info applied"
+        $filecontent | Out-File $file
+        Write-Host "`t$fileName - assembly info applied"
     }
 }
 
@@ -243,6 +260,10 @@ Function NetCore() {
         # get the file contents
         [xml]$filecontent = Get-Content $file
 
+        # get the filename
+        $fileName = Split-Path $file -Leaf
+        Write-Host "File: $file"
+
         if (($filecontent.Project -eq $null) -Or ($filecontent.Project.PropertyGroup -eq $null))
         {
             Write-Warning "No assembly info tags found in: $file"
@@ -254,37 +275,44 @@ Function NetCore() {
             # set version
             if(($group.AssemblyVersion -ne $null) -And ![string]::IsNullOrWhiteSpace($Version)) {
                 $group.AssemblyVersion = "$Version"
+                Write-Host "`tAssemblyVersion: $Version"
             }
 
             # set file version
             if (($group.FileVersion -ne $null) -And ![string]::IsNullOrWhiteSpace($FileVersion)) {
                 $group.FileVersion = "$FileVersion"
+                Write-Host "`tFileVersion: $FileVersion"
             }
 
             # set informational version
             if (($group.Version -ne $null) -And ![string]::IsNullOrWhiteSpace($InformationalVersion)) {
                 $group.Version = $InformationalVersion
+                Write-Host "`tVersion: $InformationalVersion"
             }
 
             # set title
             if (($group.AssemblyTitle -ne $null) -And ![string]::IsNullOrWhiteSpace($Title)) {
                 $group.AssemblyTitle = $Title
+                Write-Host "`tAssemblyTitle: $Title"
             }
 
             # set product
             if (($group.Product -ne $null) -And ![string]::IsNullOrWhiteSpace($Product)) {
                 $group.Product = $Product
+                Write-Host "`tProduct: $Product"
             }
             
             #set company
             if (($group.Company -ne $null) -And ![string]::IsNullOrWhiteSpace($Company)) {
                 $group.Company = $Company
+                Write-Host "`tCompany: $Company"
             }
             
             # set copyright
             if (($group.Copyright -ne $null) -And ![string]::IsNullOrWhiteSpace($Copyright)) {
                 $Copyright = [Regex]::Replace($Copyright, "\$\(date:$DateRegex\)", { Get-Date -format $args.Groups[1].Value })
                 $group.Copyright = $Copyright
+                Write-Host "`tCopyright: $Copyright"
             }
 
             # set trademark
@@ -292,19 +320,21 @@ Function NetCore() {
             # set description
             if (($group.Description -ne $null) -And ![string]::IsNullOrWhiteSpace($Description)) {
                 $group.Description = $Description
+                Write-Host "`tDescription: $Description"
             }
             
             # set culture
             if (($group.NeutralLanguage -ne $null) -And ![string]::IsNullOrWhiteSpace($Culture)) {
                 $group.NeutralLanguage = $Culture
+                Write-Host "`tNeutralLanguage: $Culture"
             }
             
             # set configuration
         }
 
         $filecontent.Save($file)
-        
-        Write-Host "$file - assembly info applied"
+
+        Write-Host "`t$fileName - assembly info applied"
     }
 }
 
