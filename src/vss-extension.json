@@ -1,9 +1,9 @@
 {
     "manifestVersion": 1,
-    "id": "Assembly-Info-Task-Test",
-    "name": "Assembly Info (Test)",
-    "public": false,
-    "version": "1.0.51",
+    "id": "Assembly-Info-Task",
+    "name": "Assembly Info",
+    "public": true,
+    "version": "1.0.27",
     "publisher": "bleddynrichards",
     "targets": [
         {
@@ -43,10 +43,10 @@
     },
     "content": {
         "details": {
-            "path": "../readme.md"
+            "path": "Overview.md"
         },
         "license": {
-            "path": "license.md"
+            "path": "License.md"
         }
     },
     "branding": {

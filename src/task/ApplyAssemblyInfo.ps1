@@ -160,42 +160,42 @@ Function NetFramework() {
         if(![string]::IsNullOrWhiteSpace($Version)) {
             $filecontent = $filecontent -replace "AssemblyVersion\($WordRegex\)", "AssemblyVersion(`"$Version`")"
             $filecontent = $filecontent -replace "AssemblyVersionAttribute\($WordRegex\)", "AssemblyVersion(`"$Version`")"
-            Write-Host "`tAssemblyVersion: `t`t`t$Version"
+            Write-Host "`tAssemblyVersion: $Version"
         }
 
         # set file version
         if(![string]::IsNullOrWhiteSpace($FileVersion)) {
             $filecontent = $filecontent -replace "AssemblyFileVersion\($WordRegex\)", "AssemblyFileVersion(`"$FileVersion`")"
             $filecontent = $filecontent -replace "AssemblyFileVersionAttribute\($WordRegex\)", "AssemblyFileVersion(`"$FileVersion`")"
-            Write-Host "`tAssemblyFileVersion: `t`t`t$FileVersion"
+            Write-Host "`tAssemblyFileVersion: $FileVersion"
         }
         
         # set informational version
         if(![string]::IsNullOrWhiteSpace($InformationalVersion)) {
             $filecontent = $filecontent -replace "AssemblyInformationalVersion\($WordRegex\)", "AssemblyInformationalVersion(`"$InformationalVersion`")"
             $filecontent = $filecontent -replace "AssemblyInformationalVersionAttribute\($WordRegex\)", "AssemblyInformationalVersion(`"$InformationalVersion`")"
-            Write-Host "`tAssemblyInformationalVersion: `t`t$InformationalVersion"
+            Write-Host "`tAssemblyInformationalVersion: $InformationalVersion"
         }
         
         # set title
         if(![string]::IsNullOrWhiteSpace($Title)) {
             $filecontent = $filecontent -replace "AssemblyTitle\($WordRegex\)", "AssemblyTitle(`"$Title`")"
             $filecontent = $filecontent -replace "AssemblyTitleAttribute\($WordRegex\)", "AssemblyTitle(`"$Title`")"
-            Write-Host "`tAssemblyTitle: `t`t`t`t$Title"
+            Write-Host "`tAssemblyTitle: $Title"
         }
 
         # set product
         if(![string]::IsNullOrWhiteSpace($Product)) {
             $filecontent = $filecontent -replace "AssemblyProduct\($WordRegex\)", "AssemblyProduct(`"$Product`")"
             $filecontent = $filecontent -replace "AssemblyProductAttribute\($WordRegex\)", "AssemblyProduct(`"$Product`")"
-            Write-Host "`tAssemblyProduct: `t`t`t$Product"
+            Write-Host "`tAssemblyProduct: $Product"
         }
 
         # set company
         if(![string]::IsNullOrWhiteSpace($Company)) {
             $filecontent = $filecontent -replace "AssemblyCompany\($WordRegex\)", "AssemblyCompany(`"$Company`")"
             $filecontent = $filecontent -replace "AssemblyCompanyAttribute\($WordRegex\)", "AssemblyCompany(`"$Company`")"
-            Write-Host "`tAssemblyCompany: `t`t`t$Company"
+            Write-Host "`tAssemblyCompany: $Company"
         }
 
         # set copyright
@@ -203,35 +203,35 @@ Function NetFramework() {
             $Copyright = [Regex]::Replace($Copyright, "\$\(date:$DateRegex\)", { Get-Date -format $args.Groups[1].Value })
             $filecontent = $filecontent -replace "AssemblyCopyright\($WordRegex\)", "AssemblyCopyright(`"$Copyright`")"
             $filecontent = $filecontent -replace "AssemblyCopyrightAttribute\($WordRegex\)", "AssemblyCopyright(`"$Copyright`")"
-            Write-Host "`tAssemblyCopyright: `t`t`t$Copyright"
+            Write-Host "`tAssemblyCopyright: $Copyright"
         }
 
         # set trademark
         if(![string]::IsNullOrWhiteSpace($Trademark)) {
             $filecontent = $filecontent -replace "AssemblyTrademark\($WordRegex\)", "AssemblyTrademark(`"$Trademark`")"
             $filecontent = $filecontent -replace "AssemblyTrademarkAttribute\($WordRegex\)", "AssemblyTrademark(`"$Trademark`")"
-            Write-Host "`tAssemblyTrademark: `t`t`t$Trademark"
+            Write-Host "`tAssemblyTrademark: $Trademark"
         }
 
         # set desription
         if(![string]::IsNullOrWhiteSpace($Description)) {
             $filecontent = $filecontent -replace "AssemblyDescription\($WordRegex\)", "AssemblyDescription(`"$Description`")"
             $filecontent = $filecontent -replace "AssemblyDescriptionAttribute\($WordRegex\)", "AssemblyDescription(`"$Description`")"
-            Write-Host "`tAssemblyDescription: `t`t`t$Description"
+            Write-Host "`tAssemblyDescription: $Description"
         }
 
         # set culture
         if(![string]::IsNullOrWhiteSpace($Culture)) {
             $filecontent = $filecontent -replace "AssemblyCulture\($WordRegex\)", "AssemblyCulture(`"$Culture`")"
             $filecontent = $filecontent -replace "AssemblyCultureAttribute\($WordRegex\)", "AssemblyCulture(`"$Culture`")"
-            Write-Host "`tAssemblyCulture: `t`t`t$Culture"
+            Write-Host "`tAssemblyCulture: $Culture"
         }
 
         # set configuration
         if(![string]::IsNullOrWhiteSpace($Configuration)) {
             $filecontent = $filecontent -replace "AssemblyConfiguration\($WordRegex\)", "AssemblyConfiguration(`"$Configuration`")"
             $filecontent = $filecontent -replace "AssemblyConfigurationAttribute\($WordRegex\)", "AssemblyConfiguration(`"$Configuration`")"
-            Write-Host "`tAssemblyConfiguration: `t`t`t$Configuration"
+            Write-Host "`tAssemblyConfiguration: $Configuration"
         }
 
         $filecontent | Out-File $file
@@ -275,44 +275,44 @@ Function NetCore() {
             # set version
             if(($group.AssemblyVersion -ne $null) -And ![string]::IsNullOrWhiteSpace($Version)) {
                 $group.AssemblyVersion = "$Version"
-                Write-Host "`tAssemblyVersion: `t`t`t$Version"
+                Write-Host "`tAssemblyVersion: $Version"
             }
 
             # set file version
             if (($group.FileVersion -ne $null) -And ![string]::IsNullOrWhiteSpace($FileVersion)) {
                 $group.FileVersion = "$FileVersion"
-                Write-Host "`tFileVersion: `t`t`t`t$FileVersion"
+                Write-Host "`tFileVersion: $FileVersion"
             }
 
             # set informational version
             if (($group.Version -ne $null) -And ![string]::IsNullOrWhiteSpace($InformationalVersion)) {
                 $group.Version = $InformationalVersion
-                Write-Host "`tVersion: `t`t`t`t$InformationalVersion"
+                Write-Host "`tVersion: $InformationalVersion"
             }
 
             # set title
             if (($group.AssemblyTitle -ne $null) -And ![string]::IsNullOrWhiteSpace($Title)) {
                 $group.AssemblyTitle = $Title
-                Write-Host "`tAssemblyTitle: `t`t`t`t$Title"
+                Write-Host "`tAssemblyTitle: $Title"
             }
 
             # set product
             if (($group.Product -ne $null) -And ![string]::IsNullOrWhiteSpace($Product)) {
                 $group.Product = $Product
-                Write-Host "`tProduct: `t`t`t`t$Product"
+                Write-Host "`tProduct: $Product"
             }
             
             #set company
             if (($group.Company -ne $null) -And ![string]::IsNullOrWhiteSpace($Company)) {
                 $group.Company = $Company
-                Write-Host "`tCompany: `t`t`t`t$Company"
+                Write-Host "`tCompany: $Company"
             }
             
             # set copyright
             if (($group.Copyright -ne $null) -And ![string]::IsNullOrWhiteSpace($Copyright)) {
                 $Copyright = [Regex]::Replace($Copyright, "\$\(date:$DateRegex\)", { Get-Date -format $args.Groups[1].Value })
                 $group.Copyright = $Copyright
-                Write-Host "`tCopyright: `t`t`t`t$Copyright"
+                Write-Host "`tCopyright: $Copyright"
             }
 
             # set trademark
@@ -320,13 +320,13 @@ Function NetCore() {
             # set description
             if (($group.Description -ne $null) -And ![string]::IsNullOrWhiteSpace($Description)) {
                 $group.Description = $Description
-                Write-Host "`tDescription: `t`t`t`t$Description"
+                Write-Host "`tDescription: $Description"
             }
             
             # set culture
             if (($group.NeutralLanguage -ne $null) -And ![string]::IsNullOrWhiteSpace($Culture)) {
                 $group.NeutralLanguage = $Culture
-                Write-Host "`tNeutralLanguage: `t`t`t$Culture"
+                Write-Host "`tNeutralLanguage: $Culture"
             }
             
             # set configuration

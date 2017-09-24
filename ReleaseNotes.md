@@ -1,9 +1,10 @@
 # Release Notes
 > **v1.0.27**
-> - Groups attribute on the task pane.
+> - Attribute fields are now grouped on the task pane.
 > - Added additional check for attribute substitutions.
-> - Updated Readme.
+> - Added additional logging.
 > - Added script for testing and packaging.
+> - Updated Readme.
 
 > **v1.0.26**
 > - Bug fix: Fix for incorrect 'Patch' number.

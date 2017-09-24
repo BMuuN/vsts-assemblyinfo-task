@@ -1,7 +1,7 @@
 {
-  "id": "F6C609D1-94DE-4FA6-B9E9-F146161EC47A",
-  "name": "Assembly-Info-Task-Test",
-  "friendlyName": "Assembly Info (Test)",
+  "id": "3EDC451E-360C-40E5-A221-A42D5C987AB8",
+  "name": "Assembly-Info-Task",
+  "friendlyName": "Assembly Info",
   "description": "Set assembly information such as Version, Copyright and Trademark etc.",
   "helpMarkDown": "[More Information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task)",
   "category": "Build",
@@ -9,7 +9,7 @@
   "version": {
     "Major": 1,
     "Minor": 0,
-    "Patch": 51
+    "Patch": 37
   },
   "instanceNameFormat": "Set Assembly Manifest Data",
   "visibility": [
@@ -95,7 +95,7 @@
       "label": "Copyright",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Provide the assembly or product copyright information e.g. Copyright © $(date:yyyy) Example Ltd",
+      "helpMarkDown": "Provide the assembly or product copyright information e.g. Copyright © $(date:yyyy) Example Ltd.  See the [marketplace listing](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task) for additional date time formats.",
       "groupName":"informationalAttributes"
     },
     {
