@@ -87,4 +87,4 @@ We thank the following contributors for their time and effort with this project:
 - [richardctrimble](https://github.com/richardctrimble)
 
 ### Release Notes
-See the [release notes](https://github.com/BMuuN/vsts-assemblyinfo-task/ReleaseNotes.md) for all changes included in each release.
+See the [release notes](https://github.com/BMuuN/vsts-assemblyinfo-task/blob/master/ReleaseNotes.md) for all changes included in each release.
