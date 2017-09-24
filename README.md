@@ -8,4 +8,4 @@ The Visual Studio Marketplace listing can be found here:
 [https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task)
 
 ## Release Notes
-See the [release notes](https://github.com/BMuuN/vsts-assemblyinfo-task/ReleaseNotes.md) for all changes included in each release.
+See the [release notes](ReleaseNotes.md) for all changes included in each release.
