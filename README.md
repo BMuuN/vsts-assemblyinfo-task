@@ -4,7 +4,7 @@ Assembly Info is an extension for Team Foundation Server / Team Services that se
 ## Details
 For information relating to the extension and its configuration please see the [overview](./src/Overview.md).
 
-The Visual Studio Marketplace listing can be found here:
+The Visual Studio Marketplace listing can be found here:  
 [https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task)
 
 ## Release Notes
