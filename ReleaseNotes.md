@@ -1,4 +1,8 @@
 # Release Notes
+> **v1.0.29**
+> - Added support for SemVer versioning.  
+>  Thanks to [SimsonicLtd](https://github.com/SimsonicLtd).
+
 > **v1.0.27**
 > - Attribute fields are now grouped on the task pane.
 > - Added additional check for attribute substitutions.
