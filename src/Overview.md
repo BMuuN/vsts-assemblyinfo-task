@@ -48,15 +48,19 @@ Values for the following attributes can be set from the extension:
   ![Assembly Info Set](images/Assembly_Manifest_Data.png)
 
 ### Version Number
-A version number must be a numeric value in the format `digit.digit.digit.digit`.  
-This will support  *major.minor.build.revision* versioning:  
+A version number must be a numeric value in the format `digit.digit[.digit[.digit]]`.  
+Digits inside square brackets are optional.  
 ```
-1.0.0.0
-2016.12.31.1
+1.0[.0.0]
+2016.12[.31.1]
 ```
 To achieve the best result edit a build definition then select the **General** tab and set the **Build number format** to:
 ```
 $(Build.DefinitionName)_$(date:yyyy).$(date:MM).$(date:dd)$(rev:.r)
+```
+For SemVer support use:
+```
+1.0.$(Rev:r)
 ```
 Now click the **Tasks** tab, select the Assembly Info task and set the **Version Number** to:
 ```
