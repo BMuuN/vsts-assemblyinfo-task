@@ -89,6 +89,7 @@ If you wish to contributions to this project head on over to our [GitHub](https:
 We thank the following contributors for their time and effort with this project: 
 - [roryza](https://github.com/roryza)
 - [richardctrimble](https://github.com/richardctrimble)
+- [SimsonicLtd](https://github.com/SimsonicLtd)
 
 ### Release Notes
 See the [release notes](https://github.com/BMuuN/vsts-assemblyinfo-task/blob/master/ReleaseNotes.md) for all changes included in each release.
