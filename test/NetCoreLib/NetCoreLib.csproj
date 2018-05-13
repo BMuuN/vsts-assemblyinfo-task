@@ -4,20 +4,20 @@
     <AssemblyName>CSharpNetCoreLibrary</AssemblyName>
     <RootNamespace>CSharpNetCoreLibrary</RootNamespace>
     <PackageId>CSharpNetCoreLibrary</PackageId>
-    <AssemblyTitle>Test Title</AssemblyTitle>
+    <AssemblyTitle>Title</AssemblyTitle>
     <Authors>Authors</Authors>
-    <Company>Example Inc</Company>
-    <Product>Product of Example Inc</Product>
-    <Description>Example description</Description>
-    <Copyright>Copyright Â© 2018 5.13.2018 13 May 2018 00:38 AM Example Ltd</Copyright>
+    <Company>Company</Company>
+    <Product>Product</Product>
+    <Description>Description</Description>
+    <Copyright>Copyright</Copyright>
     <PackageLicenseUrl>License Url</PackageLicenseUrl>
     <PackageProjectUrl>Project Url</PackageProjectUrl>
     <PackageIconUrl>Icon Url</PackageIconUrl>
     <RepositoryUrl>Repository Url</RepositoryUrl>
-    <FileVersion>1990.03.07.11</FileVersion>
-    <Version>21.14.580.1234</Version>
+    <FileVersion>1.0.0.1</FileVersion>
+    <Version>1.0.0</Version>
     <NeutralLanguage>en-GB</NeutralLanguage>
-    <AssemblyVersion>2017.08.05.3</AssemblyVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RepositoryType>Repository Type</RepositoryType>
     <PackageTags>Tags</PackageTags>
