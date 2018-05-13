@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>CSharpNetCoreLibrary</AssemblyName>
+    <RootNamespace>CSharpNetCoreLibrary</RootNamespace>
+    <PackageId>CSharpNetCoreLibrary</PackageId>
+    <AssemblyTitle>Test Title</AssemblyTitle>
+    <Authors>Authors</Authors>
+    <Company>Example Inc</Company>
+    <Product>Product of Example Inc</Product>
+    <Description>Example description</Description>
+    <Copyright>Copyright Â© 2018 5.13.2018 13 May 2018 00:38 AM Example Ltd</Copyright>
+    <PackageLicenseUrl>License Url</PackageLicenseUrl>
+    <PackageProjectUrl>Project Url</PackageProjectUrl>
+    <PackageIconUrl>Icon Url</PackageIconUrl>
+    <RepositoryUrl>Repository Url</RepositoryUrl>
+    <FileVersion>1990.03.07.11</FileVersion>
+    <Version>21.14.580.1234</Version>
+    <NeutralLanguage>en-GB</NeutralLanguage>
+    <AssemblyVersion>2017.08.05.3</AssemblyVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RepositoryType>Repository Type</RepositoryType>
+    <PackageTags>Tags</PackageTags>
+    <PackageReleaseNotes>Release Notes</PackageReleaseNotes>
+  </PropertyGroup>
+</Project>

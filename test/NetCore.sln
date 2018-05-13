@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpNetCoreLibrary", "CSharpNetCoreLibrary\CSharpNetCoreLibrary.csproj", "{923FF6E0-DD15-4576-B2F1-1C4CD33E8E1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreLib", "NetCoreLib\NetCoreLib.csproj", "{3DFDD84A-A604-442C-A194-2535F99F0CB2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{923FF6E0-DD15-4576-B2F1-1C4CD33E8E1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{923FF6E0-DD15-4576-B2F1-1C4CD33E8E1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{923FF6E0-DD15-4576-B2F1-1C4CD33E8E1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{923FF6E0-DD15-4576-B2F1-1C4CD33E8E1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DFDD84A-A604-442C-A194-2535F99F0CB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DFDD84A-A604-442C-A194-2535F99F0CB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DFDD84A-A604-442C-A194-2535F99F0CB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DFDD84A-A604-442C-A194-2535F99F0CB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

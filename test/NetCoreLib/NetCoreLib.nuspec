@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+    <metadata>
+        <id>NetCoreLib</id>
+        <version>$version$</version>
+        <title>$title$</title>
+        <authors>Authors</authors>
+        <owners>Owners</owners>
+        <projectUrl>http://www.domain.local</projectUrl>
+        <iconUrl>http://www.domain.local/favicon.png</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Description</description>
+        <copyright>Copyright</copyright>
+    </metadata>
+    <files />
+</package>
