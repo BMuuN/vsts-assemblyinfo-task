@@ -11,7 +11,7 @@ Function ValidateVersionNumber([string]$Version, [string]$Regex)
             }
         1 
             {
-                return $VersionData;
+                return $VersionData[0].Value;
             }
         default 
             { 
@@ -25,36 +25,17 @@ Function ValidateVersionNumber([string]$Version, [string]$Regex)
     }
 }
 
-Function InsertAttribute([System.IO.FileInfo]$File, [System.Collections.ArrayList]$Content, [string]$Name, [string]$Value) 
-{
-    if ($File.Extension -eq ".vb") {
+Function SetWildcardVersionNumber($Value) {
 
-        # ignores comments and finds correct attribute
-        if ($Content -Match "^\<Assembly:\s*$Name\.*") {
-            
-        } else {
-            Write-Host "`tInserting $Name($Value)"
-            $Content.Add("<Assembly: $Name(`"$Value`")>") > $null
-        }
-
-    } elseif ($File.Extension -eq ".cs") {
-        
-        # ignores comments and finds correct attribute
-        if ($Content -Match "^\[assembly:\s*$Name\.*") {
-            
-        } else {
-            Write-Host "`tInserting $Name($Value)"
-            $Content.Add("[assembly: $Name(`"$Value`")]") > $null
-        }
+    if([string]::IsNullOrWhiteSpace($Value)) {
+        return $Value
     }
 
-    return $Content
-}
+    if ($Value.Contains(".*.*")) {
+        $Value = $Value -replace "\.\*\.\*", ".$VerBuild.$VerRelease"
+    } elseif ($Value.Contains(".*")) {
+        $Value = $Value -replace "\.\*", ".$VerBuild"
+    }
 
-Function ReplaceAttribute([System.Collections.ArrayList]$Content, [string]$Name, [string]$RegEx, [string]$Value)
-{
-    Write-Host "`tReplacing $Name($Value)"
-    $Content = $Content -replace "$Name\s*\($RegEx\)", "$Name(`"$Value`")"
-    $Content = $Content -replace "$Name`Attribute\s*\($RegEx\)", "$Name(`"$Value`")"
-    return $Content
+    return $Value
 }

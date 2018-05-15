@@ -1,4 +1,12 @@
 # Release Notes
+> **v1.1.0**
+> - Added flag to insert missing attributes.
+> Thanks to [pbelousov](https://github.com/pbelousov)
+
+> **v1.0.30**
+> - Added support for spacing.  
+>  Thanks to [enigmament](https://github.com/enigmament).
+
 > **v1.0.29**
 > - Added support for SemVer versioning.  
 >  Thanks to [SimsonicLtd](https://github.com/SimsonicLtd).
