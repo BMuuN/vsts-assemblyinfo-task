@@ -3,18 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpLibrary", "CSharpLibrary\CSharpLibrary.csproj", "{AE43F698-6964-4D63-AF50-0D4C7A5E99CA}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "VBLibrary", "VBLibrary\VBLibrary.vbproj", "{1240DB89-44C7-4558-89E4-6EB94DE1DEED}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CSharp", "CSharp", "{8A55E079-FEC1-47D9-9D05-94E17B6B594B}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VB", "VB", "{2BC974EB-4B8A-4EEA-A533-22884458639D}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A82F138F-34F3-4ECB-B790-0C86031467D6}"
 	ProjectSection(SolutionItems) = preProject
 		GlobalInfo.cs = GlobalInfo.cs
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpLib", "CSharpLib\CSharpLib.csproj", "{AE43F698-6964-4D63-AF50-0D4C7A5E99CA}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "VBLib", "VBLib\VBLib.vbproj", "{1240DB89-44C7-4558-89E4-6EB94DE1DEED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +29,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{AE43F698-6964-4D63-AF50-0D4C7A5E99CA} = {8A55E079-FEC1-47D9-9D05-94E17B6B594B}
-		{1240DB89-44C7-4558-89E4-6EB94DE1DEED} = {2BC974EB-4B8A-4EEA-A533-22884458639D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3AEB7512-1DF5-4825-82B2-CCFBABEF8C1F}
