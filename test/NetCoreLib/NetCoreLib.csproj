@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <AssemblyName>CSharpNetCoreLibrary</AssemblyName>
-    <RootNamespace>CSharpNetCoreLibrary</RootNamespace>
-    <PackageId>CSharpNetCoreLibrary</PackageId>
+    <AssemblyName>NetCoreLib</AssemblyName>
+    <RootNamespace>NetCoreLib</RootNamespace>
+    <PackageId>NetCoreLib</PackageId>
     <AssemblyTitle>Title</AssemblyTitle>
     <Authors>Authors</Authors>
     <Company>Company</Company>
