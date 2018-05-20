@@ -14,7 +14,7 @@ class AssemblyInfo {
     [String] $Version
     [String] $FileVersion
     [String] $InformationalVersion
-    [bool] $InsertAttributes
+    [Boolean] $InsertAttributes
     [String] $VerBuild
     [String] $VerRelease
 }

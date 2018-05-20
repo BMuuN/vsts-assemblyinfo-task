@@ -47,50 +47,12 @@ Values for the following attributes can be set from the extension:
 
   ![Assembly Info Set](images/Assembly_Manifest_Data.png)
 
-### Version Number
-A version number must be a numeric value in the format `digit.digit[.digit[.digit]]`.  
-Digits inside square brackets are optional.  
-```
-1.0[.0.0]
-2016.12[.31.1]
-```
-To achieve the best result edit a build definition then select the **General** tab and set the **Build number format** to:
-```
-$(Build.DefinitionName)_$(date:yyyy).$(date:MM).$(date:dd)$(rev:.r)
-```
-For SemVer support use:
-```
-1.0.$(Rev:r)
-```
-Now click the **Tasks** tab, select the Assembly Info task and set the **Version Number** to:
-```
-$(Build.BuildNumber)
-```
-This approach ensures:
-- The version number is in the correct format.
-- The version number is determined by the build and not the task.
-- Enables us to associate assemblies to a specific build.
-
-### Copyright
-The copyright field supports date and time formats. You can set the date and time in the copyright field by using one of the following examples:
-```
-Copyright © $(date:yyyy)  
-Copyright © $(date:dd MM yyyy)  
-Copyright © $(date:M.d.yyyy)  
-Copyright © $(date:dd MMMM yyyy HH:mm tt)
-```
-> For additional date & time formats please see the following [Microsoft Doc](https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings).
+### Help and Support
+Please visit our [wiki](https://github.com/BMuuN/vsts-assemblyinfo-task/wiki) where you'll find articles describing how to configure the task parameters, including the various version formats supported by the extension.
 
 ## Contributions
 We welcome all contributions whether it's logging bugs, creating suggestions or submitting pull requests.  
 If you wish to contributions to this project head on over to our [GitHub](https://github.com/BMuuN/vsts-assemblyinfo-task) page.
-
-### Community
-We thank the following contributors for their time and effort with this project: 
-- [roryza](https://github.com/roryza)
-- [richardctrimble](https://github.com/richardctrimble)
-- [SimsonicLtd](https://github.com/SimsonicLtd)
-- [enigmament](https://github.com/enigmament)
 
 ### Release Notes
 See the [release notes](https://github.com/BMuuN/vsts-assemblyinfo-task/blob/master/ReleaseNotes.md) for all changes included in each release.
