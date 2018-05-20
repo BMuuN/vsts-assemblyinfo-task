@@ -8,7 +8,7 @@ param (
     [String]$FileNames,
 
     [Parameter(Mandatory=$True)]
-    [Boolean]$InsertAttributes,
+    [String]$InsertAttributes,
 
     [Parameter(Mandatory=$false)]
     [String]$Title,
@@ -74,7 +74,7 @@ Function Main() {
     $Model.Version = $VersionNumber
     $Model.FileVersion = $FileVersionNumber
     $Model.InformationalVersion = $InformationalVersion
-    $Model.InsertAttributes = $InsertAttributes
+    $Model.InsertAttributes = [System.Convert]::ToBoolean($InsertAttributes)
 
     # Make sure path to source code directory is available
     if (-not (Test-Path $Model.Path))

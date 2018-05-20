@@ -1,5 +1,7 @@
 # Release Notes
-> **v1.1.0**
+> **v1.1.3**
+> - Added wilcard version number support
+> Thanks to [andyste1](https://github.com/andyste1)
 > - Added flag to insert missing attributes.
 > Thanks to [pbelousov](https://github.com/pbelousov)
 

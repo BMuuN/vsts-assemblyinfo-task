@@ -3,7 +3,7 @@
     "id": "Assembly-Info-Task",
     "name": "Assembly Info",
     "public": true,
-    "version": "1.1.0",
+    "version": "1.0.0",
     "publisher": "bleddynrichards",
     "targets": [
         {
@@ -35,7 +35,15 @@
         }
     ],
     "links": {
-        "support": { "uri": "https://github.com/BMuuN/vsts-assemblyinfo-task/issues" }
+        "learn": {
+            "uri": "https://github.com/BMuuN/vsts-assemblyinfo-task/wiki"
+        },
+        "support": { 
+            "uri": "https://github.com/BMuuN/vsts-assemblyinfo-task/issues"
+        },
+        "license": {
+            "uri": "https://github.com/BMuuN/vsts-assemblyinfo-task/blob/master/LICENSE"
+        }
     },
     "repository": {
         "type": "git",

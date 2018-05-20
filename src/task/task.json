@@ -8,7 +8,7 @@
   "author": "Bleddyn Richards",
   "version": {
     "Major": 1,
-    "Minor": 1,
+    "Minor": 0,
     "Patch": 0
   },
   "instanceNameFormat": "Set Assembly Manifest Data",
@@ -59,7 +59,7 @@
       "label": "Insert Attributes",
       "defaultValue": "false",
       "required": false,
-      "helpMarkDown": "If checked the task will insert missing attributes into the AssemblyInfo.* file."
+      "helpMarkDown": "If checked the task will insert missing attributes into the source files specified above."
     },
     {
       "name": "Title",
@@ -67,7 +67,7 @@
       "label": "Title",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Specify a friendly name for the assembly.  Sets the `AssemblyTitle` attribute.",
+      "helpMarkDown": "Specify a friendly name for the assembly.\r\nSets the `AssemblyTitle` attribute.",
       "groupName": "manifestAttributes"
     },
     {
@@ -85,7 +85,7 @@
       "label": "Description",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Provide a short description that summarizes the nature and purpose of the assembly. Sets the `AssemblyDescription` attribute.",
+      "helpMarkDown": "Provide a short description that summarizes the nature and purpose of the assembly.\r\nSets the `AssemblyDescription` attribute.",
       "groupName": "manifestAttributes"
     },
     {
@@ -94,7 +94,7 @@
       "label": "Company",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Provide the company name for the assembly.\\r\\nSets the AssemblyCompany attribute.",
+      "helpMarkDown": "Provide the company name for the assembly.\r\nSets the AssemblyCompany attribute.",
       "groupName":"informationalAttributes"
     },
     {
@@ -103,7 +103,7 @@
       "label": "Copyright",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Provide the assembly or product copyright information e.g. Copyright © $(date:yyyy) Example Ltd.  See the [marketplace listing](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task) for additional date time formats. Sets the <AssemblyCopyright> attribute.",
+      "helpMarkDown": "Provide the assembly or product copyright information e.g. Copyright © $(date:yyyy) Example Ltd.\r\nSee the [marketplace listing](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task) for additional date time formats.\r\nSets the <AssemblyCopyright> attribute.",
       "groupName":"informationalAttributes"
     },
     {
@@ -112,7 +112,7 @@
       "label": "Trademark",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Provide the assembly or product trademark information. Sets the `AssemblyTrademark` attribute.",
+      "helpMarkDown": "Provide the assembly or product trademark information.\r\nSets the `AssemblyTrademark` attribute.",
       "groupName":"informationalAttributes"
     },
     {
@@ -121,7 +121,7 @@
       "label": "Culture",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Provide information on what culture the assembly supports. Leave empty for non-satellite assemblies. Sets the `AssemblyCulture` attribute.",
+      "helpMarkDown": "Provide information on what culture the assembly supports. Leave empty for non-satellite assemblies.\r\nSets the `AssemblyCulture` attribute.",
       "groupName":"identityAttributes"
     },
     {
@@ -130,7 +130,7 @@
       "label": "Configuration",
       "defaultValue": "$(BuildConfiguration)",
       "required": false,
-      "helpMarkDown": "Provide the build configuration for the assembly, such as debug or release. Sets the `AssemblyConfiguration` attribute.",
+      "helpMarkDown": "Provide the build configuration for the assembly, such as debug or release.\r\nSets the `AssemblyConfiguration` attribute.",
       "groupName": "manifestAttributes"
     },
     {
@@ -139,7 +139,7 @@
       "label": "Assembly Version",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Provide the assembly version. Must be in the format digit.digit.digit.digit see the marketplace listing for [more information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task). Sets the `AssemblyVersion` attribute.",
+      "helpMarkDown": "Provide the assembly version. Must be in the format digit.digit.digit.digit see the marketplace listing for [more information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task).\r\nSets the `AssemblyVersion` attribute.",
       "groupName":"identityAttributes"
     },
     {
@@ -148,7 +148,7 @@
       "label": "File Version",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Provide the file version. Must be in the format digit.digit.digit.digit see the marketplace listing for [more information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task). Sets the `AssemblyFileVersion` attribute.",
+      "helpMarkDown": "Provide the file version. Must be in the format digit.digit.digit.digit see the marketplace listing for [more information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task).\r\nSets the `AssemblyFileVersion` attribute.",
       "groupName":"informationalAttributes"
     },
     {
@@ -157,7 +157,7 @@
       "label": "Informational Version",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Provide the informational version. See the marketplace listing for [more information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task). Sets the `AssemblyInformationalVersion` attribute.",
+      "helpMarkDown": "Provide the informational version. See the marketplace listing for [more information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task).\r\nSets the `AssemblyInformationalVersion` attribute.",
       "groupName":"informationalAttributes"
     }
   ],
