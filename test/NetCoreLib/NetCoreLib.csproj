@@ -9,7 +9,6 @@
     <Company>Company</Company>
     <Product>Product</Product>
     <Description>Description</Description>
-    <Copyright>Copyright</Copyright>
     <PackageLicenseUrl>License Url</PackageLicenseUrl>
     <PackageProjectUrl>Project Url</PackageProjectUrl>
     <PackageIconUrl>Icon Url</PackageIconUrl>
