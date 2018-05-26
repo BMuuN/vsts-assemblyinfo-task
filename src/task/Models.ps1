@@ -1,8 +1,8 @@
 class AssemblyInfo {
     [String] $Path
     [String] $FileNames
-    [String] $NetFrameworkFileNames = @()
-    [String] $NetCoreFileNames = @()
+    [String[]] $NetFrameworkFileNames
+    [String[]] $NetCoreFileNames
     [String] $Title
     [String] $Product
     [String] $Description

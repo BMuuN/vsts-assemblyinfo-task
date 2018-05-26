@@ -84,12 +84,12 @@ Function Main() {
     }
 
     # Filter the file list
-    $Model.FileNames = $Model.FileNames -replace "`t|`r|`n", "," -replace "`"", "" -split "," |
+    $fileNames = $Model.FileNames -replace "`t|`r|`n", "," -replace "`"", "" -split "," |
                 Where-Object { $_ } | 
                 ForEach-Object { $_.Trim() }
-    $Model.NetFrameworkFileNames += $Model.FileNames | Where-Object { $_ -like "*.cs" }
-    $Model.NetFrameworkFileNames += $Model.FileNames | Where-Object { $_ -like "*.vb" }
-    $Model.NetCoreFileNames = $Model.FileNames | Where-Object { $_ -like "*.csproj" }
+    $Model.NetFrameworkFileNames += $fileNames | Where-Object { $_ -like "*.cs" }
+    $Model.NetFrameworkFileNames += $fileNames | Where-Object { $_ -like "*.vb" }
+    $Model.NetCoreFileNames = $fileNames | Where-Object { $_ -like "*.csproj" }
 
     # Apply copyright transform
     $Model.Copyright = [Regex]::Replace($Model.Copyright, "\$\(date:$($RegEx.Date)\)", { Get-Date -format $args.Groups[1].Value })
