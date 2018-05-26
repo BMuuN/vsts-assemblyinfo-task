@@ -65,7 +65,7 @@ Function InsertAttribute([System.IO.FileInfo]$File, [System.Collections.ArrayLis
 
         # ignores comments and finds correct attribute
         if (-not ($Content -Match "^\<Assembly:\s*$Name\.*")) {
-            Write-Host "`tAdding --> $Name\: $Value"
+            Write-Host "`tAdding --> $($Name): $Value"
             $Content.Add("<Assembly: $Name(`"$Value`")>") > $null
         }
 
@@ -73,7 +73,7 @@ Function InsertAttribute([System.IO.FileInfo]$File, [System.Collections.ArrayLis
         
         # ignores comments and finds correct attribute
         if (-not ($Content -Match "^\[assembly:\s*$Name\.*")) {
-            Write-Host "`tAdding --> $Name\: $Value"
+            Write-Host "`tAdding --> $($Name): $Value"
             $Content.Add("[assembly: $Name(`"$Value`")]") > $null
         }
     }
@@ -83,7 +83,7 @@ Function InsertAttribute([System.IO.FileInfo]$File, [System.Collections.ArrayLis
 
 Function ReplaceAttribute([System.Collections.ArrayList]$Content, [string]$Name, [string]$RegEx, [string]$Value)
 {
-    Write-Host "`t$Name\: $Value"
+    Write-Host "`t$($Name): $Value"
     $Content = $Content -replace "$Name\s*\($RegEx\)", "$Name(`"$Value`")"
     $Content = $Content -replace "$Name`Attribute\s*\($RegEx\)", "$Name(`"$Value`")"
     return $Content
