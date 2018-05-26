@@ -76,7 +76,7 @@
       "label": "Product",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Provide the product information for the assembly.\r\nSets the AssemblyProduct attribute.",
+      "helpMarkDown": "Provide the product information for the assembly.\r\nSets the `AssemblyProduct` attribute.",
       "groupName":"informationalAttributes"
     },
     {
@@ -94,7 +94,7 @@
       "label": "Company",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Provide the company name for the assembly.\r\nSets the AssemblyCompany attribute.",
+      "helpMarkDown": "Provide the company name for the assembly.\r\nSets the `AssemblyCompany` attribute.",
       "groupName":"informationalAttributes"
     },
     {
@@ -103,7 +103,7 @@
       "label": "Copyright",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Provide the assembly or product copyright information e.g. Copyright © $(date:yyyy) Example Ltd.\r\nSee the [marketplace listing](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task) for additional date time formats.\r\nSets the <AssemblyCopyright> attribute.",
+      "helpMarkDown": "Provide the assembly or product copyright information e.g. Copyright © $(date:yyyy) Example Ltd.\r\nSee the [marketplace listing](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task) for additional date time formats.\r\nSets the `AssemblyCopyright` attribute.",
       "groupName":"informationalAttributes"
     },
     {

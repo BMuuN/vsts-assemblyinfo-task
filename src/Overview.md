@@ -1,8 +1,8 @@
 # Assembly Info
-Assembly Info is an extension for Team Foundation Server / Team Services that sets assembly information from a build.
+Assembly Info is an extension for Team Services that sets assembly information from a build.
 
 ## Details
-The extension will recursively search the specified **Source Folder** for all files listed in the **Source Files** field and set the manifest data. This will result in assembly files containing common company or product information.
+The extension will recursively search the specified **Source Folder** for all files listed in the **Source Files** field and set the assembly data. This will result in assembly files containing common company or product information.
 
 Values for the following attributes can be set from the extension:  
 
@@ -24,7 +24,7 @@ Values for the following attributes can be set from the extension:
 - If no value is specified for a field that field will be ignored and the default value in the *AssemblyInfo.\** source file will be used.
 - The task will recursively search the **Source Folder** for all files listed in the **Source Files** field.
 - The task will only update files listed in the **Source Files** field.
-- The task can update project *AssemblyInfo* files, *GlobalAssemblyInfo* files and .Net Core project files *.csproj*.
+- The task can update project *AssemblyInfo* files and .Net Core project files *.csproj*.
 
 > For more information regarding assembly attributes please see the following [Microsoft Doc](https://docs.microsoft.com/en-us/dotnet/framework/app-domains/set-assembly-attributes)
 
@@ -39,7 +39,7 @@ Values for the following attributes can be set from the extension:
 4. Configure the task by providing values for the attributes mentioned in the above table.  
 > Ensure you specify the file names you wish to populate within the **Source Files** field: -  
 > For .Net Framework specify files such as: *AssemblyInfo.cs, AssemblyInfo.vb, GlobalInfo.cs*  
-> For .Net Core specify the project filename: *NetCore.csproj*  
+> For .Net Core specify the project filename: *NetCoreLib.csproj*  
 
   ![Assembly Info task parameters](images/Task_Parameters.png)
 
@@ -48,7 +48,7 @@ Values for the following attributes can be set from the extension:
   ![Assembly Info Set](images/Assembly_Manifest_Data.png)
 
 ### Help and Support
-Please visit our [wiki](https://github.com/BMuuN/vsts-assemblyinfo-task/wiki) where you'll find articles describing how to configure the task parameters, including the various version formats supported by the extension.
+Please visit our [wiki](https://github.com/BMuuN/vsts-assemblyinfo-task/wiki) for articles describing how to configure the task parameters, including the various version formats supported by the extension.
 
 ## Contributions
 We welcome all contributions whether it's logging bugs, creating suggestions or submitting pull requests.  
