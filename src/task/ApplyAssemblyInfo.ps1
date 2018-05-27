@@ -44,7 +44,6 @@ param (
     [string]$InformationalVersion
 )
 
-. "$PSScriptRoot\Models.ps1"
 . "$PSScriptRoot\Utils.ps1"
 . "$PSScriptRoot\NetFramework.ps1"
 . "$PSScriptRoot\NetCore.ps1"
@@ -60,21 +59,22 @@ Function Main() {
         Date = "(([\w.: +])*?)"
     }
 
-    $Model = New-Object AssemblyInfo
-    $Model.Path = $Path
-    $Model.FileNames = $FileNames
-    $Model.Title = $Title
-    $Model.Product = $Product
-    $Model.Description = $Description
-    $Model.Company = $Company
-    $Model.Copyright = $Copyright
-    $Model.Trademark = $Trademark
-    $Model.Culture = $Culture
-    $Model.Configuration = $Configuration
-    $Model.Version = $VersionNumber
-    $Model.FileVersion = $FileVersionNumber
-    $Model.InformationalVersion = $InformationalVersion
-    $Model.InsertAttributes = [System.Convert]::ToBoolean($InsertAttributes)
+    $Model = @{
+        Path = $Path
+        FileNames = $FileNames
+        Title = $Title
+        Product = $Product
+        Description = $Description
+        Company = $Company
+        Copyright = $Copyright
+        Trademark = $Trademark
+        Culture = $Culture
+        Configuration = $Configuration
+        Version = $VersionNumber
+        FileVersion = $FileVersionNumber
+        InformationalVersion = $InformationalVersion
+        InsertAttributes = [System.Convert]::ToBoolean($InsertAttributes)
+    }
 
     # Make sure path to source code directory is available
     if (-not (Test-Path $Model.Path))
