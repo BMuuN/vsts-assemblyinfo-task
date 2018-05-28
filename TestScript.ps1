@@ -14,6 +14,6 @@ $Culture = "en-GB"
 $Configuration = "debug" # true = Release, false = debug
 $VersionNumber = "TS Extension Test Build_2017.08.*"
 $FileVersionNumber = "1990.03.*.*"
-$InformationalVersion = "21.14.*.*"
+$InformationalVersion = "1.1.0-beta2"
 
 .\src\task\ApplyAssemblyInfo.ps1 -Path $Path -FileNames $FileNames -InsertAttributes $InsertAttributes -Title $Title -Product $Product -Company $Company -Copyright $Copyright -Trademark $Trademark -Description $Description -Culture $Culture -Configuration $Configuration -VersionNumber $VersionNumber -FileVersionNumber $FileVersionNumber -InformationalVersion $InformationalVersion

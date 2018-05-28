@@ -22,17 +22,17 @@ Function NetFramework($Model, $RegEx) {
 
         attrib $file -r
         $filecontent = Get-Content $file
-        $filecontent = ProcessNetFrameworkAttribute -File $file -FileContent $filecontent -AttributeName "AssemblyVersion" -Regex $RegEx.Word -Value $Model.Version
-        $filecontent = ProcessNetFrameworkAttribute -File $file -FileContent $filecontent -AttributeName "AssemblyFileVersion" -Regex $RegEx.Word -Value $Model.FileVersion
-        $filecontent = ProcessNetFrameworkAttribute -File $file -FileContent $filecontent -AttributeName "AssemblyInformationalVersion" -Regex $RegEx.Word -Value $Model.InformationalVersion
-        $filecontent = ProcessNetFrameworkAttribute -File $file -FileContent $filecontent -AttributeName "AssemblyTitle" -Regex $RegEx.Word -Value $Model.Title
-        $filecontent = ProcessNetFrameworkAttribute -File $file -FileContent $filecontent -AttributeName "AssemblyProduct" -Regex $RegEx.Word -Value $Model.Product
-        $filecontent = ProcessNetFrameworkAttribute -File $file -FileContent $filecontent -AttributeName "AssemblyCompany" -Regex $RegEx.Word -Value $Model.Company
-        $filecontent = ProcessNetFrameworkAttribute -File $file -FileContent $filecontent -AttributeName "AssemblyTrademark" -Regex $RegEx.Word -Value $Model.Trademark
-        $filecontent = ProcessNetFrameworkAttribute -File $file -FileContent $filecontent -AttributeName "AssemblyDescription" -Regex $RegEx.Word -Value $Model.Description
-        $filecontent = ProcessNetFrameworkAttribute -File $file -FileContent $filecontent -AttributeName "AssemblyCulture" -Regex $RegEx.Word -Value $Model.Culture
-        $filecontent = ProcessNetFrameworkAttribute -File $file -FileContent $filecontent -AttributeName "AssemblyConfiguration" -Regex $RegEx.Word -Value $Model.Configuration
-        $filecontent = ProcessNetFrameworkAttribute -File $file -FileContent $filecontent -AttributeName "AssemblyCopyright" -Regex $RegEx.Word -Value $Model.Copyright
+        $filecontent = ProcessNetFrameworkAttribute -File $file -FileContent $filecontent -AttributeName "AssemblyVersion" -Regex $RegEx.Word -Value $Model.Version -InsertAttributes $Model.InsertAttributes
+        $filecontent = ProcessNetFrameworkAttribute -File $file -FileContent $filecontent -AttributeName "AssemblyFileVersion" -Regex $RegEx.Word -Value $Model.FileVersion -InsertAttributes $Model.InsertAttributes
+        $filecontent = ProcessNetFrameworkAttribute -File $file -FileContent $filecontent -AttributeName "AssemblyInformationalVersion" -Regex $RegEx.Word -Value $Model.InformationalVersion -InsertAttributes $Model.InsertAttributes
+        $filecontent = ProcessNetFrameworkAttribute -File $file -FileContent $filecontent -AttributeName "AssemblyTitle" -Regex $RegEx.Word -Value $Model.Title -InsertAttributes $Model.InsertAttributes
+        $filecontent = ProcessNetFrameworkAttribute -File $file -FileContent $filecontent -AttributeName "AssemblyProduct" -Regex $RegEx.Word -Value $Model.Product -InsertAttributes $Model.InsertAttributes
+        $filecontent = ProcessNetFrameworkAttribute -File $file -FileContent $filecontent -AttributeName "AssemblyCompany" -Regex $RegEx.Word -Value $Model.Company -InsertAttributes $Model.InsertAttributes
+        $filecontent = ProcessNetFrameworkAttribute -File $file -FileContent $filecontent -AttributeName "AssemblyTrademark" -Regex $RegEx.Word -Value $Model.Trademark -InsertAttributes $Model.InsertAttributes
+        $filecontent = ProcessNetFrameworkAttribute -File $file -FileContent $filecontent -AttributeName "AssemblyDescription" -Regex $RegEx.Word -Value $Model.Description -InsertAttributes $Model.InsertAttributes
+        $filecontent = ProcessNetFrameworkAttribute -File $file -FileContent $filecontent -AttributeName "AssemblyCulture" -Regex $RegEx.Word -Value $Model.Culture -InsertAttributes $Model.InsertAttributes
+        $filecontent = ProcessNetFrameworkAttribute -File $file -FileContent $filecontent -AttributeName "AssemblyConfiguration" -Regex $RegEx.Word -Value $Model.Configuration -InsertAttributes $Model.InsertAttributes
+        $filecontent = ProcessNetFrameworkAttribute -File $file -FileContent $filecontent -AttributeName "AssemblyCopyright" -Regex $RegEx.Word -Value $Model.Copyright -InsertAttributes $Model.InsertAttributes
 
         $filecontent | Out-File $file
 
@@ -47,7 +47,7 @@ Function NetFramework($Model, $RegEx) {
     }
 }
 
-Function ProcessNetFrameworkAttribute($File, $FileContent, $AttributeName, $Regex, $Value) {
+Function ProcessNetFrameworkAttribute($File, $FileContent, $AttributeName, $Regex, $Value, $InsertAttributes) {
 
     if(![string]::IsNullOrWhiteSpace($Value)) {
         if ($InsertAttributes) {

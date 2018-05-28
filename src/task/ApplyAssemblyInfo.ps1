@@ -102,8 +102,6 @@ Function Main() {
     $Model.Version = ValidateVersionNumber -Version $Model.Version -RegEx $RegEx.Version
     Write-Host "Validating File Version: $($Model.FileVersion)"
     $Model.FileVersion = ValidateVersionNumber -Version $Model.FileVersion -RegEx $RegEx.Version
-    Write-Host "Validating Informational Version: $($Model.InformationalVersion)"
-    $Model.InformationalVersion = ValidateVersionNumber -Version $Model.InformationalVersion -RegEx $RegEx.Version
 
     PrintTaskParameters -Model $Model
     
