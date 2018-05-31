@@ -74,7 +74,11 @@ Function Main() {
         FileVersion = $FileVersionNumber
         InformationalVersion = $InformationalVersion
         InsertAttributes = [System.Convert]::ToBoolean($InsertAttributes)
+        NetFrameworkFileNames = @()
+        NetCoreFileNames = @()
     }
+
+    # [System.Collections.ArrayList]
 
     # Make sure path to source code directory is available
     if (-not (Test-Path $Model.Path))
@@ -84,12 +88,16 @@ Function Main() {
     }
 
     # Filter the file list
-    $fileNames = $Model.FileNames -replace "`t|`r|`n", "," -replace "`"", "" -split "," |
+    $fileNames = $Model.FileNames `
+                -replace "\\r\\n", "," `
+                -replace "`t|`r|`n", "," `
+                -replace "`"", "" `
+                -split "," |
                 Where-Object { $_ } | 
                 ForEach-Object { $_.Trim() }
     $Model.NetFrameworkFileNames += $fileNames | Where-Object { $_ -like "*.cs" }
     $Model.NetFrameworkFileNames += $fileNames | Where-Object { $_ -like "*.vb" }
-    $Model.NetCoreFileNames = $fileNames | Where-Object { $_ -like "*.csproj" }
+    $Model.NetCoreFileNames += $fileNames | Where-Object { $_ -like "*.csproj" }
 
     # Apply copyright transform
     $Model.Copyright = [Regex]::Replace($Model.Copyright, "\$\(date:$($RegEx.Date)\)", { Get-Date -format $args.Groups[1].Value })

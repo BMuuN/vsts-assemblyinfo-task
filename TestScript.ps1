@@ -1,7 +1,8 @@
 $Path = (Get-Item -Path ".\" -Verbose).FullName + "\test"
-$FileNames = "AssemblyInfo.cs, 
+$FileNames = "AssemblyInfo.cs,
 `"AssemblyInfo.vb`"
-GlobalInfo.cs, NetCoreLib.csproj"
+GlobalInfo.cs,\r\nNetCoreLib.csproj"
+#$FileNames = "AssemblyInfo.cs\r\nAssemblyInfo.vb"
 $InsertAttributes = $true
 $Title = "Test Title"
 $Product = "Product of Example Inc"
