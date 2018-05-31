@@ -47,7 +47,7 @@
       "label": "Source Files",
       "defaultValue": "AssemblyInfo.cs\r\nAssemblyInfo.vb",
       "required": true,
-      "helpMarkDown": "Specify the assembly info file names (`AssemblyInfo.cs`, `AssemblyInfo.vb`, `GlobalInfo.cs`). For .Net Core specify the project file `Project.csproj`.",
+      "helpMarkDown": "Specify the assembly info file names (`AssemblyInfo.cs`, `AssemblyInfo.vb`, `GlobalInfo.cs`).\r\nFor .Net Core specify the project file `Project.csproj`.",
       "properties": {
         "resizable": "true",
         "rows": "6"
