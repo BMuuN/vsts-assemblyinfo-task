@@ -1,0 +1,33 @@
+{
+  "name": "vsts-assemblyinfo-task",
+  "version": "1.0.0",
+  "description": "Extension for Team Services that sets assembly information from a build.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "nodenode index.js",
+    "test": "npm test",
+    "gen_notice": "node generate-third-party-notice.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BMuuN/vsts-assemblyinfo-task.git"
+  },
+  "author": "Bleddyn Richards",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BMuuN/vsts-assemblyinfo-task/issues"
+  },
+  "homepage": "https://github.com/BMuuN/vsts-assemblyinfo-task#readme",
+  "dependencies": {
+    "vsts-task-lib": "^2.4.0"
+  },
+  "devDependencies": {
+    "@types/mocha": "^5.2.1",
+    "@types/node": "^10.3.0",
+    "@types/q": "^1.5.0"
+  }
+}

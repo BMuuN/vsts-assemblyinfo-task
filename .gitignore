@@ -254,3 +254,8 @@ paket-files/
 
 #kdiff
 *.orig
+
+#Custom Files
+*.js
+package-lock.json
+.taskkey

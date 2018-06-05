@@ -15,25 +15,23 @@
   "visibility": [
     "Build"
   ],
-  "groups": [
-    {
-      "name":"manifestAttributes",
-      "displayName":"Manifest Attributes",
-      "isExpanded":true
+  "groups": [{
+      "name": "manifestAttributes",
+      "displayName": "Manifest Attributes",
+      "isExpanded": true
     },
     {
-      "name":"informationalAttributes",
-      "displayName":"Informational Attributes",
-      "isExpanded":true
+      "name": "informationalAttributes",
+      "displayName": "Informational Attributes",
+      "isExpanded": true
     },
     {
-      "name":"identityAttributes",
-      "displayName":"Identity Attributes",
-      "isExpanded":true
+      "name": "identityAttributes",
+      "displayName": "Identity Attributes",
+      "isExpanded": true
     }
   ],
-  "inputs": [
-    {
+  "inputs": [{
       "name": "Path",
       "type": "filePath",
       "label": "Source Folder",
@@ -77,7 +75,7 @@
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "Provide the product information for the assembly.\r\nSets the `AssemblyProduct` attribute.",
-      "groupName":"informationalAttributes"
+      "groupName": "informationalAttributes"
     },
     {
       "name": "Description",
@@ -95,7 +93,7 @@
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "Provide the company name for the assembly.\r\nSets the `AssemblyCompany` attribute.",
-      "groupName":"informationalAttributes"
+      "groupName": "informationalAttributes"
     },
     {
       "name": "Copyright",
@@ -104,7 +102,7 @@
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "Provide the assembly or product copyright information e.g. Copyright © $(date:yyyy) Example Ltd.\r\nSee the [marketplace listing](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task) for additional date time formats.\r\nSets the `AssemblyCopyright` attribute.",
-      "groupName":"informationalAttributes"
+      "groupName": "informationalAttributes"
     },
     {
       "name": "Trademark",
@@ -113,7 +111,7 @@
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "Provide the assembly or product trademark information.\r\nSets the `AssemblyTrademark` attribute.",
-      "groupName":"informationalAttributes"
+      "groupName": "informationalAttributes"
     },
     {
       "name": "Culture",
@@ -122,7 +120,7 @@
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "Provide information on what culture the assembly supports. Leave empty for non-satellite assemblies.\r\nSets the `AssemblyCulture` attribute.",
-      "groupName":"identityAttributes"
+      "groupName": "identityAttributes"
     },
     {
       "name": "Configuration",
@@ -140,7 +138,7 @@
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "Provide the assembly version. Must be in the format digit.digit.digit.digit see the marketplace listing for [more information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task).\r\nSets the `AssemblyVersion` attribute.",
-      "groupName":"identityAttributes"
+      "groupName": "identityAttributes"
     },
     {
       "name": "FileVersionNumber",
@@ -149,7 +147,7 @@
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "Provide the file version. Must be in the format digit.digit.digit.digit see the marketplace listing for [more information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task).\r\nSets the `AssemblyFileVersion` attribute.",
-      "groupName":"informationalAttributes"
+      "groupName": "informationalAttributes"
     },
     {
       "name": "InformationalVersion",
@@ -158,14 +156,17 @@
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "Provide the informational version. See the marketplace listing for [more information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task).\r\nSets the `AssemblyInformationalVersion` attribute.",
-      "groupName":"informationalAttributes"
+      "groupName": "informationalAttributes"
     }
   ],
   "execution": {
-    "PowerShell": {
-      "target": "$(currentDirectory)\\ApplyAssemblyInfo.ps1",
-      "argumentFormat": "",
-      "workingDirectory": "$(currentDirectory)"
+    "Node": {
+      "target": "index.js"
     }
+  },
+  "messages": {
+    "BashReturnCode": "Bash exited with return code: %d",
+    "BashFailed": "Bash failed with error: %s",
+    "FailedToLocateSpecifiedXcode": "Unable to resolve the developer path for Xcode `%s`. Set the `%s` environment variable on the agent machine, or set `Xcode version` to `Default` or `Specify path`."
   }
 }

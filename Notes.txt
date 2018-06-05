@@ -1,0 +1,5 @@
+Compile:                                                            tsc
+Run Task:                                                           nodenode index.js
+Build & Test:                                                       npm test
+
+To generate/update third party notice file run:                     node generate-third-party-notice.js
