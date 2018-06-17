@@ -40,7 +40,12 @@ describe('Sample task tests', function () {
         assert.equal(tr.invokedToolCount, 1);
         assert.equal(tr.warningIssues, 0, "should have no warnings");
         assert.equal(tr.errorIssues.length, 1, "should have 1 error issue");
-        assert.equal(tr.errorIssues[0], '/mocked/tools/echo failed with return code: 1', 'error issue output');
+        if (process.platform == 'win32') {
+            assert.equal(tr.errorIssues[0], '/mocked/tools/cmd failed with return code: 1', 'error issue output');
+        }
+        else {
+            assert.equal(tr.errorIssues[0], '/mocked/tools/echo failed with return code: 1', 'error issue output');
+        }
         assert(tr.stdout.indexOf('atool output here') >= 0, "tool stdout");
         assert.equal(tr.stdout.indexOf('Hello Mock!'), -1, "task module should have never been called");
 

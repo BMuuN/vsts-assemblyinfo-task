@@ -259,3 +259,4 @@ paket-files/
 *.js
 package-lock.json
 .taskkey
+dist/

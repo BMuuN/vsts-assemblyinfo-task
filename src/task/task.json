@@ -11,6 +11,7 @@
     "Minor": 0,
     "Patch": 0
   },
+  "minimumAgentVersion": "2.115.0",
   "instanceNameFormat": "Set Assembly Manifest Data",
   "visibility": [
     "Build"
@@ -37,7 +38,7 @@
       "label": "Source Folder",
       "defaultValue": "$(Build.SourcesDirectory)",
       "required": true,
-      "helpMarkDown": "Source folder for the AssemblyInfo.* files.  This can be the root directory as the task will search all sub-directories."
+      "helpMarkDown": "Source folder for the `AssemblyInfo.*` files.\r\nEverything under this folder will be searched for the files specified in the `Source Files` below."
     },
     {
       "name": "FileNames",
@@ -45,7 +46,7 @@
       "label": "Source Files",
       "defaultValue": "AssemblyInfo.cs\r\nAssemblyInfo.vb",
       "required": true,
-      "helpMarkDown": "Specify the assembly info file names (`AssemblyInfo.cs`, `AssemblyInfo.vb`, `GlobalInfo.cs`).\r\nFor .Net Core specify the project file `Project.csproj`.",
+      "helpMarkDown": "Specify the relative path of the assembly info file(s) from the `Source Folder` root.\r\nWildcards can be used. For example, `**/AssemblyInfo.cs` for all `AssemblyInfo.cs` files in all the sub folders.",
       "properties": {
         "resizable": "true",
         "rows": "6"
