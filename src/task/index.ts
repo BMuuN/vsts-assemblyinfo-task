@@ -123,8 +123,8 @@ function netFramework(model: models.AssemblyInfo, regEx: models.RegEx): void {
 
         if (!tl.exist(file))
         {
-            tl.warning(`File not found: ${file}`);
-            //tl.error('file not found: ' + filePath);
+            //tl.warning(`File not found: ${file}`);
+            tl.error(`file not found: ${file}`);
             return;
         }
 
@@ -133,8 +133,8 @@ function netFramework(model: models.AssemblyInfo, regEx: models.RegEx): void {
         // encodings is an array of objects sorted by confidence value in decending order
         // e.g. [{ confidence: 90, name: 'UTF-8'}, {confidence: 20, name: 'windows-1252', lang: 'fr'}]
         if (model.fileEncoding === 'auto') {
-            let chardetEncodingResult = chardet.detectFileSync(file, { sampleSize: 64 });
-            model.fileEncoding = getChardetResult(chardetEncodingResult);
+            let chardetEncoding = chardet.detectFileSync(file, { sampleSize: 64 });
+            model.fileEncoding = getChardetResult(chardetEncoding);
             tl.debug(`Detected character encoding: ${model.fileEncoding}`);
         }
         
@@ -201,13 +201,13 @@ function insertAttribute(file: string, content: string, name: string, value: str
 
 function replaceAttribute(content: string, name: string, regEx: string, value: string): string {
     tl.debug(`${name}: ${value}`);
-    content = content.replace(new RegExp(`${name}\\s*\(${regEx}\)`, 'gi'), `${name}("${value}")`);
+    content = content.replace(new RegExp(`${name}\\s*\\(${regEx}\\)`, 'gi'), `${name}("${value}")`);
     return content;
 }
 
-function getChardetResult(aye: chardet.Result): string {
+function getChardetResult(encoding: chardet.Result): string {
     
-    // switch(aye) {
+    // switch(encoding) {
     //     case '':
     //         return 'utf8';
     //     case '':
@@ -232,11 +232,11 @@ function getChardetResult(aye: chardet.Result): string {
     //         return 'hex';
     // }
 
-    if (!aye) {
+    if (!encoding) {
         return 'utf8';
     }
     
-    return aye.toString().toLocaleLowerCase();
+    return encoding.toString().toLocaleLowerCase();
 }
 
 run();
