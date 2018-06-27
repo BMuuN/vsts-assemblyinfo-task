@@ -2,6 +2,8 @@ export class AssemblyInfo {
     path: string = '';
     fileNames: string[] = [];
     insertAttributes: boolean = false;
+    fileEncoding: string = '';
+    writeBOM: boolean = false;
     title: string = '';
     product: string = '';
     description: string = '';
@@ -13,8 +15,6 @@ export class AssemblyInfo {
     version: string = '';
     fileVersion: string = '';
     informationalVersion: string = '';
-    // netFrameworkFileNames: string[] = [];
-    // netCoreFileNames: string[] = [];
     verBuild: string = '';
     verRelease: string = '';
 }

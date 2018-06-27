@@ -17,18 +17,8 @@
     "Build"
   ],
   "groups": [{
-      "name": "manifestAttributes",
-      "displayName": "Manifest Attributes",
-      "isExpanded": true
-    },
-    {
-      "name": "informationalAttributes",
-      "displayName": "Informational Attributes",
-      "isExpanded": true
-    },
-    {
-      "name": "identityAttributes",
-      "displayName": "Identity Attributes",
+      "name": "attributes",
+      "displayName": "Attributes",
       "isExpanded": true
     }
   ],
@@ -61,13 +51,37 @@
       "helpMarkDown": "If checked the task will insert missing attributes into the source files specified above."
     },
     {
+      "name": "SaveFileEncoding",
+      "type": "pickList",
+      "label": "File encoding",
+      "defaultValue": "auto",
+      "required": true,
+      "options": {
+          "auto": "auto",
+          "ascii": "ascii",
+          "utf-7": "utf-7",
+          "utf-8": "utf-8",
+          "utf-16le": "utf-16",
+          "utf-16be": "utf-16 (big endian)"
+        },
+      "helpMarkDown": "Specify the file(s) encoding.\r\nThe 'auto' value will determine the encoding."
+    },
+    {
+      "name": "WriteBOM",
+      "type": "boolean",
+      "label": "Write unicode BOM",
+      "defaultValue": "true",
+      "required": true,
+      "helpMarkDown": "If checked the task will write a Byte Order Mark (BOM) to the output file."
+    },
+    {
       "name": "Title",
       "type": "string",
       "label": "Title",
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "Specify a friendly name for the assembly.\r\nSets the `AssemblyTitle` attribute.",
-      "groupName": "manifestAttributes"
+      "groupName": "attributes"
     },
     {
       "name": "Product",
@@ -76,7 +90,7 @@
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "Provide the product information for the assembly.\r\nSets the `AssemblyProduct` attribute.",
-      "groupName": "informationalAttributes"
+      "groupName": "attributes"
     },
     {
       "name": "Description",
@@ -85,7 +99,7 @@
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "Provide a short description that summarizes the nature and purpose of the assembly.\r\nSets the `AssemblyDescription` attribute.",
-      "groupName": "manifestAttributes"
+      "groupName": "attributes"
     },
     {
       "name": "Company",
@@ -94,7 +108,7 @@
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "Provide the company name for the assembly.\r\nSets the `AssemblyCompany` attribute.",
-      "groupName": "informationalAttributes"
+      "groupName": "attributes"
     },
     {
       "name": "Copyright",
@@ -103,7 +117,7 @@
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "Provide the assembly or product copyright information e.g. Copyright © $(date:yyyy) Example Ltd.\r\nSee the [marketplace listing](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task) for additional date time formats.\r\nSets the `AssemblyCopyright` attribute.",
-      "groupName": "informationalAttributes"
+      "groupName": "attributes"
     },
     {
       "name": "Trademark",
@@ -112,7 +126,7 @@
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "Provide the assembly or product trademark information.\r\nSets the `AssemblyTrademark` attribute.",
-      "groupName": "informationalAttributes"
+      "groupName": "attributes"
     },
     {
       "name": "Culture",
@@ -121,7 +135,7 @@
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "Provide information on what culture the assembly supports. Leave empty for non-satellite assemblies.\r\nSets the `AssemblyCulture` attribute.",
-      "groupName": "identityAttributes"
+      "groupName": "attributes"
     },
     {
       "name": "Configuration",
@@ -130,7 +144,7 @@
       "defaultValue": "$(BuildConfiguration)",
       "required": false,
       "helpMarkDown": "Provide the build configuration for the assembly, such as debug or release.\r\nSets the `AssemblyConfiguration` attribute.",
-      "groupName": "manifestAttributes"
+      "groupName": "attributes"
     },
     {
       "name": "VersionNumber",
@@ -139,7 +153,7 @@
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "Provide the assembly version. Must be in the format digit.digit.digit.digit see the marketplace listing for [more information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task).\r\nSets the `AssemblyVersion` attribute.",
-      "groupName": "identityAttributes"
+      "groupName": "attributes"
     },
     {
       "name": "FileVersionNumber",
@@ -148,7 +162,7 @@
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "Provide the file version. Must be in the format digit.digit.digit.digit see the marketplace listing for [more information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task).\r\nSets the `AssemblyFileVersion` attribute.",
-      "groupName": "informationalAttributes"
+      "groupName": "attributes"
     },
     {
       "name": "InformationalVersion",
@@ -157,7 +171,7 @@
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "Provide the informational version. See the marketplace listing for [more information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task).\r\nSets the `AssemblyInformationalVersion` attribute.",
-      "groupName": "informationalAttributes"
+      "groupName": "attributes"
     }
   ],
   "execution": {
