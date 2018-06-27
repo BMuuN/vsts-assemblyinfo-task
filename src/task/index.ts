@@ -183,7 +183,7 @@ function insertAttribute(file: string, content: string, name: string, value: str
         let res = content.match(new RegExp(`\\<Assembly:\\s*${name}`, 'gi'));
         if (!res || res.length <= 0) {
             tl.debug(`Adding --> ${name}: ${value}`);
-            content += `\r\n<Assembly: ${name}("${value}")>`;
+            content += `\r\n<Assembly: ${name}("${value}")\>`;
         }
 
     } else if (file.endsWith('.cs')) {
@@ -192,7 +192,7 @@ function insertAttribute(file: string, content: string, name: string, value: str
         let res = content.match(new RegExp(`\\[assembly:\\s*${name}`, 'gi'));
         if (!res || res.length <= 0) {
             tl.debug(`Adding --> ${name}: ${value}`);
-            content += `\r\n[assembly: ${name}("${value}")]`;
+            content += `\r\n[assembly: ${name}("${value}")\]`;
         }
     }
 
