@@ -70,7 +70,13 @@
     },
     "files": [
         {
-            "path": "task"
+            "path": "Common"
+        },
+        {
+            "path": "NetFramework"
+        },
+        {
+            "path": "NetCore"
         },
         {
             "path": "images",

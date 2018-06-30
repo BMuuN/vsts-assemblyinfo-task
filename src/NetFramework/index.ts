@@ -6,19 +6,15 @@ import moment = require('moment');
 import chardet = require('chardet');
 import iconv = require('iconv-lite');
 
-import utils = require('./utils');
-import models = require('./models');
+import utils = require('../Common/utils');
+import models = require('../Common/models');
 
 async function run() {
     try {
 
-        let regExModel: models.RegEx = {
-            version: '\d+\.\d+\.?\d*\.?\d*',
-            word: '.*',
-            date: '(([\w.: +])*?)'
-        }
+        let regExModel = new models.RegEx();
 
-        let model: models.AssemblyInfo = {
+        let model: models.NetFramework = {
             path: tl.getPathInput('Path', true),
             fileNames: tl.getDelimitedInput('FileNames', '\n', true),
             insertAttributes: tl.getBoolInput('InsertAttributes', true),
@@ -70,16 +66,14 @@ async function run() {
         tl.setVariable('AssemblyInfo.InformationalVersion', model.informationalVersion, false);
 
         tl.debug('Task done!');
-        tl.setResult(tl.TaskResult.Succeeded, tl.loc('BashReturnCode', 1111));
+        tl.setResult(tl.TaskResult.Succeeded, tl.loc('TaskReturnCode'));
     }
     catch (err) {
-        //tl.error(err.message);
-        tl.setResult(tl.TaskResult.Failed, err.message);
-        //tl.setResult(tl.TaskResult.Failed, tl.loc('BashFailed', err.message));
+        tl.setResult(tl.TaskResult.Failed, tl.loc('TaskFailed', err.message));
     }
 }
 
-function setWildcardVersionNumbers(model: models.AssemblyInfo): void {
+function setWildcardVersionNumbers(model: models.NetFramework): void {
     let start = moment('2000-01-01');
     let end = moment();
     var duration = moment.duration(end.diff(start));
@@ -96,7 +90,7 @@ function setWildcardVersionNumbers(model: models.AssemblyInfo): void {
     model.informationalVersion = utils.setWildcardVersionNumber(model.informationalVersion, model.verBuild, model.verRelease);
 }
 
-function printTaskParameters(model: models.AssemblyInfo): void {
+function printTaskParameters(model: models.NetFramework): void {
     tl.debug(`Path: ${model.path}`);
     tl.debug(`File Names: ${model.fileNames}`);
     tl.debug(`Insert Attributes: ${model.insertAttributes}`);
@@ -115,7 +109,7 @@ function printTaskParameters(model: models.AssemblyInfo): void {
     tl.debug(`Informational Version: ${model.informationalVersion}`);
 }
 
-function netFramework(model: models.AssemblyInfo, regEx: models.RegEx): void {
+function netFramework(model: models.NetFramework, regEx: models.RegEx): void {
     
     tl.debug('Setting .Net Framework assembly info...');
 
