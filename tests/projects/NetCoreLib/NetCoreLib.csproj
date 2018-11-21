@@ -19,7 +19,7 @@
     <RepositoryType>Repository Type</RepositoryType>
     <PackageTags>Tags</PackageTags>
     <PackageReleaseNotes>Release Notes</PackageReleaseNotes>
-    <NeutralLanguage>en-GB</NeutralLanguage>
+    <NeutralLanguage>en-US</NeutralLanguage>
     <AssemblyVersion>1.0.0.1</AssemblyVersion>
     <FileVersion>1.0.0.2</FileVersion>
     <InformationalVersion>1.0.1-beta</InformationalVersion>
