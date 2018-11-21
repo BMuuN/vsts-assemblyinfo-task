@@ -6,10 +6,10 @@ abstract class AssemblyInfo {
     fileEncoding: string = '';
     writeBOM: boolean = false;
 
-    title: string = '';
     product: string = '';
     description: string = '';
     company: string = '';
+    copyright: string = '';
     culture: string = '';
 
     version: string = '';
@@ -20,21 +20,25 @@ abstract class AssemblyInfo {
 }
 
 export class NetFramework extends AssemblyInfo {
-    copyright: string = '';
+    title: string = '';
     trademark: string = '';
     configuration: string = '';    
 }
 
 export class NetCore extends AssemblyInfo {
+    generatePackageOnBuild: boolean = false;
+    requireLicenseAcceptance: boolean = false;
+
+    packageId: string = ''
+    packageVersion: string = '';
     authors: string = '';
-    packageLicenseUrl: string = '';
-    packageProjectUrl: string = '';
-    packageIconUrl: string = '';
+    licenseUrl: string = '';
+    projectUrl: string = '';
+    iconUrl: string = '';
     repositoryUrl: string = '';
-    generatePackageOnBuild: string = '';
     repositoryType: string = '';
-    packageTags: string = '';
-    packageReleaseNotes: string = '';
+    tags: string = '';
+    releaseNotes: string = '';
 }
 
 export class RegEx {

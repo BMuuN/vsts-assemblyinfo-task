@@ -115,14 +115,18 @@ function netFramework(model: models.NetFramework, regEx: models.RegEx): void {
 
     tl.findMatch(model.path, model.fileNames).forEach(file => {
 
-        if (!tl.exist(file))
-        {
-            //tl.warning(`File not found: ${file}`);
-            tl.error(`file not found: ${file}`);
+        tl.debug(`Processing: ${file}`);
+
+        if (path.extname(file) !== '.vb' || path.extname(file) !== '.cs') {
+            tl.debug(`File is not .vb or .cs, exiting.`);
             return;
         }
 
-        tl.debug(`Processing: ${file}`);
+        if (!tl.exist(file))
+        {
+            tl.error(`File not found: ${file}`);
+            return;
+        }
 
         // encodings is an array of objects sorted by confidence value in decending order
         // e.g. [{ confidence: 90, name: 'UTF-8'}, {confidence: 20, name: 'windows-1252', lang: 'fr'}]
