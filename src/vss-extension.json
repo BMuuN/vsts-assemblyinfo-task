@@ -23,6 +23,7 @@
         "Binary",
         "Assembly",
         "Version",
+        "Versioning",
         "Continuous Delivery",
         "Continuous Integration",
         "Management",
@@ -85,13 +86,23 @@
     ],
     "contributions": [
         {
-            "id": "Assembly-Info-Task",
+            "id": "Assembly-Info-NetFrameWork",
             "type": "ms.vss-distributed-task.task",
             "targets": [
                 "ms.vss-distributed-task.tasks"
             ],
             "properties": {
-                "name": "task"
+                "name": "NetFramework"
+            }
+        },
+        {
+            "id": "Assembly-Info-NetCore",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "NetCore"
             }
         }
     ]
