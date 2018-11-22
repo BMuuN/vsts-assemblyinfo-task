@@ -3,7 +3,7 @@
 > - Rewrittein in Node JS.
 > - Moved .Net Core to it's own extension.
 > - Added support for file encoding (read and save).
-> - Added support for wildcard searching files.
+> - Added wildcard file searching.
 
 > **v1.1.36**
 > - Added wilcard version number support

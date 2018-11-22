@@ -1,7 +1,7 @@
 {
   "id": "9E9CFB95-62DC-4A63-BC66-FB8F57AF76FF",
   "name": "Assembly-Info-Net-Core",
-  "friendlyName": "Assembly Info (.Net Core)",
+  "friendlyName": "Assembly Info (.Net Core & .Net Standard)",
   "description": "Set assembly or package information such as Version, Copyright and Repository URL's etc.",
   "helpMarkDown": "[More Information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task)",
   "category": "Build",
@@ -79,6 +79,7 @@
       "defaultValue": "true",
       "required": true,
       "helpMarkDown": "If checked the task will write a Byte Order Mark (BOM) to the output file.",
+      "visibleRule": "FileEncoding != ascii",
       "groupName": "fileEncodingGroup"
     },
     {
@@ -91,7 +92,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "RequireLicenseAcceptance",
+      "name": "PackageRequireLicenseAcceptance",
       "type": "boolean",
       "label": "Require license acceptance",
       "defaultValue": false,
@@ -162,9 +163,8 @@
       "helpMarkDown": "Provide the assembly or product copyright information e.g. Copyright © $(date:yyyy) Example Ltd.\r\nSee the [marketplace listing](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task) for additional date time formats.\r\nSets the `Copyright` attribute.",
       "groupName": "attributesGroup"
     },
-
     {
-      "name": "LicenseUrl",
+      "name": "PackageLicenseUrl",
       "type": "string",
       "label": "License Url",
       "defaultValue": "",
@@ -173,7 +173,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "ProjectUrl",
+      "name": "PackageProjectUrl",
       "type": "string",
       "label": "Project Url",
       "defaultValue": "",
@@ -182,7 +182,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "IconUrl",
+      "name": "PackageIconUrl",
       "type": "string",
       "label": "Icon Url",
       "defaultValue": "",
@@ -209,7 +209,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "Tags",
+      "name": "PackageTags",
       "type": "string",
       "label": "Tags",
       "defaultValue": "",
@@ -218,7 +218,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "ReleaseNotes",
+      "name": "PackageReleaseNotes",
       "type": "string",
       "label": "Release notes",
       "defaultValue": "",
@@ -269,7 +269,7 @@
     }
   },
   "messages": {
-    "TaskCompleted": "Task Complete!",
+    "TaskReturnCode": "Task Complete!",
     "TaskFailed": "Task failed with error: %s"
   }
 }

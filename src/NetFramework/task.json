@@ -51,7 +51,7 @@
       "helpMarkDown": "If checked the task will insert missing attributes into the source files specified above."
     },
     {
-      "name": "SaveFileEncoding",
+      "name": "FileEncoding",
       "type": "pickList",
       "label": "File encoding",
       "defaultValue": "auto",
@@ -73,7 +73,7 @@
       "defaultValue": "true",
       "required": true,
       "helpMarkDown": "If checked the task will write a Byte Order Mark (BOM) to the output file.",
-      "visibleRule": "SaveFileEncoding != ascii"
+      "visibleRule": "FileEncoding != ascii"
     },
     {
       "name": "Title",

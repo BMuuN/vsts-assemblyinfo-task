@@ -3,3 +3,24 @@ Run Task:                                                           nodenode ind
 Build & Test:                                                       npm test
 
 To generate/update third party notice file run:                     node generate-third-party-notice.js
+
+
+Global
+- AssemblyVersion needs to filer/extract the version number from "TS Extension Test Build_2018.11.6900" and not take the entire string.
+- Check all help text for the task parameters.
+
+Format of Dates have changed.  We're now using the monent js library and the following format should be adhered too:
+https://momentjs.com/docs/#year-month-and-day-tokens
+
+For example, if fthe folliwng format was originally used:
+
+    "Copyright © $(date:yyyy) $(date:dd.MM.yyyy dd MMMM yyyy HH:mm tt) Example Ltd";
+
+then the new format utalising moment js will need to adhere to the followign structure:
+
+    "Copyright © $(date:YYYY) $(date:DD.MM.YYYY DD MMMM YYYY HH:mm a) Example Ltd";
+
+
+Test
+- Implement unit test
+- Run tests on build

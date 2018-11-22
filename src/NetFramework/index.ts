@@ -14,38 +14,8 @@ async function run() {
 
         let regExModel = new models.RegEx();
 
-        let model: models.NetFramework = {
-            path: tl.getPathInput('Path', true),
-            fileNames: tl.getDelimitedInput('FileNames', '\n', true),
-            insertAttributes: tl.getBoolInput('InsertAttributes', true),
-            fileEncoding: tl.getInput('SaveFileEncoding', true),
-            writeBOM: tl.getBoolInput('WriteBOM', true),
-            title: tl.getInput('Title', false),
-            product: tl.getInput('Product', false),
-            description: tl.getInput('Description', false),
-            company: tl.getInput('Company', false),
-            copyright: tl.getInput('Copyright', false),
-            trademark: tl.getInput('Trademark', false),
-            culture: tl.getInput('Culture', false),
-            configuration: tl.getInput('Configuration', false),
-            version: tl.getInput('VersionNumber', false),
-            fileVersion: tl.getInput('FileVersionNumber', false),
-            informationalVersion: tl.getInput('InformationalVersion', false),
-            verBuild: '',
-            verRelease: ''
-        };
-
-        // Clean up the filenames
-        let targetFiles: string[] = [];
-        model.fileNames.forEach((x: string) => {
-            if (x)
-                x.split(',').forEach((y: string) => {
-                    if (y) {
-                        targetFiles.push(y.trim());
-                    }
-                })
-        });
-        model.fileNames = targetFiles;
+        let model = getDefaultModel();
+        model.fileNames = formatFileNames(model.fileNames);
 
         // Make sure path to source code directory is available
         if(!tl.exist(model.path)) {
@@ -53,13 +23,10 @@ async function run() {
             return;
         }
 
-        // Apply copyright transform
-        model.copyright = model.copyright.replace(new RegExp(`$(date:${regExModel.date})`, 'g'), moment().format('MMMM Do YYYY, h:mm:ss a'));
-        let a = "Copyright © $(date:yyyy) $(date:dd.MM.yyyy dd MMMM yyyy HH:mm tt) Example Ltd".match(/@\w*/g)
-
+        setCopyright(model, regExModel);
         setWildcardVersionNumbers(model);
         printTaskParameters(model);
-        netFramework(model, regExModel);
+        setManifestData(model, regExModel);
 
         tl.setVariable('AssemblyInfo.Version', model.version, false);
         tl.setVariable('AssemblyInfo.FileVersion', model.fileVersion, false);
@@ -71,6 +38,50 @@ async function run() {
     catch (err) {
         tl.setResult(tl.TaskResult.Failed, tl.loc('TaskFailed', err.message));
     }
+}
+
+function getDefaultModel() : models.NetFramework {
+    let model: models.NetFramework = {
+        path: tl.getPathInput('Path', true),
+        fileNames: tl.getDelimitedInput('FileNames', '\n', true),
+        insertAttributes: tl.getBoolInput('InsertAttributes', true),
+        fileEncoding: tl.getInput('FileEncoding', true),
+        writeBOM: tl.getBoolInput('WriteBOM', true),
+        title: tl.getInput('Title', false),
+        product: tl.getInput('Product', false),
+        description: tl.getInput('Description', false),
+        company: tl.getInput('Company', false),
+        copyright: tl.getInput('Copyright', false),
+        trademark: tl.getInput('Trademark', false),
+        culture: tl.getInput('Culture', false),
+        configuration: tl.getInput('Configuration', false),
+        version: tl.getInput('VersionNumber', false),
+        fileVersion: tl.getInput('FileVersionNumber', false),
+        informationalVersion: tl.getInput('InformationalVersion', false),
+        verBuild: '',
+        verRelease: ''
+    };
+
+    return model;
+}
+
+function formatFileNames(fileNames: string[]) : string[] {
+    let targetFiles: string[] = [];
+    fileNames.forEach((x: string) => {
+        if (x)
+            x.split(',').forEach((y: string) => {
+                if (y) {
+                    targetFiles.push(y.trim());
+                }
+            })
+    });
+    return targetFiles;
+}
+
+function setCopyright(model: models.NetFramework, regExModel: models.RegEx): void {
+    model.copyright = model.copyright.replace(regExModel.dateNew, function(match: string, g1: any, g2: any): string {
+        return moment().format(g1);
+    });
 }
 
 function setWildcardVersionNumbers(model: models.NetFramework): void {
@@ -109,7 +120,7 @@ function printTaskParameters(model: models.NetFramework): void {
     tl.debug(`Informational Version: ${model.informationalVersion}`);
 }
 
-function netFramework(model: models.NetFramework, regEx: models.RegEx): void {
+function setManifestData(model: models.NetFramework, regEx: models.RegEx): void {
     
     tl.debug('Setting .Net Framework assembly info...');
 
@@ -118,12 +129,11 @@ function netFramework(model: models.NetFramework, regEx: models.RegEx): void {
         tl.debug(`Processing: ${file}`);
 
         if (path.extname(file) !== '.vb' || path.extname(file) !== '.cs') {
-            tl.debug(`File is not .vb or .cs, exiting.`);
+            tl.debug(`File is not .vb or .cs`);
             return;
         }
 
-        if (!tl.exist(file))
-        {
+        if (!tl.exist(file)) {
             tl.error(`File not found: ${file}`);
             return;
         }

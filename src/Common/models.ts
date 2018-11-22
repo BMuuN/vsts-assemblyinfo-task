@@ -22,7 +22,7 @@ abstract class AssemblyInfo {
 export class NetFramework extends AssemblyInfo {
     title: string = '';
     trademark: string = '';
-    configuration: string = '';    
+    configuration: string = '';
 }
 
 export class NetCore extends AssemblyInfo {
@@ -44,5 +44,5 @@ export class NetCore extends AssemblyInfo {
 export class RegEx {
     version: string = '\d+\.\d+\.?\d*\.?\d*';
     word: string = '.*';
-    date: string = '(([\w.: +])*?)';
+    dateNew: RegExp = /\$\(date:(([\w.: +])*?)\)/g;
 }
