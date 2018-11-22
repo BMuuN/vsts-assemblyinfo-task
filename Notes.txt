@@ -8,6 +8,7 @@ To generate/update third party notice file run:                     node generat
 Global
 - AssemblyVersion needs to filer/extract the version number from "TS Extension Test Build_2018.11.6900" and not take the entire string.
 - Check all help text for the task parameters.
+- Add NuSpec task with specific inputs for NuSpec files.
 
 Format of Dates have changed.  We're now using the monent js library and the following format should be adhered too:
 https://momentjs.com/docs/#year-month-and-day-tokens

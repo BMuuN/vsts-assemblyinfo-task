@@ -18,7 +18,7 @@ async function run() {
         let regExModel = new models.RegEx();
 
         var model = getDefaultModel();
-        model.fileNames = formatFileNames(model.fileNames);
+        model.fileNames = utils.formatFileNames(model.fileNames);
 
         // Make sure path to source code directory is available
         if (!tl.exist(model.path)) {
@@ -26,7 +26,7 @@ async function run() {
             return;
         }
 
-        setCopyright(model, regExModel);
+        utils.setCopyright(model, regExModel);
         setWildcardVersionNumbers(model);
         printTaskParameters(model);
         setManifestData(model, regExModel);
@@ -81,19 +81,6 @@ function getDefaultModel(): models.NetCore {
     return model;
 }
 
-function formatFileNames(fileNames: string[]): string[] {
-    let targetFiles: string[] = [];
-    fileNames.forEach((x: string) => {
-        if (x)
-            x.split(',').forEach((y: string) => {
-                if (y) {
-                    targetFiles.push(y.trim());
-                }
-            })
-    });
-    return targetFiles;
-}
-
 function setWildcardVersionNumbers(model: models.NetCore): void {
     let start = moment('2000-01-01');
     let end = moment();
@@ -111,12 +98,6 @@ function setWildcardVersionNumbers(model: models.NetCore): void {
     model.version = utils.setWildcardVersionNumber(model.version, model.verBuild, model.verRelease);
     model.fileVersion = utils.setWildcardVersionNumber(model.fileVersion, model.verBuild, model.verRelease);
     model.informationalVersion = utils.setWildcardVersionNumber(model.informationalVersion, model.verBuild, model.verRelease);
-}
-
-function setCopyright(model: models.NetCore, regExModel: models.RegEx): void {
-    model.copyright = model.copyright.replace(regExModel.dateNew, function (match: string, g1: any, g2: any): string {
-        return moment().format(g1);
-    });
 }
 
 function printTaskParameters(model: models.NetCore): void {
@@ -171,7 +152,7 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
         // e.g. [{ confidence: 90, name: 'UTF-8'}, {confidence: 20, name: 'windows-1252', lang: 'fr'}]
         if (model.fileEncoding === 'auto') {
             let chardetEncoding = chardet.detectFileSync(file, { sampleSize: 64 });
-            model.fileEncoding = getChardetResult(chardetEncoding);
+            model.fileEncoding = utils.getChardetResult(chardetEncoding);
             tl.debug(`Detected character encoding: ${model.fileEncoding}`);
         }
 
@@ -215,40 +196,6 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
             tl.debug(`Verify character encoding: ${chardetResult}`);
         });
     });
-}
-
-function getChardetResult(encoding: chardet.Result): string {
-
-    // switch(encoding) {
-    //     case '':
-    //         return 'utf8';
-    //     case '':
-    //         return 'utf-8';
-    //     case '':
-    //         return 'ucs2';
-    //     case '':
-    //         return 'ucs-2';
-    //     case '':
-    //         return 'utf16le';
-    //     case '':
-    //         return 'utf-16le';
-    //     case '':
-    //         return 'latin1';
-    //     case '':
-    //         return 'binary';
-    //     case '':
-    //         return 'base64';
-    //     case '':
-    //         return 'ascii';
-    //     case '':
-    //         return 'hex';
-    // }
-
-    if (!encoding) {
-        return 'utf8';
-    }
-
-    return encoding.toString().toLocaleLowerCase();
 }
 
 function setAssemblyData(group: any, model: models.NetCore) {

@@ -1,3 +1,5 @@
+'use strict';
+
 import path = require('path');
 import tl = require('vsts-task-lib/task');
 import trm = require('vsts-task-lib/toolrunner');
@@ -15,7 +17,7 @@ async function run() {
         let regExModel = new models.RegEx();
 
         let model = getDefaultModel();
-        model.fileNames = formatFileNames(model.fileNames);
+        model.fileNames = utils.formatFileNames(model.fileNames);
 
         // Make sure path to source code directory is available
         if(!tl.exist(model.path)) {
@@ -23,7 +25,7 @@ async function run() {
             return;
         }
 
-        setCopyright(model, regExModel);
+        utils.setCopyright(model, regExModel);
         setWildcardVersionNumbers(model);
         printTaskParameters(model);
         setManifestData(model, regExModel);
@@ -55,7 +57,7 @@ function getDefaultModel() : models.NetFramework {
         trademark: tl.getInput('Trademark', false),
         culture: tl.getInput('Culture', false),
         configuration: tl.getInput('Configuration', false),
-        version: tl.getInput('VersionNumber', false),
+        version: tl.getInput('AssemblyVersionNumber', false),
         fileVersion: tl.getInput('FileVersionNumber', false),
         informationalVersion: tl.getInput('InformationalVersion', false),
         verBuild: '',
@@ -63,25 +65,6 @@ function getDefaultModel() : models.NetFramework {
     };
 
     return model;
-}
-
-function formatFileNames(fileNames: string[]) : string[] {
-    let targetFiles: string[] = [];
-    fileNames.forEach((x: string) => {
-        if (x)
-            x.split(',').forEach((y: string) => {
-                if (y) {
-                    targetFiles.push(y.trim());
-                }
-            })
-    });
-    return targetFiles;
-}
-
-function setCopyright(model: models.NetFramework, regExModel: models.RegEx): void {
-    model.copyright = model.copyright.replace(regExModel.dateNew, function(match: string, g1: any, g2: any): string {
-        return moment().format(g1);
-    });
 }
 
 function setWildcardVersionNumbers(model: models.NetFramework): void {
@@ -96,6 +79,7 @@ function setWildcardVersionNumbers(model: models.NetFramework): void {
 
     model.verBuild = verBuild.toString();
     model.verRelease = verRelease.toString();
+
     model.version = utils.setWildcardVersionNumber(model.version, model.verBuild, model.verRelease);
     model.fileVersion = utils.setWildcardVersionNumber(model.fileVersion, model.verBuild, model.verRelease);
     model.informationalVersion = utils.setWildcardVersionNumber(model.informationalVersion, model.verBuild, model.verRelease);
@@ -128,7 +112,7 @@ function setManifestData(model: models.NetFramework, regEx: models.RegEx): void 
 
         tl.debug(`Processing: ${file}`);
 
-        if (path.extname(file) !== '.vb' || path.extname(file) !== '.cs') {
+        if (path.extname(file) !== '.vb' && path.extname(file) !== '.cs') {
             tl.debug(`File is not .vb or .cs`);
             return;
         }
@@ -142,7 +126,7 @@ function setManifestData(model: models.NetFramework, regEx: models.RegEx): void 
         // e.g. [{ confidence: 90, name: 'UTF-8'}, {confidence: 20, name: 'windows-1252', lang: 'fr'}]
         if (model.fileEncoding === 'auto') {
             let chardetEncoding = chardet.detectFileSync(file, { sampleSize: 64 });
-            model.fileEncoding = getChardetResult(chardetEncoding);
+            model.fileEncoding = utils.getChardetResult(chardetEncoding);
             tl.debug(`Detected character encoding: ${model.fileEncoding}`);
         }
         
@@ -211,40 +195,6 @@ function replaceAttribute(content: string, name: string, regEx: string, value: s
     tl.debug(`${name}: ${value}`);
     content = content.replace(new RegExp(`${name}\\s*\\(${regEx}\\)`, 'gi'), `${name}("${value}")`);
     return content;
-}
-
-function getChardetResult(encoding: chardet.Result): string {
-    
-    // switch(encoding) {
-    //     case '':
-    //         return 'utf8';
-    //     case '':
-    //         return 'utf-8';
-    //     case '':
-    //         return 'ucs2';
-    //     case '':
-    //         return 'ucs-2';
-    //     case '':
-    //         return 'utf16le';
-    //     case '':
-    //         return 'utf-16le';
-    //     case '':
-    //         return 'latin1';
-    //     case '':
-    //         return 'binary';
-    //     case '':
-    //         return 'base64';
-    //     case '':
-    //         return 'ascii';
-    //     case '':
-    //         return 'hex';
-    // }
-
-    if (!encoding) {
-        return 'utf8';
-    }
-    
-    return encoding.toString().toLocaleLowerCase();
 }
 
 run();

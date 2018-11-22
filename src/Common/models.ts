@@ -1,5 +1,5 @@
 
-abstract class AssemblyInfo {
+export abstract class AssemblyInfo {
     path: string = '';
     fileNames: string[] = [];
     insertAttributes: boolean = false;
