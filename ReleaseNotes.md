@@ -1,4 +1,10 @@
 # Release Notes
+> **v2.0.0**
+> - Rewrittein in Node JS.
+> - Moved .Net Core to it's own extension.
+> - Added support for file encoding (read and save).
+> - Added wildcard file searching.
+
 > **v1.1.36**
 > - Added wilcard version number support
 > Thanks to [andyste1](https://github.com/andyste1)

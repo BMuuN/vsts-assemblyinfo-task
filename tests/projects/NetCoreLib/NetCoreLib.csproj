@@ -3,23 +3,25 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <AssemblyName>NetCoreLib</AssemblyName>
     <RootNamespace>NetCoreLib</RootNamespace>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageId>NetCoreLib</PackageId>
-    <AssemblyTitle>Title</AssemblyTitle>
+    <Version>1.0.1-beta</Version>
     <Authors>Authors</Authors>
     <Company>Company</Company>
     <Product>Product</Product>
     <Description>Description</Description>
+    <Copyright>Copyright</Copyright>
     <PackageLicenseUrl>License Url</PackageLicenseUrl>
     <PackageProjectUrl>Project Url</PackageProjectUrl>
     <PackageIconUrl>Icon Url</PackageIconUrl>
     <RepositoryUrl>Repository Url</RepositoryUrl>
-    <FileVersion>1.0.0.1</FileVersion>
-    <Version>1.0.0</Version>
-    <NeutralLanguage>en-GB</NeutralLanguage>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RepositoryType>Repository Type</RepositoryType>
     <PackageTags>Tags</PackageTags>
     <PackageReleaseNotes>Release Notes</PackageReleaseNotes>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.2</FileVersion>
+    <InformationalVersion>1.0.1-beta</InformationalVersion>
   </PropertyGroup>
 </Project>

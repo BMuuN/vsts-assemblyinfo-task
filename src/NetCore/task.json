@@ -1,0 +1,275 @@
+{
+  "id": "9E9CFB95-62DC-4A63-BC66-FB8F57AF76FF",
+  "name": "Assembly-Info-Net-Core",
+  "friendlyName": "Assembly Info (.Net Core & .Net Standard)",
+  "description": "Set assembly or package information such as Version, Copyright and Repository URL's etc.",
+  "helpMarkDown": "[More Information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task)",
+  "category": "Build",
+  "author": "Bleddyn Richards",
+  "version": {
+    "Major": 1,
+    "Minor": 0,
+    "Patch": 0
+  },
+  "minimumAgentVersion": "2.115.0",
+  "instanceNameFormat": "Set Assembly Manifest Data",
+  "visibility": [
+    "Build"
+  ],
+  "groups": [{
+      "name": "attributesGroup",
+      "displayName": "Attributes",
+      "isExpanded": true
+    },
+    {
+      "name": "fileEncodingGroup",
+      "displayName": "File Encoding",
+      "isExpanded": true
+    }
+  ],
+  "inputs": [{
+      "name": "Path",
+      "type": "filePath",
+      "label": "Source folder",
+      "defaultValue": "$(Build.SourcesDirectory)",
+      "required": true,
+      "helpMarkDown": "Source folder."
+    },
+    {
+      "name": "FileNames",
+      "type": "multiLine",
+      "label": "Source files",
+      "defaultValue": "**/*.csproj",
+      "required": true,
+      "helpMarkDown": "Specify the project file(s).\r\nWildcards can be used.",
+      "properties": {
+        "resizable": "true",
+        "rows": "6"
+      }
+    },
+    {
+      "name": "InsertAttributes",
+      "type": "boolean",
+      "label": "Insert attributes",
+      "defaultValue": "false",
+      "required": false,
+      "helpMarkDown": "If checked the task will insert missing attributes into the source files specified above."
+    },
+    {
+      "name": "FileEncoding",
+      "type": "pickList",
+      "label": "File encoding",
+      "defaultValue": "auto",
+      "required": true,
+      "options": {
+          "auto": "auto",
+          "ascii": "ascii",
+          "utf-7": "utf-7",
+          "utf-8": "utf-8",
+          "utf-16le": "utf-16",
+          "utf-16be": "utf-16 (big endian)"
+        },
+      "helpMarkDown": "Specify the file(s) encoding.\r\nThe 'auto' value will determine the encoding.",
+      "groupName": "fileEncodingGroup"
+    },
+    {
+      "name": "WriteBOM",
+      "type": "boolean",
+      "label": "Write unicode BOM",
+      "defaultValue": "true",
+      "required": true,
+      "helpMarkDown": "If checked the task will write a Byte Order Mark (BOM) to the output file.",
+      "visibleRule": "FileEncoding != ascii",
+      "groupName": "fileEncodingGroup"
+    },
+    {
+      "name": "GeneratePackageOnBuild",
+      "type": "boolean",
+      "label": "Generate NuGet package on build",
+      "defaultValue": false,
+      "required": false,
+      "helpMarkDown": "If checked will create a NuGet package on a successful build.\r\nSets the `GeneratePackageOnBuild` attribute.",
+      "groupName": "attributesGroup"
+    },
+    {
+      "name": "PackageRequireLicenseAcceptance",
+      "type": "boolean",
+      "label": "Require license acceptance",
+      "defaultValue": false,
+      "required": false,
+      "helpMarkDown": "Sets the `PackageRequireLicenseAcceptance` attribute.",
+      "groupName": "attributesGroup"
+    },
+    {
+      "name": "PackageId",
+      "type": "string",
+      "label": "Package id",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Specify a name for the package.\r\nSets the `PackageId` attribute.",
+      "groupName": "attributesGroup"
+    },
+    {
+      "name": "PackageVersion",
+      "type": "string",
+      "label": "Package version",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Sets the `Version` attribute.",
+      "groupName": "attributesGroup"
+    },
+    {
+      "name": "Authors",
+      "type": "string",
+      "label": "Authors",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Sets the `Authors` attribute.",
+      "groupName": "attributesGroup"
+    },
+    {
+      "name": "Company",
+      "type": "string",
+      "label": "Company",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Provide the company name for the assembly.\r\nSets the `Company` attribute.",
+      "groupName": "attributesGroup"
+    },
+    {
+      "name": "Product",
+      "type": "string",
+      "label": "Product",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Provide the product information for the assembly.\r\nSets the `Product` attribute.",
+      "groupName": "attributesGroup"
+    },
+    {
+      "name": "Description",
+      "type": "string",
+      "label": "Description",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Provide a short description that summarizes the nature and purpose of the assembly.\r\nSets the `Description` attribute.",
+      "groupName": "attributesGroup"
+    },
+    {
+      "name": "Copyright",
+      "type": "string",
+      "label": "Copyright",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Provide the assembly or product copyright information e.g. Copyright © $(date:yyyy) Example Ltd.\r\nSee the [marketplace listing](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task) for additional date time formats.\r\nSets the `Copyright` attribute.",
+      "groupName": "attributesGroup"
+    },
+    {
+      "name": "PackageLicenseUrl",
+      "type": "string",
+      "label": "License Url",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Sets the `PackageLicenseUrl` attribute.",
+      "groupName": "attributesGroup"
+    },
+    {
+      "name": "PackageProjectUrl",
+      "type": "string",
+      "label": "Project Url",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Sets the `PackageProjectUrl` attribute.",
+      "groupName": "attributesGroup"
+    },
+    {
+      "name": "PackageIconUrl",
+      "type": "string",
+      "label": "Icon Url",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Sets the `PackageIconUrl` attribute.",
+      "groupName": "attributesGroup"
+    },
+    {
+      "name": "RepositoryUrl",
+      "type": "string",
+      "label": "Repository Url",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Sets the `RepositoryUrl` attribute.",
+      "groupName": "attributesGroup"
+    },
+    {
+      "name": "RepositoryType",
+      "type": "string",
+      "label": "RepositoryType",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Sets the `RepositoryType` attribute.",
+      "groupName": "attributesGroup"
+    },
+    {
+      "name": "PackageTags",
+      "type": "string",
+      "label": "Tags",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Sets the `PackageTags` attribute.",
+      "groupName": "attributesGroup"
+    },
+    {
+      "name": "PackageReleaseNotes",
+      "type": "string",
+      "label": "Release notes",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Sets the `PackageReleaseNotes` attribute.",
+      "groupName": "attributesGroup"
+    },
+    {
+      "name": "Culture",
+      "type": "string",
+      "label": "Assembly neutral language",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Provide information on what culture the assembly supports. Leave empty for non-satellite assemblies.\r\nSets the `NeutralLanguage` attribute.",
+      "groupName": "attributesGroup"
+    },
+    {
+      "name": "AssemblyVersionNumber",
+      "type": "string",
+      "label": "Assembly version",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Provide the assembly version. Must be in the format digit.digit.digit.digit see the marketplace listing for [more information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task).\r\nSets the `AssemblyVersion` attribute.",
+      "groupName": "attributesGroup"
+    },
+    {
+      "name": "FileVersionNumber",
+      "type": "string",
+      "label": "Assembly file version",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Provide the file version. Must be in the format digit.digit.digit.digit see the marketplace listing for [more information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task).\r\nSets the `FileVersion` attribute.",
+      "groupName": "attributesGroup"
+    },
+    {
+      "name": "InformationalVersion",
+      "type": "string",
+      "label": "Informational Version",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Provide the informational version. See the marketplace listing for [more information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task).\r\nSets the `InformationalVersion` attribute.",
+      "groupName": "attributesGroup"
+    }
+  ],
+  "execution": {
+    "Node": {
+      "target": "index.js"
+    }
+  },
+  "messages": {
+    "TaskReturnCode": "Task Complete!",
+    "TaskFailed": "Task failed with error: %s"
+  }
+}
