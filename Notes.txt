@@ -5,11 +5,31 @@ Build & Test:                                                       npm test
 To generate/update third party notice file run:                     node generate-third-party-notice.js
 
 
+
+ExtensionId			-->		NetFrameworkExtensionId				-->			NetFrameworkTaskName
+ExtensionName		-->		NetFrameworkExtensionName			-->			NetFrameworkTaskFriendlyName
+TaskId				-->		NetFrameworkTaskId
+
+
+
 Global
 - AssemblyVersion needs to filer/extract the version number from "TS Extension Test Build_2018.11.6900" and not take the entire string.
 - Check all help text for the task parameters.
 - Add NuSpec task with specific inputs for NuSpec files.
 
+Output Variables
+----------------------------
+Previously: 
+    Write-Host "Version: $(AssemblyInfo.Version)"
+
+Now:
+    Write-Host "Package Version: $(AssemblyInfo.PackageVersion)"
+    Write-Host "Version: $(AssemblyInfo.AssemblyVersion)"
+    Write-Host "File Version: $(AssemblyInfo.FileVersion)"
+    Write-Host "Informational Version: $(AssemblyInfo.InformationalVersion)"
+
+Dates
+----------------------------
 Format of Dates have changed.  We're now using the monent js library and the following format should be adhered too:
 https://momentjs.com/docs/#year-month-and-day-tokens
 
@@ -21,6 +41,8 @@ then the new format utalising moment js will need to adhere to the followign str
 
     "Copyright © $(date:YYYY) $(date:DD.MM.YYYY DD MMMM YYYY HH:mm a) Example Ltd";
 
+
+!!! CHECK THE OUTPUT VARIABLES ARE CORRECT !!!
 
 Test
 - Implement unit test
