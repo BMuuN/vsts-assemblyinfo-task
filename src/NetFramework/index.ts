@@ -57,7 +57,7 @@ function getDefaultModel() : models.NetFramework {
         trademark: tl.getInput('Trademark', false),
         culture: tl.getInput('Culture', false),
         configuration: tl.getInput('Configuration', false),
-        version: tl.getInput('AssemblyVersionNumber', false),
+        version: tl.getInput('VersionNumber', false),
         fileVersion: tl.getInput('FileVersionNumber', false),
         informationalVersion: tl.getInput('InformationalVersion', false),
         verBuild: '',

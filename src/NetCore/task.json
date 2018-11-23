@@ -237,7 +237,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "AssemblyVersionNumber",
+      "name": "VersionNumber",
       "type": "string",
       "label": "Assembly version",
       "defaultValue": "",

@@ -70,7 +70,7 @@ function getDefaultModel(): models.NetCore {
         tags: tl.getInput('PackageTags', false),
         releaseNotes: tl.getInput('PackageReleaseNotes', false),
         culture: tl.getInput('Culture', false),
-        version: tl.getInput('AssemblyVersionNumber', false),
+        version: tl.getInput('VersionNumber', false),
         fileVersion: tl.getInput('FileVersionNumber', false),
         informationalVersion: tl.getInput('InformationalVersion', false),
 
