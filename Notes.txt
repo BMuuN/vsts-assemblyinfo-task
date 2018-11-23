@@ -14,8 +14,11 @@ TaskId				-->		NetFrameworkTaskId
 
 Global
 - AssemblyVersion needs to filer/extract the version number from "TS Extension Test Build_2018.11.6900" and not take the entire string.
-- Check all help text for the task parameters.
 - Add NuSpec task with specific inputs for NuSpec files.
+
+
+Breaking Change with "Assembly Version" the input variable has changed name (from "VersionNumber" to "AssemblyVersionNumber") therfore you will need to set this input value as it appears blank in the new version.
+
 
 Output Variables
 ----------------------------
