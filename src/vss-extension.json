@@ -50,13 +50,11 @@
         "type": "git",
         "uri": "https://github.com/BMuuN/vsts-assemblyinfo-task"
     },
-    "badges": [
-        {
-            "href": "https://github.com/BMuuN/vsts-assemblyinfo-task",
-            "uri": "https://bmuun.visualstudio.com/TS%20Extensions/_apis/build/status/GitHub-Assembly-Info.CI?branchName=master",
-            "description": "Azure DevOps Build"
-        }
-    ],
+    "badges": [{
+        "href": "https://github.com/BMuuN/vsts-assemblyinfo-task",
+        "uri": "https://bmuun.visualstudio.com/TS%20Extensions/_apis/build/status/GitHub-Assembly-Info.CI?branchName=master",
+        "description": "Azure DevOps Build"
+    }],
     "content": {
         "details": {
             "path": "Overview.md"
@@ -86,7 +84,7 @@
     ],
     "contributions": [
         {
-            "id": "Assembly-Info-NetFrameWork",
+            "id": "Assembly-Info-Task",
             "type": "ms.vss-distributed-task.task",
             "targets": [
                 "ms.vss-distributed-task.tasks"
