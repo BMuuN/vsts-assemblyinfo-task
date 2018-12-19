@@ -42,7 +42,7 @@
       "label": "Source files",
       "defaultValue": "**/*.csproj",
       "required": true,
-      "helpMarkDown": "Specify the project file(s).\r\nWildcards can be used. For example, **\\*.csproj for all csproj files in all sub folders.\r\n[More Information](https://go.microsoft.com/fwlink/?LinkID=722333)",
+      "helpMarkDown": "Specify the project file(s). Wildcards can be used.  For example, `**/*.csproj` for all csproj files in all the sub folders.\r\n[More Information](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/file-matching-patterns?view=vsts)",
       "properties": {
         "resizable": "true",
         "rows": "6"
@@ -70,7 +70,7 @@
           "utf-16le": "utf-16",
           "utf-16be": "utf-16 (big endian)"
         },
-      "helpMarkDown": "Specify the file(s) encoding.\r\nThe 'auto' value will determine the encoding.",
+      "helpMarkDown": "Specify the file(s) encoding. \r\nThe 'auto' value will determine the encoding.",
       "groupName": "fileEncodingGroup"
     },
     {
@@ -203,7 +203,7 @@
     {
       "name": "RepositoryType",
       "type": "string",
-      "label": "RepositoryType",
+      "label": "Repository Type",
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "Sets the `RepositoryType` attribute.",
@@ -257,7 +257,7 @@
     {
       "name": "InformationalVersion",
       "type": "string",
-      "label": "Informational Version",
+      "label": "Informational version",
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "Sets the `InformationalVersion` attribute.\r\nProvide the informational version. See the marketplace listing for [more information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task).",
