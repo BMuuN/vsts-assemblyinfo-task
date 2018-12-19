@@ -1,23 +1,22 @@
-'use strict';
-
+import chardet = require('chardet');
+import fs = require('fs');
+import iconv = require('iconv-lite');
+import moment = require('moment');
 import path = require('path');
 import tl = require('vsts-task-lib/task');
-import trm = require('vsts-task-lib/toolrunner');
-import fs = require('fs');
-import moment = require('moment');
-import chardet = require('chardet');
-import iconv = require('iconv-lite');
+// import trm = require('vsts-task-lib/toolrunner');
 import xml2js = require('xml2js');
 
-import utils = require('../Common/utils');
 import models = require('../Common/models');
+import utils = require('../Common/services');
 
 async function run() {
+
     try {
 
-        let regExModel = new models.RegEx();
+        const regExModel = new models.RegEx();
 
-        var model = getDefaultModel();
+        const model = getDefaultModel();
         model.fileNames = utils.formatFileNames(model.fileNames);
 
         // Make sure path to source code directory is available
@@ -38,14 +37,14 @@ async function run() {
         tl.setVariable('AssemblyInfo.InformationalVersion', model.informationalVersion, false);
 
         tl.setResult(tl.TaskResult.Succeeded, tl.loc('TaskReturnCode'));
-    }
-    catch (err) {
+
+    } catch (err) {
         tl.setResult(tl.TaskResult.Failed, tl.loc('TaskFailed', err.message));
     }
 }
 
 function getDefaultModel(): models.NetCore {
-    let model: models.NetCore = {
+    const model: models.NetCore = {
         path: tl.getPathInput('Path', true),
         fileNames: tl.getDelimitedInput('FileNames', '\n', true),
         insertAttributes: tl.getBoolInput('InsertAttributes', true),
@@ -75,21 +74,21 @@ function getDefaultModel(): models.NetCore {
         informationalVersion: tl.getInput('InformationalVersion', false),
 
         verBuild: '',
-        verRelease: ''
+        verRelease: '',
     };
 
     return model;
 }
 
 function setWildcardVersionNumbers(model: models.NetCore): void {
-    let start = moment('2000-01-01');
-    let end = moment();
-    var duration = moment.duration(end.diff(start));
-    let verBuild = Math.round(duration.asDays());
+    const start = moment('2000-01-01');
+    const end = moment();
+    let duration = moment.duration(end.diff(start));
+    const verBuild = Math.round(duration.asDays());
 
-    let midnight = moment().startOf('day');
+    const midnight = moment().startOf('day');
     duration = moment.duration(end.diff(midnight));
-    let verRelease = Math.round(duration.asSeconds() / 2);
+    const verRelease = Math.round(duration.asSeconds() / 2);
 
     model.verBuild = verBuild.toString();
     model.verRelease = verRelease.toString();
@@ -134,7 +133,7 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
 
     tl.debug('Setting .Net Core assembly info...');
 
-    tl.findMatch(model.path, model.fileNames).forEach(file => {
+    tl.findMatch(model.path, model.fileNames).forEach((file: string) => {
 
         tl.debug(`Processing: ${file}`);
 
@@ -151,16 +150,16 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
         // encodings is an array of objects sorted by confidence value in decending order
         // e.g. [{ confidence: 90, name: 'UTF-8'}, {confidence: 20, name: 'windows-1252', lang: 'fr'}]
         if (model.fileEncoding === 'auto') {
-            let chardetEncoding = chardet.detectFileSync(file, { sampleSize: 64 });
+            const chardetEncoding = chardet.detectFileSync(file, { sampleSize: 64 });
             model.fileEncoding = utils.getChardetResult(chardetEncoding);
             tl.debug(`Detected character encoding: ${model.fileEncoding}`);
         }
 
         // read file and replace tokens
-        let fileContent: string = iconv.decode(fs.readFileSync(file), model.fileEncoding);
+        const fileContent: string = iconv.decode(fs.readFileSync(file), model.fileEncoding);
 
-        var parser = new xml2js.Parser();
-        parser.parseString(fileContent, function (err: any, result: any) {
+        const parser = new xml2js.Parser();
+        parser.parseString(fileContent, (err: any, result: any) => {
             console.dir(result);
             console.log('Done');
 
@@ -171,10 +170,10 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
 
             if (!result.Project || !result.Project.PropertyGroup) {
                 tl.error(`Error reading file: ${err}`);
-                return
+                return;
             }
 
-            for (let group of result.Project.PropertyGroup) {
+            for (const group of result.Project.PropertyGroup) {
 
                 // Ensure we're in the correct property group
                 if (!group.TargetFramework && !group.TargetFrameworks) {
@@ -185,14 +184,14 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
             }
 
             // rebuild xml project structure
-            var builder = new xml2js.Builder({ headless: true });
-            var xml = builder.buildObject(result);
+            const builder = new xml2js.Builder({ headless: true });
+            const xml = builder.buildObject(result);
 
             fs.writeFileSync(file, iconv.encode(xml, model.fileEncoding, { addBOM: model.writeBOM, stripBOM: undefined, defaultEncoding: undefined }));
 
             tl.debug(`${file} - Assembly Info Applied`);
 
-            let chardetResult = chardet.detectFileSync(file, { sampleSize: 64 });
+            const chardetResult = chardet.detectFileSync(file, { sampleSize: 64 });
             tl.debug(`Verify character encoding: ${chardetResult}`);
         });
     });
@@ -206,7 +205,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
     }
 
     if (group.GeneratePackageOnBuild) {
-        group.GeneratePackageOnBuild = model.generatePackageOnBuild
+        group.GeneratePackageOnBuild = model.generatePackageOnBuild;
         tl.debug(`tGenerate package on build: ${model.generatePackageOnBuild}`);
     }
 
@@ -216,7 +215,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
     }
 
     if (group.PackageRequireLicenseAcceptance) {
-        group.PackageRequireLicenseAcceptance = model.requireLicenseAcceptance
+        group.PackageRequireLicenseAcceptance = model.requireLicenseAcceptance;
         tl.debug(`tPackage require license acceptance: ${model.requireLicenseAcceptance}`);
     }
 
@@ -228,7 +227,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
         }
 
         if (group.PackageId) {
-            group.PackageId = model.packageId
+            group.PackageId = model.packageId;
             tl.debug(`tPackage id: ${model.packageId}`);
         }
     }
@@ -241,7 +240,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
         }
 
         if (group.Version) {
-            group.Version = model.packageVersion
+            group.Version = model.packageVersion;
             tl.debug(`tPackage version: ${model.packageVersion}`);
         }
     }
@@ -254,7 +253,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
         }
 
         if (group.Authors) {
-            group.Authors = model.authors
+            group.Authors = model.authors;
             tl.debug(`tAuthors: ${model.authors}`);
         }
     }
@@ -267,7 +266,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
         }
 
         if (group.Company) {
-            group.Company = model.company
+            group.Company = model.company;
             tl.debug(`tCompany: ${model.company}`);
         }
     }
@@ -280,7 +279,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
         }
 
         if (group.Product) {
-            group.Product = model.product
+            group.Product = model.product;
             tl.debug(`tProduct: ${model.product}`);
         }
     }
@@ -293,7 +292,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
         }
 
         if (group.Description) {
-            group.Description = model.description
+            group.Description = model.description;
             tl.debug(`tDescription: ${model.description}`);
         }
     }
@@ -306,7 +305,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
         }
 
         if (group.Copyright) {
-            group.Copyright = model.copyright
+            group.Copyright = model.copyright;
             tl.debug(`tCopyright: ${model.copyright}`);
         }
     }
@@ -319,7 +318,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
         }
 
         if (group.PackageLicenseUrl) {
-            group.PackageLicenseUrl = model.licenseUrl
+            group.PackageLicenseUrl = model.licenseUrl;
             tl.debug(`tLicense URL: ${model.licenseUrl}`);
         }
     }
@@ -332,7 +331,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
         }
 
         if (group.PackageProjectUrl) {
-            group.PackageProjectUrl = model.projectUrl
+            group.PackageProjectUrl = model.projectUrl;
             tl.debug(`tProject URL: ${model.projectUrl}`);
         }
     }
@@ -345,7 +344,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
         }
 
         if (group.PackageIconUrl) {
-            group.PackageIconUrl = model.iconUrl
+            group.PackageIconUrl = model.iconUrl;
             tl.debug(`tIcon URL: ${model.iconUrl}`);
         }
     }
@@ -358,7 +357,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
         }
 
         if (group.RepositoryUrl) {
-            group.RepositoryUrl = model.repositoryUrl
+            group.RepositoryUrl = model.repositoryUrl;
             tl.debug(`tRepository URL: ${model.repositoryUrl}`);
         }
     }
@@ -371,7 +370,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
         }
 
         if (group.RepositoryType) {
-            group.RepositoryType = model.repositoryType
+            group.RepositoryType = model.repositoryType;
             tl.debug(`tRepository type: ${model.repositoryType}`);
         }
     }
@@ -384,7 +383,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
         }
 
         if (group.PackageTags) {
-            group.PackageTags = model.tags
+            group.PackageTags = model.tags;
             tl.debug(`tTags: ${model.tags}`);
         }
     }
@@ -397,7 +396,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
         }
 
         if (group.PackageReleaseNotes) {
-            group.PackageReleaseNotes = model.releaseNotes
+            group.PackageReleaseNotes = model.releaseNotes;
             tl.debug(`tRelease notes: ${model.releaseNotes}`);
         }
     }
@@ -410,7 +409,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
         }
 
         if (group.NeutralLanguage) {
-            group.NeutralLanguage = model.culture
+            group.NeutralLanguage = model.culture;
             tl.debug(`tAssembly neutral language: ${model.culture}`);
         }
     }
@@ -423,7 +422,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
         }
 
         if (group.AssemblyVersion) {
-            group.AssemblyVersion = model.version
+            group.AssemblyVersion = model.version;
             tl.debug(`tAssembly Version: ${model.version}`);
         }
     }
@@ -436,7 +435,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
         }
 
         if (group.FileVersion) {
-            group.FileVersion = model.fileVersion
+            group.FileVersion = model.fileVersion;
             tl.debug(`tFile version: ${model.fileVersion}`);
         }
     }
@@ -449,7 +448,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
         }
 
         if (group.InformationalVersion) {
-            group.InformationalVersion = model.informationalVersion
+            group.InformationalVersion = model.informationalVersion;
             tl.debug(`tInformational version: ${model.informationalVersion}`);
         }
     }

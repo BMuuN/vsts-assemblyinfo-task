@@ -13,12 +13,10 @@ TaskId				-->		NetFrameworkTaskId
 
 
 Global
-- AssemblyVersion needs to filer/extract the version number from "TS Extension Test Build_2018.11.6900" and not take the entire string.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+- AssemblyVersion needs to filter/extract the version number from "TS Extension Test Build_2018.11.6900" and not take the entire string.
 - Add NuSpec task with specific inputs for NuSpec files.
-
-
-Breaking Change with "Assembly Version" the input variable has changed name (from "VersionNumber" to "AssemblyVersionNumber") therfore you will need to set this input value as it appears blank in the new version.
-
+- !!! CHECK THE OUTPUT VARIABLES ARE CORRECT !!!
 
 Output Variables
 ----------------------------
@@ -36,7 +34,7 @@ Dates
 Format of Dates have changed.  We're now using the monent js library and the following format should be adhered too:
 https://momentjs.com/docs/#year-month-and-day-tokens
 
-For example, if fthe folliwng format was originally used:
+For example, if the following format was originally used:
 
     "Copyright © $(date:yyyy) $(date:dd.MM.yyyy dd MMMM yyyy HH:mm tt) Example Ltd";
 
@@ -45,8 +43,7 @@ then the new format utalising moment js will need to adhere to the followign str
     "Copyright © $(date:YYYY) $(date:DD.MM.YYYY DD MMMM YYYY HH:mm a) Example Ltd";
 
 
-!!! CHECK THE OUTPUT VARIABLES ARE CORRECT !!!
-
 Test
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 - Implement unit test
 - Run tests on build

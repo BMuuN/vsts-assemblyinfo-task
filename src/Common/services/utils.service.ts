@@ -1,10 +1,10 @@
 import chardet = require('chardet');
 import moment = require('moment');
 
-import models = require('./models');
+import models = require('../models');
 
 export function setCopyright(model: models.AssemblyInfo, regExModel: models.RegEx): void {
-    model.copyright = model.copyright.replace(regExModel.dateNew, function (match: string, g1: any, g2: any): string {
+    model.copyright = model.copyright.replace(regExModel.dateNew, (match: string, g1: any, g2: any): string => {
         return moment().format(g1);
     });
 }
@@ -24,21 +24,22 @@ export function setWildcardVersionNumber(value: string, verBuild: string, verRel
     return value;
 }
 
-export function formatFileNames(fileNames: string[]) : string[] {
-    let targetFiles: string[] = [];
+export function formatFileNames(fileNames: string[]): string[] {
+    const targetFiles: string[] = [];
     fileNames.forEach((x: string) => {
-        if (x)
+        if (x) {
             x.split(',').forEach((y: string) => {
                 if (y) {
                     targetFiles.push(y.trim());
                 }
-            })
+            });
+        }
     });
     return targetFiles;
 }
 
 export function getChardetResult(encoding: chardet.Result): string {
-    
+
     // switch(encoding) {
     //     case '':
     //         return 'utf8';
@@ -67,6 +68,6 @@ export function getChardetResult(encoding: chardet.Result): string {
     if (!encoding) {
         return 'utf8';
     }
-    
+
     return encoding.toString().toLocaleLowerCase();
 }

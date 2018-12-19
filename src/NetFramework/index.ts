@@ -1,26 +1,24 @@
-'use strict';
-
+import chardet = require('chardet');
+import fs = require('fs');
+import iconv = require('iconv-lite');
+import moment = require('moment');
 import path = require('path');
 import tl = require('vsts-task-lib/task');
-import trm = require('vsts-task-lib/toolrunner');
-import fs = require('fs');
-import moment = require('moment');
-import chardet = require('chardet');
-import iconv = require('iconv-lite');
+// import trm = require('vsts-task-lib/toolrunner');
 
-import utils = require('../Common/utils');
 import models = require('../Common/models');
+import utils = require('../Common/services');
 
 async function run() {
     try {
 
-        let regExModel = new models.RegEx();
+        const regExModel = new models.RegEx();
 
-        let model = getDefaultModel();
+        const model = getDefaultModel();
         model.fileNames = utils.formatFileNames(model.fileNames);
 
         // Make sure path to source code directory is available
-        if(!tl.exist(model.path)) {
+        if (!tl.exist(model.path)) {
             tl.setResult(tl.TaskResult.Failed, `Source directory does not exist: ${model.path}`);
             return;
         }
@@ -36,14 +34,14 @@ async function run() {
 
         tl.debug('Task done!');
         tl.setResult(tl.TaskResult.Succeeded, tl.loc('TaskReturnCode'));
-    }
-    catch (err) {
+
+    } catch (err) {
         tl.setResult(tl.TaskResult.Failed, tl.loc('TaskFailed', err.message));
     }
 }
 
-function getDefaultModel() : models.NetFramework {
-    let model: models.NetFramework = {
+function getDefaultModel(): models.NetFramework {
+    const model: models.NetFramework = {
         path: tl.getPathInput('Path', true),
         fileNames: tl.getDelimitedInput('FileNames', '\n', true),
         insertAttributes: tl.getBoolInput('InsertAttributes', true),
@@ -61,21 +59,21 @@ function getDefaultModel() : models.NetFramework {
         fileVersion: tl.getInput('FileVersionNumber', false),
         informationalVersion: tl.getInput('InformationalVersion', false),
         verBuild: '',
-        verRelease: ''
+        verRelease: '',
     };
 
     return model;
 }
 
 function setWildcardVersionNumbers(model: models.NetFramework): void {
-    let start = moment('2000-01-01');
-    let end = moment();
-    var duration = moment.duration(end.diff(start));
-    let verBuild = Math.round(duration.asDays());
+    const start = moment('2000-01-01');
+    const end = moment();
+    let duration = moment.duration(end.diff(start));
+    const verBuild = Math.round(duration.asDays());
 
-    let midnight = moment().startOf('day');
+    const midnight = moment().startOf('day');
     duration = moment.duration(end.diff(midnight));
-    let verRelease = Math.round(duration.asSeconds() / 2);
+    const verRelease = Math.round(duration.asSeconds() / 2);
 
     model.verBuild = verBuild.toString();
     model.verRelease = verRelease.toString();
@@ -105,10 +103,10 @@ function printTaskParameters(model: models.NetFramework): void {
 }
 
 function setManifestData(model: models.NetFramework, regEx: models.RegEx): void {
-    
+
     tl.debug('Setting .Net Framework assembly info...');
 
-    tl.findMatch(model.path, model.fileNames).forEach(file => {
+    tl.findMatch(model.path, model.fileNames).forEach((file: string) => {
 
         tl.debug(`Processing: ${file}`);
 
@@ -125,11 +123,11 @@ function setManifestData(model: models.NetFramework, regEx: models.RegEx): void 
         // encodings is an array of objects sorted by confidence value in decending order
         // e.g. [{ confidence: 90, name: 'UTF-8'}, {confidence: 20, name: 'windows-1252', lang: 'fr'}]
         if (model.fileEncoding === 'auto') {
-            let chardetEncoding = chardet.detectFileSync(file, { sampleSize: 64 });
+            const chardetEncoding = chardet.detectFileSync(file, { sampleSize: 64 });
             model.fileEncoding = utils.getChardetResult(chardetEncoding);
             tl.debug(`Detected character encoding: ${model.fileEncoding}`);
         }
-        
+
         // read file and replace tokens
         let fileContent: string = iconv.decode(fs.readFileSync(file), model.fileEncoding);
 
@@ -149,7 +147,7 @@ function setManifestData(model: models.NetFramework, regEx: models.RegEx): void 
 
         tl.debug(`${file} - Assembly Info Applied`);
 
-        let chardetResult = chardet.detectFileSync(file, { sampleSize: 64 });
+        const chardetResult = chardet.detectFileSync(file, { sampleSize: 64 });
         tl.debug(`Verify character encoding: ${chardetResult}`);
     });
 }
@@ -166,22 +164,21 @@ function processNetFrameworkAttribute(file: string, fileContent: string, attribu
     return fileContent;
 }
 
-
 function insertAttribute(file: string, content: string, name: string, value: string): string {
-    
+
     if (file.endsWith('.vb')) {
 
         // ignores comments and finds correct attribute
-        let res = content.match(new RegExp(`\\<Assembly:\\s*${name}`, 'gi'));
+        const res = content.match(new RegExp(`\\<Assembly:\\s*${name}`, 'gi'));
         if (!res || res.length <= 0) {
             tl.debug(`Adding --> ${name}: ${value}`);
             content += `\r\n<Assembly: ${name}("${value}")\>`;
         }
 
     } else if (file.endsWith('.cs')) {
-        
+
         // ignores comments and finds correct attribute
-        let res = content.match(new RegExp(`\\[assembly:\\s*${name}`, 'gi'));
+        const res = content.match(new RegExp(`\\[assembly:\\s*${name}`, 'gi'));
         if (!res || res.length <= 0) {
             tl.debug(`Adding --> ${name}: ${value}`);
             content += `\r\n[assembly: ${name}("${value}")\]`;
