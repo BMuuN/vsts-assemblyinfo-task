@@ -32,7 +32,6 @@ async function run() {
         tl.setVariable('AssemblyInfo.FileVersion', model.fileVersion, false);
         tl.setVariable('AssemblyInfo.InformationalVersion', model.informationalVersion, false);
 
-        tl.debug('Task done!');
         tl.setResult(tl.TaskResult.Succeeded, tl.loc('TaskReturnCode'));
 
     } catch (err) {
@@ -84,22 +83,23 @@ function setWildcardVersionNumbers(model: models.NetFramework): void {
 }
 
 function printTaskParameters(model: models.NetFramework): void {
-    tl.debug(`Path: ${model.path}`);
-    tl.debug(`File Names: ${model.fileNames}`);
-    tl.debug(`Insert Attributes: ${model.insertAttributes}`);
-    tl.debug(`File Encoding: ${model.fileEncoding}`);
-    tl.debug(`Write BOM: ${model.writeBOM}`),
+    tl.debug(`Source folder: ${model.path}`);
+    tl.debug(`Source files: ${model.fileNames}`);
+    tl.debug(`Insert attributes: ${model.insertAttributes}`);
+    tl.debug(`File encoding: ${model.fileEncoding}`);
+    tl.debug(`Write unicode BOM: ${model.writeBOM}`),
+
     tl.debug(`Title: ${model.title}`);
     tl.debug(`Product: ${model.product}`);
     tl.debug(`Description: ${model.description}`);
     tl.debug(`Company: ${model.company}`);
     tl.debug(`Copyright: ${model.copyright}`);
-    tl.debug(`Trafemark: ${model.trademark}`);
+    tl.debug(`Trademark: ${model.trademark}`);
     tl.debug(`Culture: ${model.culture}`);
     tl.debug(`Configuration: ${model.configuration}`);
-    tl.debug(`Version Number: ${model.version}`);
-    tl.debug(`File Version Number: ${model.fileVersion}`);
-    tl.debug(`Informational Version: ${model.informationalVersion}`);
+    tl.debug(`Assembly version: ${model.version}`);
+    tl.debug(`Assembly file version: ${model.fileVersion}`);
+    tl.debug(`Informational version: ${model.informationalVersion}`);
 }
 
 function setManifestData(model: models.NetFramework, regEx: models.RegEx): void {

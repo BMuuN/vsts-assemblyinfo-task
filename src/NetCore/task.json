@@ -203,7 +203,7 @@
     {
       "name": "RepositoryType",
       "type": "string",
-      "label": "Repository Type",
+      "label": "Repository type",
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "Sets the `RepositoryType` attribute.",

@@ -12,22 +12,34 @@ TaskId				-->		NetFrameworkTaskId
 
 
 
-Global
+TODO
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-- AssemblyVersion needs to filter/extract the version number from "TS Extension Test Build_2018.11.6900" and not take the entire string.
-- Add NuSpec task with specific inputs for NuSpec files.
+- AssemblyVersion & AssemblyFileVersion needs to filter/extract the version number from "TS Extension Test Build_2018.11.6900" and not take the entire string.
 - !!! CHECK THE OUTPUT VARIABLES ARE CORRECT !!!
 
-Output Variables
+- Implement unit test
+- Run tests on build
+- Add NuSpec task with specific inputs for NuSpec files.
+
+
+
+
+
+NOTES
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Additional Output Variables
 ----------------------------
 Previously: 
     Write-Host "Version: $(AssemblyInfo.Version)"
 
 Now:
-    Write-Host "Package Version: $(AssemblyInfo.PackageVersion)"
-    Write-Host "Version: $(AssemblyInfo.AssemblyVersion)"
-    Write-Host "File Version: $(AssemblyInfo.FileVersion)"
-    Write-Host "Informational Version: $(AssemblyInfo.InformationalVersion)"
+    tl.setVariable('AssemblyInfo.Version', model.version, false);
+    tl.setVariable('AssemblyInfo.FileVersion', model.fileVersion, false);
+    tl.setVariable('AssemblyInfo.InformationalVersion', model.informationalVersion, false);
+    tl.setVariable('AssemblyInfo.PackageVersion', model.packageVersion, false);
+
 
 Dates
 ----------------------------
@@ -41,9 +53,3 @@ For example, if the following format was originally used:
 then the new format utalising moment js will need to adhere to the followign structure:
 
     "Copyright © $(date:YYYY) $(date:DD.MM.YYYY DD MMMM YYYY HH:mm a) Example Ltd";
-
-
-Test
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-- Implement unit test
-- Run tests on build

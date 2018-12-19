@@ -31,10 +31,10 @@ async function run() {
         setManifestData(model, regExModel);
 
         // set output variables
-        tl.setVariable('AssemblyInfo.PackageVersion', model.packageVersion, false);
-        tl.setVariable('AssemblyInfo.AssemblyVersion', model.version, false);
+        tl.setVariable('AssemblyInfo.Version', model.version, false);
         tl.setVariable('AssemblyInfo.FileVersion', model.fileVersion, false);
         tl.setVariable('AssemblyInfo.InformationalVersion', model.informationalVersion, false);
+        tl.setVariable('AssemblyInfo.PackageVersion', model.packageVersion, false);
 
         tl.setResult(tl.TaskResult.Succeeded, tl.loc('TaskReturnCode'));
 
@@ -100,11 +100,11 @@ function setWildcardVersionNumbers(model: models.NetCore): void {
 }
 
 function printTaskParameters(model: models.NetCore): void {
-    tl.debug(`Path: ${model.path}`);
-    tl.debug(`File names: ${model.fileNames}`);
-    tl.debug(`Insert missing attributes: ${model.insertAttributes}`);
+    tl.debug(`Source folder: ${model.path}`);
+    tl.debug(`Source files: ${model.fileNames}`);
+    tl.debug(`Insert attributes: ${model.insertAttributes}`);
     tl.debug(`File encoding: ${model.fileEncoding}`);
-    tl.debug(`Write BOM: ${model.writeBOM}`);
+    tl.debug(`Write unicode BOM: ${model.writeBOM}`);
 
     tl.debug(`Generate NuGet package on build: ${model.generatePackageOnBuild}`);
     tl.debug(`Require license acceptance: ${model.requireLicenseAcceptance}`);
@@ -116,16 +116,16 @@ function printTaskParameters(model: models.NetCore): void {
     tl.debug(`Product: ${model.product}`);
     tl.debug(`Description: ${model.description}`);
     tl.debug(`Copyright: ${model.copyright}`);
-    tl.debug(`License URL: ${model.licenseUrl}`);
-    tl.debug(`Project URL: ${model.projectUrl}`);
-    tl.debug(`Icon URL: ${model.iconUrl}`);
-    tl.debug(`Repository URL: ${model.repositoryUrl}`);
+    tl.debug(`License Url: ${model.licenseUrl}`);
+    tl.debug(`Project Url: ${model.projectUrl}`);
+    tl.debug(`Icon Url: ${model.iconUrl}`);
+    tl.debug(`Repository Url: ${model.repositoryUrl}`);
     tl.debug(`Repository type: ${model.repositoryType}`);
     tl.debug(`Tags: ${model.tags}`);
     tl.debug(`Release notes: ${model.releaseNotes}`);
     tl.debug(`Assembly neutral language: ${model.culture}`);
     tl.debug(`Assembly version: ${model.version}`);
-    tl.debug(`File version number: ${model.fileVersion}`);
+    tl.debug(`Assembly file version: ${model.fileVersion}`);
     tl.debug(`Informational version: ${model.informationalVersion}`);
 }
 
