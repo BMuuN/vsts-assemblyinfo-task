@@ -16,12 +16,12 @@ tmr.setInput('samplebool', 'true');
 //     },
 //     exec: {
 //         '/mocked/tools/echo Hello, from task!': {
-//             code: 0,
+//             code: 1,
 //             stdout: 'atool output here',
 //             stderr: 'atool with this stderr output',
 //         },
 //         '/mocked/tools/cmd /c echo Hello, from task!': {
-//             code: 0,
+//             code: 1,
 //             stdout: 'atool output here',
 //             stderr: 'atool with this stderr output',
 //         },

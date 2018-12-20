@@ -16,6 +16,8 @@ TODO
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 - !!! CHECK THE OUTPUT VARIABLES ARE CORRECT !!!
 - !!! CHECK THE FILE ENCODING & BOM ARE SAVING CORRECTLY !!!
+- Update the NPM packages
+- Replace teh old VSTS task with the new Azure DevOps Pipeline task.
 
 - Insert if missing doesn't work 100% : - if the attribute exists but is commented out the attribute is not added.
 
@@ -27,7 +29,7 @@ TODO
 
 
 
-NOTES
+WIKI
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -70,3 +72,81 @@ $(Build.BuildNumber) which is specified as $(Build.DefinitionName)_$(date:yyyy).
 This is already covered: https://github.com/BMuuN/vsts-assemblyinfo-task/wiki/Versioning
 
 would be better to give examples how it's used within the application & show results on DLL
+
+
+Add tasks.json
+----------------------------
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build TypeScript",
+            "command": "tsc",
+            "type": "shell",
+            "args": [
+                "-p",
+                "."
+            ],
+            "presentation": {
+                "reveal": "never"
+            },
+            "problemMatcher": "$tsc"
+        },
+        {
+            "type": "typescript",
+            "tsconfig": "tsconfig.json",
+            "problemMatcher": [
+                "$tsc"
+            ]
+        }
+    ]
+}
+
+
+Add launch.json
+- See here for recipies:  https://github.com/Microsoft/vscode-recipes/tree/master/debugging-mocha-tests
+----------------------------
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Net Framework",
+            "protocol": "inspector",
+            "envFile": "${workspaceFolder}/.env",
+            "args": [ "./src/NetFramework/index.ts" ],
+            "cwd": "${workspaceRoot}",
+            "runtimeArgs": [ "-r", "ts-node/register" ],
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Net Core",
+            "protocol": "inspector",
+            "envFile": "${workspaceFolder}/.env",
+            "args": [ "./src/NetCore/index.ts" ],
+            "cwd": "${workspaceRoot}",
+            "runtimeArgs": [ "-r", "ts-node/register" ],
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Current File",
+            "protocol": "inspector",
+            "envFile": "${workspaceFolder}/.env",
+            "args": [ "${relativeFile}" ],
+            "cwd": "${workspaceRoot}",
+            "runtimeArgs": [ "-r", "ts-node/register" ],
+            "sourceMaps": true,
+            "internalConsoleOptions": "openOnSessionStart"
+        }
+    ]
+}
