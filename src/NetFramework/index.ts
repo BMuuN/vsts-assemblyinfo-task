@@ -128,8 +128,14 @@ function setManifestData(model: models.NetFramework, regEx: models.RegEx): void 
 
         setFileEncoding(file, model);
 
-        // read file and replace tokens
+        if (!iconv.encodingExists(model.fileEncoding)) {
+            tl.error(`${model.fileEncoding} file encoding not supported`);
+            return;
+        }
+
         let fileContent: string = iconv.decode(fs.readFileSync(file), model.fileEncoding);
+
+        fileContent = addUsingIfMissing(file, fileContent);
 
         fileContent = processNetFrameworkAttribute(file, fileContent, 'AssemblyVersion', regEx.word, model.version, model.insertAttributes);
         fileContent = processNetFrameworkAttribute(file, fileContent, 'AssemblyFileVersion', regEx.word, model.fileVersion, model.insertAttributes);
@@ -153,10 +159,8 @@ function setManifestData(model: models.NetFramework, regEx: models.RegEx): void 
 }
 
 function setFileEncoding(file: string, model: models.NetFramework) {
-    // encodings is an array of objects sorted by confidence value in decending order
-    // e.g. [{ confidence: 90, name: 'UTF-8'}, {confidence: 20, name: 'windows-1252', lang: 'fr'}]
     const chardetEncoding = chardet.detectFileSync(file, { sampleSize: 64 });
-    const chardetEncodingValue: string = chardetEncoding && chardetEncoding.toString().toLocaleLowerCase() || 'utf8';
+    const chardetEncodingValue: string = chardetEncoding && chardetEncoding.toString().toLocaleLowerCase() || 'utf-8';
 
     tl.debug(`Detected character encoding: ${chardetEncodingValue}`);
 
@@ -165,6 +169,27 @@ function setFileEncoding(file: string, model: models.NetFramework) {
     } else if (model.fileEncoding !== chardetEncodingValue) {
         tl.debug(`Detected character encoding is different to the one specified.`);
     }
+}
+
+function addUsingIfMissing(file: string, content: string) {
+
+    let usings: string[] = [];
+
+    if (file.endsWith('.vb')) {
+        usings = ['Imports System.Reflection'];
+    } else if (file.endsWith('.cs')) {
+        usings = ['using System.Reflection;', 'using System.Runtime.CompilerServices;'];
+    }
+
+    usings.forEach((value, index, array) => {
+        const res = content.match(new RegExp(`${value}`, 'gi'));
+        if (!res || res.length <= 0) {
+            tl.debug(`Adding --> ${value}`);
+            content = value.concat('\r\n', content);
+        }
+    });
+
+    return content;
 }
 
 function processNetFrameworkAttribute(file: string, fileContent: string, attributeName: string, regex: string, value: string, insertAttributes: boolean): string {
@@ -205,7 +230,7 @@ function insertAttribute(file: string, content: string, name: string, value: str
 
 function replaceAttribute(content: string, name: string, regEx: string, value: string): string {
     tl.debug(`${name}: ${value}`);
-    content = content.replace(new RegExp(`${name}\\s*\\(${regEx}\\)`, 'gi'), `${name}("${value}")`);
+    content = content.replace(new RegExp(`${name}\\s*\\w*\\(${regEx}\\)`, 'gi'), `${name}("${value}")`);
     return content;
 }
 

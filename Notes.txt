@@ -14,11 +14,10 @@ TaskId				-->		NetFrameworkTaskId
 
 TODO
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-- If the word "Attribute" is post fixed on the assembly info attribute then the transform fails
-    e.g. [assembly: AssemblyTitleAttribute("")] will not get rplaces
-
 - !!! CHECK THE OUTPUT VARIABLES ARE CORRECT !!!
 - !!! CHECK THE FILE ENCODING & BOM ARE SAVING CORRECTLY !!!
+
+- Insert if missing doesn't work 100% : - if the attribute exists but is commented out the attribute is not added.
 
 - Implement unit test
 - Run tests on build

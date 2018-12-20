@@ -155,7 +155,11 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
 
         setFileEncoding(file, model);
 
-        // read file and replace tokens
+        if (!iconv.encodingExists(model.fileEncoding)) {
+            tl.error(`${model.fileEncoding} file encoding not supported`);
+            return;
+        }
+
         const fileContent: string = iconv.decode(fs.readFileSync(file), model.fileEncoding);
 
         const parser = new xml2js.Parser();
@@ -197,11 +201,9 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
     });
 }
 
-function setFileEncoding(file: string, model: models.NetFramework) {
-    // encodings is an array of objects sorted by confidence value in decending order
-    // e.g. [{ confidence: 90, name: 'UTF-8'}, {confidence: 20, name: 'windows-1252', lang: 'fr'}]
+function setFileEncoding(file: string, model: models.NetCore) {
     const chardetEncoding = chardet.detectFileSync(file, { sampleSize: 64 });
-    const chardetEncodingValue: string = chardetEncoding && chardetEncoding.toString().toLocaleLowerCase() || 'utf8';
+    const chardetEncodingValue: string = chardetEncoding && chardetEncoding.toString().toLocaleLowerCase() || 'utf-8';
 
     tl.debug(`Detected character encoding: ${chardetEncodingValue}`);
 
