@@ -16,6 +16,7 @@ TODO
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 - AssemblyVersion & AssemblyFileVersion needs to filter/extract the version number from "TS Extension Test Build_2018.11.6900" and not take the entire string.
 - !!! CHECK THE OUTPUT VARIABLES ARE CORRECT !!!
+- !!! CHECK THE FILE ENCODING & BOM ARE SAVING CORRECTLY !!!
 
 - Implement unit test
 - Run tests on build
@@ -32,13 +33,15 @@ NOTES
 Additional Output Variables
 ----------------------------
 Previously: 
-    Write-Host "Version: $(AssemblyInfo.Version)"
+    AssemblyInfo.Version
+    AssemblyInfo.FileVersion
+    AssemblyInfo.InformationalVersion
 
 Now:
-    tl.setVariable('AssemblyInfo.Version', model.version, false);
-    tl.setVariable('AssemblyInfo.FileVersion', model.fileVersion, false);
-    tl.setVariable('AssemblyInfo.InformationalVersion', model.informationalVersion, false);
-    tl.setVariable('AssemblyInfo.PackageVersion', model.packageVersion, false);
+    AssemblyInfo.Version
+    AssemblyInfo.FileVersion
+    AssemblyInfo.InformationalVersion
+    AssemblyInfo.PackageVersion
 
 
 Dates
@@ -53,3 +56,16 @@ For example, if the following format was originally used:
 then the new format utalising moment js will need to adhere to the followign structure:
 
     "Copyright © $(date:YYYY) $(date:DD.MM.YYYY DD MMMM YYYY HH:mm a) Example Ltd";
+
+
+Version Numbers
+----------------------------
+Now supports * wildcards for build & revision Numbers: 2018.11.*.*
+
+List possible ways to specify version numbers:
+1.0.$(Build.BuildId)
+$(Build.BuildNumber) which is specified as $(Build.DefinitionName)_$(date:yyyy).$(date:MM).$(date:dd)$(rev:.r)
+
+This is already covered: https://github.com/BMuuN/vsts-assemblyinfo-task/wiki/Versioning
+
+would be better to give examples how it's used within the application & show results on DLL

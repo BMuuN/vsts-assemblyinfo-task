@@ -38,36 +38,36 @@ export function formatFileNames(fileNames: string[]): string[] {
     return targetFiles;
 }
 
-export function getChardetResult(encoding: chardet.Result): string {
+// export function getChardetResult(encoding: chardet.Result): string {
 
-    // switch(encoding) {
-    //     case '':
-    //         return 'utf8';
-    //     case '':
-    //         return 'utf-8';
-    //     case '':
-    //         return 'ucs2';
-    //     case '':
-    //         return 'ucs-2';
-    //     case '':
-    //         return 'utf16le';
-    //     case '':
-    //         return 'utf-16le';
-    //     case '':
-    //         return 'latin1';
-    //     case '':
-    //         return 'binary';
-    //     case '':
-    //         return 'base64';
-    //     case '':
-    //         return 'ascii';
-    //     case '':
-    //         return 'hex';
-    // }
+//     // switch(encoding) {
+//     //     case '':
+//     //         return 'utf8';
+//     //     case '':
+//     //         return 'utf-8';
+//     //     case '':
+//     //         return 'ucs2';
+//     //     case '':
+//     //         return 'ucs-2';
+//     //     case '':
+//     //         return 'utf16le';
+//     //     case '':
+//     //         return 'utf-16le';
+//     //     case '':
+//     //         return 'latin1';
+//     //     case '':
+//     //         return 'binary';
+//     //     case '':
+//     //         return 'base64';
+//     //     case '':
+//     //         return 'ascii';
+//     //     case '':
+//     //         return 'hex';
+//     // }
 
-    if (!encoding) {
-        return 'utf8';
-    }
+//     if (!encoding) {
+//         return 'utf8';
+//     }
 
-    return encoding.toString().toLocaleLowerCase();
-}
+//     return encoding.toString().toLocaleLowerCase();
+// }

@@ -24,7 +24,7 @@ async function run() {
         }
 
         utils.setCopyright(model, regExModel);
-        setWildcardVersionNumbers(model);
+        generateVersionNumbers(model, regExModel);
         printTaskParameters(model);
         setManifestData(model, regExModel);
 
@@ -64,7 +64,7 @@ function getDefaultModel(): models.NetFramework {
     return model;
 }
 
-function setWildcardVersionNumbers(model: models.NetFramework): void {
+function generateVersionNumbers(model: models.NetFramework, regexModel: models.RegEx): void {
     const start = moment('2000-01-01');
     const end = moment();
     let duration = moment.duration(end.diff(start));
@@ -77,8 +77,14 @@ function setWildcardVersionNumbers(model: models.NetFramework): void {
     model.verBuild = verBuild.toString();
     model.verRelease = verRelease.toString();
 
-    model.version = utils.setWildcardVersionNumber(model.version, model.verBuild, model.verRelease);
-    model.fileVersion = utils.setWildcardVersionNumber(model.fileVersion, model.verBuild, model.verRelease);
+    const version = model.version.match(regexModel.version);
+    const versionValue = version && version[0] || '';
+
+    const fileVersion = model.fileVersion.match(regexModel.version);
+    const fileVersionValue = fileVersion && fileVersion[0] || '';
+
+    model.version = utils.setWildcardVersionNumber(versionValue, model.verBuild, model.verRelease);
+    model.fileVersion = utils.setWildcardVersionNumber(fileVersionValue, model.verBuild, model.verRelease);
     model.informationalVersion = utils.setWildcardVersionNumber(model.informationalVersion, model.verBuild, model.verRelease);
 }
 
@@ -89,7 +95,7 @@ function printTaskParameters(model: models.NetFramework): void {
     tl.debug(`File encoding: ${model.fileEncoding}`);
     tl.debug(`Write unicode BOM: ${model.writeBOM}`),
 
-    tl.debug(`Title: ${model.title}`);
+        tl.debug(`Title: ${model.title}`);
     tl.debug(`Product: ${model.product}`);
     tl.debug(`Description: ${model.description}`);
     tl.debug(`Company: ${model.company}`);
@@ -120,13 +126,7 @@ function setManifestData(model: models.NetFramework, regEx: models.RegEx): void 
             return;
         }
 
-        // encodings is an array of objects sorted by confidence value in decending order
-        // e.g. [{ confidence: 90, name: 'UTF-8'}, {confidence: 20, name: 'windows-1252', lang: 'fr'}]
-        if (model.fileEncoding === 'auto') {
-            const chardetEncoding = chardet.detectFileSync(file, { sampleSize: 64 });
-            model.fileEncoding = utils.getChardetResult(chardetEncoding);
-            tl.debug(`Detected character encoding: ${model.fileEncoding}`);
-        }
+        setFileEncoding(file, model);
 
         // read file and replace tokens
         let fileContent: string = iconv.decode(fs.readFileSync(file), model.fileEncoding);
@@ -150,6 +150,21 @@ function setManifestData(model: models.NetFramework, regEx: models.RegEx): void 
         const chardetResult = chardet.detectFileSync(file, { sampleSize: 64 });
         tl.debug(`Verify character encoding: ${chardetResult}`);
     });
+}
+
+function setFileEncoding(file: string, model: models.NetFramework) {
+    // encodings is an array of objects sorted by confidence value in decending order
+    // e.g. [{ confidence: 90, name: 'UTF-8'}, {confidence: 20, name: 'windows-1252', lang: 'fr'}]
+    const chardetEncoding = chardet.detectFileSync(file, { sampleSize: 64 });
+    const chardetEncodingValue: string = chardetEncoding && chardetEncoding.toString().toLocaleLowerCase() || 'utf8';
+
+    tl.debug(`Detected character encoding: ${chardetEncodingValue}`);
+
+    if (model.fileEncoding === 'auto') {
+        model.fileEncoding = chardetEncodingValue;
+    } else if (model.fileEncoding !== chardetEncodingValue) {
+        tl.debug(`Detected character encoding is different to the one specified.`);
+    }
 }
 
 function processNetFrameworkAttribute(file: string, fileContent: string, attributeName: string, regex: string, value: string, insertAttributes: boolean): string {

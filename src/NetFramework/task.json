@@ -77,7 +77,7 @@
       "name": "WriteBOM",
       "type": "boolean",
       "label": "Write unicode BOM",
-      "defaultValue": "true",
+      "defaultValue": "false",
       "required": true,
       "helpMarkDown": "If checked the task will write a Byte Order Mark (BOM) to the output file.",
       "visibleRule": "FileEncoding != ascii",
