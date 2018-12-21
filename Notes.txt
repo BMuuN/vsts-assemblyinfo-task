@@ -139,6 +139,40 @@ Add launch.json
         {
             "type": "node",
             "request": "launch",
+            "name": "Mocha All",
+            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+            "args": [
+                "-r",
+                "ts-node/register",
+                "--timeout",
+                "999999",
+                "--colors",
+                "${workspaceFolder}/tests"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "protocol": "inspector"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Mocha Current File",
+            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+            "args": [
+                "-r",
+                "ts-node/register",
+                "--timeout",
+                "999999",
+                "--colors",
+                "${file}"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "protocol": "inspector"
+        },
+        {
+            "type": "node",
+            "request": "launch",
             "name": "Launch Current File",
             "protocol": "inspector",
             "envFile": "${workspaceFolder}/.env",
@@ -147,6 +181,6 @@ Add launch.json
             "runtimeArgs": [ "-r", "ts-node/register" ],
             "sourceMaps": true,
             "internalConsoleOptions": "openOnSessionStart"
-        }
+        },
     ]
 }

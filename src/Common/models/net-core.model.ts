@@ -4,7 +4,7 @@ export class NetCore extends AssemblyInfo {
     generatePackageOnBuild: boolean = false;
     requireLicenseAcceptance: boolean = false;
 
-    packageId: string = ''
+    packageId: string = '';
     packageVersion: string = '';
     authors: string = '';
     licenseUrl: string = '';

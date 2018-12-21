@@ -7,11 +7,12 @@
     "test": "test"
   },
   "scripts": {
-    "build": "tsc && npm run gen_notice",
+    "build": "tsc",
     "start": "node dist/src/task/index.js",
     "test": "npm run build && mocha dist/tests/_suite.js",
     "testrunner": "npm run build && TestRunner.sh",
-    "gen_notice": "node generate-third-party-notice.js"
+    "gen_notice": "node generate-third-party-notice.js",
+    "nuke_install": "rm -rf node_modules && npm cache verify && npm install"
   },
   "repository": {
     "type": "git",
@@ -26,17 +27,18 @@
   "dependencies": {
     "@types/chardet": "^0.5.0",
     "@types/xml2js": "^0.4.3",
+    "azure-pipelines-task-lib": "^2.7.7",
     "chardet": "^0.7.0",
     "iconv-lite": "^0.4.24",
-    "moment": "^2.22.2",
-    "vsts-task-lib": "^2.6.0",
+    "moment": "^2.23.0",
     "xml2js": "^0.4.19"
   },
   "devDependencies": {
     "@types/mocha": "^5.2.5",
-    "@types/node": "^10.9.4",
-    "@types/q": "^1.5.0",
-    "ts-node": "^6.2.0",
+    "@types/node": "^10.12.18",
+    "@types/q": "^1.5.1",
+    "mocha": "^5.2.0",
+    "ts-node": "^7.0.1",
     "typescript": "^3.2.2"
   }
 }

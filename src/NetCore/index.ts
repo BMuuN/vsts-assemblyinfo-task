@@ -1,10 +1,10 @@
+import tl = require('azure-pipelines-task-lib/task');
+import trm = require('azure-pipelines-task-lib/toolrunner');
 import chardet = require('chardet');
 import fs = require('fs');
 import iconv = require('iconv-lite');
 import moment = require('moment');
 import path = require('path');
-import tl = require('vsts-task-lib/task');
-// import trm = require('vsts-task-lib/toolrunner');
 import xml2js = require('xml2js');
 
 import models = require('../Common/models');
