@@ -1,5 +1,5 @@
 ![build](https://bmuun.visualstudio.com/_apis/public/build/definitions/86c93e13-9469-4df8-95f0-98c43c760a09/8/badge)
-![version](https://img.shields.io/badge/version-2.0.49-blue.svg?logo=tfs)
+![version](https://img.shields.io/badge/version-2.0.54-blue.svg?logo=tfs)
 ![downloads](https://img.shields.io/badge/downloads-4.4k-brightgreen.svg?logo=tfs)
 ![rating](https://img.shields.io/badge/rating-4.3/5_(20)-brightgreen.svg?logo=tfs)
 
