@@ -69,13 +69,14 @@
     },
     "files": [
         {
-            "path": "Common"
+            "path": "common",
+            "addressable": true
         },
         {
-            "path": "NetFramework"
+            "path": "netframework"
         },
         {
-            "path": "NetCore"
+            "path": "netcore"
         },
         {
             "path": "images",
@@ -84,13 +85,13 @@
     ],
     "contributions": [
         {
-            "id": "Assembly-Info-Task",
+            "id": "Assembly-Info-NetFramework",
             "type": "ms.vss-distributed-task.task",
             "targets": [
                 "ms.vss-distributed-task.tasks"
             ],
             "properties": {
-                "name": "NetFramework"
+                "name": "netframework"
             }
         },
         {
@@ -100,7 +101,7 @@
                 "ms.vss-distributed-task.tasks"
             ],
             "properties": {
-                "name": "NetCore"
+                "name": "netcore"
             }
         }
     ]

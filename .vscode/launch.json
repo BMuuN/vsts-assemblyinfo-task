@@ -10,7 +10,7 @@
             "name": "Launch Net Framework",
             "protocol": "inspector",
             "envFile": "${workspaceFolder}/.env",
-            "args": [ "./src/NetFramework/index.ts" ],
+            "args": [ "./src/netframework/index.ts" ],
             "cwd": "${workspaceRoot}",
             "runtimeArgs": [ "-r", "ts-node/register" ],
             "internalConsoleOptions": "openOnSessionStart"
@@ -21,7 +21,7 @@
             "name": "Launch Net Core",
             "protocol": "inspector",
             "envFile": "${workspaceFolder}/.env",
-            "args": [ "./src/NetCore/index.ts" ],
+            "args": [ "./src/netcore/index.ts" ],
             "cwd": "${workspaceRoot}",
             "runtimeArgs": [ "-r", "ts-node/register" ],
             "internalConsoleOptions": "openOnSessionStart"
