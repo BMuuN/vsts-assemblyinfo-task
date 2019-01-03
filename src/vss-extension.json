@@ -69,10 +69,6 @@
     },
     "files": [
         {
-            "path": "common",
-            "addressable": true
-        },
-        {
             "path": "netframework"
         },
         {

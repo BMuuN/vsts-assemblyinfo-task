@@ -7,8 +7,8 @@ import moment = require('moment');
 import path = require('path');
 import xml2js = require('xml2js');
 
-import models = require('../Common/models');
-import utils = require('../Common/services');
+import models = require('./models');
+import utils = require('./services/utils.service');
 
 async function run() {
 
