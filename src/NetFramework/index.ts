@@ -6,8 +6,8 @@ import iconv = require('iconv-lite');
 import moment = require('moment');
 import path = require('path');
 
-import models = require('../Common/models');
-import utils = require('../Common/services');
+import models = require('./models');
+import utils = require('./services/utils.service');
 
 async function run() {
     try {
