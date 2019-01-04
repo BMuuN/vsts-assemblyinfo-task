@@ -81,7 +81,7 @@
     ],
     "contributions": [
         {
-            "id": "Assembly-Info-NetFramework",
+            "id": "Assembly-Info-Task",
             "type": "ms.vss-distributed-task.task",
             "targets": [
                 "ms.vss-distributed-task.tasks"
