@@ -27,8 +27,7 @@ Values for the following attributes can be set from the extension:
 
 > For more information regarding assembly attributes please see the following [Microsoft Doc](https://docs.microsoft.com/en-us/dotnet/framework/app-domains/set-assembly-attributes)
 
-# How to use the build task
-## Configuration
+## How to use the build task
 1. Create or edit a build definition.
 2. Click **Add build step...** and add the **Assembly Info** task from the Build category.
 3. Move the **Assembly Info** task to the desired position ensuring it precedes the Visual Studio Build task.  
@@ -46,12 +45,15 @@ Values for the following attributes can be set from the extension:
 
   ![Assembly Info Set](images/Assembly_Manifest_Data.png)
 
-# Help and Support
-Please visit our [wiki](https://github.com/BMuuN/vsts-assemblyinfo-task/wiki) for articles describing how to configure the task parameters, including the various version formats supported by the extension.
+## Help and Support
+For detailed instructions on how to configure the extension please see the [wiki](https://github.com/BMuuN/vsts-assemblyinfo-task/wiki).
 
-# Contributions
+### Upgrade to Version 2
+With the release of version 2 the extension has been re-written from the ground up using Node JS and includes a number of breaking changes.  Please see the [wiki](https://github.com/BMuuN/vsts-assemblyinfo-task/wiki/Upgrade-v1-to-v2) for details on the upgrade.
+
+## Contributions
 We welcome all contributions whether it's logging bugs, creating suggestions or submitting pull requests.  
 If you wish to contributions to this project head on over to our [GitHub](https://github.com/BMuuN/vsts-assemblyinfo-task) page.
 
-## Release Notes
+### Release Notes
 See the [release notes](https://github.com/BMuuN/vsts-assemblyinfo-task/blob/master/ReleaseNotes.md) for all changes included in each release.

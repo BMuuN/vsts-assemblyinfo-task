@@ -36,6 +36,7 @@ async function run() {
         tl.setVariable('AssemblyInfo.InformationalVersion', model.informationalVersion, false);
         tl.setVariable('AssemblyInfo.PackageVersion', model.packageVersion, false);
 
+        console.log('Complete.');
         tl.setResult(tl.TaskResult.Succeeded, 'Complete');
 
     } catch (err) {
@@ -109,7 +110,7 @@ function generateVersionNumbers(model: models.NetCore, regexModel: models.RegEx)
 
 function printTaskParameters(model: models.NetCore): void {
 
-    console.log('Task Parameters:');
+    console.log('Task Parameters...');
     console.log(`\tSource folder: ${model.path}`);
     console.log(`\tSource files: ${model.fileNames}`);
     console.log(`\tInsert attributes: ${model.insertAttributes}`);
@@ -198,8 +199,7 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
 
             const encodingResult = getFileEncoding(file);
             console.log(`\tVerify character encoding: ${encodingResult}`);
-
-            console.log(`${file} - Assembly Info Applied`);
+            console.log('');
         });
     });
 }

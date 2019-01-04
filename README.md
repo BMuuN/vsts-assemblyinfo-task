@@ -14,8 +14,15 @@ For detailed instructions on how to configure the extension please see the [wiki
 The Visual Studio Marketplace listing can be found here:  
 [https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task)
 
+# Help and Support
+For detailed instructions on how to configure the extension please see the [wiki](https://github.com/BMuuN/vsts-assemblyinfo-task/wiki).
+
 ## Upgrade to Version 2
 With the release of version 2 the extension has been re-written from the ground up using Node JS and includes a number of breaking changes.  Please see the [wiki](https://github.com/BMuuN/vsts-assemblyinfo-task/wiki/Upgrade-v1-to-v2) for details on the upgrade.
+
+# Contributions
+We welcome all contributions whether it's logging bugs, creating suggestions or submitting pull requests.  
+If you wish to contributions to this project head on over to our [GitHub](https://github.com/BMuuN/vsts-assemblyinfo-task) page.
 
 ## Release Notes
 See the [release notes](ReleaseNotes.md) for all changes included in each release.
