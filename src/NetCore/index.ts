@@ -36,9 +36,11 @@ async function run() {
         tl.setVariable('AssemblyInfo.InformationalVersion', model.informationalVersion, false);
         tl.setVariable('AssemblyInfo.PackageVersion', model.packageVersion, false);
 
-        tl.setResult(tl.TaskResult.Succeeded, tl.loc('TaskReturnCode'));
+        tl.setResult(tl.TaskResult.Succeeded, 'Complete');
 
     } catch (err) {
+        tl.debug(err.message);
+        // tl._writeError(err);
         tl.setResult(tl.TaskResult.Failed, tl.loc('TaskFailed', err.message));
     }
 }
@@ -106,33 +108,36 @@ function generateVersionNumbers(model: models.NetCore, regexModel: models.RegEx)
 }
 
 function printTaskParameters(model: models.NetCore): void {
-    console.log(`Source folder: ${model.path}`);
-    console.log(`Source files: ${model.fileNames}`);
-    console.log(`Insert attributes: ${model.insertAttributes}`);
-    console.log(`File encoding: ${model.fileEncoding}`);
-    console.log(`Write unicode BOM: ${model.writeBOM}`);
 
-    console.log(`Generate NuGet package on build: ${model.generatePackageOnBuild}`);
-    console.log(`Require license acceptance: ${model.requireLicenseAcceptance}`);
+    console.log('Task Parameters:');
+    console.log(`\tSource folder: ${model.path}`);
+    console.log(`\tSource files: ${model.fileNames}`);
+    console.log(`\tInsert attributes: ${model.insertAttributes}`);
+    console.log(`\tFile encoding: ${model.fileEncoding}`);
+    console.log(`\tWrite unicode BOM: ${model.writeBOM}`);
 
-    console.log(`Package id: ${model.packageId}`);
-    console.log(`Package version: ${model.packageVersion}`);
-    console.log(`Authors: ${model.authors}`);
-    console.log(`Company: ${model.company}`);
-    console.log(`Product: ${model.product}`);
-    console.log(`Description: ${model.description}`);
-    console.log(`Copyright: ${model.copyright}`);
-    console.log(`License Url: ${model.licenseUrl}`);
-    console.log(`Project Url: ${model.projectUrl}`);
-    console.log(`Icon Url: ${model.iconUrl}`);
-    console.log(`Repository Url: ${model.repositoryUrl}`);
-    console.log(`Repository type: ${model.repositoryType}`);
-    console.log(`Tags: ${model.tags}`);
-    console.log(`Release notes: ${model.releaseNotes}`);
-    console.log(`Assembly neutral language: ${model.culture}`);
-    console.log(`Assembly version: ${model.version}`);
-    console.log(`Assembly file version: ${model.fileVersion}`);
-    console.log(`Informational version: ${model.informationalVersion}`);
+    console.log(`\tGenerate NuGet package on build: ${model.generatePackageOnBuild}`);
+    console.log(`\tRequire license acceptance: ${model.requireLicenseAcceptance}`);
+
+    console.log(`\tPackage id: ${model.packageId}`);
+    console.log(`\tPackage version: ${model.packageVersion}`);
+    console.log(`\tAuthors: ${model.authors}`);
+    console.log(`\tCompany: ${model.company}`);
+    console.log(`\tProduct: ${model.product}`);
+    console.log(`\tDescription: ${model.description}`);
+    console.log(`\tCopyright: ${model.copyright}`);
+    console.log(`\tLicense Url: ${model.licenseUrl}`);
+    console.log(`\tProject Url: ${model.projectUrl}`);
+    console.log(`\tIcon Url: ${model.iconUrl}`);
+    console.log(`\tRepository Url: ${model.repositoryUrl}`);
+    console.log(`\tRepository type: ${model.repositoryType}`);
+    console.log(`\tTags: ${model.tags}`);
+    console.log(`\tRelease notes: ${model.releaseNotes}`);
+    console.log(`\tAssembly neutral language: ${model.culture}`);
+    console.log(`\tAssembly version: ${model.version}`);
+    console.log(`\tAssembly file version: ${model.fileVersion}`);
+    console.log(`\tInformational version: ${model.informationalVersion}`);
+    console.log('');
 }
 
 function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
@@ -144,7 +149,7 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
         console.log(`Processing: ${file}`);
 
         if (path.extname(file) !== '.csproj') {
-            console.log(`File is not .csproj`);
+            console.log('\tFile is not .csproj');
             return;
         }
 
@@ -191,24 +196,27 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
 
             fs.writeFileSync(file, iconv.encode(xml, model.fileEncoding, { addBOM: model.writeBOM, stripBOM: undefined, defaultEncoding: undefined }));
 
-            console.log(`${file} - Assembly Info Applied`);
+            const encodingResult = getFileEncoding(file);
+            console.log(`\tVerify character encoding: ${encodingResult}`);
 
-            const chardetResult = chardet.detectFileSync(file, { sampleSize: 64 });
-            console.log(`Verify character encoding: ${chardetResult}`);
+            console.log(`${file} - Assembly Info Applied`);
         });
     });
 }
 
-function setFileEncoding(file: string, model: models.NetCore) {
-    const chardetEncoding = chardet.detectFileSync(file, { sampleSize: 64 });
-    const chardetEncodingValue: string = chardetEncoding && chardetEncoding.toString().toLocaleLowerCase() || 'utf-8';
+function getFileEncoding(file: string) {
+    const encoding = chardet.detectFileSync(file, { sampleSize: 64 });
+    return encoding && encoding.toString().toLocaleLowerCase() || 'utf-8';
+}
 
-    console.log(`Detected character encoding: ${chardetEncodingValue}`);
+function setFileEncoding(file: string, model: models.NetCore) {
+    const encoding = getFileEncoding(file);
+    console.log(`\tDetected character encoding: ${encoding}`);
 
     if (model.fileEncoding === 'auto') {
-        model.fileEncoding = chardetEncodingValue;
-    } else if (model.fileEncoding !== chardetEncodingValue) {
-        console.log(`Detected character encoding is different to the one specified.`);
+        model.fileEncoding = encoding;
+    } else if (model.fileEncoding !== encoding) {
+        console.log(`\tDetected character encoding is different to the one specified.`);
     }
 }
 
@@ -221,7 +229,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
 
     if (group.GeneratePackageOnBuild) {
         group.GeneratePackageOnBuild = model.generatePackageOnBuild;
-        console.log(`tGenerate package on build: ${model.generatePackageOnBuild}`);
+        console.log(`\tGeneratePackageOnBuild --> ${model.generatePackageOnBuild}`);
     }
 
     // Package Require License Acceptance
@@ -231,7 +239,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
 
     if (group.PackageRequireLicenseAcceptance) {
         group.PackageRequireLicenseAcceptance = model.requireLicenseAcceptance;
-        console.log(`tPackage require license acceptance: ${model.requireLicenseAcceptance}`);
+        console.log(`\tPackageRequireLicenseAcceptance --> ${model.requireLicenseAcceptance}`);
     }
 
     // Package Id
@@ -243,7 +251,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
 
         if (group.PackageId) {
             group.PackageId = model.packageId;
-            console.log(`tPackage id: ${model.packageId}`);
+            console.log(`\tPackageId --> ${model.packageId}`);
         }
     }
 
@@ -256,7 +264,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
 
         if (group.Version) {
             group.Version = model.packageVersion;
-            console.log(`tPackage version: ${model.packageVersion}`);
+            console.log(`\tVersion --> ${model.packageVersion}`);
         }
     }
 
@@ -269,7 +277,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
 
         if (group.Authors) {
             group.Authors = model.authors;
-            console.log(`tAuthors: ${model.authors}`);
+            console.log(`\tAuthors --> ${model.authors}`);
         }
     }
 
@@ -282,7 +290,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
 
         if (group.Company) {
             group.Company = model.company;
-            console.log(`tCompany: ${model.company}`);
+            console.log(`\tCompany --> ${model.company}`);
         }
     }
 
@@ -295,7 +303,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
 
         if (group.Product) {
             group.Product = model.product;
-            console.log(`tProduct: ${model.product}`);
+            console.log(`\tProduct --> ${model.product}`);
         }
     }
 
@@ -308,7 +316,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
 
         if (group.Description) {
             group.Description = model.description;
-            console.log(`tDescription: ${model.description}`);
+            console.log(`\tDescription --> ${model.description}`);
         }
     }
 
@@ -321,7 +329,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
 
         if (group.Copyright) {
             group.Copyright = model.copyright;
-            console.log(`tCopyright: ${model.copyright}`);
+            console.log(`\tCopyright --> ${model.copyright}`);
         }
     }
 
@@ -334,7 +342,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
 
         if (group.PackageLicenseUrl) {
             group.PackageLicenseUrl = model.licenseUrl;
-            console.log(`tLicense URL: ${model.licenseUrl}`);
+            console.log(`\tPackageLicenseUrl --> ${model.licenseUrl}`);
         }
     }
 
@@ -347,7 +355,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
 
         if (group.PackageProjectUrl) {
             group.PackageProjectUrl = model.projectUrl;
-            console.log(`tProject URL: ${model.projectUrl}`);
+            console.log(`\tPackageProjectUrl --> ${model.projectUrl}`);
         }
     }
 
@@ -360,7 +368,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
 
         if (group.PackageIconUrl) {
             group.PackageIconUrl = model.iconUrl;
-            console.log(`tIcon URL: ${model.iconUrl}`);
+            console.log(`\tPackageIconUrl --> ${model.iconUrl}`);
         }
     }
 
@@ -373,7 +381,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
 
         if (group.RepositoryUrl) {
             group.RepositoryUrl = model.repositoryUrl;
-            console.log(`tRepository URL: ${model.repositoryUrl}`);
+            console.log(`\tRepositoryUrl --> ${model.repositoryUrl}`);
         }
     }
 
@@ -386,7 +394,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
 
         if (group.RepositoryType) {
             group.RepositoryType = model.repositoryType;
-            console.log(`tRepository type: ${model.repositoryType}`);
+            console.log(`\tRepositoryType --> ${model.repositoryType}`);
         }
     }
 
@@ -399,7 +407,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
 
         if (group.PackageTags) {
             group.PackageTags = model.tags;
-            console.log(`tTags: ${model.tags}`);
+            console.log(`\tPackageTags --> ${model.tags}`);
         }
     }
 
@@ -412,7 +420,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
 
         if (group.PackageReleaseNotes) {
             group.PackageReleaseNotes = model.releaseNotes;
-            console.log(`tRelease notes: ${model.releaseNotes}`);
+            console.log(`\tPackageReleaseNotes --> ${model.releaseNotes}`);
         }
     }
 
@@ -425,7 +433,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
 
         if (group.NeutralLanguage) {
             group.NeutralLanguage = model.culture;
-            console.log(`tAssembly neutral language: ${model.culture}`);
+            console.log(`\tNeutralLanguage --> ${model.culture}`);
         }
     }
 
@@ -438,7 +446,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
 
         if (group.AssemblyVersion) {
             group.AssemblyVersion = model.version;
-            console.log(`tAssembly Version: ${model.version}`);
+            console.log(`\tAssemblyVersion --> ${model.version}`);
         }
     }
 
@@ -451,7 +459,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
 
         if (group.FileVersion) {
             group.FileVersion = model.fileVersion;
-            console.log(`tFile version: ${model.fileVersion}`);
+            console.log(`\tFileVersion --> ${model.fileVersion}`);
         }
     }
 
@@ -464,7 +472,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
 
         if (group.InformationalVersion) {
             group.InformationalVersion = model.informationalVersion;
-            console.log(`tInformational version: ${model.informationalVersion}`);
+            console.log(`\tInformationalVersion --> ${model.informationalVersion}`);
         }
     }
 }

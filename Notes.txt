@@ -22,6 +22,12 @@ TODO
 - Run tests on build
 - Add NuSpec task with specific inputs for NuSpec files.
 
+- Localisation:
+    - Add "tasks.loc.json"
+    - Add "Strings/resources.resjson/en-US/resources.resjson"
+    - See https://github.com/Microsoft/azure-pipelines-tasks/tree/1d75fa8f66aa1cf7a9cb62946939f30f087b2969/Tasks/ExtractFilesV1
+
+
 Release Check List
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 - Check the output variables are correct

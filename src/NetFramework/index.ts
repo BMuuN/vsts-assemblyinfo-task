@@ -32,9 +32,11 @@ async function run() {
         tl.setVariable('AssemblyInfo.FileVersion', model.fileVersion, false);
         tl.setVariable('AssemblyInfo.InformationalVersion', model.informationalVersion, false);
 
-        tl.setResult(tl.TaskResult.Succeeded, tl.loc('TaskReturnCode'));
+        tl.setResult(tl.TaskResult.Succeeded, 'Complete');
 
     } catch (err) {
+        tl.debug(err.message);
+        // tl._writeError(err);
         tl.setResult(tl.TaskResult.Failed, tl.loc('TaskFailed', err.message));
     }
 }
@@ -89,23 +91,26 @@ function generateVersionNumbers(model: models.NetFramework, regexModel: models.R
 }
 
 function printTaskParameters(model: models.NetFramework): void {
-    console.log(`Source folder: ${model.path}`);
-    console.log(`Source files: ${model.fileNames}`);
-    console.log(`Insert attributes: ${model.insertAttributes}`);
-    console.log(`File encoding: ${model.fileEncoding}`);
-    console.log(`Write unicode BOM: ${model.writeBOM}`),
 
-    console.log(`Title: ${model.title}`);
-    console.log(`Product: ${model.product}`);
-    console.log(`Description: ${model.description}`);
-    console.log(`Company: ${model.company}`);
-    console.log(`Copyright: ${model.copyright}`);
-    console.log(`Trademark: ${model.trademark}`);
-    console.log(`Culture: ${model.culture}`);
-    console.log(`Configuration: ${model.configuration}`);
-    console.log(`Assembly version: ${model.version}`);
-    console.log(`Assembly file version: ${model.fileVersion}`);
-    console.log(`Informational version: ${model.informationalVersion}`);
+    console.log('Task Parameters:');
+    console.log(`\tSource folder: ${model.path}`);
+    console.log(`\tSource files: ${model.fileNames}`);
+    console.log(`\tInsert attributes: ${model.insertAttributes}`);
+    console.log(`\tFile encoding: ${model.fileEncoding}`);
+    console.log(`\tWrite unicode BOM: ${model.writeBOM}`),
+
+    console.log(`\tTitle: ${model.title}`);
+    console.log(`\tProduct: ${model.product}`);
+    console.log(`\tDescription: ${model.description}`);
+    console.log(`\tCompany: ${model.company}`);
+    console.log(`\tCopyright: ${model.copyright}`);
+    console.log(`\tTrademark: ${model.trademark}`);
+    console.log(`\tCulture: ${model.culture}`);
+    console.log(`\tConfiguration: ${model.configuration}`);
+    console.log(`\tAssembly version: ${model.version}`);
+    console.log(`\tAssembly file version: ${model.fileVersion}`);
+    console.log(`\tInformational version: ${model.informationalVersion}`);
+    console.log('');
 }
 
 function setManifestData(model: models.NetFramework, regEx: models.RegEx): void {
@@ -117,7 +122,7 @@ function setManifestData(model: models.NetFramework, regEx: models.RegEx): void 
         console.log(`Processing: ${file}`);
 
         if (path.extname(file) !== '.vb' && path.extname(file) !== '.cs') {
-            console.log(`File is not .vb or .cs`);
+            console.log(`\tFile is not .vb or .cs`);
             return;
         }
 
@@ -151,23 +156,26 @@ function setManifestData(model: models.NetFramework, regEx: models.RegEx): void 
 
         fs.writeFileSync(file, iconv.encode(fileContent, model.fileEncoding, { addBOM: model.writeBOM, stripBOM: undefined, defaultEncoding: undefined }));
 
-        console.log(`${file} - Assembly Info Applied`);
+        const encodingResult = getFileEncoding(file);
+        console.log(`\tVerify character encoding: ${encodingResult}`);
 
-        const chardetResult = chardet.detectFileSync(file, { sampleSize: 64 });
-        console.log(`Verify character encoding: ${chardetResult}`);
+        console.log(`${file} - Assembly Info Applied`);
     });
 }
 
-function setFileEncoding(file: string, model: models.NetFramework) {
-    const chardetEncoding = chardet.detectFileSync(file, { sampleSize: 64 });
-    const chardetEncodingValue: string = chardetEncoding && chardetEncoding.toString().toLocaleLowerCase() || 'utf-8';
+function getFileEncoding(file: string) {
+    const encoding = chardet.detectFileSync(file, { sampleSize: 64 });
+    return encoding && encoding.toString().toLocaleLowerCase() || 'utf-8';
+}
 
-    console.log(`Detected character encoding: ${chardetEncodingValue}`);
+function setFileEncoding(file: string, model: models.NetFramework) {
+    const encoding = getFileEncoding(file);
+    console.log(`\tDetected character encoding: ${encoding}`);
 
     if (model.fileEncoding === 'auto') {
-        model.fileEncoding = chardetEncodingValue;
-    } else if (model.fileEncoding !== chardetEncodingValue) {
-        console.log(`Detected character encoding is different to the one specified.`);
+        model.fileEncoding = encoding;
+    } else if (model.fileEncoding !== encoding) {
+        console.log(`\tDetected character encoding is different to the one specified.`);
     }
 }
 
@@ -184,7 +192,7 @@ function addUsingIfMissing(file: string, content: string) {
     usings.forEach((value, index, array) => {
         const res = content.match(new RegExp(`${value}`, 'gi'));
         if (!res || res.length <= 0) {
-            console.log(`Adding --> ${value}`);
+            console.log(`\tAdding --> ${value}`);
             content = value.concat('\r\n', content);
         }
     });
@@ -211,7 +219,7 @@ function insertAttribute(file: string, content: string, name: string, value: str
         // ignores comments and finds correct attribute
         const res = content.match(new RegExp(`\\<Assembly:\\s*${name}`, 'gi'));
         if (!res || res.length <= 0) {
-            console.log(`Adding --> ${name}: ${value}`);
+            console.log(`\tAdding ${name} --> ${value}`);
             content += `\r\n<Assembly: ${name}("${value}")\>`;
         }
 
@@ -220,7 +228,7 @@ function insertAttribute(file: string, content: string, name: string, value: str
         // ignores comments and finds correct attribute
         const res = content.match(new RegExp(`\\[assembly:\\s*${name}`, 'gi'));
         if (!res || res.length <= 0) {
-            console.log(`Adding --> ${name}: ${value}`);
+            console.log(`\tAdding ${name} --> ${value}`);
             content += `\r\n[assembly: ${name}("${value}")\]`;
         }
     }
@@ -229,7 +237,7 @@ function insertAttribute(file: string, content: string, name: string, value: str
 }
 
 function replaceAttribute(content: string, name: string, regEx: string, value: string): string {
-    console.log(`${name}: ${value}`);
+    console.log(`\t${name} --> ${value}`);
     content = content.replace(new RegExp(`${name}\\s*\\w*\\(${regEx}\\)`, 'gi'), `${name}("${value}")`);
     return content;
 }
