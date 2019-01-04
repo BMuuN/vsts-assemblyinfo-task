@@ -1,5 +1,5 @@
 # Release Notes
-> **v2.0.54**
+> **v2.0.0**
 > - Rewrittein in Node JS.
 > - Moved .Net Core to it's own extension.
 > - Added support for file encoding (read and save).
