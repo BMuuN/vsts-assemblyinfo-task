@@ -14,7 +14,6 @@ TaskId				-->		NetFrameworkTaskId
 
 TODO
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-- !!! CHECK THE OUTPUT VARIABLES ARE CORRECT !!!
 - !!! CHECK THE FILE ENCODING & BOM ARE SAVING CORRECTLY !!!
 
 - Insert if missing doesn't work 100% : - if the attribute exists but is commented out the attribute is not added.
@@ -22,3 +21,8 @@ TODO
 - Implement unit test
 - Run tests on build
 - Add NuSpec task with specific inputs for NuSpec files.
+
+Release Check List
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+- Check the output variables are correct
+- Check the file encoding & BOM are saving correctly

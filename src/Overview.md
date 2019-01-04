@@ -1,8 +1,8 @@
 # Assembly Info
-Assembly Info is an extension for Team Services that sets assembly information from a build.
+Assembly Info is an extension for Azure DevOps that populates the assembly information metadata from a build pipeline.
 
 ## Details
-The extension will recursively search the specified **Source Folder** for all files listed in the **Source Files** field and set the assembly data. This will result in assembly files containing common company or product information.
+The extension will search the specified **Source Folder** for all files listed in the **Source Files** field and set the assembly data. This will result in assembly files containing common company or product information.
 
 Values for the following attributes can be set from the extension:  
 
@@ -20,16 +20,15 @@ Values for the following attributes can be set from the extension:
 | File Version Number | AssemblyFileVersion | Provides a file version for the application. |
 | Informational Version | AssemblyInformationalVersion | Provides a text version for the application. |
 
-### Considerations
+## Considerations
 - If no value is specified for a field that field will be ignored and the default value in the *AssemblyInfo.\** source file will be used.
-- The task will recursively search the **Source Folder** for all files listed in the **Source Files** field.
 - The task will only update files listed in the **Source Files** field.
-- The task can update project *AssemblyInfo* files and .Net Core project files *.csproj*.
+- The task can update project *AssemblyInfo* files and .Net Core / .Net Standard project files *.csproj*.
 
 > For more information regarding assembly attributes please see the following [Microsoft Doc](https://docs.microsoft.com/en-us/dotnet/framework/app-domains/set-assembly-attributes)
 
-## How to use the build task
-### Configuration
+# How to use the build task
+## Configuration
 1. Create or edit a build definition.
 2. Click **Add build step...** and add the **Assembly Info** task from the Build category.
 3. Move the **Assembly Info** task to the desired position ensuring it precedes the Visual Studio Build task.  
@@ -47,12 +46,12 @@ Values for the following attributes can be set from the extension:
 
   ![Assembly Info Set](images/Assembly_Manifest_Data.png)
 
-### Help and Support
+# Help and Support
 Please visit our [wiki](https://github.com/BMuuN/vsts-assemblyinfo-task/wiki) for articles describing how to configure the task parameters, including the various version formats supported by the extension.
 
-## Contributions
+# Contributions
 We welcome all contributions whether it's logging bugs, creating suggestions or submitting pull requests.  
 If you wish to contributions to this project head on over to our [GitHub](https://github.com/BMuuN/vsts-assemblyinfo-task) page.
 
-### Release Notes
+## Release Notes
 See the [release notes](https://github.com/BMuuN/vsts-assemblyinfo-task/blob/master/ReleaseNotes.md) for all changes included in each release.
