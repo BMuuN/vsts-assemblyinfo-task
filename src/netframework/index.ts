@@ -32,6 +32,7 @@ async function run() {
         tl.setVariable('AssemblyInfo.FileVersion', model.fileVersion, false);
         tl.setVariable('AssemblyInfo.InformationalVersion', model.informationalVersion, false);
 
+        console.log('Complete.');
         tl.setResult(tl.TaskResult.Succeeded, 'Complete');
 
     } catch (err) {
@@ -92,7 +93,7 @@ function generateVersionNumbers(model: models.NetFramework, regexModel: models.R
 
 function printTaskParameters(model: models.NetFramework): void {
 
-    console.log('Task Parameters:');
+    console.log('Task Parameters...');
     console.log(`\tSource folder: ${model.path}`);
     console.log(`\tSource files: ${model.fileNames}`);
     console.log(`\tInsert attributes: ${model.insertAttributes}`);
@@ -158,8 +159,7 @@ function setManifestData(model: models.NetFramework, regEx: models.RegEx): void 
 
         const encodingResult = getFileEncoding(file);
         console.log(`\tVerify character encoding: ${encodingResult}`);
-
-        console.log(`${file} - Assembly Info Applied`);
+        console.log('');
     });
 }
 

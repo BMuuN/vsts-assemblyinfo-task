@@ -41,9 +41,6 @@
         },
         "support": { 
             "uri": "https://github.com/BMuuN/vsts-assemblyinfo-task/issues"
-        },
-        "license": {
-            "uri": "https://github.com/BMuuN/vsts-assemblyinfo-task/blob/master/LICENSE"
         }
     },
     "repository": {
