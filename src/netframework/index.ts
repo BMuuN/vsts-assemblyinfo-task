@@ -219,7 +219,7 @@ function insertAttribute(file: string, content: string, name: string, value: str
         // ignores comments and finds correct attribute
         const res = content.match(new RegExp(`\\<Assembly:\\s*${name}`, 'gi'));
         if (!res || res.length <= 0) {
-            console.log(`\tAdding ${name} --> ${value}`);
+            console.log(`\tAdding --> ${name}`);
             content += `\r\n<Assembly: ${name}("${value}")\>`;
         }
 
@@ -228,7 +228,7 @@ function insertAttribute(file: string, content: string, name: string, value: str
         // ignores comments and finds correct attribute
         const res = content.match(new RegExp(`\\[assembly:\\s*${name}`, 'gi'));
         if (!res || res.length <= 0) {
-            console.log(`\tAdding ${name} --> ${value}`);
+            console.log(`\tAdding --> ${name}`);
             content += `\r\n[assembly: ${name}("${value}")\]`;
         }
     }
