@@ -32,7 +32,10 @@
     ],
     "screenshots": [
         {
-            "path": "images/Task_List.png"
+            "path": "images/Task_List_Net_Core.png"
+        },
+        {
+            "path": "images/Task_List_Net_Framework.png"
         }
     ],
     "links": {
