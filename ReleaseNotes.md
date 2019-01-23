@@ -4,11 +4,13 @@
 > - Moved .Net Core to it's own extension.
 > - Added support for file encoding (read and save).
 > - Added wildcard file searching.
+> - Added missing `using` statements.  
+> Thanks to [SeriousM](https://github.com/SeriousM)
 
 > **v1.1.36**
-> - Added wilcard version number support
+> - Added wilcard version number support.  
 > Thanks to [andyste1](https://github.com/andyste1)
-> - Added flag to insert missing attributes.
+> - Added flag to insert missing attributes.  
 > Thanks to [pbelousov](https://github.com/pbelousov)
 
 > **v1.0.30**
