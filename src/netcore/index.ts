@@ -42,7 +42,8 @@ async function run() {
     } catch (err) {
         tl.debug(err.message);
         // tl._writeError(err);
-        tl.setResult(tl.TaskResult.Failed, tl.loc('TaskFailed', err.message));
+        // tl.setResult(tl.TaskResult.Failed, tl.loc('TaskFailed', err.message));
+        tl.setResult(tl.TaskResult.Failed, `Task failed with error: ${err.message}`);
     }
 }
 
@@ -57,24 +58,24 @@ function getDefaultModel(): models.NetCore {
         generatePackageOnBuild: tl.getBoolInput('GeneratePackageOnBuild', true),
         requireLicenseAcceptance: tl.getBoolInput('PackageRequireLicenseAcceptance', true),
 
-        packageId: tl.getInput('PackageId', false),
-        packageVersion: tl.getInput('PackageVersion', false),
-        authors: tl.getInput('Authors', false),
-        company: tl.getInput('Company', false),
-        product: tl.getInput('Product', false),
-        description: tl.getInput('Description', false),
-        copyright: tl.getInput('Copyright', false),
-        licenseUrl: tl.getInput('PackageLicenseUrl', false),
-        projectUrl: tl.getInput('PackageProjectUrl', false),
-        iconUrl: tl.getInput('PackageIconUrl', false),
-        repositoryUrl: tl.getInput('RepositoryUrl', false),
-        repositoryType: tl.getInput('RepositoryType', false),
-        tags: tl.getInput('PackageTags', false),
-        releaseNotes: tl.getInput('PackageReleaseNotes', false),
-        culture: tl.getInput('Culture', false),
-        version: tl.getInput('VersionNumber', false),
-        fileVersion: tl.getInput('FileVersionNumber', false),
-        informationalVersion: tl.getInput('InformationalVersion', false),
+        packageId: tl.getInput('PackageId', false) || '',
+        packageVersion: tl.getInput('PackageVersion', false) || '',
+        authors: tl.getInput('Authors', false) || '',
+        company: tl.getInput('Company', false) || '',
+        product: tl.getInput('Product', false) || '',
+        description: tl.getInput('Description', false) || '',
+        copyright: tl.getInput('Copyright', false) || '',
+        licenseUrl: tl.getInput('PackageLicenseUrl', false) || '',
+        projectUrl: tl.getInput('PackageProjectUrl', false) || '',
+        iconUrl: tl.getInput('PackageIconUrl', false) || '',
+        repositoryUrl: tl.getInput('RepositoryUrl', false) || '',
+        repositoryType: tl.getInput('RepositoryType', false) || '',
+        tags: tl.getInput('PackageTags', false) || '',
+        releaseNotes: tl.getInput('PackageReleaseNotes', false) || '',
+        culture: tl.getInput('Culture', false) || '',
+        version: tl.getInput('VersionNumber', false) || '',
+        fileVersion: tl.getInput('FileVersionNumber', false) || '',
+        informationalVersion: tl.getInput('InformationalVersion', false) || '',
 
         verBuild: '',
         verRelease: '',

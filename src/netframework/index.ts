@@ -38,7 +38,8 @@ async function run() {
     } catch (err) {
         tl.debug(err.message);
         // tl._writeError(err);
-        tl.setResult(tl.TaskResult.Failed, tl.loc('TaskFailed', err.message));
+        // tl.setResult(tl.TaskResult.Failed, tl.loc('TaskFailed', err.message));
+        tl.setResult(tl.TaskResult.Failed, `Task failed with error: ${err.message}`);
     }
 }
 
@@ -49,17 +50,17 @@ function getDefaultModel(): models.NetFramework {
         insertAttributes: tl.getBoolInput('InsertAttributes', true),
         fileEncoding: tl.getInput('FileEncoding', true),
         writeBOM: tl.getBoolInput('WriteBOM', true),
-        title: tl.getInput('Title', false),
-        product: tl.getInput('Product', false),
-        description: tl.getInput('Description', false),
-        company: tl.getInput('Company', false),
-        copyright: tl.getInput('Copyright', false),
-        trademark: tl.getInput('Trademark', false),
-        culture: tl.getInput('Culture', false),
-        configuration: tl.getInput('Configuration', false),
-        version: tl.getInput('VersionNumber', false),
-        fileVersion: tl.getInput('FileVersionNumber', false),
-        informationalVersion: tl.getInput('InformationalVersion', false),
+        title: tl.getInput('Title', false) || '',
+        product: tl.getInput('Product', false) || '',
+        description: tl.getInput('Description', false) || '',
+        company: tl.getInput('Company', false) || '',
+        copyright: tl.getInput('Copyright', false) || '',
+        trademark: tl.getInput('Trademark', false) || '',
+        culture: tl.getInput('Culture', false) || '',
+        configuration: tl.getInput('Configuration', false) || '',
+        version: tl.getInput('VersionNumber', false) || '',
+        fileVersion: tl.getInput('FileVersionNumber', false) || '',
+        informationalVersion: tl.getInput('InformationalVersion', false) || '',
         verBuild: '',
         verRelease: '',
     };
