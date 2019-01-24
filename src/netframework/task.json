@@ -40,7 +40,7 @@
       "name": "FileNames",
       "type": "multiLine",
       "label": "Source files",
-      "defaultValue": "AssemblyInfo.cs\r\nAssemblyInfo.vb",
+      "defaultValue": "**\\AssemblyInfo.cs\r\n**\\AssemblyInfo.vb",
       "required": true,
       "helpMarkDown": "Specify the assembly info file(s). Wildcards can be used.  For example, `**/AssemblyInfo.cs` for all `AssemblyInfo.cs` files in all the sub folders.\r\n[More Information](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/file-matching-patterns?view=vsts)",
       "properties": {
@@ -53,7 +53,7 @@
       "type": "boolean",
       "label": "Insert attributes",
       "defaultValue": "false",
-      "required": false,
+      "required": true,
       "helpMarkDown": "If checked the task will insert missing attributes into the source files specified above."
     },
     {
