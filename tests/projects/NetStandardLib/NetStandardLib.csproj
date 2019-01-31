@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>NetStandardLib</AssemblyName>
+    <RootNamespace>NetStandardLib</RootNamespace>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageId>NetStandardLib</PackageId>
+    <Version>1.0.1-beta</Version>
+    <Authors>Authors</Authors>
+    <Company>Company</Company>
+    <Product>Product</Product>
+    <Description>Description</Description>
+    <Copyright>Copyright</Copyright>
+    <PackageLicenseUrl>License Url</PackageLicenseUrl>
+    <PackageProjectUrl>Project Url</PackageProjectUrl>
+    <PackageIconUrl>Icon Url</PackageIconUrl>
+    <RepositoryUrl>Repository Url</RepositoryUrl>
+    <RepositoryType>Repository Type</RepositoryType>
+    <PackageTags>Tags</PackageTags>
+    <PackageReleaseNotes>Release Notes</PackageReleaseNotes>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.2</FileVersion>
+    <InformationalVersion>1.0.1-beta</InformationalVersion>
+  </PropertyGroup>
+
+</Project>

@@ -5,7 +5,7 @@ The extension contains 2 tasks: - one which targets Net Framework projects and a
 
 ## How to use the build task
 1. Create or edit a build definition.
-2. Click **Add build step...** and add the **Assembly Info** task from the Build category.
+2. Click **Add build step...** and add the **Assembly Info** task from the Build category.  
 3. Move the **Assembly Info** task to the desired position ensuring it precedes the build task.  
 
   ![Net Core Task Position](images/Task_List_Net_Core.png) ![Net Framework Task Position](images/Task_List_Net_Framework.png)
