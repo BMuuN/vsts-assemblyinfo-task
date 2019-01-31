@@ -182,6 +182,12 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
                 return;
             }
 
+            // Ensure the project is tartgeting .Net Core or .Net Standard
+            if (result.Project.$.Sdk !== 'Microsoft.NET.Sdk') {
+                tl.warning(`\tSkipping, project is not targeting .Net Core or .Net Standard`);
+                return;
+            }
+
             for (const group of result.Project.PropertyGroup) {
 
                 // Ensure we're in the correct property group
