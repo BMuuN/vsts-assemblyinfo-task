@@ -1,9 +1,9 @@
 # Release Notes
-> **v2.0.70**
-> - Detected project types.
-> Thanks to [bernd70](https://github.com/bernd70)
+> **v2.0.68**
+> - Skip invalid csproj file types.
+> - Bug fix for Net Core missing attributes.
 
-> **v2.0.0**
+> **v2.0.65**
 > - Rewrittein in Node JS.
 > - Moved .Net Core to it's own extension.
 > - Added support for file encoding (read and save).

@@ -4,7 +4,7 @@ import moment = require('moment');
 import models = require('../models');
 
 export function setCopyright(model: models.AssemblyInfo, regExModel: models.RegEx): void {
-    model.copyright = model.copyright.replace(regExModel.dateNew, (match: string, g1: any, g2: any): string => {
+    model.copyright = model.copyright.replace(regExModel.date, (match: string, g1: any, g2: any): string => {
         return moment().format(g1);
     });
 }

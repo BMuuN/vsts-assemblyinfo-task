@@ -234,7 +234,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
         group.GeneratePackageOnBuild = '';
     }
 
-    if (group.GeneratePackageOnBuild) {
+    if (group.GeneratePackageOnBuild || group.GeneratePackageOnBuild === '') {
         group.GeneratePackageOnBuild = model.generatePackageOnBuild;
         console.log(`\tGeneratePackageOnBuild --> ${model.generatePackageOnBuild}`);
     }
@@ -244,7 +244,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
         group.PackageRequireLicenseAcceptance = '';
     }
 
-    if (group.PackageRequireLicenseAcceptance) {
+    if (group.PackageRequireLicenseAcceptance || group.PackageRequireLicenseAcceptance === '') {
         group.PackageRequireLicenseAcceptance = model.requireLicenseAcceptance;
         console.log(`\tPackageRequireLicenseAcceptance --> ${model.requireLicenseAcceptance}`);
     }
@@ -256,7 +256,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
             group.PackageId = '';
         }
 
-        if (group.PackageId) {
+        if (group.PackageId || group.PackageId === '') {
             group.PackageId = model.packageId;
             console.log(`\tPackageId --> ${model.packageId}`);
         }
@@ -269,7 +269,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
             group.Version = '';
         }
 
-        if (group.Version) {
+        if (group.Version || group.Version === '') {
             group.Version = model.packageVersion;
             console.log(`\tVersion --> ${model.packageVersion}`);
         }
@@ -282,7 +282,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
             group.Authors = '';
         }
 
-        if (group.Authors) {
+        if (group.Authors || group.Authors === '') {
             group.Authors = model.authors;
             console.log(`\tAuthors --> ${model.authors}`);
         }
@@ -295,7 +295,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
             group.Company = '';
         }
 
-        if (group.Company) {
+        if (group.Company || group.Company === '') {
             group.Company = model.company;
             console.log(`\tCompany --> ${model.company}`);
         }
@@ -308,7 +308,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
             group.Product = '';
         }
 
-        if (group.Product) {
+        if (group.Product || group.Product === '') {
             group.Product = model.product;
             console.log(`\tProduct --> ${model.product}`);
         }
@@ -321,7 +321,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
             group.Description = '';
         }
 
-        if (group.Description) {
+        if (group.Description || group.Description === '') {
             group.Description = model.description;
             console.log(`\tDescription --> ${model.description}`);
         }
@@ -334,7 +334,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
             group.Copyright = '';
         }
 
-        if (group.Copyright) {
+        if (group.Copyright || group.Copyright === '') {
             group.Copyright = model.copyright;
             console.log(`\tCopyright --> ${model.copyright}`);
         }
@@ -347,7 +347,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
             group.PackageLicenseUrl = '';
         }
 
-        if (group.PackageLicenseUrl) {
+        if (group.PackageLicenseUrl || group.PackageLicenseUrl === '') {
             group.PackageLicenseUrl = model.licenseUrl;
             console.log(`\tPackageLicenseUrl --> ${model.licenseUrl}`);
         }
@@ -360,7 +360,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
             group.PackageProjectUrl = '';
         }
 
-        if (group.PackageProjectUrl) {
+        if (group.PackageProjectUrl || group.PackageProjectUrl === '') {
             group.PackageProjectUrl = model.projectUrl;
             console.log(`\tPackageProjectUrl --> ${model.projectUrl}`);
         }
@@ -373,7 +373,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
             group.PackageIconUrl = '';
         }
 
-        if (group.PackageIconUrl) {
+        if (group.PackageIconUrl || group.PackageIconUrl === '') {
             group.PackageIconUrl = model.iconUrl;
             console.log(`\tPackageIconUrl --> ${model.iconUrl}`);
         }
@@ -386,7 +386,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
             group.RepositoryUrl = '';
         }
 
-        if (group.RepositoryUrl) {
+        if (group.RepositoryUrl || group.RepositoryUrl === '') {
             group.RepositoryUrl = model.repositoryUrl;
             console.log(`\tRepositoryUrl --> ${model.repositoryUrl}`);
         }
@@ -399,7 +399,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
             group.RepositoryType = '';
         }
 
-        if (group.RepositoryType) {
+        if (group.RepositoryType || group.RepositoryType === '') {
             group.RepositoryType = model.repositoryType;
             console.log(`\tRepositoryType --> ${model.repositoryType}`);
         }
@@ -412,7 +412,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
             group.PackageTags = '';
         }
 
-        if (group.PackageTags) {
+        if (group.PackageTags || group.PackageTags === '') {
             group.PackageTags = model.tags;
             console.log(`\tPackageTags --> ${model.tags}`);
         }
@@ -425,7 +425,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
             group.PackageReleaseNotes = '';
         }
 
-        if (group.PackageReleaseNotes) {
+        if (group.PackageReleaseNotes || group.PackageReleaseNotes === '') {
             group.PackageReleaseNotes = model.releaseNotes;
             console.log(`\tPackageReleaseNotes --> ${model.releaseNotes}`);
         }
@@ -438,7 +438,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
             group.NeutralLanguage = '';
         }
 
-        if (group.NeutralLanguage) {
+        if (group.NeutralLanguage || group.NeutralLanguage === '') {
             group.NeutralLanguage = model.culture;
             console.log(`\tNeutralLanguage --> ${model.culture}`);
         }
@@ -451,7 +451,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
             group.AssemblyVersion = '';
         }
 
-        if (group.AssemblyVersion) {
+        if (group.AssemblyVersion || group.AssemblyVersion === '') {
             group.AssemblyVersion = model.version;
             console.log(`\tAssemblyVersion --> ${model.version}`);
         }
@@ -464,7 +464,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
             group.FileVersion = '';
         }
 
-        if (group.FileVersion) {
+        if (group.FileVersion || group.FileVersion === '') {
             group.FileVersion = model.fileVersion;
             console.log(`\tFileVersion --> ${model.fileVersion}`);
         }
@@ -477,7 +477,7 @@ function setAssemblyData(group: any, model: models.NetCore) {
             group.InformationalVersion = '';
         }
 
-        if (group.InformationalVersion) {
+        if (group.InformationalVersion || group.InformationalVersion === '') {
             group.InformationalVersion = model.informationalVersion;
             console.log(`\tInformationalVersion --> ${model.informationalVersion}`);
         }

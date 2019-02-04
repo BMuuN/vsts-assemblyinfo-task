@@ -111,15 +111,6 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "PackageVersion",
-      "type": "string",
-      "label": "Package version",
-      "defaultValue": "",
-      "required": false,
-      "helpMarkDown": "Sets the `Version` attribute.",
-      "groupName": "attributesGroup"
-    },
-    {
       "name": "Authors",
       "type": "string",
       "label": "Authors",
@@ -261,6 +252,15 @@
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "Sets the `InformationalVersion` attribute.\r\nProvide the informational version. See the marketplace listing for [more information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task).",
+      "groupName": "attributesGroup"
+    },
+    {
+      "name": "PackageVersion",
+      "type": "string",
+      "label": "Package version",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Sets the `Version` attribute.",
       "groupName": "attributesGroup"
     }
   ],
