@@ -26,6 +26,12 @@ async function run() {
         }
 
         utils.setCopyright(model, regExModel);
+        // Object.keys(model).forEach((key: string) => {
+        //     if (typeof model[key] === 'string') {
+        //         model[key] = utils.setCopyright(model[key], regExModel);
+        //     }
+        // });
+
         generateVersionNumbers(model, regExModel);
         printTaskParameters(model);
         setManifestData(model, regExModel);
@@ -144,7 +150,7 @@ function printTaskParameters(model: models.NetCore): void {
 
 function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
 
-    console.log('Setting .Net Core assembly info...');
+    console.log('Setting .Net Core / .Net Standard assembly info...');
 
     tl.findMatch(model.path, model.fileNames).forEach((file: string) => {
 
@@ -184,7 +190,8 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
 
             // Ensure the project is tartgeting .Net Core or .Net Standard
             if (result.Project.$.Sdk !== 'Microsoft.NET.Sdk') {
-                tl.warning(`\tSkipping, project is not targeting .Net Core or .Net Standard`);
+                tl.warning(`Project is not targeting .Net Core or .Net Standard`);
+                console.log('');
                 return;
             }
 
@@ -223,7 +230,7 @@ function setFileEncoding(file: string, model: models.NetCore) {
     if (model.fileEncoding === 'auto') {
         model.fileEncoding = encoding;
     } else if (model.fileEncoding !== encoding) {
-        console.log(`\tDetected character encoding is different to the one specified.`);
+        tl.warning(`Detected character encoding (${encoding}) is different to the one specified (${model.fileEncoding}).`);
     }
 }
 

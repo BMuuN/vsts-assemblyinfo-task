@@ -9,6 +9,12 @@ export function setCopyright(model: models.AssemblyInfo, regExModel: models.RegE
     });
 }
 
+// export function setCopyright(value: string, regExModel: models.RegEx): string {
+//     return value.replace(regExModel.date, (match: string, g1: any, g2: any): string => {
+//         return moment().format(g1);
+//     });
+// }
+
 export function setWildcardVersionNumber(value: string, verBuild: string, verRelease: string) {
 
     if (!value || value === '') {

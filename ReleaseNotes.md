@@ -1,5 +1,9 @@
 # Release Notes
-> **v2.0.68**
+> **v2.0.73**
+> - Fail build on warning.
+> - Added date transforms for all fields.
+
+> **v2.0.70**
 > - Skip invalid csproj file types.
 > - Bug fix for Net Core missing attributes.
 
