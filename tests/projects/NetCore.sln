@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreLib", "NetCoreLib\NetCoreLib.csproj", "{3DFDD84A-A604-442C-A194-2535F99F0CB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetStandardLib", "NetStandardLib\NetStandardLib.csproj", "{79BCEB4B-F76E-436D-BD57-B86A15BF6715}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetStandardLib", "NetStandardLib\NetStandardLib.csproj", "{79BCEB4B-F76E-436D-BD57-B86A15BF6715}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreWebApp", "NetCoreWebApp\NetCoreWebApp.csproj", "{7A7C3AF0-0384-45D0-AA43-CCEE2F4C03F7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetCoreConsoleApp", "NetCoreConsoleApp\NetCoreConsoleApp.csproj", "{8E914A64-E8F4-404D-B3F8-FE91EE265CE2}"
 EndProject
@@ -27,6 +29,10 @@ Global
 		{8E914A64-E8F4-404D-B3F8-FE91EE265CE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E914A64-E8F4-404D-B3F8-FE91EE265CE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E914A64-E8F4-404D-B3F8-FE91EE265CE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A7C3AF0-0384-45D0-AA43-CCEE2F4C03F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A7C3AF0-0384-45D0-AA43-CCEE2F4C03F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A7C3AF0-0384-45D0-AA43-CCEE2F4C03F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A7C3AF0-0384-45D0-AA43-CCEE2F4C03F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
