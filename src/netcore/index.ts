@@ -144,7 +144,7 @@ function printTaskParameters(model: models.NetCore): void {
 
 function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
 
-    console.log('Setting .Net Core assembly info...');
+    console.log('Setting .Net Core / .Net Standard assembly info...');
 
     tl.findMatch(model.path, model.fileNames).forEach((file: string) => {
 
@@ -184,7 +184,8 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
 
             // Ensure the project is tartgeting .Net Core or .Net Standard
             if (!result.Project.$.Sdk || result.Project.$.Sdk.indexOf('Microsoft.NET.Sdk') < 0) {
-                tl.warning(`\tSkipping, project is not targeting .Net Core or .Net Standard`);
+                tl.warning(`\tProject is not targeting .Net Core or .Net Standard, moving to next file.`);
+                console.log('');
                 return;
             }
 
@@ -223,7 +224,7 @@ function setFileEncoding(file: string, model: models.NetCore) {
     if (model.fileEncoding === 'auto') {
         model.fileEncoding = encoding;
     } else if (model.fileEncoding !== encoding) {
-        console.log(`\tDetected character encoding is different to the one specified.`);
+        console.log(`\tDetected character encoding (${encoding}) is different to the one specified (${model.fileEncoding}).`);
     }
 }
 
