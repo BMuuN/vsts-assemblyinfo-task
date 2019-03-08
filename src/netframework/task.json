@@ -125,7 +125,7 @@
       "label": "Copyright",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Sets the `AssemblyCopyright` attribute.\r\nProvide the assembly or product copyright information e.g. Copyright © $(date:yyyy) Example Ltd.\r\nSee the [marketplace listing](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task) for additional date time formats.",
+      "helpMarkDown": "Sets the `AssemblyCopyright` attribute.\r\nProvide the assembly or product copyright information e.g. Copyright © $(date:YYYY) Example Ltd.\r\nSee the [marketplace listing](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task) for additional date time formats.",
       "groupName": "attributesGroup"
     },
     {
