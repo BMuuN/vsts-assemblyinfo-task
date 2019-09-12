@@ -212,7 +212,7 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
             fs.writeFileSync(file, iconv.encode(xml, model.fileEncoding, { addBOM: model.writeBOM, stripBOM: undefined, defaultEncoding: undefined }));
 
             const encodingResult = getFileEncoding(file);
-            console.log(`\tVerify character encoding: ${encodingResult}`);
+            console.log(`\tVerify file encoding: ${encodingResult}`);
             console.log('');
         });
     });
@@ -225,12 +225,12 @@ function getFileEncoding(file: string) {
 
 function setFileEncoding(file: string, model: models.NetCore) {
     const encoding = getFileEncoding(file);
-    console.log(`\tDetected character encoding: ${encoding}`);
+    console.log(`\tDetected file encoding: ${encoding}`);
 
     if (model.fileEncoding === 'auto') {
         model.fileEncoding = encoding;
     } else if (model.fileEncoding !== encoding) {
-        tl.warning(`Detected character encoding (${encoding}) is different to the one specified (${model.fileEncoding}).`);
+        tl.warning(`Detected file encoding (${encoding}) is different to the one specified (${model.fileEncoding}).`);
     }
 }
 
