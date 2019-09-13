@@ -1,7 +1,7 @@
 # Release Notes
-> **v2.0.73**
-> - Fail build on warning.
+> **v2.1.74**
 > - Added date transforms for all fields.
+> - Added support for console application.
 
 > **v2.0.70**
 > - Skip invalid csproj file types.

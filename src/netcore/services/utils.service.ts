@@ -1,19 +1,11 @@
-import chardet = require('chardet');
 import moment = require('moment');
-
 import models = require('../models');
 
-export function setCopyright(model: models.AssemblyInfo, regExModel: models.RegEx): void {
-    model.copyright = model.copyright.replace(regExModel.date, (match: string, g1: any, g2: any): string => {
+export function transformDates(value: string, regExModel: models.RegEx): string {
+    return value.replace(regExModel.date, (match: string, g1: any, g2: any): string => {
         return moment().format(g1);
     });
 }
-
-// export function setCopyright(value: string, regExModel: models.RegEx): string {
-//     return value.replace(regExModel.date, (match: string, g1: any, g2: any): string => {
-//         return moment().format(g1);
-//     });
-// }
 
 export function setWildcardVersionNumber(value: string, verBuild: string, verRelease: string) {
 
@@ -43,37 +35,3 @@ export function formatFileNames(fileNames: string[]): string[] {
     });
     return targetFiles;
 }
-
-// export function getChardetResult(encoding: chardet.Result): string {
-
-//     // switch(encoding) {
-//     //     case '':
-//     //         return 'utf8';
-//     //     case '':
-//     //         return 'utf-8';
-//     //     case '':
-//     //         return 'ucs2';
-//     //     case '':
-//     //         return 'ucs-2';
-//     //     case '':
-//     //         return 'utf16le';
-//     //     case '':
-//     //         return 'utf-16le';
-//     //     case '':
-//     //         return 'latin1';
-//     //     case '':
-//     //         return 'binary';
-//     //     case '':
-//     //         return 'base64';
-//     //     case '':
-//     //         return 'ascii';
-//     //     case '':
-//     //         return 'hex';
-//     // }
-
-//     if (!encoding) {
-//         return 'utf8';
-//     }
-
-//     return encoding.toString().toLocaleLowerCase();
-// }

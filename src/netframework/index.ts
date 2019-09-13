@@ -23,7 +23,7 @@ async function run() {
             return;
         }
 
-        utils.setCopyright(model, regExModel);
+        applyTransforms(model, regExModel);
         generateVersionNumbers(model, regExModel);
         printTaskParameters(model);
         setManifestData(model, regExModel);
@@ -41,6 +41,21 @@ async function run() {
         // tl.setResult(tl.TaskResult.Failed, tl.loc('TaskFailed', err.message));
         tl.setResult(tl.TaskResult.Failed, `Task failed with error: ${err.message}`);
     }
+}
+
+function applyTransforms(model: models.NetFramework, regex: models.RegEx): void {
+    Object.keys(model).forEach((key: string) => {
+        if (model.hasOwnProperty(key)) {
+            const value = Reflect.get(model, key);
+            if (typeof value === 'string' && value !== '') {
+                const newValue = utils.transformDates(value, regex);
+                if (value !== newValue) {
+                    Reflect.set(model, key, newValue);
+                    // console.log(`Key: ${key},  Value: ${value},  New Value: ${newValue}`);
+                }
+            }
+          }
+    });
 }
 
 function getDefaultModel(): models.NetFramework {
@@ -95,23 +110,23 @@ function generateVersionNumbers(model: models.NetFramework, regexModel: models.R
 function printTaskParameters(model: models.NetFramework): void {
 
     console.log('Task Parameters...');
-    console.log(`\tSource folder: ${model.path}`);
-    console.log(`\tSource files: ${model.fileNames}`);
-    console.log(`\tInsert attributes: ${model.insertAttributes}`);
-    console.log(`\tFile encoding: ${model.fileEncoding}`);
-    console.log(`\tWrite unicode BOM: ${model.writeBOM}`),
+    console.log(`Source folder: ${model.path}`);
+    console.log(`Source files: ${model.fileNames}`);
+    console.log(`Insert attributes: ${model.insertAttributes}`);
+    console.log(`File encoding: ${model.fileEncoding}`);
+    console.log(`Write unicode BOM: ${model.writeBOM}`),
 
-    console.log(`\tTitle: ${model.title}`);
-    console.log(`\tProduct: ${model.product}`);
-    console.log(`\tDescription: ${model.description}`);
-    console.log(`\tCompany: ${model.company}`);
-    console.log(`\tCopyright: ${model.copyright}`);
-    console.log(`\tTrademark: ${model.trademark}`);
-    console.log(`\tCulture: ${model.culture}`);
-    console.log(`\tConfiguration: ${model.configuration}`);
-    console.log(`\tAssembly version: ${model.version}`);
-    console.log(`\tAssembly file version: ${model.fileVersion}`);
-    console.log(`\tInformational version: ${model.informationalVersion}`);
+    console.log(`Title: ${model.title}`);
+    console.log(`Product: ${model.product}`);
+    console.log(`Description: ${model.description}`);
+    console.log(`Company: ${model.company}`);
+    console.log(`Copyright: ${model.copyright}`);
+    console.log(`Trademark: ${model.trademark}`);
+    console.log(`Culture: ${model.culture}`);
+    console.log(`Configuration: ${model.configuration}`);
+    console.log(`Assembly version: ${model.version}`);
+    console.log(`Assembly file version: ${model.fileVersion}`);
+    console.log(`Informational version: ${model.informationalVersion}`);
     console.log('');
 }
 
@@ -124,7 +139,7 @@ function setManifestData(model: models.NetFramework, regEx: models.RegEx): void 
         console.log(`Processing: ${file}`);
 
         if (path.extname(file) !== '.vb' && path.extname(file) !== '.cs') {
-            console.log(`\tFile is not .vb or .cs`);
+            console.log(`File is not .vb or .cs`);
             return;
         }
 
@@ -159,7 +174,7 @@ function setManifestData(model: models.NetFramework, regEx: models.RegEx): void 
         fs.writeFileSync(file, iconv.encode(fileContent, model.fileEncoding, { addBOM: model.writeBOM, stripBOM: undefined, defaultEncoding: undefined }));
 
         const encodingResult = getFileEncoding(file);
-        console.log(`\tVerify file encoding: ${encodingResult}`);
+        console.log(`Verify file encoding: ${encodingResult}`);
         console.log('');
     });
 }
@@ -171,12 +186,12 @@ function getFileEncoding(file: string) {
 
 function setFileEncoding(file: string, model: models.NetFramework) {
     const encoding = getFileEncoding(file);
-    console.log(`\tDetected file encoding: ${encoding}`);
+    console.log(`Detected file encoding: ${encoding}`);
 
     if (model.fileEncoding === 'auto') {
         model.fileEncoding = encoding;
     } else if (model.fileEncoding !== encoding) {
-        console.log(`\tDetected file encoding is different to the one specified.`);
+        console.log(`Detected file encoding is different to the one specified.`);
     }
 }
 
@@ -193,7 +208,7 @@ function addUsingIfMissing(file: string, content: string) {
     usings.forEach((value, index, array) => {
         const res = content.match(new RegExp(`${value}`, 'gi'));
         if (!res || res.length <= 0) {
-            console.log(`\tAdding --> ${value}`);
+            console.log(`Adding --> ${value}`);
             content = value.concat('\r\n', content);
         }
     });
@@ -220,7 +235,7 @@ function insertAttribute(file: string, content: string, name: string, value: str
         // ignores comments and finds correct attribute
         const res = content.match(new RegExp(`\\<Assembly:\\s*${name}`, 'gi'));
         if (!res || res.length <= 0) {
-            console.log(`\tAdding --> ${name}`);
+            console.log(`Adding --> ${name}`);
             content += `\r\n<Assembly: ${name}("${value}")\>`;
         }
 
@@ -229,7 +244,7 @@ function insertAttribute(file: string, content: string, name: string, value: str
         // ignores comments and finds correct attribute
         const res = content.match(new RegExp(`\\[assembly:\\s*${name}`, 'gi'));
         if (!res || res.length <= 0) {
-            console.log(`\tAdding --> ${name}`);
+            console.log(`Adding --> ${name}`);
             content += `\r\n[assembly: ${name}("${value}")\]`;
         }
     }
@@ -238,7 +253,7 @@ function insertAttribute(file: string, content: string, name: string, value: str
 }
 
 function replaceAttribute(content: string, name: string, regEx: string, value: string): string {
-    console.log(`\t${name} --> ${value}`);
+    console.log(`${name} --> ${value}`);
     content = content.replace(new RegExp(`${name}\\s*\\w*\\(${regEx}\\)`, 'gi'), `${name}("${value}")`);
     return content;
 }

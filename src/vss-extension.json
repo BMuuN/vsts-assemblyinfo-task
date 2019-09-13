@@ -42,6 +42,9 @@
         "learn": {
             "uri": "https://github.com/BMuuN/vsts-assemblyinfo-task/wiki"
         },
+        "privacypolicy": {
+            "uri": "Privacy.md"
+        },
         "support": { 
             "uri": "https://github.com/BMuuN/vsts-assemblyinfo-task/issues"
         }
