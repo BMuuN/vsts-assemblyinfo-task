@@ -1,5 +1,7 @@
 import moment = require('moment');
-import models = require('../models');
+
+import { LoggingLevel } from '../enums';
+import * as models from '../models';
 
 export function transformDates(value: string, regExModel: models.RegEx): string {
     return value.replace(regExModel.date, (match: string, g1: any, g2: any): string => {
@@ -34,4 +36,19 @@ export function formatFileNames(fileNames: string[]): string[] {
         }
     });
     return targetFiles;
+}
+
+export function mapLogLevel(level: string): LoggingLevel {
+    switch (level) {
+        case 'normal':
+            return LoggingLevel.Normal;
+
+        case 'verbose':
+            return LoggingLevel.Verbose;
+
+        case 'off':
+            return LoggingLevel.Off;
+    }
+
+    return LoggingLevel.Normal;
 }

@@ -17,4 +17,7 @@ export abstract class AssemblyInfo {
     informationalVersion: string = '';
     verBuild: string = '';
     verRelease: string = '';
+
+    logLevel: string = '';
+    failOnWarning: boolean = false;
 }

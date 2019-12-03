@@ -6,8 +6,12 @@ import iconv = require('iconv-lite');
 import moment = require('moment');
 import path = require('path');
 
+import { LoggingLevel } from './enums';
 import models = require('./models');
+import { Logger } from './services';
 import utils = require('./services/utils.service');
+
+let logger: Logger = new Logger(false, LoggingLevel.Normal);
 
 async function run() {
     try {
@@ -17,9 +21,11 @@ async function run() {
         const model = getDefaultModel();
         model.fileNames = utils.formatFileNames(model.fileNames);
 
+        logger = new Logger(model.failOnWarning, utils.mapLogLevel(model.logLevel));
+
         // Make sure path to source code directory is available
         if (!tl.exist(model.path)) {
-            tl.setResult(tl.TaskResult.Failed, `Source directory does not exist: ${model.path}`);
+            logger.error(`Source directory does not exist: ${model.path}`);
             return;
         }
 
@@ -32,14 +38,10 @@ async function run() {
         tl.setVariable('AssemblyInfo.FileVersion', model.fileVersion, false);
         tl.setVariable('AssemblyInfo.InformationalVersion', model.informationalVersion, false);
 
-        console.log('Complete.');
-        tl.setResult(tl.TaskResult.Succeeded, 'Complete');
+        logger.success('Complete.');
 
     } catch (err) {
-        tl.debug(err.message);
-        // tl._writeError(err);
-        // tl.setResult(tl.TaskResult.Failed, tl.loc('TaskFailed', err.message));
-        tl.setResult(tl.TaskResult.Failed, `Task failed with error: ${err.message}`);
+        logger.error(`Task failed with error: ${err.message}`);
     }
 }
 
@@ -51,7 +53,7 @@ function applyTransforms(model: models.NetFramework, regex: models.RegEx): void 
                 const newValue = utils.transformDates(value, regex);
                 if (value !== newValue) {
                     Reflect.set(model, key, newValue);
-                    // console.log(`Key: ${key},  Value: ${value},  New Value: ${newValue}`);
+                    // logger.debug(`Key: ${key},  Value: ${value},  New Value: ${newValue}`);
                 }
             }
           }
@@ -65,6 +67,7 @@ function getDefaultModel(): models.NetFramework {
         insertAttributes: tl.getBoolInput('InsertAttributes', true),
         fileEncoding: tl.getInput('FileEncoding', true),
         writeBOM: tl.getBoolInput('WriteBOM', true),
+
         title: tl.getInput('Title', false) || '',
         product: tl.getInput('Product', false) || '',
         description: tl.getInput('Description', false) || '',
@@ -73,11 +76,15 @@ function getDefaultModel(): models.NetFramework {
         trademark: tl.getInput('Trademark', false) || '',
         culture: tl.getInput('Culture', false) || '',
         configuration: tl.getInput('Configuration', false) || '',
+
         version: tl.getInput('VersionNumber', false) || '',
         fileVersion: tl.getInput('FileVersionNumber', false) || '',
         informationalVersion: tl.getInput('InformationalVersion', false) || '',
         verBuild: '',
         verRelease: '',
+
+        logLevel: tl.getInput('LogLevel', true),
+        failOnWarning: tl.getBoolInput('FailOnWarning', true),
     };
 
     return model;
@@ -109,49 +116,54 @@ function generateVersionNumbers(model: models.NetFramework, regexModel: models.R
 
 function printTaskParameters(model: models.NetFramework): void {
 
-    console.log('Task Parameters...');
-    console.log(`Source folder: ${model.path}`);
-    console.log(`Source files: ${model.fileNames}`);
-    console.log(`Insert attributes: ${model.insertAttributes}`);
-    console.log(`File encoding: ${model.fileEncoding}`);
-    console.log(`Write unicode BOM: ${model.writeBOM}`),
+    logger.debug('Task Parameters...');
+    logger.debug(`Source folder: ${model.path}`);
+    logger.debug(`Source files: ${model.fileNames}`);
+    logger.debug(`Insert attributes: ${model.insertAttributes}`);
+    logger.debug(`File encoding: ${model.fileEncoding}`);
+    logger.debug(`Write unicode BOM: ${model.writeBOM}`),
 
-    console.log(`Title: ${model.title}`);
-    console.log(`Product: ${model.product}`);
-    console.log(`Description: ${model.description}`);
-    console.log(`Company: ${model.company}`);
-    console.log(`Copyright: ${model.copyright}`);
-    console.log(`Trademark: ${model.trademark}`);
-    console.log(`Culture: ${model.culture}`);
-    console.log(`Configuration: ${model.configuration}`);
-    console.log(`Assembly version: ${model.version}`);
-    console.log(`Assembly file version: ${model.fileVersion}`);
-    console.log(`Informational version: ${model.informationalVersion}`);
-    console.log('');
+    logger.debug(`Title: ${model.title}`);
+    logger.debug(`Product: ${model.product}`);
+    logger.debug(`Description: ${model.description}`);
+    logger.debug(`Company: ${model.company}`);
+    logger.debug(`Copyright: ${model.copyright}`);
+    logger.debug(`Trademark: ${model.trademark}`);
+    logger.debug(`Culture: ${model.culture}`);
+    logger.debug(`Configuration: ${model.configuration}`);
+    logger.debug(`Assembly version: ${model.version}`);
+    logger.debug(`Assembly file version: ${model.fileVersion}`);
+    logger.debug(`Informational version: ${model.informationalVersion}`);
+
+    logger.debug(`Log Level: ${model.logLevel}`);
+    logger.debug(`Fail on Warning: ${model.failOnWarning}`);
+
+    logger.debug('');
 }
 
 function setManifestData(model: models.NetFramework, regEx: models.RegEx): void {
 
-    console.log('Setting .Net Framework assembly info...');
+    logger.info('Setting .Net Framework assembly info...');
 
     tl.findMatch(model.path, model.fileNames).forEach((file: string) => {
 
-        console.log(`Processing: ${file}`);
+        logger.info(`Processing: ${file}`);
 
         if (path.extname(file) !== '.vb' && path.extname(file) !== '.cs') {
-            console.log(`File is not .vb or .cs`);
+            logger.warning(`File is not .vb or .cs`);
+            logger.info('');
             return;
         }
 
         if (!tl.exist(file)) {
-            tl.error(`File not found: ${file}`);
+            logger.error(`File not found: ${file}`);
             return;
         }
 
         setFileEncoding(file, model);
 
         if (!iconv.encodingExists(model.fileEncoding)) {
-            tl.error(`${model.fileEncoding} file encoding not supported`);
+            logger.error(`${model.fileEncoding} file encoding not supported`);
             return;
         }
 
@@ -174,8 +186,8 @@ function setManifestData(model: models.NetFramework, regEx: models.RegEx): void 
         fs.writeFileSync(file, iconv.encode(fileContent, model.fileEncoding, { addBOM: model.writeBOM, stripBOM: undefined, defaultEncoding: undefined }));
 
         const encodingResult = getFileEncoding(file);
-        console.log(`Verify file encoding: ${encodingResult}`);
-        console.log('');
+        logger.debug(`Verify file encoding: ${encodingResult}`);
+        logger.info('');
     });
 }
 
@@ -186,12 +198,12 @@ function getFileEncoding(file: string) {
 
 function setFileEncoding(file: string, model: models.NetFramework) {
     const encoding = getFileEncoding(file);
-    console.log(`Detected file encoding: ${encoding}`);
+    logger.debug(`Detected file encoding: ${encoding}`);
 
     if (model.fileEncoding === 'auto') {
         model.fileEncoding = encoding;
     } else if (model.fileEncoding !== encoding) {
-        console.log(`Detected file encoding is different to the one specified.`);
+        logger.warning(`Detected file encoding is different to the one specified.`);
     }
 }
 
@@ -208,7 +220,7 @@ function addUsingIfMissing(file: string, content: string) {
     usings.forEach((value, index, array) => {
         const res = content.match(new RegExp(`${value}`, 'gi'));
         if (!res || res.length <= 0) {
-            console.log(`Adding --> ${value}`);
+            logger.info(`Adding --> ${value}`);
             content = value.concat('\r\n', content);
         }
     });
@@ -235,7 +247,7 @@ function insertAttribute(file: string, content: string, name: string, value: str
         // ignores comments and finds correct attribute
         const res = content.match(new RegExp(`\\<Assembly:\\s*${name}`, 'gi'));
         if (!res || res.length <= 0) {
-            console.log(`Adding --> ${name}`);
+            logger.info(`Adding --> ${name}`);
             content += `\r\n<Assembly: ${name}("${value}")\>`;
         }
 
@@ -244,7 +256,7 @@ function insertAttribute(file: string, content: string, name: string, value: str
         // ignores comments and finds correct attribute
         const res = content.match(new RegExp(`\\[assembly:\\s*${name}`, 'gi'));
         if (!res || res.length <= 0) {
-            console.log(`Adding --> ${name}`);
+            logger.info(`Adding --> ${name}`);
             content += `\r\n[assembly: ${name}("${value}")\]`;
         }
     }
@@ -253,7 +265,7 @@ function insertAttribute(file: string, content: string, name: string, value: str
 }
 
 function replaceAttribute(content: string, name: string, regEx: string, value: string): string {
-    console.log(`${name} --> ${value}`);
+    logger.info(`${name} --> ${value}`);
     content = content.replace(new RegExp(`${name}\\s*\\w*\\(${regEx}\\)`, 'gi'), `${name}("${value}")`);
     return content;
 }

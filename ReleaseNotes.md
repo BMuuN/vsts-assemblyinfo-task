@@ -1,9 +1,9 @@
 # Release Notes
-> **v2.1.74**
+> **v2.1.80**
 > - Added date transforms for all fields.
-> - Added support for console application.
+> - Enhanced logging options.
 
-> **v2.0.70**
+> **v2.0.73**
 > - Skip invalid csproj file types.
 > - Bug fix for Net Core missing attributes.
 
