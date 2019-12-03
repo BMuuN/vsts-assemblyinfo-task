@@ -65,10 +65,10 @@ function applyTransforms(model: models.NetCore, regex: models.RegEx): void {
 
 function getDefaultModel(): models.NetCore {
     const model: models.NetCore = {
-        path: tl.getPathInput('Path', true),
+        path: tl.getPathInput('Path', true) || '',
         fileNames: tl.getDelimitedInput('FileNames', '\n', true),
         insertAttributes: tl.getBoolInput('InsertAttributes', true),
-        fileEncoding: tl.getInput('FileEncoding', true),
+        fileEncoding: tl.getInput('FileEncoding', true) || '',
         writeBOM: tl.getBoolInput('WriteBOM', true),
 
         generatePackageOnBuild: tl.getBoolInput('GeneratePackageOnBuild', true),
@@ -96,7 +96,7 @@ function getDefaultModel(): models.NetCore {
         verBuild: '',
         verRelease: '',
 
-        logLevel: tl.getInput('LogLevel', true),
+        logLevel: tl.getInput('LogLevel', true) || '',
         failOnWarning: tl.getBoolInput('FailOnWarning', true),
     };
 

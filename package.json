@@ -12,7 +12,7 @@
     "test": "npm run build && mocha dist/tests/_suite.js",
     "testrunner": "npm run build && TestRunner.sh",
     "gen_notice": "node generate-third-party-notice.js",
-    "nuke_install": "rm -rf node_modules && npm cache verify && npm install"
+    "nuke_install": "rm -rf node_modules dist && npm cache verify && npm install"
   },
   "repository": {
     "type": "git",
@@ -25,20 +25,20 @@
   },
   "homepage": "https://github.com/BMuuN/vsts-assemblyinfo-task#readme",
   "dependencies": {
-    "@types/chardet": "^0.5.0",
-    "@types/xml2js": "^0.4.3",
-    "azure-pipelines-task-lib": "^2.7.7",
-    "chardet": "^0.7.0",
-    "iconv-lite": "^0.4.24",
-    "moment": "^2.23.0",
-    "xml2js": "^0.4.19"
+    "@types/chardet": "^0.8.0",
+    "@types/xml2js": "^0.4.5",
+    "azure-pipelines-task-lib": "^2.9.3",
+    "chardet": "^0.8.0",
+    "iconv-lite": "^0.5.0",
+    "moment": "^2.24.0",
+    "xml2js": "^0.4.22"
   },
   "devDependencies": {
-    "@types/mocha": "^5.2.5",
-    "@types/node": "^10.12.18",
-    "@types/q": "^1.5.1",
-    "mocha": "^5.2.0",
-    "ts-node": "^7.0.1",
-    "typescript": "^3.2.2"
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.12.14",
+    "@types/q": "^1.5.2",
+    "mocha": "^6.2.2",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.2"
   }
 }
