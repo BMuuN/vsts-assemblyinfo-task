@@ -1,7 +1,7 @@
 |      | Build | Release | Version | Downloads | Rating |
 |------|-------|---------|---------|-----------|--------|
-| Live | ![build](https://bmuun.visualstudio.com/TS%20Extensions/_apis/build/status/GitHub-Assembly-Info-Live.Published) | ![release](https://bmuun.vsrm.visualstudio.com/_apis/public/Release/badge/86c93e13-9469-4df8-95f0-98c43c760a09/1/2) | ![version](https://img.shields.io/badge/version-2.0.73-blue.svg?logo=tfs) | ![downloads](https://img.shields.io/badge/downloads-6.1k-brightgreen.svg?logo=tfs) | ![rating](https://img.shields.io/badge/rating-4.3/5_(23)-brightgreen.svg?logo=tfs) |
-| Test | ![build](https://bmuun.visualstudio.com/TS%20Extensions/_apis/build/status/GitHub-Assembly-Info-Test.Published) | ![release](https://bmuun.vsrm.visualstudio.com/_apis/public/Release/badge/86c93e13-9469-4df8-95f0-98c43c760a09/1/1) | ![version](https://img.shields.io/badge/version-2.0.75-blue.svg?logo=tfs) |     |     |
+| Live | ![build](https://bmuun.visualstudio.com/TS%20Extensions/_apis/build/status/GitHub-Assembly-Info-Live.Published) | ![release](https://bmuun.vsrm.visualstudio.com/_apis/public/Release/badge/86c93e13-9469-4df8-95f0-98c43c760a09/1/2) | ![version](https://img.shields.io/badge/version-2.0.73-blue.svg?logo=tfs) | ![downloads](https://img.shields.io/badge/downloads-7.4k-brightgreen.svg?logo=tfs) | ![rating](https://img.shields.io/badge/rating-4.4/5_(25)-brightgreen.svg?logo=tfs) |
+| Test | ![build](https://bmuun.visualstudio.com/TS%20Extensions/_apis/build/status/GitHub-Assembly-Info-Test.Published) | ![release](https://bmuun.vsrm.visualstudio.com/_apis/public/Release/badge/86c93e13-9469-4df8-95f0-98c43c760a09/1/1) | ![version](https://img.shields.io/badge/version-2.0.80-blue.svg?logo=tfs) |     |     |
 
 # Assembly Info
 Assembly Info is an extension for Azure DevOps that populates assembly information metadata from a build pipeline.
