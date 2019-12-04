@@ -1,5 +1,5 @@
 import appInsights = require('applicationinsights');
-appInsights.setup('14430f00-2e5d-45dd-9538-34c96373448f');
+appInsights.setup('#{NetFrameworkInstrumentationKey}#');
 appInsights.start();
 const client = appInsights.defaultClient;
 

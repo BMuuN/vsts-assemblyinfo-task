@@ -1,5 +1,5 @@
 import appInsights = require('applicationinsights');
-appInsights.setup('e06d7d33-348e-46d8-93d3-375f08b9e381');
+appInsights.setup('#{NetCoreInstrumentationKey}#');
 appInsights.start();
 const client = appInsights.defaultClient;
 
