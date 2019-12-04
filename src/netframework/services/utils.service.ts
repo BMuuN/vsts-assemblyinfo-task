@@ -1,10 +1,10 @@
-import chardet = require('chardet');
 import moment = require('moment');
 
-import models = require('../models');
+import { LoggingLevel } from '../enums';
+import * as models from '../models';
 
-export function setCopyright(model: models.AssemblyInfo, regExModel: models.RegEx): void {
-    model.copyright = model.copyright.replace(regExModel.date, (match: string, g1: any, g2: any): string => {
+export function transformDates(value: string, regExModel: models.RegEx): string {
+    return value.replace(regExModel.date, (match: string, g1: any, g2: any): string => {
         return moment().format(g1);
     });
 }
@@ -38,36 +38,17 @@ export function formatFileNames(fileNames: string[]): string[] {
     return targetFiles;
 }
 
-// export function getChardetResult(encoding: chardet.Result): string {
+export function mapLogLevel(level: string): LoggingLevel {
+    switch (level) {
+        case 'normal':
+            return LoggingLevel.Normal;
 
-//     // switch(encoding) {
-//     //     case '':
-//     //         return 'utf8';
-//     //     case '':
-//     //         return 'utf-8';
-//     //     case '':
-//     //         return 'ucs2';
-//     //     case '':
-//     //         return 'ucs-2';
-//     //     case '':
-//     //         return 'utf16le';
-//     //     case '':
-//     //         return 'utf-16le';
-//     //     case '':
-//     //         return 'latin1';
-//     //     case '':
-//     //         return 'binary';
-//     //     case '':
-//     //         return 'base64';
-//     //     case '':
-//     //         return 'ascii';
-//     //     case '':
-//     //         return 'hex';
-//     // }
+        case 'verbose':
+            return LoggingLevel.Verbose;
 
-//     if (!encoding) {
-//         return 'utf8';
-//     }
+        case 'off':
+            return LoggingLevel.Off;
+    }
 
-//     return encoding.toString().toLocaleLowerCase();
-// }
+    return LoggingLevel.Normal;
+}
