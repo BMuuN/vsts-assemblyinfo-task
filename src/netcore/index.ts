@@ -1,3 +1,12 @@
+import appInsights = require('applicationinsights');
+appInsights.setup('e06d7d33-348e-46d8-93d3-375f08b9e381');
+appInsights.start();
+const client = appInsights.defaultClient;
+
+appInsights.defaultClient.commonProperties = {
+    task: 'Net Core',
+};
+
 import tl = require('azure-pipelines-task-lib/task');
 import trm = require('azure-pipelines-task-lib/toolrunner');
 import chardet = require('chardet');
@@ -15,6 +24,8 @@ import * as utils from './services/utils.service';
 let logger: Logger = new Logger(false, LoggingLevel.Normal);
 
 async function run() {
+
+    client.trackEvent({name: 'Start Net Core'});
 
     try {
         const regExModel = new models.RegEx();
@@ -45,7 +56,10 @@ async function run() {
 
     } catch (err) {
         logger.error(`Task failed with error: ${err.message}`);
+        client.trackException({exception: new Error(err.message)});
     }
+
+    client.trackEvent({name: 'End Net Core'});
 }
 
 function applyTransforms(model: models.NetCore, regex: models.RegEx): void {
@@ -174,7 +188,7 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
         logger.info(`Processing: ${file}`);
 
         if (path.extname(file) !== '.csproj') {
-            logger.info('File is not .csproj'); // should this be a warning?
+            logger.warning('File is not .csproj');
             return;
         }
 
@@ -396,14 +410,14 @@ function setAssemblyData(group: any, model: models.NetCore): void {
         // PackageIconUrl will be deprecated in favor of the new PackageIcon property.
         // Starting with NuGet 5.3 & Visual Studio 2019 version 16.3, pack will raise NU5048 warning if the package metadata only specifies PackageIconUrl.
         // https://docs.microsoft.com/en-us/nuget/reference/msbuild-targets#packageiconurl
-        if (model.insertAttributes && !group.PackageIconUrl) {
-            group.PackageIconUrl = '';
-        }
+        // if (model.insertAttributes && !group.PackageIconUrl) {
+        //     group.PackageIconUrl = '';
+        // }
 
-        if (group.PackageIconUrl || group.PackageIconUrl === '') {
-            group.PackageIconUrl = model.iconUrl;
-            logger.info(`PackageIconUrl --> ${model.iconUrl}`);
-        }
+        // if (group.PackageIconUrl || group.PackageIconUrl === '') {
+        //     group.PackageIconUrl = model.iconUrl;
+        //     logger.info(`PackageIconUrl --> ${model.iconUrl}`);
+        // }
 
         if (model.insertAttributes && !group.PackageIcon) {
             group.PackageIcon = '';
