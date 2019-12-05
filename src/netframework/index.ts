@@ -1,3 +1,12 @@
+import appInsights = require('applicationinsights');
+appInsights.setup('#{NetFrameworkInstrumentationKey}#');
+appInsights.start();
+const client = appInsights.defaultClient;
+
+appInsights.defaultClient.commonProperties = {
+    task: 'Net Framework',
+};
+
 import tl = require('azure-pipelines-task-lib/task');
 import trm = require('azure-pipelines-task-lib/toolrunner');
 import chardet = require('chardet');
@@ -14,6 +23,9 @@ import utils = require('./services/utils.service');
 let logger: Logger = new Logger(false, LoggingLevel.Normal);
 
 async function run() {
+
+    client.trackEvent({name: 'Start Net Framework'});
+
     try {
 
         const regExModel = new models.RegEx();
@@ -42,7 +54,10 @@ async function run() {
 
     } catch (err) {
         logger.error(`Task failed with error: ${err.message}`);
+        client.trackException({exception: new Error(err.message)});
     }
+
+    client.trackEvent({name: 'End Net Framework'});
 }
 
 function applyTransforms(model: models.NetFramework, regex: models.RegEx): void {
