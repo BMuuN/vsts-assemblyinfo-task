@@ -4,6 +4,7 @@ export abstract class AssemblyInfo {
     fileNames: string[] = [];
     insertAttributes: boolean = false;
     fileEncoding: string = '';
+    detectedFileEncoding: string = '';
     writeBOM: boolean = false;
 
     product: string = '';
