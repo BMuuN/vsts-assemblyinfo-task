@@ -68,6 +68,9 @@
         },
         "license": {
             "path": "License.md"
+        },
+        "privacypolicy": {
+            "uri": "Privacy.md"
         }
     },
     "branding": {
