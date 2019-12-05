@@ -83,6 +83,7 @@ function getDefaultModel(): models.NetCore {
         fileNames: tl.getDelimitedInput('FileNames', '\n', true),
         insertAttributes: tl.getBoolInput('InsertAttributes', true),
         fileEncoding: tl.getInput('FileEncoding', true) || '',
+        detectedFileEncoding: '',
         writeBOM: tl.getBoolInput('WriteBOM', true),
 
         generatePackageOnBuild: tl.getBoolInput('GeneratePackageOnBuild', true),
@@ -199,12 +200,12 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
 
         setFileEncoding(file, model);
 
-        if (!iconv.encodingExists(model.fileEncoding)) {
-            logger.error(`${model.fileEncoding} file encoding not supported`);
+        if (!iconv.encodingExists(model.detectedFileEncoding)) {
+            logger.error(`${model.detectedFileEncoding} file encoding not supported`);
             return;
         }
 
-        const fileContent: string = iconv.decode(fs.readFileSync(file), model.fileEncoding);
+        const fileContent: string = iconv.decode(fs.readFileSync(file), model.detectedFileEncoding);
 
         const parser = new xml2js.Parser();
         parser.parseString(fileContent, (err: any, result: any) => {
@@ -240,7 +241,7 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
             const builder = new xml2js.Builder({ headless: true });
             const xml = builder.buildObject(result);
 
-            fs.writeFileSync(file, iconv.encode(xml, model.fileEncoding, { addBOM: model.writeBOM, stripBOM: undefined, defaultEncoding: undefined }));
+            fs.writeFileSync(file, iconv.encode(xml, model.detectedFileEncoding, { addBOM: model.writeBOM, stripBOM: undefined, defaultEncoding: undefined }));
 
             const encodingResult = getFileEncoding(file);
             logger.debug(`Verify file encoding: ${encodingResult}`);
@@ -258,8 +259,10 @@ function setFileEncoding(file: string, model: models.NetCore) {
     const encoding = getFileEncoding(file);
     logger.debug(`Detected file encoding: ${encoding}`);
 
+    model.detectedFileEncoding = model.fileEncoding;
+
     if (model.fileEncoding === 'auto') {
-        model.fileEncoding = encoding;
+        model.detectedFileEncoding = encoding;
     } else if (model.fileEncoding !== encoding) {
         logger.warning(`Detected file encoding (${encoding}) is different to the one specified (${model.fileEncoding}).`);
     }

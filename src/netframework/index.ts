@@ -81,6 +81,7 @@ function getDefaultModel(): models.NetFramework {
         fileNames: tl.getDelimitedInput('FileNames', '\n', true),
         insertAttributes: tl.getBoolInput('InsertAttributes', true),
         fileEncoding: tl.getInput('FileEncoding', true) || '',
+        detectedFileEncoding: '',
         writeBOM: tl.getBoolInput('WriteBOM', true),
 
         title: tl.getInput('Title', false) || '',
@@ -177,12 +178,12 @@ function setManifestData(model: models.NetFramework, regEx: models.RegEx): void 
 
         setFileEncoding(file, model);
 
-        if (!iconv.encodingExists(model.fileEncoding)) {
-            logger.error(`${model.fileEncoding} file encoding not supported`);
+        if (!iconv.encodingExists(model.detectedFileEncoding)) {
+            logger.error(`${model.detectedFileEncoding} file encoding not supported`);
             return;
         }
 
-        let fileContent: string = iconv.decode(fs.readFileSync(file), model.fileEncoding);
+        let fileContent: string = iconv.decode(fs.readFileSync(file), model.detectedFileEncoding);
 
         fileContent = addUsingIfMissing(file, fileContent);
 
@@ -198,7 +199,7 @@ function setManifestData(model: models.NetFramework, regEx: models.RegEx): void 
         fileContent = processNetFrameworkAttribute(file, fileContent, 'AssemblyConfiguration', regEx.word, model.configuration, model.insertAttributes);
         fileContent = processNetFrameworkAttribute(file, fileContent, 'AssemblyCopyright', regEx.word, model.copyright, model.insertAttributes);
 
-        fs.writeFileSync(file, iconv.encode(fileContent, model.fileEncoding, { addBOM: model.writeBOM, stripBOM: undefined, defaultEncoding: undefined }));
+        fs.writeFileSync(file, iconv.encode(fileContent, model.detectedFileEncoding, { addBOM: model.writeBOM, stripBOM: undefined, defaultEncoding: undefined }));
 
         const encodingResult = getFileEncoding(file);
         logger.debug(`Verify file encoding: ${encodingResult}`);
@@ -215,10 +216,12 @@ function setFileEncoding(file: string, model: models.NetFramework) {
     const encoding = getFileEncoding(file);
     logger.debug(`Detected file encoding: ${encoding}`);
 
+    model.detectedFileEncoding = model.fileEncoding;
+
     if (model.fileEncoding === 'auto') {
-        model.fileEncoding = encoding;
+        model.detectedFileEncoding = encoding;
     } else if (model.fileEncoding !== encoding) {
-        logger.warning(`Detected file encoding is different to the one specified.`);
+        logger.warning(`Detected file encoding (${encoding}) is different to the one specified (${model.fileEncoding}).`);
     }
 }
 
