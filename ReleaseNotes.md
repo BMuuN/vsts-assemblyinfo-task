@@ -1,5 +1,5 @@
 # Release Notes
-> **v2.1.81**
+> **v2.1.85**
 > - Added date transforms for all fields.
 > - Enhanced logging options.
 > - Added Application Insights.
