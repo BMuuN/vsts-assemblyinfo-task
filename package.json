@@ -2,10 +2,6 @@
   "name": "vsts-assemblyinfo-task",
   "version": "1.0.0",
   "description": "Extension for Team Services that sets assembly information from a build.",
-  "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
     "build": "tsc",
     "start": "node dist/src/task/index.js",
@@ -13,6 +9,7 @@
     "testrunner": "npm run build && TestRunner.sh",
     "gen_notice": "node generate-third-party-notice.js",
     "nuke_install": "rm -rf node_modules dist && npm cache verify && npm install",
+    "nuke_install_prod": "rm -rf node_modules dist && npm cache verify && npm install --production",
     "package-release": "tfx extension create --manifest-globs ./vss-extension.json",
     "package-dev": "tfx extension create --manifest-globs ./vss-extension.json --share-with bleddynrichards"
   },
