@@ -181,8 +181,8 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
 
         logger.info(`Processing: ${file}`);
 
-        if (path.extname(file) !== '.csproj') {
-            logger.warning('File is not .csproj');
+        if (path.extname(file) !== '.csproj' && path.extname(file) !== '.props') {
+            logger.warning('File is not .csproj or .props');
             return;
         }
 
