@@ -13,6 +13,7 @@ export class TelemetryService {
 
         appInsights.defaultClient.commonProperties = {
             task: 'Net Framework',
+            version: '#{ExtensionVersion}#',
         };
 
         if (!disableTelemetry) {
