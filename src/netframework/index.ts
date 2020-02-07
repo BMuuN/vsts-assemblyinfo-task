@@ -1,12 +1,3 @@
-import appInsights = require('applicationinsights');
-appInsights.setup('#{NetFrameworkInstrumentationKey}#');
-appInsights.start();
-const client = appInsights.defaultClient;
-
-appInsights.defaultClient.commonProperties = {
-    task: 'Net Framework',
-};
-
 import tl = require('azure-pipelines-task-lib/task');
 import trm = require('azure-pipelines-task-lib/toolrunner');
 import chardet = require('chardet');
@@ -17,17 +8,18 @@ import path = require('path');
 
 import { LoggingLevel } from './enums';
 import models = require('./models');
-import { Logger } from './services';
+import { Logger, TelemetryService } from './services';
 import utils = require('./services/utils.service');
 
 let logger: Logger = new Logger(false, LoggingLevel.Normal);
 
 async function run() {
 
-    client.trackEvent({name: 'Start Net Framework'});
+    const disableTelemetry: boolean = tl.getBoolInput('DisableTelemetry', true);
+    const telemetry = new TelemetryService(disableTelemetry, '#{NetFrameworkInstrumentationKey}#');
+    telemetry.trackEvent('Start Net Framework');
 
     try {
-
         const regExModel = new models.RegEx();
 
         const model = getDefaultModel();
@@ -54,10 +46,10 @@ async function run() {
 
     } catch (err) {
         logger.error(`Task failed with error: ${err.message}`);
-        client.trackException({exception: new Error(err.message)});
+        telemetry.trackException(err.message);
     }
 
-    client.trackEvent({name: 'End Net Framework'});
+    telemetry.trackEvent('End Net Framework');
 }
 
 function applyTransforms(model: models.NetFramework, regex: models.RegEx): void {

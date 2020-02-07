@@ -1,12 +1,3 @@
-import appInsights = require('applicationinsights');
-appInsights.setup('#{NetCoreInstrumentationKey}#');
-appInsights.start();
-const client = appInsights.defaultClient;
-
-appInsights.defaultClient.commonProperties = {
-    task: 'Net Core',
-};
-
 import tl = require('azure-pipelines-task-lib/task');
 import trm = require('azure-pipelines-task-lib/toolrunner');
 import chardet = require('chardet');
@@ -18,14 +9,16 @@ import xml2js = require('xml2js');
 
 import { LoggingLevel } from './enums';
 import * as models from './models';
-import { Logger } from './services';
+import { Logger, TelemetryService } from './services';
 import * as utils from './services/utils.service';
 
 let logger: Logger = new Logger(false, LoggingLevel.Normal);
 
 async function run() {
 
-    client.trackEvent({name: 'Start Net Core'});
+    const disableTelemetry: boolean = tl.getBoolInput('DisableTelemetry', true);
+    const telemetry = new TelemetryService(disableTelemetry, '#{NetCoreInstrumentationKey}#');
+    telemetry.trackEvent('Start Net Core');
 
     try {
         const regExModel = new models.RegEx();
@@ -56,10 +49,10 @@ async function run() {
 
     } catch (err) {
         logger.error(`Task failed with error: ${err.message}`);
-        client.trackException({exception: new Error(err.message)});
+        telemetry.trackException(err.message);
     }
 
-    client.trackEvent({name: 'End Net Core'});
+    telemetry.trackEvent('End Net Core');
 }
 
 function applyTransforms(model: models.NetCore, regex: models.RegEx): void {
