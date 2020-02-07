@@ -1,17 +1,8 @@
-<Project Sdk="MSBuild.Sdk.Extras">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net45</TargetFramework>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <AssemblyName>MSBuildSdkExtras</AssemblyName>
-    <AssemblyTitle>Windows Console Application</AssemblyTitle>
-    <PackageId>MSBuild Sdk Extras Test App</PackageId>
-    <Authors>Author</Authors>
-    <Company>Company</Company>
-    <Product>Product</Product>
   </PropertyGroup>
 
 </Project>
