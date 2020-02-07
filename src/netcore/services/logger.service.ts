@@ -1,5 +1,5 @@
 import tl = require('azure-pipelines-task-lib/task');
-import { LoggingLevel, MessageType } from '../../shared/enums';
+import { LoggingLevel, MessageType } from '../enums';
 
 export class Logger {
 
