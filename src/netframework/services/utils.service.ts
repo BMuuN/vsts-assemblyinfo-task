@@ -1,7 +1,7 @@
 import moment = require('moment');
 
-import { LoggingLevel } from '../../shared/enums';
-import * as sharedModels from '../../shared/models';
+import { LoggingLevel } from '../enums';
+import * as sharedModels from '../models';
 
 export function transformDates(value: string, regExModel: sharedModels.RegEx): string {
     return value.replace(regExModel.date, (match: string, g1: any, g2: any): string => {

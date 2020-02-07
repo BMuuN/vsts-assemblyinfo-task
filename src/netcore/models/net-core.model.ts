@@ -1,4 +1,4 @@
-import { AssemblyInfo } from '../../shared/models';
+import { AssemblyInfo } from './';
 
 export class NetCore extends AssemblyInfo {
     generatePackageOnBuild: boolean = false;

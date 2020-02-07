@@ -6,8 +6,7 @@ import iconv = require('iconv-lite');
 import moment = require('moment');
 import path = require('path');
 
-import { LoggingLevel } from '../shared/enums';
-import * as sharedModels from '../shared/models';
+import { LoggingLevel } from './enums';
 import models = require('./models');
 import { Logger, TelemetryService } from './services';
 import utils = require('./services/utils.service');
@@ -21,7 +20,7 @@ async function run() {
     telemetry.trackEvent('Start Net Framework');
 
     try {
-        const regExModel = new sharedModels.RegEx();
+        const regExModel = new models.RegEx();
 
         const model = getDefaultModel();
         model.fileNames = utils.formatFileNames(model.fileNames);
@@ -53,7 +52,7 @@ async function run() {
     telemetry.trackEvent('End Net Framework');
 }
 
-function applyTransforms(model: models.NetFramework, regex: sharedModels.RegEx): void {
+function applyTransforms(model: models.NetFramework, regex: models.RegEx): void {
     Object.keys(model).forEach((key: string) => {
         if (model.hasOwnProperty(key)) {
             const value = Reflect.get(model, key);
@@ -99,7 +98,7 @@ function getDefaultModel(): models.NetFramework {
     return model;
 }
 
-function generateVersionNumbers(model: models.NetFramework, regexModel: sharedModels.RegEx): void {
+function generateVersionNumbers(model: models.NetFramework, regexModel: models.RegEx): void {
     const start = moment('2000-01-01');
     const end = moment();
     let duration = moment.duration(end.diff(start));
@@ -150,7 +149,7 @@ function printTaskParameters(model: models.NetFramework): void {
     logger.debug('');
 }
 
-function setManifestData(model: models.NetFramework, regEx: sharedModels.RegEx): void {
+function setManifestData(model: models.NetFramework, regEx: models.RegEx): void {
 
     logger.info('Setting .Net Framework assembly info...');
 
