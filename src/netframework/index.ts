@@ -6,7 +6,8 @@ import iconv = require('iconv-lite');
 import moment = require('moment');
 import path = require('path');
 
-import { LoggingLevel } from './enums';
+import { LoggingLevel } from '../shared/enums';
+import * as sharedModels from '../shared/models';
 import models = require('./models');
 import { Logger, TelemetryService } from './services';
 import utils = require('./services/utils.service');
@@ -20,7 +21,7 @@ async function run() {
     telemetry.trackEvent('Start Net Framework');
 
     try {
-        const regExModel = new models.RegEx();
+        const regExModel = new sharedModels.RegEx();
 
         const model = getDefaultModel();
         model.fileNames = utils.formatFileNames(model.fileNames);

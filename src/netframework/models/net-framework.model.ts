@@ -1,4 +1,4 @@
-import { AssemblyInfo } from './assembly-info.model';
+import { AssemblyInfo } from '../../shared/models';
 
 export class NetFramework extends AssemblyInfo {
     title: string = '';
