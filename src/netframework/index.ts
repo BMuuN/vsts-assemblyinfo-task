@@ -53,7 +53,7 @@ async function run() {
     telemetry.trackEvent('End Net Framework');
 }
 
-function applyTransforms(model: models.NetFramework, regex: models.RegEx): void {
+function applyTransforms(model: models.NetFramework, regex: sharedModels.RegEx): void {
     Object.keys(model).forEach((key: string) => {
         if (model.hasOwnProperty(key)) {
             const value = Reflect.get(model, key);
@@ -99,7 +99,7 @@ function getDefaultModel(): models.NetFramework {
     return model;
 }
 
-function generateVersionNumbers(model: models.NetFramework, regexModel: models.RegEx): void {
+function generateVersionNumbers(model: models.NetFramework, regexModel: sharedModels.RegEx): void {
     const start = moment('2000-01-01');
     const end = moment();
     let duration = moment.duration(end.diff(start));
@@ -150,7 +150,7 @@ function printTaskParameters(model: models.NetFramework): void {
     logger.debug('');
 }
 
-function setManifestData(model: models.NetFramework, regEx: models.RegEx): void {
+function setManifestData(model: models.NetFramework, regEx: sharedModels.RegEx): void {
 
     logger.info('Setting .Net Framework assembly info...');
 
