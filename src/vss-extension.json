@@ -44,6 +44,9 @@
         },
         "support": { 
             "uri": "https://github.com/BMuuN/vsts-assemblyinfo-task/issues"
+        },
+        "privacypolicy": {
+            "uri": "https://github.com/BMuuN/vsts-assemblyinfo-task/blob/master/src/Privacy.md"
         }
     },
     "repository": {
@@ -68,9 +71,6 @@
         },
         "license": {
             "path": "License.md"
-        },
-        "privacypolicy": {
-            "uri": "Privacy.md"
         }
     },
     "branding": {
