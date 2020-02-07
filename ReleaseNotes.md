@@ -1,7 +1,9 @@
 # Release Notes
-> **v2.1.80**
+> **v2.1.85**
 > - Added date transforms for all fields.
 > - Enhanced logging options.
+> - Added Application Insights.
+> - Bug fix for file encoding using last detected encoding type.
 
 > **v2.0.73**
 > - Skip invalid csproj file types.

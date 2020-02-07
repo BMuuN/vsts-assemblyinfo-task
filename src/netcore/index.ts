@@ -1,12 +1,3 @@
-import appInsights = require('applicationinsights');
-appInsights.setup('#{NetCoreInstrumentationKey}#');
-appInsights.start();
-const client = appInsights.defaultClient;
-
-appInsights.defaultClient.commonProperties = {
-    task: 'Net Core',
-};
-
 import tl = require('azure-pipelines-task-lib/task');
 import trm = require('azure-pipelines-task-lib/toolrunner');
 import chardet = require('chardet');
@@ -18,14 +9,16 @@ import xml2js = require('xml2js');
 
 import { LoggingLevel } from './enums';
 import * as models from './models';
-import { Logger } from './services';
+import { Logger, TelemetryService } from './services';
 import * as utils from './services/utils.service';
 
 let logger: Logger = new Logger(false, LoggingLevel.Normal);
 
 async function run() {
 
-    client.trackEvent({name: 'Start Net Core'});
+    const disableTelemetry: boolean = tl.getBoolInput('DisableTelemetry', true);
+    const telemetry = new TelemetryService(disableTelemetry, '#{NetCoreInstrumentationKey}#');
+    telemetry.trackEvent('Start Net Core');
 
     try {
         const regExModel = new models.RegEx();
@@ -56,10 +49,10 @@ async function run() {
 
     } catch (err) {
         logger.error(`Task failed with error: ${err.message}`);
-        client.trackException({exception: new Error(err.message)});
+        telemetry.trackException(err.message);
     }
 
-    client.trackEvent({name: 'End Net Core'});
+    telemetry.trackEvent('End Net Core');
 }
 
 function applyTransforms(model: models.NetCore, regex: models.RegEx): void {
@@ -83,6 +76,7 @@ function getDefaultModel(): models.NetCore {
         fileNames: tl.getDelimitedInput('FileNames', '\n', true),
         insertAttributes: tl.getBoolInput('InsertAttributes', true),
         fileEncoding: tl.getInput('FileEncoding', true) || '',
+        detectedFileEncoding: '',
         writeBOM: tl.getBoolInput('WriteBOM', true),
 
         generatePackageOnBuild: tl.getBoolInput('GeneratePackageOnBuild', true),
@@ -199,12 +193,12 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
 
         setFileEncoding(file, model);
 
-        if (!iconv.encodingExists(model.fileEncoding)) {
-            logger.error(`${model.fileEncoding} file encoding not supported`);
+        if (!iconv.encodingExists(model.detectedFileEncoding)) {
+            logger.error(`${model.detectedFileEncoding} file encoding not supported`);
             return;
         }
 
-        const fileContent: string = iconv.decode(fs.readFileSync(file), model.fileEncoding);
+        const fileContent: string = iconv.decode(fs.readFileSync(file), model.detectedFileEncoding);
 
         const parser = new xml2js.Parser();
         parser.parseString(fileContent, (err: any, result: any) => {
@@ -219,7 +213,7 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
                 return;
             }
 
-            // Ensure the project is in the new format
+            // Ensure the project is tartgeting .Net Core or .Net Standard
             if (!result.Project.$.Sdk || (result.Project.$.Sdk.indexOf('Microsoft.NET.Sdk') < 0 && result.Project.$.Sdk.indexOf('MSBuild.Sdk.Extras') < 0)) {
                 logger.warning(`Project is not targeting .Net Core or .Net Standard, moving to next file.`);
                 logger.info('');
@@ -240,7 +234,7 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
             const builder = new xml2js.Builder({ headless: true });
             const xml = builder.buildObject(result);
 
-            fs.writeFileSync(file, iconv.encode(xml, model.fileEncoding, { addBOM: model.writeBOM, stripBOM: undefined, defaultEncoding: undefined }));
+            fs.writeFileSync(file, iconv.encode(xml, model.detectedFileEncoding, { addBOM: model.writeBOM, stripBOM: undefined, defaultEncoding: undefined }));
 
             const encodingResult = getFileEncoding(file);
             logger.debug(`Verify file encoding: ${encodingResult}`);
@@ -258,8 +252,10 @@ function setFileEncoding(file: string, model: models.NetCore) {
     const encoding = getFileEncoding(file);
     logger.debug(`Detected file encoding: ${encoding}`);
 
+    model.detectedFileEncoding = model.fileEncoding;
+
     if (model.fileEncoding === 'auto') {
-        model.fileEncoding = encoding;
+        model.detectedFileEncoding = encoding;
     } else if (model.fileEncoding !== encoding) {
         logger.warning(`Detected file encoding (${encoding}) is different to the one specified (${model.fileEncoding}).`);
     }
@@ -407,26 +403,26 @@ function setAssemblyData(group: any, model: models.NetCore): void {
     // Icon Url
     if (model.iconUrl) {
 
+        if (model.insertAttributes && !group.PackageIconUrl) {
+            group.PackageIconUrl = '';
+        }
+
+        if (group.PackageIconUrl || group.PackageIconUrl === '') {
+            group.PackageIconUrl = model.iconUrl;
+            logger.info(`PackageIconUrl --> ${model.iconUrl}`);
+        }
+
         // PackageIconUrl will be deprecated in favor of the new PackageIcon property.
         // Starting with NuGet 5.3 & Visual Studio 2019 version 16.3, pack will raise NU5048 warning if the package metadata only specifies PackageIconUrl.
         // https://docs.microsoft.com/en-us/nuget/reference/msbuild-targets#packageiconurl
-        // if (model.insertAttributes && !group.PackageIconUrl) {
-        //     group.PackageIconUrl = '';
+        // if (model.insertAttributes && !group.PackageIcon) {
+        //     group.PackageIcon = '';
         // }
 
-        // if (group.PackageIconUrl || group.PackageIconUrl === '') {
-        //     group.PackageIconUrl = model.iconUrl;
-        //     logger.info(`PackageIconUrl --> ${model.iconUrl}`);
+        // if (group.PackageIcon || group.PackageIcon === '') {
+        //     group.PackageIcon = model.iconUrl;
+        //     logger.info(`PackageIcon --> ${model.iconUrl}`);
         // }
-
-        if (model.insertAttributes && !group.PackageIcon) {
-            group.PackageIcon = '';
-        }
-
-        if (group.PackageIcon || group.PackageIcon === '') {
-            group.PackageIcon = model.iconUrl;
-            logger.info(`PackageIcon --> ${model.iconUrl}`);
-        }
     }
 
     // Repository Url

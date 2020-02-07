@@ -1,9 +1,9 @@
-
 export abstract class AssemblyInfo {
     path: string = '';
     fileNames: string[] = [];
     insertAttributes: boolean = false;
     fileEncoding: string = '';
+    detectedFileEncoding: string = '';
     writeBOM: boolean = false;
 
     product: string = '';

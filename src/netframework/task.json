@@ -209,6 +209,15 @@
       "required": true,
       "helpMarkDown": "If checked the task will fail when a warning is triggered.",
       "groupName": "loggingGroup"
+    },
+    {
+      "name": "DisableTelemetry",
+      "type": "boolean",
+      "label": "Disable Telemetry",
+      "defaultValue": false,
+      "required": true,
+      "helpMarkDown": "If checked the task will disable Application Insights telemetry.",
+      "groupName": "loggingGroup"
     }
   ],
   "execution": {

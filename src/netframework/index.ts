@@ -1,12 +1,3 @@
-import appInsights = require('applicationinsights');
-appInsights.setup('#{NetFrameworkInstrumentationKey}#');
-appInsights.start();
-const client = appInsights.defaultClient;
-
-appInsights.defaultClient.commonProperties = {
-    task: 'Net Framework',
-};
-
 import tl = require('azure-pipelines-task-lib/task');
 import trm = require('azure-pipelines-task-lib/toolrunner');
 import chardet = require('chardet');
@@ -17,17 +8,18 @@ import path = require('path');
 
 import { LoggingLevel } from './enums';
 import models = require('./models');
-import { Logger } from './services';
+import { Logger, TelemetryService } from './services';
 import utils = require('./services/utils.service');
 
 let logger: Logger = new Logger(false, LoggingLevel.Normal);
 
 async function run() {
 
-    client.trackEvent({name: 'Start Net Framework'});
+    const disableTelemetry: boolean = tl.getBoolInput('DisableTelemetry', true);
+    const telemetry = new TelemetryService(disableTelemetry, '#{NetFrameworkInstrumentationKey}#');
+    telemetry.trackEvent('Start Net Framework');
 
     try {
-
         const regExModel = new models.RegEx();
 
         const model = getDefaultModel();
@@ -54,10 +46,10 @@ async function run() {
 
     } catch (err) {
         logger.error(`Task failed with error: ${err.message}`);
-        client.trackException({exception: new Error(err.message)});
+        telemetry.trackException(err.message);
     }
 
-    client.trackEvent({name: 'End Net Framework'});
+    telemetry.trackEvent('End Net Framework');
 }
 
 function applyTransforms(model: models.NetFramework, regex: models.RegEx): void {
@@ -81,6 +73,7 @@ function getDefaultModel(): models.NetFramework {
         fileNames: tl.getDelimitedInput('FileNames', '\n', true),
         insertAttributes: tl.getBoolInput('InsertAttributes', true),
         fileEncoding: tl.getInput('FileEncoding', true) || '',
+        detectedFileEncoding: '',
         writeBOM: tl.getBoolInput('WriteBOM', true),
 
         title: tl.getInput('Title', false) || '',
@@ -177,12 +170,12 @@ function setManifestData(model: models.NetFramework, regEx: models.RegEx): void 
 
         setFileEncoding(file, model);
 
-        if (!iconv.encodingExists(model.fileEncoding)) {
-            logger.error(`${model.fileEncoding} file encoding not supported`);
+        if (!iconv.encodingExists(model.detectedFileEncoding)) {
+            logger.error(`${model.detectedFileEncoding} file encoding not supported`);
             return;
         }
 
-        let fileContent: string = iconv.decode(fs.readFileSync(file), model.fileEncoding);
+        let fileContent: string = iconv.decode(fs.readFileSync(file), model.detectedFileEncoding);
 
         fileContent = addUsingIfMissing(file, fileContent);
 
@@ -198,7 +191,7 @@ function setManifestData(model: models.NetFramework, regEx: models.RegEx): void 
         fileContent = processNetFrameworkAttribute(file, fileContent, 'AssemblyConfiguration', regEx.word, model.configuration, model.insertAttributes);
         fileContent = processNetFrameworkAttribute(file, fileContent, 'AssemblyCopyright', regEx.word, model.copyright, model.insertAttributes);
 
-        fs.writeFileSync(file, iconv.encode(fileContent, model.fileEncoding, { addBOM: model.writeBOM, stripBOM: undefined, defaultEncoding: undefined }));
+        fs.writeFileSync(file, iconv.encode(fileContent, model.detectedFileEncoding, { addBOM: model.writeBOM, stripBOM: undefined, defaultEncoding: undefined }));
 
         const encodingResult = getFileEncoding(file);
         logger.debug(`Verify file encoding: ${encodingResult}`);
@@ -215,10 +208,12 @@ function setFileEncoding(file: string, model: models.NetFramework) {
     const encoding = getFileEncoding(file);
     logger.debug(`Detected file encoding: ${encoding}`);
 
+    model.detectedFileEncoding = model.fileEncoding;
+
     if (model.fileEncoding === 'auto') {
-        model.fileEncoding = encoding;
+        model.detectedFileEncoding = encoding;
     } else if (model.fileEncoding !== encoding) {
-        logger.warning(`Detected file encoding is different to the one specified.`);
+        logger.warning(`Detected file encoding (${encoding}) is different to the one specified (${model.fileEncoding}).`);
     }
 }
 

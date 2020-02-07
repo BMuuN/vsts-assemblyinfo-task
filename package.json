@@ -2,17 +2,16 @@
   "name": "vsts-assemblyinfo-task",
   "version": "1.0.0",
   "description": "Extension for Team Services that sets assembly information from a build.",
-  "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
     "build": "tsc",
     "start": "node dist/src/task/index.js",
     "test": "npm run build && mocha dist/tests/_suite.js",
     "testrunner": "npm run build && TestRunner.sh",
     "gen_notice": "node generate-third-party-notice.js",
-    "nuke_install": "rm -rf node_modules dist && npm cache verify && npm install"
+    "nuke_install": "rm -rf node_modules dist && npm cache verify && npm install",
+    "nuke_install_prod": "rm -rf node_modules dist && npm cache verify && npm install --production",
+    "package-release": "tfx extension create --manifest-globs ./vss-extension.json",
+    "package-dev": "tfx extension create --manifest-globs ./vss-extension.json --share-with bleddynrichards"
   },
   "repository": {
     "type": "git",
@@ -26,8 +25,9 @@
   "homepage": "https://github.com/BMuuN/vsts-assemblyinfo-task#readme",
   "dependencies": {
     "@types/chardet": "^0.8.0",
+    "@types/q": "^1.5.2",
     "@types/xml2js": "^0.4.5",
-    "applicationinsights": "^1.6.0",
+    "applicationinsights": "^1.7.0",
     "azure-pipelines-task-lib": "^2.9.3",
     "chardet": "^0.8.0",
     "iconv-lite": "^0.5.0",
@@ -35,11 +35,10 @@
     "xml2js": "^0.4.22"
   },
   "devDependencies": {
-    "@types/mocha": "^5.2.7",
-    "@types/node": "^12.12.14",
-    "@types/q": "^1.5.2",
-    "mocha": "^6.2.2",
-    "ts-node": "^8.5.4",
+    "@types/mocha": "^7.0.1",
+    "@types/node": "^13.7.0",
+    "mocha": "^7.0.1",
+    "ts-node": "^8.6.2",
     "typescript": "^3.7.2"
   }
 }
