@@ -6,26 +6,29 @@ export class TelemetryService {
 
     constructor(disableTelemetry: boolean, instrumentationKey: string) {
 
-        appInsights.setup(instrumentationKey);
-
-        appInsights.defaultClient.config.disableAppInsights = disableTelemetry;
-        this.client = appInsights.defaultClient;
-
-        appInsights.defaultClient.commonProperties = {
-            task: 'Net Framework',
-            version: '#{ExtensionVersion}#',
-        };
-
         if (!disableTelemetry) {
+            appInsights.setup(instrumentationKey);
+
+            this.client = appInsights.defaultClient;
+
+            appInsights.defaultClient.commonProperties = {
+                task: 'Net Framework',
+                version: '#{ExtensionVersion}#',
+            };
+
             appInsights.start();
         }
     }
 
     trackEvent(message: string) {
-        this.client.trackEvent({name: message});
+        if (this.client) {
+            this.client.trackEvent({name: message});
+        }
     }
 
     trackException(message: string) {
-        this.client.trackException({exception: new Error(message)});
+        if (this.client) {
+            this.client.trackException({exception: new Error(message)});
+        }
     }
 }
