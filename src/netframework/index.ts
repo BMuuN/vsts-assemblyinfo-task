@@ -224,7 +224,7 @@ function addUsingIfMissing(file: string, content: string) {
     if (file.endsWith('.vb')) {
         usings = ['Imports System.Reflection'];
     } else if (file.endsWith('.cs')) {
-        usings = ['using System.Reflection;', 'using System.Runtime.CompilerServices;'];
+        usings = ['using System.Runtime.CompilerServices;', 'using System.Reflection;'];
     }
 
     usings.forEach((value, index, array) => {
