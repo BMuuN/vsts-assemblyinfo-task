@@ -106,6 +106,7 @@ function getDefaultModel(): models.NetCore {
 
         logLevel: tl.getInput('LogLevel', true) || '',
         failOnWarning: tl.getBoolInput('FailOnWarning', true),
+        ignoreNetFrameworkProjects: tl.getBoolInput('IgnoreNetFrameworkProjects', false) || false,
     };
 
     return model;
@@ -215,6 +216,8 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
 
             // Ensure the project is tartgeting .Net Core or .Net Standard
             if (!result.Project.$.Sdk || result.Project.$.Sdk.indexOf('Microsoft.NET.Sdk') < 0) {
+                if (model.ignoreNetFrameworkProjects) return;
+                
                 logger.warning(`Project is not targeting .Net Core or .Net Standard, moving to next file.`);
                 logger.info('');
                 return;

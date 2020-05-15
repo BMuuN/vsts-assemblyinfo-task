@@ -20,4 +20,5 @@ export abstract class AssemblyInfo {
 
     logLevel: string = '';
     failOnWarning: boolean = false;
+    ignoreNetFrameworkProjects: boolean = false;
 }
