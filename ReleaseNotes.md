@@ -1,4 +1,12 @@
 # Release Notes
+> **v2.2.103**
+> - Added section to Overview.md about the issues faced with App Insights telemetry service.
+> Thanks to [chwebdude](https://github.com/chwebdude)
+> - Added flag to ignore warnings when .Net Framework project found. Fixes [#136](https://github.com/BMuuN/vsts-assemblyinfo-task/issues/136)
+> Thanks to [hermanvos](https://github.com/hermanvos)
+> - Bug fix for wildcard verion number rounding.
+> Thanks to [THues3010 ](https://github.com/THues3010)
+
 > **v2.1.85**
 > - Added date transforms for all fields.
 > - Enhanced logging options.
