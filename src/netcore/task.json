@@ -47,7 +47,7 @@
       "label": "Source files",
       "defaultValue": "**/*.csproj",
       "required": true,
-      "helpMarkDown": "Specify the project file(s). Wildcards can be used.  For example, `**/*.csproj` for all csproj files in all the sub folders.\r\n[More Information](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/file-matching-patterns?view=vsts)",
+      "helpMarkDown": "Specify the project or custom property file(s). Wildcards can be used.  For example, `**/*.csproj` for all csproj files in all the sub folders.\r\n[More Information](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/file-matching-patterns?view=vsts)",
       "properties": {
         "resizable": "true",
         "rows": "6"

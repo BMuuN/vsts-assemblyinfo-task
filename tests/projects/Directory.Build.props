@@ -1,0 +1,10 @@
+<Project>
+	<PropertyGroup>
+                <Company></Company>
+                <Copyright></Copyright>
+                <FileVersion>1.0.0.2</FileVersion>
+                <InformationalVersion>1.0.1-beta</InformationalVersion>
+                <AssemblyVersion>1.0.0.1</AssemblyVersion>
+                <Version>1.0.1-beta</Version>
+	</PropertyGroup>
+</Project>
