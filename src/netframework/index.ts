@@ -102,11 +102,11 @@ function generateVersionNumbers(model: models.NetFramework, regexModel: models.R
     const start = moment('2000-01-01');
     const end = moment();
     let duration = moment.duration(end.diff(start));
-    const verBuild = Math.ceil(duration.asDays()) - 1;
+    const verBuild = Math.ceil(duration.asDays());
 
     const midnight = moment().startOf('day');
     duration = moment.duration(end.diff(midnight));
-    const verRelease = Math.ceil(duration.asSeconds() / 2) - 1;
+    const verRelease = Math.ceil(duration.asSeconds() / 2);
 
     model.verBuild = verBuild.toString();
     model.verRelease = verRelease.toString();
