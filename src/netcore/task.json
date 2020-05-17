@@ -163,10 +163,10 @@
     {
       "name": "PackageLicenseUrl",
       "type": "string",
-      "label": "License Url",
+      "label": "License",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Sets the `PackageLicenseUrl` attribute.",
+      "helpMarkDown": "Sets the `PackageLicenseFile` attribute.",
       "groupName": "attributesGroup"
     },
     {
@@ -181,10 +181,10 @@
     {
       "name": "PackageIconUrl",
       "type": "string",
-      "label": "Icon Url",
+      "label": "Icon",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Sets the `PackageIconUrl` attribute.",
+      "helpMarkDown": "Sets the `PackageIcon` attribute.",
       "groupName": "attributesGroup"
     },
     {
