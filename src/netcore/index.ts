@@ -89,9 +89,10 @@ function getDefaultModel(): models.NetCore {
         product: tl.getInput('Product', false) || '',
         description: tl.getInput('Description', false) || '',
         copyright: tl.getInput('Copyright', false) || '',
-        licenseUrl: tl.getInput('PackageLicenseUrl', false) || '',
+        licenseFile: tl.getInput('PackageLicenseUrl', false) || '',
+        licenseExpression: tl.getInput('PackageLicenseExpression', false) || '',
         projectUrl: tl.getInput('PackageProjectUrl', false) || '',
-        iconUrl: tl.getInput('PackageIconUrl', false) || '',
+        packageIcon: tl.getInput('PackageIconUrl', false) || '',
         repositoryUrl: tl.getInput('RepositoryUrl', false) || '',
         repositoryType: tl.getInput('RepositoryType', false) || '',
         tags: tl.getInput('PackageTags', false) || '',
@@ -156,9 +157,10 @@ function printTaskParameters(model: models.NetCore): void {
     logger.debug(`Product: ${model.product}`);
     logger.debug(`Description: ${model.description}`);
     logger.debug(`Copyright: ${model.copyright}`);
-    logger.debug(`License Url: ${model.licenseUrl}`);
+    logger.debug(`License File: ${model.licenseFile}`);
+    logger.debug(`License Expression: ${model.licenseExpression}`);
     logger.debug(`Project Url: ${model.projectUrl}`);
-    logger.debug(`Icon Url: ${model.iconUrl}`);
+    logger.debug(`Package Icon: ${model.packageIcon}`);
     logger.debug(`Repository Url: ${model.repositoryUrl}`);
     logger.debug(`Repository type: ${model.repositoryType}`);
     logger.debug(`Tags: ${model.tags}`);
@@ -379,16 +381,29 @@ function setAssemblyData(group: any, model: models.NetCore): void {
         }
     }
 
-    // License Url
-    if (model.licenseUrl) {
+    // License File
+    if (model.licenseFile) {
 
         if (model.insertAttributes && !group.PackageLicenseFile) {
             group.PackageLicenseFile = '';
         }
 
         if (group.PackageLicenseFile || group.PackageLicenseFile === '') {
-            group.PackageLicenseFile = model.licenseUrl;
-            logger.info(`PackageLicenseFile --> ${model.licenseUrl}`);
+            group.PackageLicenseFile = model.licenseFile;
+            logger.info(`PackageLicenseFile --> ${model.licenseFile}`);
+        }
+    }
+
+    // License Expression
+    if (model.licenseExpression) {
+
+        if (model.insertAttributes && !group.PackageLicenseExpression) {
+            group.PackageLicenseExpression = '';
+        }
+
+        if (group.PackageLicenseExpression || group.PackageLicenseExpression === '') {
+            group.PackageLicenseExpression = model.licenseExpression;
+            logger.info(`PackageLicenseExpression --> ${model.licenseExpression}`);
         }
     }
 
@@ -405,16 +420,16 @@ function setAssemblyData(group: any, model: models.NetCore): void {
         }
     }
 
-    // Icon Url
-    if (model.iconUrl) {
+    // Package Icon
+    if (model.packageIcon) {
 
         if (model.insertAttributes && !group.PackageIcon) {
             group.PackageIcon = '';
         }
 
         if (group.PackageIcon || group.PackageIcon === '') {
-            group.PackageIcon = model.iconUrl;
-            logger.info(`PackageIcon --> ${model.iconUrl}`);
+            group.PackageIcon = model.packageIcon;
+            logger.info(`PackageIcon --> ${model.packageIcon}`);
         }
     }
 
