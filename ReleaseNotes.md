@@ -1,4 +1,8 @@
 # Release Notes
+> **v3.0**
+> - Changed 'PackageLicenseUrl' elemnt to 'PackageLicenseFile'.
+> - Changed 'PackageIconUrl' element to 'PackageIcon'.
+
 > **v2.2.103**
 > - Added section to Overview.md about the issues faced with App Insights telemetry service.
 > Thanks to [chwebdude](https://github.com/chwebdude)

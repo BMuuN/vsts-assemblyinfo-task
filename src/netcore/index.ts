@@ -382,13 +382,13 @@ function setAssemblyData(group: any, model: models.NetCore): void {
     // License Url
     if (model.licenseUrl) {
 
-        if (model.insertAttributes && !group.PackageLicenseUrl) {
-            group.PackageLicenseUrl = '';
+        if (model.insertAttributes && !group.PackageLicenseFile) {
+            group.PackageLicenseFile = '';
         }
 
-        if (group.PackageLicenseUrl || group.PackageLicenseUrl === '') {
-            group.PackageLicenseUrl = model.licenseUrl;
-            logger.info(`PackageLicenseUrl --> ${model.licenseUrl}`);
+        if (group.PackageLicenseFile || group.PackageLicenseFile === '') {
+            group.PackageLicenseFile = model.licenseUrl;
+            logger.info(`PackageLicenseFile --> ${model.licenseUrl}`);
         }
     }
 
@@ -408,26 +408,14 @@ function setAssemblyData(group: any, model: models.NetCore): void {
     // Icon Url
     if (model.iconUrl) {
 
-        if (model.insertAttributes && !group.PackageIconUrl) {
-            group.PackageIconUrl = '';
+        if (model.insertAttributes && !group.PackageIcon) {
+            group.PackageIcon = '';
         }
 
-        if (group.PackageIconUrl || group.PackageIconUrl === '') {
-            group.PackageIconUrl = model.iconUrl;
-            logger.info(`PackageIconUrl --> ${model.iconUrl}`);
+        if (group.PackageIcon || group.PackageIcon === '') {
+            group.PackageIcon = model.iconUrl;
+            logger.info(`PackageIcon --> ${model.iconUrl}`);
         }
-
-        // PackageIconUrl will be deprecated in favor of the new PackageIcon property.
-        // Starting with NuGet 5.3 & Visual Studio 2019 version 16.3, pack will raise NU5048 warning if the package metadata only specifies PackageIconUrl.
-        // https://docs.microsoft.com/en-us/nuget/reference/msbuild-targets#packageiconurl
-        // if (model.insertAttributes && !group.PackageIcon) {
-        //     group.PackageIcon = '';
-        // }
-
-        // if (group.PackageIcon || group.PackageIcon === '') {
-        //     group.PackageIcon = model.iconUrl;
-        //     logger.info(`PackageIcon --> ${model.iconUrl}`);
-        // }
     }
 
     // Repository Url
