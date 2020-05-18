@@ -1,7 +1,10 @@
 # Release Notes
-> **v3.0**
-> - Changed 'PackageLicenseUrl' elemnt to 'PackageLicenseFile'.
+> **v3.0.x**
+> - Added new logo.
+> - Changed 'PackageLicenseUrl' element to 'PackageLicenseFile'.
 > - Changed 'PackageIconUrl' element to 'PackageIcon'.
+> - Added support for `MSBuild.Sdk.Extras` projects.
+> Thanks to [crb04c](https://github.com/crb04c)
 
 > **v2.2.103**
 > - Added section to Overview.md about the issues faced with App Insights telemetry service.
