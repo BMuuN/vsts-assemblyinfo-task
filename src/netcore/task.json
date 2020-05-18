@@ -299,6 +299,15 @@
       "required": true,
       "helpMarkDown": "If checked the task will disable Application Insights telemetry.",
       "groupName": "loggingGroup"
+    },
+    {
+      "name": "IgnoreNetFrameworkProjects",
+      "type": "boolean",
+      "label": "Ignore .Net Framework Projects",
+      "defaultValue": false,
+      "required": false,
+      "helpMarkDown": "If checked no warning will be written for .Net Framework projects.",
+      "groupName": "loggingGroup"
     }
   ],
   "execution": {

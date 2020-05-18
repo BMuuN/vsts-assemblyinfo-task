@@ -106,28 +106,29 @@ function getDefaultModel(): models.NetCore {
 
         logLevel: tl.getInput('LogLevel', true) || '',
         failOnWarning: tl.getBoolInput('FailOnWarning', true),
+        ignoreNetFrameworkProjects: tl.getBoolInput('IgnoreNetFrameworkProjects', false) || false,
     };
 
     return model;
 }
 
-function generateVersionNumbers(model: models.NetCore, regex: models.RegEx): void {
+function generateVersionNumbers(model: models.NetCore, regexModel: models.RegEx): void {
     const start = moment('2000-01-01');
     const end = moment();
     let duration = moment.duration(end.diff(start));
-    const verBuild = Math.round(duration.asDays());
+    const verBuild = Math.ceil(duration.asDays());
 
     const midnight = moment().startOf('day');
     duration = moment.duration(end.diff(midnight));
-    const verRelease = Math.round(duration.asSeconds() / 2);
+    const verRelease = Math.ceil(duration.asSeconds() / 2);
 
     model.verBuild = verBuild.toString();
     model.verRelease = verRelease.toString();
 
-    const version = model.version.match(regex.version);
+    const version = model.version.match(regexModel.version);
     const versionValue = version && version[0] || '';
 
-    const fileVersion = model.fileVersion.match(regex.version);
+    const fileVersion = model.fileVersion.match(regexModel.version);
     const fileVersionValue = fileVersion && fileVersion[0] || '';
 
     model.packageVersion = utils.setWildcardVersionNumber(model.packageVersion, model.verBuild, model.verRelease);
@@ -215,7 +216,11 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
 
             // Ensure the project is in the new format
             if (!result.Project.$.Sdk || (result.Project.$.Sdk.indexOf('Microsoft.NET.Sdk') < 0 && result.Project.$.Sdk.indexOf('MSBuild.Sdk.Extras') < 0)) {
-                logger.warning(`Project is not targeting .Net Core or .Net Standard, moving to next file.`);
+
+                if (!model.ignoreNetFrameworkProjects) {
+                    logger.warning(`Project is not targeting .Net Core or .Net Standard, moving to next file.`);
+                }
+
                 logger.info('');
                 return;
             }
