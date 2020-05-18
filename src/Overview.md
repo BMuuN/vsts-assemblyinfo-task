@@ -1,4 +1,6 @@
-# Assembly Info
+![Asembly Info Logo](images/logo_large.png)
+
+# Introduction
 Assembly Info is an extension for Azure DevOps that populates assembly information metadata from a build pipeline.
 
 The extension contains 2 tasks: - one which targets Net Framework projects and another task which targets Net Core / Net Standard projects.
@@ -24,7 +26,7 @@ The extension contains 2 tasks: - one which targets Net Framework projects and a
 For detailed instructions on how to configure the extension please see the [wiki](https://github.com/BMuuN/vsts-assemblyinfo-task/wiki).
 
 ### Timeout errors or never ending process
-This extension collects [telemetry data](https://github.com/BMuuN/vsts-assemblyinfo-task/blob/master/src/Privacy.md) which can cause in errors when the build server can not reach the telemetry service. Try to shut it off in the build step settings (Logging/Disable Telemetry) or by setting the variable ```DisableTelemetry``` to ```true```.
+This extension collects [telemetry data](https://github.com/BMuuN/vsts-assemblyinfo-task/blob/master/src/Privacy.md) which can cause issues when the build server cannot reach the telemetry service (the extension will hang and result in a timeout error). If you are faced with this issue then disable the telemerty service by enablig the setting `Logging --> Disable Telemetry` or by setting the variable `DisableTelemetry` to `true`.
 
 ### Upgrade to Version 2
 With the release of version 2 the extension has been re-written from the ground up using Node.js and includes a number of breaking changes.  Please see the [wiki](https://github.com/BMuuN/vsts-assemblyinfo-task/wiki/Upgrade-v1-to-v2) for details on the upgrade.
