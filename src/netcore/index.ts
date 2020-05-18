@@ -89,9 +89,10 @@ function getDefaultModel(): models.NetCore {
         product: tl.getInput('Product', false) || '',
         description: tl.getInput('Description', false) || '',
         copyright: tl.getInput('Copyright', false) || '',
-        licenseUrl: tl.getInput('PackageLicenseUrl', false) || '',
+        licenseFile: tl.getInput('PackageLicenseUrl', false) || '',
+        licenseExpression: tl.getInput('PackageLicenseExpression', false) || '',
         projectUrl: tl.getInput('PackageProjectUrl', false) || '',
-        iconUrl: tl.getInput('PackageIconUrl', false) || '',
+        packageIcon: tl.getInput('PackageIconUrl', false) || '',
         repositoryUrl: tl.getInput('RepositoryUrl', false) || '',
         repositoryType: tl.getInput('RepositoryType', false) || '',
         tags: tl.getInput('PackageTags', false) || '',
@@ -156,9 +157,10 @@ function printTaskParameters(model: models.NetCore): void {
     logger.debug(`Product: ${model.product}`);
     logger.debug(`Description: ${model.description}`);
     logger.debug(`Copyright: ${model.copyright}`);
-    logger.debug(`License Url: ${model.licenseUrl}`);
+    logger.debug(`License File: ${model.licenseFile}`);
+    logger.debug(`License Expression: ${model.licenseExpression}`);
     logger.debug(`Project Url: ${model.projectUrl}`);
-    logger.debug(`Icon Url: ${model.iconUrl}`);
+    logger.debug(`Package Icon: ${model.packageIcon}`);
     logger.debug(`Repository Url: ${model.repositoryUrl}`);
     logger.debug(`Repository type: ${model.repositoryType}`);
     logger.debug(`Tags: ${model.tags}`);
@@ -214,8 +216,8 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
                 return;
             }
 
-            // Ensure the project is tartgeting .Net Core or .Net Standard
-            if (!result.Project.$.Sdk || result.Project.$.Sdk.indexOf('Microsoft.NET.Sdk') < 0) {
+            // Ensure the project is in the new format
+            if (!result.Project.$.Sdk || (result.Project.$.Sdk.indexOf('Microsoft.NET.Sdk') < 0 && result.Project.$.Sdk.indexOf('MSBuild.Sdk.Extras') < 0)) {
 
                 if (!model.ignoreNetFrameworkProjects) {
                     logger.warning(`Project is not targeting .Net Core or .Net Standard, moving to next file.`);
@@ -379,16 +381,29 @@ function setAssemblyData(group: any, model: models.NetCore): void {
         }
     }
 
-    // License Url
-    if (model.licenseUrl) {
+    // License File
+    if (model.licenseFile) {
 
-        if (model.insertAttributes && !group.PackageLicenseUrl) {
-            group.PackageLicenseUrl = '';
+        if (model.insertAttributes && !group.PackageLicenseFile) {
+            group.PackageLicenseFile = '';
         }
 
-        if (group.PackageLicenseUrl || group.PackageLicenseUrl === '') {
-            group.PackageLicenseUrl = model.licenseUrl;
-            logger.info(`PackageLicenseUrl --> ${model.licenseUrl}`);
+        if (group.PackageLicenseFile || group.PackageLicenseFile === '') {
+            group.PackageLicenseFile = model.licenseFile;
+            logger.info(`PackageLicenseFile --> ${model.licenseFile}`);
+        }
+    }
+
+    // License Expression
+    if (model.licenseExpression) {
+
+        if (model.insertAttributes && !group.PackageLicenseExpression) {
+            group.PackageLicenseExpression = '';
+        }
+
+        if (group.PackageLicenseExpression || group.PackageLicenseExpression === '') {
+            group.PackageLicenseExpression = model.licenseExpression;
+            logger.info(`PackageLicenseExpression --> ${model.licenseExpression}`);
         }
     }
 
@@ -405,29 +420,17 @@ function setAssemblyData(group: any, model: models.NetCore): void {
         }
     }
 
-    // Icon Url
-    if (model.iconUrl) {
+    // Package Icon
+    if (model.packageIcon) {
 
-        if (model.insertAttributes && !group.PackageIconUrl) {
-            group.PackageIconUrl = '';
+        if (model.insertAttributes && !group.PackageIcon) {
+            group.PackageIcon = '';
         }
 
-        if (group.PackageIconUrl || group.PackageIconUrl === '') {
-            group.PackageIconUrl = model.iconUrl;
-            logger.info(`PackageIconUrl --> ${model.iconUrl}`);
+        if (group.PackageIcon || group.PackageIcon === '') {
+            group.PackageIcon = model.packageIcon;
+            logger.info(`PackageIcon --> ${model.packageIcon}`);
         }
-
-        // PackageIconUrl will be deprecated in favor of the new PackageIcon property.
-        // Starting with NuGet 5.3 & Visual Studio 2019 version 16.3, pack will raise NU5048 warning if the package metadata only specifies PackageIconUrl.
-        // https://docs.microsoft.com/en-us/nuget/reference/msbuild-targets#packageiconurl
-        // if (model.insertAttributes && !group.PackageIcon) {
-        //     group.PackageIcon = '';
-        // }
-
-        // if (group.PackageIcon || group.PackageIcon === '') {
-        //     group.PackageIcon = model.iconUrl;
-        //     logger.info(`PackageIcon --> ${model.iconUrl}`);
-        // }
     }
 
     // Repository Url

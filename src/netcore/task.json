@@ -163,10 +163,19 @@
     {
       "name": "PackageLicenseUrl",
       "type": "string",
-      "label": "License Url",
+      "label": "License File",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Sets the `PackageLicenseUrl` attribute.",
+      "helpMarkDown": "Sets the `PackageLicenseFile` attribute e.g. License.txt.\r\nEnsure the file is included in the [package](https://docs.microsoft.com/en-us/nuget/reference/msbuild-targets#packing-a-license-expression-or-a-license-file).",
+      "groupName": "attributesGroup"
+    },
+    {
+      "name": "PackageLicenseExpression",
+      "type": "string",
+      "label": "License Expression",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Sets the `PackageLicenseExpression` attribute e.g. [MIT OR Apache-2.0](https://docs.microsoft.com/en-us/nuget/reference/msbuild-targets#packing-a-license-expression-or-a-license-file).",
       "groupName": "attributesGroup"
     },
     {
@@ -181,10 +190,10 @@
     {
       "name": "PackageIconUrl",
       "type": "string",
-      "label": "Icon Url",
+      "label": "Icon",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "Sets the `PackageIconUrl` attribute.",
+      "helpMarkDown": "Sets the `PackageIcon` attribute e.g. icon.png.\r\nEnsure the file is included in the [package](https://docs.microsoft.com/en-us/nuget/reference/msbuild-targets#packing-an-icon-image-file)",
       "groupName": "attributesGroup"
     },
     {
