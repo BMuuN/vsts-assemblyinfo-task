@@ -153,7 +153,14 @@ function setManifestData(model: models.NetFramework, regEx: models.RegEx): void 
 
     logger.info('Setting .Net Framework assembly info...');
 
-    tl.findMatch(model.path, model.fileNames).forEach((file: string) => {
+    const files = tl.findMatch(model.path, model.fileNames);
+
+    if (files.length <= 0) {
+        logger.error(`No files found for: ${model.fileNames.join(', ')}`);
+        return;
+    }
+
+    files.forEach((file: string) => {
 
         logger.info(`Processing: ${file}`);
 
