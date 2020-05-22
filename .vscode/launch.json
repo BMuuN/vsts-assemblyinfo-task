@@ -41,15 +41,13 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Mocha All",
+            "name": "Mocha .Net Core",
             "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
             "args": [
-                "-r",
-                "ts-node/register",
-                "--timeout",
-                "999999",
-                "--colors",
-                "${workspaceFolder}/tests"
+                "--require", "ts-node/register",
+                "--timeout", "999999",
+                "--colors", "--recursive",
+                "${workspaceFolder}\\src\\netcore\\tests\\*.ts"
             ],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",

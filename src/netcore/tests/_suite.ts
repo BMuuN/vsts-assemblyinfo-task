@@ -28,6 +28,8 @@ describe('Sample task tests', function() {
         // assert.equal(tr.stdout.indexOf('atool output here') >= 0, true, 'tool stdout');
         // assert.equal(tr.stdout.indexOf('Hello Mock!') >= 0, true, 'task module is called');
         // assert.equal(tr.stdout.indexOf('Hello human') >= 0, true, "should display Hello human");
+        console.log(tr.stdout);
+        assert.equal(tr.stdout.indexOf('Hello human') >= 0, true, 'should display Hello human');
         done();
     });
 
