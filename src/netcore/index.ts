@@ -180,7 +180,14 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
 
     logger.info('Setting .Net Core / .Net Standard assembly info...');
 
-    tl.findMatch(model.path, model.fileNames).forEach((file: string) => {
+    const files = tl.findMatch(model.path, model.fileNames);
+
+    if (files.length <= 0) {
+        logger.error(`No files found for: ${model.fileNames.join(', ')}`);
+        return;
+    }
+
+    files.forEach((file: string) => {
 
         logger.info(`Processing: ${file}`);
 

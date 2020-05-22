@@ -3,6 +3,7 @@
 > - Added new logo.
 > - Changed 'PackageLicenseUrl' element to 'PackageLicenseFile'.
 > - Changed 'PackageIconUrl' element to 'PackageIcon'.
+> - The build will now fail when no source files are found.
 > - Added support for `MSBuild.Sdk.Extras` projects.
 > Thanks to [crb04c](https://github.com/crb04c)
 
