@@ -1,0 +1,60 @@
+import tmrm = require('azure-pipelines-task-lib/mock-run');
+
+export class RequestModel {
+
+    tmr!: tmrm.TaskMockRunner;
+
+    constructor(taskPath: string) {
+
+        this.tmr = new tmrm.TaskMockRunner(taskPath);
+
+        this.tmr.setInput('PATH', 'C:\\DEV\\GIT\\vsts-assemblyinfo-task\\tests\\projects');
+        this.tmr.setInput('FILENAMES', '\n**\\NetCoreLib.csproj');
+        this.tmr.setInput('INSERTATTRIBUTES', 'true');
+        this.tmr.setInput('FILEENCODING', 'auto');
+        this.tmr.setInput('WRITEBOM', 'false');
+        this.tmr.setInput('PACKAGEVERSION', '9.8.7-beta65');
+        this.tmr.setInput('VERSIONNUMBER', 'TS Extension Test Build_2018.11.*');
+        this.tmr.setInput('FILEVERSIONNUMBER', '1990.03.*.*');
+        this.tmr.setInput('INFORMATIONALVERSION', '2.3.4-beta5');
+        this.tmr.setInput('TITLE', 'Assembly Info');
+        this.tmr.setInput('PRODUCT', 'Azure DevOps Assembly Info');
+        this.tmr.setInput('DESCRIPTION', 'Assembly Info is an extension for Team Services that sets assembly information from a build.');
+        this.tmr.setInput('COMPANY', 'Bleddyn Richards Inc');
+        this.tmr.setInput('CULTURE', 'en-GB');
+        this.tmr.setInput('COPYRIGHT', 'Copyright © $(date:YYYY) $(date:DD.MM.YYYY DD MMMM YYYY HH:mm a) Example Ltd');
+        this.tmr.setInput('LOGLEVEL', 'verbose');
+        this.tmr.setInput('FAILONWARNING', 'false');
+        this.tmr.setInput('DISABLETELEMETRY', 'true');
+        this.tmr.setInput('IGNORENETFRAMEWORKPROJECTS', 'false');
+
+        this.tmr.setInput('TRADEMARK', 'Example Trademark');
+        this.tmr.setInput('CONFIGURATION', 'debug');
+        this.tmr.setInput('GENERATEPACKAGEONBUILD', 'true');
+        this.tmr.setInput('PACKAGEREQUIRELICENSEACCEPTANCE', 'true');
+        this.tmr.setInput('PACKAGEID', 'vsts-assemblyinfo-task');
+        this.tmr.setInput('AUTHORS', 'Bleddyn Richards');
+        this.tmr.setInput('PACKAGELICENSEURL', 'https://github.com/BMuuN/vsts-assemblyinfo-task/License.md');
+        this.tmr.setInput('PACKAGEPROJECTURL', 'https://github.com/BMuuN/vsts-assemblyinfo-task/release');
+        this.tmr.setInput('PACKAGEICONURL', 'https://github.com/BMuuN/vsts-assemblyinfo-task/favicon.png');
+        this.tmr.setInput('REPOSITORYURL', 'https://github.com/BMuuN/vsts-assemblyinfo-task');
+        this.tmr.setInput('REPOSITORYTYPE', 'OSS for Azure Dev Ops');
+        this.tmr.setInput('PACKAGETAGS', 'Tags, Build, Release, VSTS');
+        this.tmr.setInput('PACKAGERELEASENOTES', 'The extension will recursively search the specified Source Folder for all files listed in the Source Files field and set the assembly data.');
+    }
+
+    withFileNames(filenames: string): RequestModel {
+        this.tmr.setInput('FILENAMES', filenames);
+        return this;
+    }
+
+    withFailOnWarning(value: boolean): RequestModel {
+        this.tmr.setInput('FAILONWARNING', value.toString());
+        return this;
+    }
+
+    build(): RequestModel {
+        this.tmr.run(true);
+        return this;
+    }
+}

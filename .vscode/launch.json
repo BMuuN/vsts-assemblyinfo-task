@@ -47,7 +47,7 @@
                 "--require", "ts-node/register",
                 "--timeout", "999999",
                 "--colors", "--recursive",
-                "${workspaceFolder}\\src\\netcore\\tests\\*.ts"
+                "${workspaceFolder}\\src\\netcore\\tests\\_suite.ts"
             ],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
