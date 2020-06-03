@@ -1,4 +1,8 @@
 # Release Notes
+> **v3.0.0**
+> - Added test coverage.
+> - Added output variables to task GUI.
+
 > **v2.3.105**
 > - Added support for `.vbproj` to .Net Core task.
 

@@ -1,3 +1,4 @@
+import tmma = require('azure-pipelines-task-lib/mock-answer');
 import tmrm = require('azure-pipelines-task-lib/mock-run');
 
 export class RequestModel {
@@ -11,8 +12,8 @@ export class RequestModel {
         this.tmr.setInput('PATH', 'C:\\DEV\\GIT\\vsts-assemblyinfo-task\\tests\\projects');
         this.tmr.setInput('FILENAMES', '\n**\\NetCoreLib.csproj');
         this.tmr.setInput('INSERTATTRIBUTES', 'true');
-        this.tmr.setInput('FILEENCODING', 'auto');
-        this.tmr.setInput('WRITEBOM', 'false');
+        this.tmr.setInput('FILEENCODING', 'utf-8');
+        this.tmr.setInput('WRITEBOM', 'true');
         this.tmr.setInput('PACKAGEVERSION', '9.8.7-beta65');
         this.tmr.setInput('VERSIONNUMBER', 'TS Extension Test Build_2018.11.*');
         this.tmr.setInput('FILEVERSIONNUMBER', '1990.03.*.*');
@@ -51,6 +52,51 @@ export class RequestModel {
     withFailOnWarning(value: boolean): RequestModel {
         this.tmr.setInput('FAILONWARNING', value.toString());
         return this;
+    }
+
+    withCompany(value: string): RequestModel {
+        this.tmr.setInput('COMPANY', value.toString());
+        return this;
+    }
+
+    withDescription(value: string): RequestModel {
+        this.tmr.setInput('DESCRIPTION', value.toString());
+        return this;
+    }
+
+    withAnswers(): void {
+        const a: tmma.TaskLibAnswers = {
+            which: {
+                xcodebuild: '/home/bin/xcodebuild',
+            },
+            checkPath : {
+                '/home/bin/xcodebuild': true,
+            },
+            getVariable: {
+                'build.sourcesDirectory': '/user/build',
+                'HOME': '/users/test',
+            },
+            findMatch: {
+                '**/*.xcodeproj/*.xcworkspace': [
+                  '/user/build/fun.xcodeproj/project.xcworkspace',
+                ],
+                '**/*.app': [
+                  '/user/build/output/$(SDK)/$(Configuration)/build.sym/Release.iphoneos/fun.app',
+                ],
+            },
+            exec: {
+                '/home/bin/xcodebuild -version': {
+                  code: 0,
+                  stdout: 'Xcode 7.2.1',
+                },
+                '/home/bin/xcodebuild -sdk $(SDK) -configuration $(Configuration) -workspace /user/build/fun.xcodeproj/project.xcworkspace -scheme myscheme build': {
+                  code: 0,
+                  stdout: 'xcodebuild output here',
+                },
+            },
+        } as tmma.TaskLibAnswers;
+
+        this.tmr.setAnswers(a);
     }
 
     build(): RequestModel {

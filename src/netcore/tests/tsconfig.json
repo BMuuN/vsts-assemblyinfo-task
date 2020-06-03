@@ -7,8 +7,10 @@
     "files": [
         "builders/request-model-builder.ts",
         "helpers/test-utils.ts",
+        "task-runners/failure-file-not-found.ts",
+        "task-runners/failure.ts",
+        "task-runners/success-date-transforms.ts",
+        "task-runners/success.ts",
         "_suite.ts",
-        "failure.ts",
-        "success.ts",
     ]
 }

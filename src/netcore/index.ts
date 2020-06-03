@@ -187,6 +187,7 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
             return;
         }
 
+        // this will never get called, remove?
         if (!tl.exist(file)) {
             logger.error(`File not found: ${file}`);
             return;
