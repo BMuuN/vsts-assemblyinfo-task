@@ -12,8 +12,8 @@ export class RequestModel {
         this.tmr.setInput('PATH', 'C:\\DEV\\GIT\\vsts-assemblyinfo-task\\tests\\projects');
         this.tmr.setInput('FILENAMES', '\n**\\NetCoreLib.csproj');
         this.tmr.setInput('INSERTATTRIBUTES', 'true');
-        this.tmr.setInput('FILEENCODING', 'utf-8');
-        this.tmr.setInput('WRITEBOM', 'true');
+        this.tmr.setInput('FILEENCODING', 'auto');
+        this.tmr.setInput('WRITEBOM', 'false');
         this.tmr.setInput('PACKAGEVERSION', '9.8.7-beta65');
         this.tmr.setInput('VERSIONNUMBER', 'TS Extension Test Build_2018.11.*');
         this.tmr.setInput('FILEVERSIONNUMBER', '1990.03.*.*');
@@ -44,8 +44,43 @@ export class RequestModel {
         this.tmr.setInput('PACKAGERELEASENOTES', 'The extension will recursively search the specified Source Folder for all files listed in the Source Files field and set the assembly data.');
     }
 
-    withFileNames(filenames: string): RequestModel {
-        this.tmr.setInput('FILENAMES', filenames);
+    withSourcePath(value: string): RequestModel {
+        this.tmr.setInput('PATH', value);
+        return this;
+    }
+
+    withFileNames(value: string): RequestModel {
+        this.tmr.setInput('FILENAMES', value);
+        return this;
+    }
+
+    withFileEncoding(value: string): RequestModel {
+        this.tmr.setInput('FILEENCODING', value);
+        return this;
+    }
+
+    withWriteBom(value: boolean): RequestModel {
+        this.tmr.setInput('WRITEBOM', value.toString());
+        return this;
+    }
+
+    withPackageVersion(value: string): RequestModel {
+        this.tmr.setInput('PACKAGEVERSION', value);
+        return this;
+    }
+
+    withVersionNumber(value: string): RequestModel {
+        this.tmr.setInput('VERSIONNUMBER', value);
+        return this;
+    }
+
+    withFileVersionNumber(value: string): RequestModel {
+        this.tmr.setInput('FILEVERSIONNUMBER', value);
+        return this;
+    }
+
+    withInformationalVersionNumber(value: string): RequestModel {
+        this.tmr.setInput('INFORMATIONALVERSION', value);
         return this;
     }
 

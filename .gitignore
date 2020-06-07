@@ -255,7 +255,8 @@ paket-files/
 *.orig
 
 #Custom Files
-*.js
+src/**/*.js
+src/**/*.js.map
 package-lock.json
 .taskkey
 dist/

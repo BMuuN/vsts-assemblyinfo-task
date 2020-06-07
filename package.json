@@ -4,6 +4,7 @@
   "description": "Extension for Azure DevOps Services that sets assembly information from a build.",
   "scripts": {
     "test": "npm run build && mocha dist/tests/_suite.js",
+    "clean": "glob-exec --foreach \"src/{*,*/test*}/*.js\" -- \"echo found {{file}}\"",
     "build": "npm run compile:tasks",
     "build:dev:clean": "npm run initdev && npm run build",
     "build:prod:clean": "npm run initprod && npm run build",
