@@ -15,9 +15,6 @@ The Visual Studio Marketplace listing can be found here:
 # Help and Support
 For detailed instructions on how to configure the extension please see the [wiki](https://github.com/BMuuN/vsts-assemblyinfo-task/wiki).
 
-## Upgrade to Version 2
-With the release of version 2 the extension has been re-written from the ground up using Node.js and includes a number of breaking changes.  Please see the [wiki](https://github.com/BMuuN/vsts-assemblyinfo-task/wiki/Upgrade-v1-to-v2) for details on the upgrade.
-
 # Contributions
 All contributions are welcome whether it's logging issues, creating suggestions or submitting pull requests.  
 
