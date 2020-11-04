@@ -1,10 +1,10 @@
 import path = require('path');
 import models = require('../builders/request-model-builder');
 
-const taskPath = path.join('c:\\DEV\\GIT\\vsts-assemblyinfo-task\\src\\netcore\\dist', 'index.js');
+const taskPath = path.join(__dirname, '..\\..\\index.js');
 
 new models.RequestModel(taskPath)
-    .withFailOnWarning(true)
-    .withFileEncoding('utf-8')
+    .withFailOnWarning(false)
+    .withFileEncoding('iso-8859-1')
     .withWriteBom(true)
     .build();

@@ -43,6 +43,10 @@
             "request": "launch",
             "name": "Mocha .Net Core",
             "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+            // "runtimeExecutable": "npm",
+            // "runtimeArgs": [
+            //     "run", "test"
+            // ],
             "args": [
                 "--require", "ts-node/register",
                 "--timeout", "999999",

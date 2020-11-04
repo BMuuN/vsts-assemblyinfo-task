@@ -1,27 +1,33 @@
-ï»¿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxpath>SAK</SccAuxpath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <AssemblyName>NetCoreLib</AssemblyName>
     <RootNamespace>NetCoreLib</RootNamespace>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageId>NetCoreLib</PackageId>
-    <Version>1.0.1-beta</Version>
-    <Authors>Authors</Authors>
-    <Company>Company</Company>
-    <Product>Product</Product>
-    <Description>Description</Description>
-    <Copyright>Copyright</Copyright>
-    <PackageLicenseUrl>License Url</PackageLicenseUrl>
-    <PackageProjectUrl>Project Url</PackageProjectUrl>
-    <PackageIconUrl>Icon Url</PackageIconUrl>
-    <RepositoryUrl>Repository Url</RepositoryUrl>
-    <RepositoryType>Repository Type</RepositoryType>
-    <PackageTags>Tags</PackageTags>
-    <PackageReleaseNotes>Release Notes</PackageReleaseNotes>
-    <NeutralLanguage>en-US</NeutralLanguage>
-    <AssemblyVersion>1.0.0.1</AssemblyVersion>
-    <FileVersion>1.0.0.2</FileVersion>
-    <InformationalVersion>1.0.1-beta</InformationalVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageId>vsts-assemblyinfo-task</PackageId>
+    <Version>9.8.7-beta65</Version>
+    <Authors>Bleddyn Richards</Authors>
+    <Company>Bleddyn Richards Inc</Company>
+    <Product>Azure DevOps Assembly Info</Product>
+    <Description>Assembly Info is an extension for Team Services that sets assembly information from a build.</Description>
+    <Copyright>Copyright © 2020 04.11.2020 04 November 2020 00:52 am Example Ltd</Copyright>
+    <PackageLicenseUrl>https://github.com/BMuuN/vsts-assemblyinfo-task/License.md</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/BMuuN/vsts-assemblyinfo-task/release</PackageProjectUrl>
+    <PackageIconUrl>https://github.com/BMuuN/vsts-assemblyinfo-task/favicon.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/BMuuN/vsts-assemblyinfo-task</RepositoryUrl>
+    <RepositoryType>OSS for Azure Dev Ops</RepositoryType>
+    <PackageTags>Tags, Build, Release, VSTS</PackageTags>
+    <PackageReleaseNotes>The extension will recursively search the specified Source Folder for all files listed in the Source Files field and set the assembly data.</PackageReleaseNotes>
+    <NeutralLanguage>en-GB</NeutralLanguage>
+    <AssemblyVersion>2018.11.7614</AssemblyVersion>
+    <FileVersion>1990.03.7614.1573</FileVersion>
+    <InformationalVersion>2.3.4-beta5</InformationalVersion>
   </PropertyGroup>
 </Project>

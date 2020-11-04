@@ -1,7 +1,6 @@
 import * as assert from 'assert';
 import * as ttm from 'azure-pipelines-task-lib/mock-test';
 import * as path from 'path';
-import models = require('./builders/request-model-builder');
 import * as testUtils from './helpers/test-utils';
 
 describe('Net Core Task Tests', function() {
@@ -24,14 +23,11 @@ describe('Net Core Task Tests', function() {
         // Uncomment on errors to diagnose
         // process.env['TASK_TEST_TRACE'] = '1';
 
-        // testDir = path.join(__dirname, 'task-runners\\success.js');
-        // console.log(`Test Dir:  ${testDir}`);
-        // testDir = 'C:\\DEV\\GIT\\vsts-assemblyinfo-task\\src\\netcore\\dist\\tests\\task-runners';
-        testDir = 'C:\\DEV\\GIT\\vsts-assemblyinfo-task\\src\\netcore\\tests\\task-runners';
+        testDir = path.join(__dirname, '..\\dist\\tests\\task-runners');
+        console.log(`Test Dir:  ${testDir}`);
 
-        // projectDir = path.join(__dirname, '..\\..\\..\\test\\projects');
-        // console.log(`Project Dir:  ${projectDir}`);
-        projectDir = 'C:\\DEV\\GIT\\vsts-assemblyinfo-task\\tests\\projects';
+        projectDir = path.join(__dirname, '..\\..\\..\\tests\\projects');
+        console.log(`Project Dir:  ${projectDir}`);
     });
 
     after(() => {
@@ -45,6 +41,8 @@ describe('Net Core Task Tests', function() {
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
         tr.run();
+
+        // console.log(tr.stdout);
 
         assert.equal(tr.succeeded, true, 'should have succeeded');
         assert.equal(tr.invokedToolCount, 0, 'should not invoke any tooling');
@@ -84,7 +82,7 @@ describe('Net Core Task Tests', function() {
 
         tr.run();
 
-        console.log(tr.stdout);
+        // console.log(tr.stdout);
 
         assert.equal(tr.succeeded, true, 'should have succeeded');
         assert.equal(tr.invokedToolCount, 0, 'should not invoke any tooling');
@@ -314,10 +312,8 @@ describe('Net Core Task Tests', function() {
 
         const projectPath = path.join(projectDir, '\\NetCoreLib\\NetCoreLib.csproj');
         assert.equal(tr.stdout.indexOf(`Processing: ${projectPath}`) > -1, true, 'Project file is being processed');
-
-        assert.equal(tr.stdout.indexOf('Detected file encoding: iso-8859-2') > -1, true, 'File encoding detected');
-        assert.equal(tr.stdout.indexOf('Verify file encoding: iso-8859-2') > -1, true, 'File encoding verified');
-
+        assert.equal(tr.stdout.indexOf('Detected file encoding: iso-8859-1') > -1, true, 'File encoding detected');
+        assert.equal(tr.stdout.indexOf('Verify file encoding: iso-8859-1') > -1, true, 'File encoding verified');
         assert.equal(tr.stdout.indexOf('GeneratePackageOnBuild --> true') > -1, true, 'GeneratePackageOnBuild is set');
         assert.equal(tr.stdout.indexOf('PackageRequireLicenseAcceptance --> true') > -1, true, 'PackageRequireLicenseAcceptance is set');
         assert.equal(tr.stdout.indexOf('PackageId --> vsts-assemblyinfo-task') > -1, true, 'PackageId is set');
@@ -404,7 +400,7 @@ describe('Net Core Task Tests', function() {
 
         tr.run();
 
-        console.log(tr.stdout);
+        // console.log(tr.stdout);
 
         assert.equal(tr.succeeded, false, 'should have failed');
         assert.equal(tr.warningIssues, 0, 'should have no warnings');
