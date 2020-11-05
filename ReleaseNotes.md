@@ -6,6 +6,8 @@
 > - The build will now fail when no source files are found.
 > - Started to add unit test coverage.
 > - Added output variables to task GUI.
+> - Added "Tagging Group" to tag the builds and update build number.
+> Thanks to [andyste1](https://github.com/andyste1)
 > - Added support for `MSBuild.Sdk.Extras` projects.
 > Thanks to [crb04c](https://github.com/crb04c)
 

@@ -38,12 +38,8 @@ async function run() {
         generateVersionNumbers(model, regExModel);
         printTaskParameters(model);
         setManifestData(model, regExModel);
-
-        // set output variables
-        tl.setVariable('AssemblyInfo.Version', model.version, false);
-        tl.setVariable('AssemblyInfo.FileVersion', model.fileVersion, false);
-        tl.setVariable('AssemblyInfo.InformationalVersion', model.informationalVersion, false);
-        tl.setVariable('AssemblyInfo.PackageVersion', model.packageVersion, false);
+        setOutputVariables(model);
+        setTaggingOptions(model);
 
         logger.success('Complete.');
 
@@ -108,6 +104,9 @@ function getDefaultModel(): models.NetCore {
         logLevel: tl.getInput('LogLevel', true) || '',
         failOnWarning: tl.getBoolInput('FailOnWarning', true),
         ignoreNetFrameworkProjects: tl.getBoolInput('IgnoreNetFrameworkProjects', false) || false,
+
+        buildNumber: tl.getInput('UpdateBuildNumber', false) || '',
+        buildTag: tl.getInput('AddBuildTag', false) || '',
     };
 
     return model;
@@ -172,6 +171,9 @@ function printTaskParameters(model: models.NetCore): void {
 
     logger.debug(`Log Level: ${model.logLevel}`);
     logger.debug(`Fail on Warning: ${model.failOnWarning}`);
+
+    logger.debug(`Build Tag: ${model.buildTag}`);
+    logger.debug(`Build Number: ${model.buildNumber}`);
 
     logger.debug('');
 }
@@ -543,6 +545,24 @@ function setAssemblyData(group: any, model: models.NetCore): void {
             group.InformationalVersion = model.informationalVersion;
             logger.info(`InformationalVersion --> ${model.informationalVersion}`);
         }
+    }
+}
+
+function setOutputVariables(model: models.NetCore) {
+    tl.setVariable('Version', model.version, false);
+    tl.setVariable('FileVersion', model.fileVersion, false);
+    tl.setVariable('InformationalVersion', model.informationalVersion, false);
+    tl.setVariable('PackageVersion', model.packageVersion, false);
+}
+
+function setTaggingOptions(model: models.NetCore) {
+
+    if (model.buildNumber) {
+        tl.updateBuildNumber(model.buildNumber);
+    }
+
+    if (model.buildTag) {
+        tl.addBuildTag(model.buildTag);
     }
 }
 

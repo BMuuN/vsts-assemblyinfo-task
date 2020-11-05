@@ -32,6 +32,11 @@
       "name": "loggingGroup",
       "displayName": "Logging",
       "isExpanded": false
+    },
+    {
+      "name": "taggingGroup",
+      "displayName": "Tagging",
+      "isExpanded": false
     }
   ],
   "inputs": [{
@@ -219,19 +224,37 @@
       "required": true,
       "helpMarkDown": "If checked the task will disable Application Insights telemetry.",
       "groupName": "loggingGroup"
+    },
+    {
+      "name": "UpdateBuildNumber",
+      "type": "string",
+      "label": "Update Build Number",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "If set will update the build number on task completion.  Usually set to $(AssemblyInfo.Version)",
+      "groupName": "taggingGroup"
+    },
+    {
+      "name": "AddBuildTag",
+      "type": "string",
+      "label": "Add Build Tag",
+      "defaultValue": "$(AssemblyInfo.Version)",
+      "required": false,
+      "helpMarkDown": "If set will tag the commit. Usually set to $(AssemblyInfo.Version)",
+      "groupName": "taggingGroup"
     }
   ],
   "OutputVariables": [
     {
-      "name": "AssemblyInfo.Version",
+      "name": "Version",
       "description": "Is set with the calculated version number."
     },
     {
-      "name": "AssemblyInfo.FileVersion",
+      "name": "FileVersion",
       "description": "Is set with the calculated file version number."
     },
     {
-      "name": "AssemblyInfo.InformationalVersion",
+      "name": "InformationalVersion",
       "description": "Is set with the calculated informational version number."
     }
   ],
