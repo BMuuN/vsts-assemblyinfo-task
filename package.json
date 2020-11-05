@@ -1,17 +1,27 @@
 {
   "name": "vsts-assemblyinfo-task",
   "version": "1.0.0",
-  "description": "Extension for Team Services that sets assembly information from a build.",
+  "description": "Extension for Azure DevOps Services that sets assembly information from a build.",
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/src/task/index.js",
-    "test": "npm run build && mocha dist/tests/_suite.js",
-    "testrunner": "npm run build && TestRunner.sh",
-    "gen_notice": "node generate-third-party-notice.js",
-    "nuke_install": "rm -rf node_modules dist && npm cache verify && npm install",
-    "nuke_install_prod": "rm -rf node_modules dist && npm cache verify && npm install --production",
-    "package-release": "tfx extension create --manifest-globs ./vss-extension.json",
-    "package-dev": "tfx extension create --manifest-globs ./vss-extension.json --share-with bleddynrichards"
+    "test": "npm run build && mocha src/netcore/tests/_suite.js",
+    "clean": "glob-exec --foreach \"src/{*/*,!(**/node_modules),*/tests/**}*.{js,js.map}\" -- \"echo deleting {{file}} && rm {{file}}\"",
+    "build": "npm run clean && npm run compile:tasks",
+    "build:dev:clean": "npm run initdev && npm run build",
+    "build:prod:clean": "npm run initprod && npm run build",
+    "initdev": "npm run initdev:base && npm run initdev:tasks",
+    "initdev:base": "npm install --no-progress --no-update-notifier",
+    "initdev:tasks": "glob-exec --parallel --foreach \"src/*/tsconfig.json\" -- \"cd {{file.dir}} && npm install --no-update-notifier --no-progress\"",
+    "initprod": "npm run initprod:base && npm run initprod:tasks",
+    "initprod:base": "npm install --production --no-progress --no-update-notifier",
+    "initprod:tasks": "glob-exec --parallel --foreach \"src/*/tsconfig.json\" -- \"cd {{file.dir}} && npm install --production --no-update-notifier --no-progress\"",
+    "compile:tasks": "glob-exec --foreach \"src/{*,*/test*}/tsconfig.json\" -- \"echo found {{file}} && tsc -b {{file}}\"",
+    "postcompile:tasks": "npm run lint:tasks",
+    "lint:tasks": "glob-exec --parallel --foreach \"src/{*,*/test*}/tsconfig.json\" -- \"echo found {{file}} && tslint -p {{file}} -c tslint.json\"",
+    "package": "npm run build:clean && npm run package:tasks:production && npm run generate_notice",
+    "package:tasks:test": "tfx extension create --root . --output-path dist --manifest-globs vss-extension.json --share-with bleddynrichards",
+    "package:tasks:production": "tfx extension create --root . --output-path dist --manifest-globs vss-extension.json",
+    "nuke": "rm -rf node_modules dist src/netcore/node_modules src/netframework/node_modules && npm cache verify",
+    "generate_notice": "node generate-third-party-notice.js"
   },
   "repository": {
     "type": "git",
@@ -23,22 +33,17 @@
     "url": "https://github.com/BMuuN/vsts-assemblyinfo-task/issues"
   },
   "homepage": "https://github.com/BMuuN/vsts-assemblyinfo-task#readme",
-  "dependencies": {
-    "@types/chardet": "^0.8.0",
-    "@types/node": "^14.0.1",
-    "@types/q": "^1.5.2",
-    "@types/xml2js": "^0.4.5",
-    "applicationinsights": "^1.7.5",
-    "azure-pipelines-task-lib": "^2.9.5",
-    "chardet": "^1.1.0",
-    "iconv-lite": "^0.5.1",
-    "moment": "^2.25.3",
-    "xml2js": "^0.4.23"
-  },
   "devDependencies": {
+    "@types/chardet": "^0.8.0",
     "@types/mocha": "^7.0.2",
+    "@types/node": "^14.0.1",
+    "@types/q": "^1.5.4",
+    "@types/xml2js": "^0.4.5",
+    "glob-exec": "^0.1.1",
     "mocha": "^7.1.2",
+    "sync-request": "^6.1.0",
     "ts-node": "^8.10.1",
+    "tslint": "^6.1.3",
     "typescript": "^3.9.2"
   }
 }

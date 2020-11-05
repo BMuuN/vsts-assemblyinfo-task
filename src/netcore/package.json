@@ -1,0 +1,21 @@
+{
+    "name": "vsts-assemblyinfo-task.netcore",
+    "description": ".Net Core Task",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/BMuuN/vsts-assemblyinfo-task.git"
+    },
+    "author": "Bleddyn Richards",
+    "license": "MIT",
+    "dependencies": {
+        "applicationinsights": "^1.7.5",
+        "azure-pipelines-task-lib": "^2.9.5",
+        "chardet": "^1.1.0",
+        "iconv-lite": "^0.5.1",
+        "moment": "^2.25.3",
+        "xml2js": "^0.4.23"
+    },
+    "devDependencies": {
+        "sync-request": "^6.1.0"
+    }
+}

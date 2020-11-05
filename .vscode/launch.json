@@ -41,15 +41,17 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Mocha All",
+            "name": "Mocha .Net Core",
             "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+            // "runtimeExecutable": "npm",
+            // "runtimeArgs": [
+            //     "run", "test"
+            // ],
             "args": [
-                "-r",
-                "ts-node/register",
-                "--timeout",
-                "999999",
-                "--colors",
-                "${workspaceFolder}/tests"
+                "--require", "ts-node/register",
+                "--timeout", "999999",
+                "--colors", "--recursive",
+                "${workspaceFolder}\\src\\netcore\\tests\\_suite.ts"
             ],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
@@ -61,16 +63,15 @@
             "name": "Mocha Current File",
             "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
             "args": [
-                "-r",
-                "ts-node/register",
-                "--timeout",
-                "999999",
+                "--require", "ts-node/register",
+                "--timeout", "999999",
                 "--colors",
                 "${file}"
             ],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
-            "protocol": "inspector"
+            "protocol": "inspector",
+            "envFile": "${workspaceFolder}/config/prod.env",
         },
     ]
 }

@@ -1,4 +1,5 @@
 {
+  "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
   "id": "9E9CFB95-62DC-4A63-BC66-FB8F57AF76FF",
   "name": "Assembly-Info-NetCore",
   "friendlyName": "Assembly Info (.Net Core & .Net Standard)",
@@ -317,6 +318,24 @@
       "required": false,
       "helpMarkDown": "If checked no warning will be written for .Net Framework projects.",
       "groupName": "loggingGroup"
+    }
+  ],
+  "OutputVariables": [
+    {
+      "name": "AssemblyInfo.Version",
+      "description": "Is set with the calculated version number."
+    },
+    {
+      "name": "AssemblyInfo.FileVersion",
+      "description": "Is set with the calculated file version number."
+    },
+    {
+      "name": "AssemblyInfo.InformationalVersion",
+      "description": "Is set with the calculated informational version number."
+    },
+    {
+      "name": "AssemblyInfo.PackageVersion",
+      "description": "Is set with the calculated package version number."
     }
   ],
   "execution": {

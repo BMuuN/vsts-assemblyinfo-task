@@ -1,4 +1,5 @@
 {
+  "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
   "id": "3EDC451E-360C-40E5-A221-A42D5C987AB8",
   "name": "Assembly-Info-NetFramework",
   "friendlyName": "Assembly Info (.Net Framework)",
@@ -218,6 +219,20 @@
       "required": true,
       "helpMarkDown": "If checked the task will disable Application Insights telemetry.",
       "groupName": "loggingGroup"
+    }
+  ],
+  "OutputVariables": [
+    {
+      "name": "AssemblyInfo.Version",
+      "description": "Is set with the calculated version number."
+    },
+    {
+      "name": "AssemblyInfo.FileVersion",
+      "description": "Is set with the calculated file version number."
+    },
+    {
+      "name": "AssemblyInfo.InformationalVersion",
+      "description": "Is set with the calculated informational version number."
     }
   ],
   "execution": {

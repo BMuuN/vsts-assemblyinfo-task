@@ -191,11 +191,12 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
 
         logger.info(`Processing: ${file}`);
 
-        if (path.extname(file) !== '.csproj') {
-            logger.warning('File is not .csproj');
+        if (path.extname(file) !== '.csproj' && path.extname(file) !== '.vbproj') {
+            logger.warning('File is not .csproj or .vbproj');
             return;
         }
 
+        // this will never get called, remove?
         if (!tl.exist(file)) {
             logger.error(`File not found: ${file}`);
             return;

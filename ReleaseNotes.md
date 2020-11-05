@@ -1,29 +1,34 @@
 # Release Notes
-> **v3.0.x**
+> **v3.0.0**
 > - Added new logo.
 > - Changed 'PackageLicenseUrl' element to 'PackageLicenseFile'.
 > - Changed 'PackageIconUrl' element to 'PackageIcon'.
 > - The build will now fail when no source files are found.
+> - Started to add unit test coverage.
+> - Added output variables to task GUI.
 > - Added support for `MSBuild.Sdk.Extras` projects.
 > Thanks to [crb04c](https://github.com/crb04c)
+
+> **v2.3.105**
+> - Added support for `.vbproj` to .Net Core task.
 
 > **v2.2.103**
 > - Added section to Overview.md about the issues faced with App Insights telemetry service.
 > Thanks to [chwebdude](https://github.com/chwebdude)
 > - Added flag to ignore warnings when .Net Framework project found. Fixes [#136](https://github.com/BMuuN/vsts-assemblyinfo-task/issues/136)
 > Thanks to [hermanvos](https://github.com/hermanvos)
-> - Bug fix for wildcard verion number rounding.
+> - Bug fix: Wildcard verion number rounding.
 > Thanks to [THues3010 ](https://github.com/THues3010)
 
 > **v2.1.85**
 > - Added date transforms for all fields.
 > - Enhanced logging options.
 > - Added Application Insights.
-> - Bug fix for file encoding using last detected encoding type.
+> - Bug fix: File encoding using last detected encoding type.
 
 > **v2.0.73**
-> - Skip invalid csproj file types.
-> - Bug fix for Net Core missing attributes.
+> - Skip invalid `.csproj` file types.
+> - Bug fix: Net Core missing attributes.
 
 > **v2.0.65**
 > - Rewrittein in Node JS.
