@@ -11,7 +11,7 @@
     "initdev": "npm run initdev:base && npm run initdev:tasks",
     "initdev:base": "npm install --no-progress --no-update-notifier",
     "initdev:tasks": "glob-exec --parallel --foreach \"src/*/tsconfig.json\" -- \"cd {{file.dir}} && npm install --no-update-notifier --no-progress\"",
-    "initprod": "npm run initdev:base && npm run initdev:tasks",
+    "initprod": "npm run initprod:base && npm run initprod:tasks",
     "initprod:base": "npm install --production --no-progress --no-update-notifier",
     "initprod:tasks": "glob-exec --parallel --foreach \"src/*/tsconfig.json\" -- \"cd {{file.dir}} && npm install --production --no-update-notifier --no-progress\"",
     "compile:tasks": "glob-exec --foreach \"src/{*,*/test*}/tsconfig.json\" -- \"echo found {{file}} && tsc -b {{file}}\"",
