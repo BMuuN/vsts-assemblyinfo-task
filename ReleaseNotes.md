@@ -1,5 +1,5 @@
 # Release Notes
-> **v3.0.0**
+> **v3.0.117**
 > - Added new logo.
 > - Changed 'PackageLicenseUrl' element to 'PackageLicenseFile'.
 > - Changed 'PackageIconUrl' element to 'PackageIcon'.

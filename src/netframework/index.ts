@@ -300,11 +300,11 @@ function setOutputVariables(model: models.NetFramework) {
 function setTaggingOptions(model: models.NetFramework) {
 
     if (model.buildNumber) {
-        tl.updateBuildNumber(model.buildNumber);
+        tl.updateBuildNumber(`${model.buildNumber}`);
     }
 
     if (model.buildTag) {
-        tl.addBuildTag(model.buildTag);
+        tl.addBuildTag(`${model.buildTag}`);
     }
 }
 

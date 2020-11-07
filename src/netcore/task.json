@@ -345,19 +345,19 @@
   ],
   "OutputVariables": [
     {
-      "name": "Version",
+      "name": "AssemblyInfo.Version",
       "description": "Is set with the calculated version number."
     },
     {
-      "name": "FileVersion",
+      "name": "AssemblyInfo.FileVersion",
       "description": "Is set with the calculated file version number."
     },
     {
-      "name": "InformationalVersion",
+      "name": "AssemblyInfo.InformationalVersion",
       "description": "Is set with the calculated informational version number."
     },
     {
-      "name": "PackageVersion",
+      "name": "AssemblyInfo.PackageVersion",
       "description": "Is set with the calculated package version number."
     }
   ],
