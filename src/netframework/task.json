@@ -231,7 +231,7 @@
       "label": "Update Build Number",
       "defaultValue": "",
       "required": false,
-      "helpMarkDown": "If set will update the build number on task completion.  Usually set to $(AssemblyInfo.Version)",
+      "helpMarkDown": "If set will update the build name on task completion.",
       "groupName": "taggingGroup"
     },
     {
@@ -240,7 +240,7 @@
       "label": "Add Build Tag",
       "defaultValue": "$(AssemblyInfo.Version)",
       "required": false,
-      "helpMarkDown": "If set will tag the commit. Usually set to $(AssemblyInfo.Version)",
+      "helpMarkDown": "If set will tag the commit that triggered the build.",
       "groupName": "taggingGroup"
     }
   ],

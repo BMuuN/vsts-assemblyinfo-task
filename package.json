@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Extension for Azure DevOps Services that sets assembly information from a build.",
   "scripts": {
-    "test": "npm run build && mocha src/netcore/tests/_suite.js",
+    "test": "npm run build && mocha src/netcore/tests/_suite.js --reporter xunit --reporter-option output=ResultsFile.xml",
     "clean": "glob-exec --foreach \"src/{*/*,!(**/node_modules),*/tests/**}*.{js,js.map}\" -- \"echo deleting {{file}} && rm {{file}}\"",
     "build": "npm run clean && npm run compile:tasks",
     "build:dev:clean": "npm run initdev && npm run build",

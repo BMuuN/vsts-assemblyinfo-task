@@ -3,7 +3,7 @@
 # Introduction
 Assembly Info is an extension for Azure DevOps that populates assembly information metadata from a build pipeline.
 
-The extension contains 2 tasks: - one which targets Net Framework projects and another task which targets Net Core / Net Standard projects.
+The extension contains 2 tasks: - one which targets .Net Framework projects and another task which targets .Net Core / .Net Standard projects.
 
 ## How to use the build task
 1. Create or edit a build definition.
@@ -19,7 +19,7 @@ The extension contains 2 tasks: - one which targets Net Framework projects and a
 
 ## Considerations
 - The task will only update files listed in the **Source Files** field.
-- The task can update project *AssemblyInfo* files and .Net Core / .Net Standard project files *.csproj*.
+- The task can update .Net Framework *AssemblyInfo* files and .Net Core / .Net Standard project files (*.csproj* or *.vbproj*).
 - If no value is specified for a field that field will be ignored and the default value in the source file will be used.
 
 ## Help and Support
@@ -29,5 +29,5 @@ For detailed instructions on how to configure the extension please see the [wiki
 We welcome all contributions whether it's logging bugs, creating suggestions or submitting pull requests.  
 If you wish to contributions to this project head on over to our [GitHub](https://github.com/BMuuN/vsts-assemblyinfo-task) page.
 
-### Release Notes
+## Release Notes
 See the [release notes](https://github.com/BMuuN/vsts-assemblyinfo-task/blob/master/ReleaseNotes.md) for all changes included in each release.
