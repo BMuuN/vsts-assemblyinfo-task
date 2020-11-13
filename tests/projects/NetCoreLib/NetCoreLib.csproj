@@ -1,13 +1,27 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  
   <PropertyGroup Label="Globals">
     <SccProjectName>SAK</SccProjectName>
     <SccProvider>SAK</SccProvider>
     <SccAuxpath>SAK</SccAuxpath>
     <SccLocalPath>SAK</SccLocalPath>
   </PropertyGroup>
+  
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>NetCoreLib</AssemblyName>
     <RootNamespace>NetCoreLib</RootNamespace>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <None Include="Resource\favicon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="Resource\License.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+  
 </Project>
