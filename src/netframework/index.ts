@@ -121,6 +121,9 @@ function generateVersionNumbers(model: models.NetFramework, regexModel: models.R
     model.version = utils.setWildcardVersionNumber(versionValue, model.verBuild, model.verRelease);
     model.fileVersion = utils.setWildcardVersionNumber(fileVersionValue, model.verBuild, model.verRelease);
     model.informationalVersion = utils.setWildcardVersionNumber(model.informationalVersion, model.verBuild, model.verRelease);
+
+    model.buildNumber = utils.setWildcardVersionNumber(model.buildNumber, model.verBuild, model.verRelease);
+    model.buildTag = utils.setWildcardVersionNumber(model.buildTag, model.verBuild, model.verRelease);
 }
 
 function printTaskParameters(model: models.NetFramework): void {
