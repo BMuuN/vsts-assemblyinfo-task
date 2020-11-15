@@ -2,8 +2,8 @@
 
 |      | Build | Release | Version | Downloads | Rating |
 |------|-------|---------|---------|-----------|--------|
-| Live | ![build](https://bmuun.visualstudio.com/TS%20Extensions/_apis/build/status/GitHub-Assembly-Info-Live.Published) | ![release](https://bmuun.vsrm.visualstudio.com/_apis/public/Release/badge/86c93e13-9469-4df8-95f0-98c43c760a09/1/2) | ![version](https://img.shields.io/visual-studio-marketplace/v/bleddynrichards.Assembly-Info-Task?logo=tfs) | ![downloads](https://img.shields.io/visual-studio-marketplace/azure-devops/installs/total/bleddynrichards.Assembly-Info-Task?label=downloads&logo=tfs&color=important) | ![rating](https://img.shields.io/visual-studio-marketplace/r/bleddynrichards.Assembly-Info-Task?logo=tfs&color=yellow) |
-| Test | ![build](https://bmuun.visualstudio.com/TS%20Extensions/_apis/build/status/GitHub-Assembly-Info-Test.Published) | ![release](https://bmuun.vsrm.visualstudio.com/_apis/public/Release/badge/86c93e13-9469-4df8-95f0-98c43c760a09/1/1) | ![version](https://img.shields.io/badge/version-2.3.105-blue.svg?logo=tfs) |     |     |
+| Live | ![build](https://dev.azure.com/bmuun/TS%20Extensions/_apis/build/status/Verify-Published.Live) | ![release](https://bmuun.vsrm.visualstudio.com/_apis/public/Release/badge/86c93e13-9469-4df8-95f0-98c43c760a09/1/2) | ![version](https://img.shields.io/visual-studio-marketplace/v/bleddynrichards.Assembly-Info-Task?logo=tfs) | ![downloads](https://img.shields.io/visual-studio-marketplace/azure-devops/installs/total/bleddynrichards.Assembly-Info-Task?label=downloads&logo=tfs&color=important) | ![rating](https://img.shields.io/visual-studio-marketplace/r/bleddynrichards.Assembly-Info-Task?logo=tfs&color=yellow) |
+| Test | ![build](https://dev.azure.com/bmuun/TS%20Extensions/_apis/build/status/Verify-Published.Test?branchName=3.0.x) | ![release](https://bmuun.vsrm.visualstudio.com/_apis/public/Release/badge/86c93e13-9469-4df8-95f0-98c43c760a09/1/1) | ![version](https://img.shields.io/badge/version-3.0.121-blue.svg?logo=tfs) |     |     |
 
 # Introduction
 Assembly Info is an extension for Azure DevOps that populates assembly information metadata from a build pipeline.

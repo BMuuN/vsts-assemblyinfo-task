@@ -292,9 +292,9 @@ function replaceAttribute(content: string, name: string, regEx: string, value: s
 }
 
 function setOutputVariables(model: models.NetFramework) {
-    tl.setVariable('Version', model.version, false);
-    tl.setVariable('FileVersion', model.fileVersion, false);
-    tl.setVariable('InformationalVersion', model.informationalVersion, false);
+    tl.setVariable('AssemblyInfo.Version', model.version, false);
+    tl.setVariable('AssemblyInfo.FileVersion', model.fileVersion, false);
+    tl.setVariable('AssemblyInfo.InformationalVersion', model.informationalVersion, false);
 }
 
 function setTaggingOptions(model: models.NetFramework) {

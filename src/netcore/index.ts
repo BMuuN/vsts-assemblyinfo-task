@@ -552,10 +552,10 @@ function setAssemblyData(group: any, model: models.NetCore): void {
 }
 
 function setOutputVariables(model: models.NetCore) {
-    tl.setVariable('Version', model.version, false);
-    tl.setVariable('FileVersion', model.fileVersion, false);
-    tl.setVariable('InformationalVersion', model.informationalVersion, false);
-    tl.setVariable('PackageVersion', model.packageVersion, false);
+    tl.setVariable('AssemblyInfo.Version', model.version, false);
+    tl.setVariable('AssemblyInfo.FileVersion', model.fileVersion, false);
+    tl.setVariable('AssemblyInfo.InformationalVersion', model.informationalVersion, false);
+    tl.setVariable('AssemblyInfo.PackageVersion', model.packageVersion, false);
 }
 
 function setTaggingOptions(model: models.NetCore) {
