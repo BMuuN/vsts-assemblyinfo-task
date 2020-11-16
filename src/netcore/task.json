@@ -339,7 +339,7 @@
       "label": "Add Build Tag",
       "defaultValue": "$(AssemblyInfo.Version)",
       "required": false,
-      "helpMarkDown": "If set will tag the commit that triggered the build.",
+      "helpMarkDown": "If set will add a tag to the build.",
       "groupName": "taggingGroup"
     }
   ],
