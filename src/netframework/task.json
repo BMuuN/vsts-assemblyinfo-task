@@ -228,7 +228,7 @@
     {
       "name": "UpdateBuildNumber",
       "type": "string",
-      "label": "Update Build Number",
+      "label": "Update Build Name",
       "defaultValue": "",
       "required": false,
       "helpMarkDown": "If set will update the build name on task completion.",
