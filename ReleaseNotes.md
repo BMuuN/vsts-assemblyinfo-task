@@ -1,12 +1,12 @@
 # Release Notes
-> **v3.0.119**
+> **v3.0.123**
 > - Added new logo.
 > - Changed 'PackageLicenseUrl' element to 'PackageLicenseFile'.
 > - Changed 'PackageIconUrl' element to 'PackageIcon'.
 > - The build will now fail when no source files are found.
 > - Started to add unit test coverage.
 > - Added output variables to task GUI.
-> - Added "Tagging Group" to tag the builds and update build number.
+> - Added "Tagging Group" to tag the builds and update build name. See [wiki](https://github.com/BMuuN/vsts-assemblyinfo-task/wiki/Build-Tagging) for configuration options.
 > Thanks to [andyste1](https://github.com/andyste1)
 > - Added support for `MSBuild.Sdk.Extras` projects.
 > Thanks to [crb04c](https://github.com/crb04c)
