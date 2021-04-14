@@ -209,7 +209,7 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
                 return;
             }
 
-            if (!result.Project || !result.Project.PropertyGroup) {
+            if (!result.Project) {
                 logger.error(`Error reading file: ${err}`);
                 return;
             }
@@ -224,16 +224,25 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
                 logger.info('');
                 return;
             }
-
-            for (const group of result.Project.PropertyGroup) {
-
-                // Ensure we're in the correct property group
-                if (!group.TargetFramework && !group.TargetFrameworks) {
-                    continue;
-                }
-
-                setAssemblyData(group, model);
+            
+            let group = {};
+            if(!result.Project.PropertyGroup ){
+                logger.info('Create PropertyGroup');
+                result.Project.PropertyGroup = {};
+                group = result.Project.PropertyGroup;
             }
+            else if(result.Project.PropertyGroup[0] == ''){
+                logger.info('Normalize PropertyGroup');
+                result.Project.PropertyGroup[0] = {};
+                group = result.Project.PropertyGroup[0]
+            }
+            else{
+                logger.info('Get PropertyGroup');
+                group  = result.Project.PropertyGroup[0];
+            }
+
+            setAssemblyData(group, model);
+
 
             // rebuild xml project structure
             const builder = new xml2js.Builder({ headless: true });
