@@ -5,6 +5,5 @@ const taskPath = path.join(__dirname, '..\\..\\index.js');
 
 new models.RequestModel(taskPath)
     .withFailOnWarning(false)
-    .withFileEncoding('iso-8859-1')
-    .withWriteBom(true)
+    .withFileEncoding('utf-8')
     .build();

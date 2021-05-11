@@ -1,8 +1,6 @@
 {
   "name": "vsts-assemblyinfo-task.netcore-tests",
   "description": ".Net Core Task Tests",
-  "main": "_suite.js",
-  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BMuuN/vsts-assemblyinfo-task.git"

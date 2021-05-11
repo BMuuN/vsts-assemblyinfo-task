@@ -20,7 +20,7 @@ export class RequestModel {
         this.tmr.setInput('INFORMATIONALVERSION', '2.3.4-beta5');
         this.tmr.setInput('TITLE', 'Assembly Info');
         this.tmr.setInput('PRODUCT', 'Azure DevOps Assembly Info');
-        this.tmr.setInput('DESCRIPTION', 'Assembly Info is an extension for Team Services that sets assembly information from a build.');
+        this.tmr.setInput('DESCRIPTION', 'Assembly Info is an extension for Azure DevOps that sets assembly information from a build.');
         this.tmr.setInput('COMPANY', 'Bleddyn Richards Inc');
         this.tmr.setInput('CULTURE', 'en-GB');
         this.tmr.setInput('COPYRIGHT', 'Copyright © $(date:YYYY) $(date:DD.MM.YYYY DD MMMM YYYY HH:mm a) Example Ltd');

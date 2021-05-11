@@ -12,10 +12,11 @@ describe('Net Core Task Tests', function() {
 
         assemblyVersion: /^(2018\.11\.\d{4}(.\d{1,5})?)$/g,
         fileVersion: /^(1990\.03\.\d{4}\.\d{1,5})$/g,
-        informationalVersion: /^(\d{1}\.\d{4}\.\d{1,5}-beta5)/g,
-        packageVersion: /^(\d{1}\.\d{4}\.\d{1,5}-beta65)/g,
+        informationalVersion: /^(\d{1,4}\.\d{1,4}\.\d{1,5}-beta5)/g,
+        packageVersion: /^(\d{1,4}\.\d{1,4}\.\d{1,5}-beta65)/g,
     };
 
+    let rootDir: string = '';
     let testDir: string = '';
     let projectDir: string = '';
 
@@ -23,26 +24,28 @@ describe('Net Core Task Tests', function() {
         // Uncomment on errors to diagnose
         // process.env['TASK_TEST_TRACE'] = '1';
 
-        testDir = path.join(__dirname, '..\\dist\\tests\\task-runners');
-        console.log(`Test Dir:  ${testDir}`);
+        console.log('');
+        // console.log(`Dir Name: ${__dirname}`);
+        console.log(`Dir Name: \t${process.cwd()}`);
 
-        projectDir = path.join(__dirname, '..\\..\\..\\tests\\projects');
-        console.log(`Project Dir:  ${projectDir}`);
-    });
+        rootDir = process.cwd();
 
-    after(() => {
+        testDir = path.join(rootDir, 'src\\netcore\\tests\\task-runners');
+        console.log(`Test Dir: \t${testDir}`);
 
+        projectDir = path.join(rootDir, '\\tests\\projects');
+        console.log(`Project Dir: \t${projectDir}`);
     });
 
     it('should succeed with version number wildcard', (done: Mocha.Done) => {
         this.timeout(1000);
 
         const tp = path.join(testDir, 'success-version-wildcard.js');
+        console.log(`TP: \t\t${tp}`);
+
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
         tr.run();
-
-        // console.log(tr.stdout);
 
         assert.strictEqual(tr.succeeded, true, 'should have succeeded');
         assert.strictEqual(tr.invokedToolCount, 0, 'should not invoke any tooling');
@@ -53,23 +56,23 @@ describe('Net Core Task Tests', function() {
 
         const assemblyVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'AssemblyVersion');
         const assemblyVersionResult = assemblyVersion.match(TestRegEx.assemblyVersion) as RegExpMatchArray;
-        assert.notStrictEqual(assemblyVersionResult, null, 'AssemblyVersion field is not empty');
-        assert.strictEqual(assemblyVersionResult.length, 1, 'AssemblyVersion is set');
+        assert.notStrictEqual(assemblyVersionResult, null, 'AssemblyVersion field is empty');
+        assert.strictEqual(assemblyVersionResult.length, 1, 'AssemblyVersion is not set');
 
         const fileVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'FileVersion');
         const fileVersionResult = fileVersion.match(TestRegEx.fileVersion) as RegExpMatchArray;
-        assert.notStrictEqual(fileVersionResult, null, 'FileVersion field is not empty');
-        assert.strictEqual(fileVersionResult.length, 1, 'FileVersion is set');
+        assert.notStrictEqual(fileVersionResult, null, 'FileVersion field is empty');
+        assert.strictEqual(fileVersionResult.length, 1, 'FileVersion is not set');
 
         const informationalVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'InformationalVersion');
         const informationalVersionResult = informationalVersion.match(TestRegEx.informationalVersion) as RegExpMatchArray;
-        assert.notStrictEqual(informationalVersionResult, null, 'InformationalVersion field is not empty');
-        assert.strictEqual(informationalVersionResult.length, 1, 'InformationalVersion is set');
+        assert.notStrictEqual(informationalVersionResult, null, 'InformationalVersion field is empty');
+        assert.strictEqual(informationalVersionResult.length, 1, 'InformationalVersion is not set');
 
         const version = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Version');
         const versionResult = version.match(TestRegEx.packageVersion) as RegExpMatchArray;
-        assert.notStrictEqual(versionResult, null, 'Version field is not empty');
-        assert.strictEqual(versionResult.length, 1, 'Version is set');
+        assert.notStrictEqual(versionResult, null, 'Version field is empty');
+        assert.strictEqual(versionResult.length, 1, 'Version is not set');
 
         done();
     });
@@ -82,8 +85,6 @@ describe('Net Core Task Tests', function() {
 
         tr.run();
 
-        // console.log(tr.stdout);
-
         assert.strictEqual(tr.succeeded, true, 'should have succeeded');
         assert.strictEqual(tr.invokedToolCount, 0, 'should not invoke any tooling');
         assert.strictEqual(tr.warningIssues.length, 0, 'should have no warnings');
@@ -92,77 +93,75 @@ describe('Net Core Task Tests', function() {
         const netCoreLibProject = path.join(projectDir, '\\NetCoreLib\\NetCoreLib.csproj');
 
         const generatePackageOnBuild = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'GeneratePackageOnBuild');
-        assert.strictEqual(generatePackageOnBuild, 'true', 'GeneratePackageOnBuild is set');
+        assert.strictEqual(generatePackageOnBuild, 'true', 'GeneratePackageOnBuild is not set');
 
         const packageRequireLicenseAcceptance = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageRequireLicenseAcceptance');
-        assert.strictEqual(packageRequireLicenseAcceptance, 'true', 'PackageRequireLicenseAcceptance is set');
+        assert.strictEqual(packageRequireLicenseAcceptance, 'true', 'PackageRequireLicenseAcceptance is not set');
 
         const packageId = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageId');
-        assert.strictEqual(packageId, 'vsts-assemblyinfo-task', 'PackageId is set');
+        assert.strictEqual(packageId, 'vsts-assemblyinfo-task', 'PackageId is not set');
 
         const version = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Version');
-        assert.strictEqual(version, '9.8.7-beta65', 'Version is set');
+        assert.strictEqual(version, '9.8.7-beta65', 'Version is not set');
 
         const authors = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Authors');
-        assert.strictEqual(authors, 'Bleddyn Richards', 'Authors is set');
+        assert.strictEqual(authors, 'Bleddyn Richards', 'Authors is not set');
 
         const company = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Company');
-        assert.strictEqual(company, 'Bleddyn Richards Inc', 'Company is set');
+        assert.strictEqual(company, 'Bleddyn Richards Inc', 'Company is not set');
 
         const product = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Product');
-        assert.strictEqual(product, 'Azure DevOps Assembly Info', 'Product is set');
+        assert.strictEqual(product, 'Azure DevOps Assembly Info', 'Product is not set');
 
         const description = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Description');
-        assert.strictEqual(description, 'Assembly Info is an extension for Team Services that sets assembly information from a build.', 'Description is set');
+        assert.strictEqual(description, 'Assembly Info is an extension for Azure DevOps that sets assembly information from a build.', 'Description is not set');
 
         const copyright = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Copyright');
         const copyrightResult = copyright.match(/^(Copyright © \d{4} \d{2}\.\d{2}\.\d{4} \d{2} \w+ \d{4} \d{2}:\d{2} \w+ Example Ltd)$/g) as RegExpMatchArray;
-        assert.notStrictEqual(copyrightResult, null, 'Copyright field is not empty');
-        assert.strictEqual(copyrightResult.length, 1, 'Copyright is set');
+        assert.notStrictEqual(copyrightResult, null, 'Copyright field is empty');
+        assert.strictEqual(copyrightResult.length, 1, 'Copyright is not set');
 
         const packageLicenseUrl = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageLicenseUrl');
-        assert.strictEqual(packageLicenseUrl, 'https://github.com/BMuuN/vsts-assemblyinfo-task/License.md', 'PackageLicenseUrl is set');
+        assert.strictEqual(packageLicenseUrl, 'https://github.com/BMuuN/vsts-assemblyinfo-task/License.md', 'PackageLicenseUrl is not set');
 
         const packageProjectUrl = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageProjectUrl');
-        assert.strictEqual(packageProjectUrl, 'https://github.com/BMuuN/vsts-assemblyinfo-task/release', 'PackageProjectUrl is set');
+        assert.strictEqual(packageProjectUrl, 'https://github.com/BMuuN/vsts-assemblyinfo-task/release', 'PackageProjectUrl is not set');
 
         const packageIconUrl = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageIconUrl');
-        assert.strictEqual(packageIconUrl, 'https://github.com/BMuuN/vsts-assemblyinfo-task/favicon.png', 'PackageIconUrl is set');
+        assert.strictEqual(packageIconUrl, 'https://github.com/BMuuN/vsts-assemblyinfo-task/favicon.png', 'PackageIconUrl is not set');
 
         const repositoryUrl = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'RepositoryUrl');
-        assert.strictEqual(repositoryUrl, 'https://github.com/BMuuN/vsts-assemblyinfo-task', 'RepositoryUrl is set');
+        assert.strictEqual(repositoryUrl, 'https://github.com/BMuuN/vsts-assemblyinfo-task', 'RepositoryUrl is not set');
 
         const repositoryType = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'RepositoryType');
-        assert.strictEqual(repositoryType, 'OSS for Azure Dev Ops', 'RepositoryType is set');
+        assert.strictEqual(repositoryType, 'OSS for Azure Dev Ops', 'RepositoryType is not set');
 
         const packageTags = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageTags');
-        assert.strictEqual(packageTags, 'Tags, Build, Release, VSTS', 'PackageTags is set');
+        assert.strictEqual(packageTags, 'Tags, Build, Release, VSTS', 'PackageTags is not set');
 
         const packageReleaseNotes = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageReleaseNotes');
-        assert.strictEqual(packageReleaseNotes, 'The extension will recursively search the specified Source Folder for all files listed in the Source Files field and set the assembly data.', 'PackageReleaseNotes is set');
+        assert.strictEqual(packageReleaseNotes, 'The extension will recursively search the specified Source Folder for all files listed in the Source Files field and set the assembly data.', 'PackageReleaseNotes is not set');
 
         const neutralLanguage = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'NeutralLanguage');
-        assert.strictEqual(neutralLanguage, 'en-GB', 'NeutralLanguage is set');
+        assert.strictEqual(neutralLanguage, 'en-GB', 'NeutralLanguage is not set');
 
         const assemblyVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'AssemblyVersion');
-        // const assemblyVersionResult = assemblyVersion.match(/^(2018\.11\.\d{4})$/g) as RegExpMatchArray;
         const assemblyVersionResult = assemblyVersion.match(TestRegEx.assemblyVersion) as RegExpMatchArray;
         assert.notStrictEqual(assemblyVersionResult, null, 'AssemblyVersion field is not empty');
-        assert.strictEqual(assemblyVersionResult.length, 1, 'AssemblyVersion is set');
+        assert.strictEqual(assemblyVersionResult.length, 1, 'AssemblyVersion is not set');
 
         const fileVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'FileVersion');
-        // const fileVersionResult = fileVersion.match(/^(1990\.03\.\d{4}\.\d{4,5})$/g) as RegExpMatchArray;
         const fileVersionResult = fileVersion.match(TestRegEx.fileVersion) as RegExpMatchArray;
-        assert.notStrictEqual(fileVersionResult, null, 'FileVersion field is not empty');
-        assert.strictEqual(fileVersionResult.length, 1, 'FileVersion is set');
+        assert.notStrictEqual(fileVersionResult, null, 'FileVersion field is empty');
+        assert.strictEqual(fileVersionResult.length, 1, 'FileVersion is not set');
 
         const informationalVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'InformationalVersion');
-        assert.strictEqual(informationalVersion, '2.3.4-beta5', 'InformationalVersion is set');
+        assert.strictEqual(informationalVersion, '2.3.4-beta5', 'InformationalVersion is not set');
 
         done();
     });
 
-    it('should succeed with date transforms `Copyright` field', (done: Mocha.Done) => {
+    it('should succeed with date transforms for `Copyright` field', (done: Mocha.Done) => {
         this.timeout(1000);
 
         const tp = path.join(testDir, 'success-date-transforms.js');
