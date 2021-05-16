@@ -260,3 +260,4 @@ src/**/*.js.map
 package-lock.json
 .taskkey
 dist/
+ResultsFile.xml

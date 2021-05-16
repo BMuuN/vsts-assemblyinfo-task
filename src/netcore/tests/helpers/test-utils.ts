@@ -14,7 +14,7 @@ export class TestUtils {
 
         let value = '';
 
-        const fileContent: string = iconv.decode(fs.readFileSync(filePath), 'iso-8859-1');
+        const fileContent: string = iconv.decode(fs.readFileSync(filePath), 'utf-8');
 
         const parser = new xml2js.Parser();
         parser.parseString(fileContent, (err: any, result: any) => {

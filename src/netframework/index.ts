@@ -191,7 +191,9 @@ function setManifestData(model: models.NetFramework, regEx: models.RegEx): void 
 
         let fileContent: string = iconv.decode(fs.readFileSync(file), model.detectedFileEncoding);
 
-        fileContent = addUsingIfMissing(file, fileContent);
+        if (model.insertAttributes) {
+            fileContent = addUsingIfMissing(file, fileContent);
+        }
 
         fileContent = processNetFrameworkAttribute(file, fileContent, 'AssemblyVersion', regEx.word, model.version, model.insertAttributes);
         fileContent = processNetFrameworkAttribute(file, fileContent, 'AssemblyFileVersion', regEx.word, model.fileVersion, model.insertAttributes);

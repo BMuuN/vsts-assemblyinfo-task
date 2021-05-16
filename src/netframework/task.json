@@ -238,7 +238,7 @@
       "name": "AddBuildTag",
       "type": "string",
       "label": "Add Build Tag",
-      "defaultValue": "$(AssemblyInfo.Version)",
+      "defaultValue": "",
       "required": false,
       "helpMarkDown": "If set will add a tag to the build.",
       "groupName": "taggingGroup"

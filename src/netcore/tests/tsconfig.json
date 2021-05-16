@@ -1,19 +1,19 @@
-{
-    "extends": "../tsconfig.json",
-    "compilerOptions": {
-        "outDir": "../dist/tests",
-        "sourceRoot": "./"
-    },
-    "files": [
-        "builders/request-model-builder.ts",
-        "helpers/test-utils.ts",
-        "task-runners/failure-file-not-found.ts",
-        "task-runners/failure-source-dir-not-found.ts",
-        "task-runners/failure.ts",
-        "task-runners/success-date-transforms.ts",
-        "task-runners/success-file-utf8.ts",
-        "task-runners/success-version-wildcard.ts",
-        "task-runners/success.ts",
-        "_suite.ts",
-    ]
-}
+// {
+//     "extends": "../tsconfig.json",
+//     "compilerOptions": {
+//          // "outDir": "../dist/tests",
+//         "sourceRoot": "./"
+//     },
+//     "files": [
+//         "builders/request-model-builder.ts",
+//         "helpers/test-utils.ts",
+//         "task-runners/failure-file-not-found.ts",
+//         "task-runners/failure-source-dir-not-found.ts",
+//         "task-runners/failure.ts",
+//         "task-runners/success-date-transforms.ts",
+//         "task-runners/success-file-utf8.ts",
+//         "task-runners/success-version-wildcard.ts",
+//         "task-runners/success.ts",
+//         "_suite.ts",
+//     ]
+// }
