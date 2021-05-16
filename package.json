@@ -6,8 +6,9 @@
     "test": "npm run build && npm run test:netcore",
     "test:netcore": "npm run app:netcore && mocha src/netcore/tests/_suite.js --reporter xunit --reporter-option output=ResultsFile.xml",
     "app:netcore": "node -r dotenv/config src/netcore/index.js dotenv_config_path=config/netcore.env --trace-warnings",
-    "clean": "glob-exec --foreach \"src/{*/*,!(**/node_modules),*/tests/**/}*.{js,js.map}\" -- \"echo deleting {{file}} && rm {{file}}\"",
-    "build": "npm run clean && npm run compile:tasks",
+    "clean:tasks": "find -O2 ./src -not -path \"*/node_modules/*\" ( -name \"*.js\" -o -name \"*.map\" ) | xargs rm ",
+    "clean:modules": "rm -rf node_modules dist src/netcore/node_modules src/netframework/node_modules && npm cache verify",
+    "build": "npm run clean:tasks && npm run compile:tasks",
     "build:dev:clean": "npm run initdev && npm run build",
     "build:prod:clean": "npm run initprod && npm run build",
     "initdev": "npm run initdev:base && npm run initdev:tasks",
@@ -22,7 +23,6 @@
     "package": "npm run build:clean && npm run package:tasks:production && npm run generate_notice",
     "package:tasks:test": "tfx extension create --root . --output-path dist --manifest-globs vss-extension.json --share-with bleddynrichards",
     "package:tasks:production": "tfx extension create --root . --output-path dist --manifest-globs vss-extension.json",
-    "nuke": "rm -rf node_modules dist src/netcore/node_modules src/netframework/node_modules && npm cache verify",
     "generate_notice": "node generate-third-party-notice.js"
   },
   "repository": {
