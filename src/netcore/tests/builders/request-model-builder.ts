@@ -13,7 +13,7 @@ export class RequestModel {
         this.tmr.setInput('FILENAMES', '\n**\\NetCoreLib.csproj');
         this.tmr.setInput('INSERTATTRIBUTES', 'true');
         this.tmr.setInput('FILEENCODING', 'auto');
-        this.tmr.setInput('WRITEBOM', 'false');
+        this.tmr.setInput('WRITEBOM', 'true');
         this.tmr.setInput('PACKAGEVERSION', '9.8.7-beta65');
         this.tmr.setInput('VERSIONNUMBER', 'TS Extension Test Build_2018.11.*');
         this.tmr.setInput('FILEVERSIONNUMBER', '1990.03.*.*');
@@ -96,6 +96,11 @@ export class RequestModel {
 
     withDescription(value: string): RequestModel {
         this.tmr.setInput('DESCRIPTION', value.toString());
+        return this;
+    }
+
+    withCopyright(value: string): RequestModel {
+        this.tmr.setInput('COPYRIGHT', value.toString());
         return this;
     }
 
