@@ -25,15 +25,14 @@ describe('Net Core Task Tests', function() {
         // process.env['TASK_TEST_TRACE'] = '1';
 
         console.log('');
-        // console.log(`Dir Name: ${__dirname}`);
-        console.log(`Dir Name: \t${process.cwd()}`);
-
         rootDir = process.cwd();
+        // console.log(`Dir Name: ${__dirname}`);
+        console.log(`Dir Name: \t${rootDir}`);
 
-        testDir = path.join(rootDir, 'src\\netcore\\tests\\task-runners');
+        testDir = path.join(rootDir, 'src/netcore/tests/task-runners');
         console.log(`Test Dir: \t${testDir}`);
 
-        projectDir = path.join(rootDir, '\\tests\\projects');
+        projectDir = path.join(rootDir, '/tests/projects');
         console.log(`Project Dir: \t${projectDir}`);
     });
 
