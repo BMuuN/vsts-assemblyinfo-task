@@ -259,5 +259,8 @@ src/**/*.js
 src/**/*.js.map
 package-lock.json
 .taskkey
-dist/
+/dist/
 ResultsFile.xml
+test-results.xml
+/coverage/
+/.nyc_output/

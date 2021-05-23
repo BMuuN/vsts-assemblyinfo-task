@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "Extension for Azure DevOps Services that sets assembly information from a build.",
   "scripts": {
-    "test": "npm run build && npm run test:netcore",
-    "test:netcore": "mocha --colors src/netcore/tests/_suite.js --reporter xunit --reporter-option output=ResultsFile.xml",
+    "test-ci": "nyc --reporter=cobertura --reporter=html mocha src/netcore/tests/_suite.js --reporter mocha-junit-reporter --reporter-options mochaFile=./test-results.xml --timeout 10000",
+    "test": "npm run build && npm run test:ci",
+    "test:netcore": "mocha --colors src/netcore/tests/_suite.js --reporter xunit --reporter-option output=test-results.xml --timeout 10000",
     "app:netcore": "node -r dotenv/config src/netcore/index.js dotenv_config_path=config/netcore.env --trace-warnings",
     "build": "npm run clean:tasks && npm run compile:tasks",
     "build:dev:clean": "npm run initdev && npm run build",
@@ -15,6 +16,7 @@
     "initprod": "npm run initprod:base && npm run initprod:tasks",
     "initprod:base": "npm install --production --no-progress --no-update-notifier",
     "initprod:tasks": "glob-exec --parallel --foreach \"src/*/tsconfig.json\" -- \"cd {{file.dir}} && npm install --production --no-update-notifier --no-progress\"",
+    "clean": "npm run clean:tasks && npm run clean:modules",
     "clean:tasks": "find -O2 ./src -not -path \"*/node_modules/*\" \\( -name \"*.js\" -o -name \"*.map\" \\) -delete",
     "clean:modules": "rm -rf node_modules dist src/netcore/node_modules src/netframework/node_modules && npm cache verify",
     "compile:tasks": "glob-exec --foreach \"src/{*,*/test*}/tsconfig.json\" -- \"echo found {{file}} && tsc -b {{file}}\"",
@@ -34,6 +36,17 @@
     "url": "https://github.com/BMuuN/vsts-assemblyinfo-task/issues"
   },
   "homepage": "https://github.com/BMuuN/vsts-assemblyinfo-task#readme",
+  "nyc": {
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "exclude": [
+      "**/*.d.ts",
+      "**/tests/*.ts"
+    ],
+    "all": true
+  },
   "devDependencies": {
     "@types/chardet": "0.8.0",
     "@types/mocha": "8.2.0",
@@ -48,6 +61,8 @@
     "glob-exec": "0.1.1",
     "jshint": "^2.12.0",
     "mocha": "8.2.1",
+    "mocha-junit-reporter": "^2.0.0",
+    "nyc": "^15.1.0",
     "sync-request": "6.1.0",
     "tfx-cli": "0.8.3",
     "ts-node": "9.1.1",
