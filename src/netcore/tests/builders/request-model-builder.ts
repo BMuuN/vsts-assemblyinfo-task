@@ -10,7 +10,7 @@ export class RequestModel {
         this.tmr = new tmrm.TaskMockRunner(taskPath);
 
         this.tmr.setInput('PATH', 'C:\\DEV\\GIT\\vsts-assemblyinfo-task\\tests\\projects');
-        this.tmr.setInput('FILENAMES', '\n**\\NetCoreLib.csproj');
+        this.tmr.setInput('FILENAMES', '\n**/NetCoreLib.csproj');
         this.tmr.setInput('INSERTATTRIBUTES', 'true');
         this.tmr.setInput('FILEENCODING', 'auto');
         this.tmr.setInput('WRITEBOM', 'true');
