@@ -49,7 +49,7 @@ describe('Net Core Task Tests', function() {
         assert.strictEqual(tr.warningIssues.length, 0, 'should have no warnings');
         assert.strictEqual(tr.errorIssues.length, 0, 'should have no errors');
 
-        const netCoreLibProject = path.join(projectDir, '\\NetCoreLib\\NetCoreLib.csproj');
+        const netCoreLibProject = path.join(projectDir, 'NetCoreLib/NetCoreLib.csproj');
 
         const assemblyVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'AssemblyVersion');
         const assemblyVersionResult = assemblyVersion.match(TestRegEx.assemblyVersion) as RegExpMatchArray;
@@ -87,7 +87,7 @@ describe('Net Core Task Tests', function() {
         assert.strictEqual(tr.warningIssues.length, 0, 'should have no warnings');
         assert.strictEqual(tr.errorIssues.length, 0, 'should have no errors');
 
-        const netCoreLibProject = path.join(projectDir, '\\NetCoreLib\\NetCoreLib.csproj');
+        const netCoreLibProject = path.join(projectDir, 'NetCoreLib/NetCoreLib.csproj');
 
         const generatePackageOnBuild = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'GeneratePackageOnBuild');
         assert.strictEqual(generatePackageOnBuild, 'true', 'GeneratePackageOnBuild is not set');
@@ -306,7 +306,7 @@ describe('Net Core Task Tests', function() {
         assert.strictEqual(tr.warningIssues.length, 0, 'should have no warnings');
         assert.strictEqual(tr.errorIssues.length, 0, 'should have no errors');
 
-        const projectPath = path.join(projectDir, '\\NetCoreLib\\NetCoreLib.csproj');
+        const projectPath = path.join(projectDir, 'NetCoreLib/NetCoreLib.csproj');
         assert.strictEqual(tr.stdout.indexOf(`Processing: ${projectPath}`) > -1, true, 'Project file is being processed');
         assert.strictEqual(tr.stdout.indexOf('Detected file encoding: utf-8') > -1, true, 'File encoding detected');
         assert.strictEqual(tr.stdout.indexOf('Verify file encoding: utf-8') > -1, true, 'File encoding verified');
