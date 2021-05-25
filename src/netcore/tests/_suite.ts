@@ -242,7 +242,7 @@ describe('Net Core Task Tests', function() {
 
         // Input Parameters Printed (only in debug mode)
         assert.strictEqual(tr.stdout.indexOf('Source folder: C:\\DEV\\GIT\\vsts-assemblyinfo-task\\tests\\projects') > -1, true, `'Source folder' input printed`);
-        assert.strictEqual(tr.stdout.indexOf('Source files: **\\NetCoreLib.csproj') > -1, true, `'Source files' input printed`);
+        assert.strictEqual(tr.stdout.indexOf('Source files: **/NetCoreLib.csproj') > -1, true, `'Source files' input printed`);
         assert.strictEqual(tr.stdout.indexOf('Insert attributes: true') > -1, true, `'Insert attributes' input printed`);
         assert.strictEqual(tr.stdout.indexOf('File encoding: auto') > -1, true, `'File encoding' input printed`);
         assert.strictEqual(tr.stdout.indexOf('Write unicode BOM: true') > -1, true, `'Write unicode BOM' input printed`);
