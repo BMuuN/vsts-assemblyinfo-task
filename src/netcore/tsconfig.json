@@ -3,7 +3,5 @@
     "compilerOptions": {
         "sourceRoot": "./"
     },
-    "files": [
-        "index.ts"
-    ]
+    "include": ["**/*.ts"]
 }
