@@ -285,10 +285,10 @@ describe('Net Core Task Tests', function() {
         assert.strictEqual(tr.warningIssues.length, 0, 'should have no warnings');
 
         assert.strictEqual(tr.errorIssues.length, 0, 'should have no errors');
-        assert.strictEqual(tr.stdout.indexOf('##vso[task.setvariable variable=AssemblyInfo.Version;issecret=false;]2018.11.') > -1, true, 'AssemblyInfo.Version output variable set');
-        assert.strictEqual(tr.stdout.indexOf('##vso[task.setvariable variable=AssemblyInfo.FileVersion;issecret=false;]1990.03.') > -1, true, 'AssemblyInfo.FileVersion output variable set');
-        assert.strictEqual(tr.stdout.indexOf('##vso[task.setvariable variable=AssemblyInfo.InformationalVersion;issecret=false;]2.3.4-beta5') > -1, true, 'AssemblyInfo.InformationalVersion output variable set');
-        assert.strictEqual(tr.stdout.indexOf('##vso[task.setvariable variable=AssemblyInfo.PackageVersion;issecret=false;]9.8.7-beta65') > -1, true, 'PackageVersion output variable set');
+        assert.strictEqual(tr.stdout.indexOf('##vso[task.setvariable variable=AssemblyInfo.Version;isOutput=true;issecret=false;]2018.11.') > -1, true, 'AssemblyInfo.Version output variable set');
+        assert.strictEqual(tr.stdout.indexOf('##vso[task.setvariable variable=AssemblyInfo.FileVersion;isOutput=true;issecret=false;]1990.03.') > -1, true, 'AssemblyInfo.FileVersion output variable set');
+        assert.strictEqual(tr.stdout.indexOf('##vso[task.setvariable variable=AssemblyInfo.InformationalVersion;isOutput=true;issecret=false;]2.3.4-beta5') > -1, true, 'AssemblyInfo.InformationalVersion output variable set');
+        assert.strictEqual(tr.stdout.indexOf('##vso[task.setvariable variable=AssemblyInfo.PackageVersion;isOutput=true;issecret=false;]9.8.7-beta65') > -1, true, 'PackageVersion output variable set');
 
         done();
     });
