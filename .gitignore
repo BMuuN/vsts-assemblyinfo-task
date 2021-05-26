@@ -257,7 +257,6 @@ paket-files/
 #Custom Files
 src/**/*.js
 src/**/*.js.map
-package-lock.json
 .taskkey
 /dist/
 ResultsFile.xml
