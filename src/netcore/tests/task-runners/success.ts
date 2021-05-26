@@ -5,4 +5,5 @@ const taskPath = path.join(__dirname, '..\\..\\index.js');
 
 new models.RequestModel(taskPath)
     .withFailOnWarning(true)
+    .withCopyright('Copyright © 2020')
     .build();

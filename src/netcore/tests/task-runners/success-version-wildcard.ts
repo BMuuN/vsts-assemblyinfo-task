@@ -5,7 +5,7 @@ const taskPath = path.join(__dirname, '..\\..\\index.js');
 
 new models.RequestModel(taskPath)
     .withFailOnWarning(false)
-    .withFileEncoding('iso-8859-1')
+    .withFileEncoding('auto')
     .withWriteBom(true)
     // .withVersionNumber('TS Extension Test Build_2018.11.1234.4321')
     .withVersionNumber('TS Extension Test Build_2018.11.*.*')
