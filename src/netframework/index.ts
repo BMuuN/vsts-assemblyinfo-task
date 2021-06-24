@@ -157,8 +157,8 @@ function setManifestData(model: models.NetFramework, regEx: models.RegEx): void 
 
         logger.info(`Processing: ${file}`);
 
-        if (path.extname(file) !== '.vb' && path.extname(file) !== '.cs') {
-            logger.warning(`File is not .vb or .cs`);
+        if (path.extname(file) !== '.vb' && path.extname(file) !== '.cs' && path.extname(file) !== '.cpp') {
+            logger.warning(`File is not .vb or .cs or .cpp`);
             logger.info('');
             return;
         }
@@ -225,6 +225,8 @@ function addUsingIfMissing(file: string, content: string) {
         usings = ['Imports System.Reflection'];
     } else if (file.endsWith('.cs')) {
         usings = ['using System.Runtime.CompilerServices;', 'using System.Reflection;'];
+    } else if (file.endsWith('.cpp')) {
+        usings = ['using namespace System::Reflection;', 'using namespace System::Runtime::InteropServices;'];
     }
 
     usings.forEach((value, index, array) => {
@@ -268,6 +270,16 @@ function insertAttribute(file: string, content: string, name: string, value: str
         if (!res || res.length <= 0) {
             logger.info(`Adding --> ${name}`);
             content += `\r\n[assembly: ${name}("${value}")\]`;
+        }
+    }
+    
+    else if (file.endsWith('.cpp')) {
+        
+        // ignores comments and finds correct attribute
+        const res = content.match(new RegExp(`^\\[assembly:\\s*${name}`, 'gim'));
+        if (!res || res.length <= 0) {
+            logger.info(`Adding --> ${name}`);
+            content += `\r\n[assembly: ${name}("${value}")\];`;
         }
     }
 
