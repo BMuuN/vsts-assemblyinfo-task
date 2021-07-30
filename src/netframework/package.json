@@ -8,10 +8,10 @@
     "author": "Bleddyn Richards",
     "license": "MIT",
     "dependencies": {
-        "applicationinsights": "1.8.9",
-        "azure-pipelines-task-lib": "2.9.5",
+        "applicationinsights": "2.0.0",
+        "azure-pipelines-task-lib": "3.1.2",
         "chardet": "1.3.0",
-        "iconv-lite": "0.6.2",
+        "iconv-lite": "0.6.3",
         "moment": "2.29.1"
     }
 }
