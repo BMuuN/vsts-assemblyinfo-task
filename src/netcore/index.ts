@@ -43,7 +43,7 @@ async function run() {
 
         logger.success('Complete.');
 
-    } catch (err) {
+    } catch (err: any) {
         logger.error(`Task failed with error: ${err.message}`);
         telemetry.trackException(err.message);
     }
