@@ -40,7 +40,7 @@
     }
   ],
   "inputs": [{
-      "name": "Path",
+      "name": "path",
       "type": "filePath",
       "label": "Source folder",
       "defaultValue": "$(Build.SourcesDirectory)",
@@ -48,7 +48,7 @@
       "helpMarkDown": "Specify the project Source folder."
     },
     {
-      "name": "FileNames",
+      "name": "fileNames",
       "type": "multiLine",
       "label": "Source files",
       "defaultValue": "**/*.csproj",
@@ -60,7 +60,7 @@
       }
     },
     {
-      "name": "InsertAttributes",
+      "name": "insertAttributes",
       "type": "boolean",
       "label": "Insert attributes",
       "defaultValue": false,
@@ -68,7 +68,7 @@
       "helpMarkDown": "If checked the task will insert missing attributes into the source files specified above."
     },
     {
-      "name": "FileEncoding",
+      "name": "fileEncoding",
       "type": "pickList",
       "label": "File encoding",
       "defaultValue": "auto",
@@ -85,7 +85,7 @@
       "groupName": "fileEncodingGroup"
     },
     {
-      "name": "WriteBOM",
+      "name": "writeBOM",
       "type": "boolean",
       "label": "Write unicode BOM",
       "defaultValue": false,
@@ -95,7 +95,7 @@
       "groupName": "fileEncodingGroup"
     },
     {
-      "name": "GeneratePackageOnBuild",
+      "name": "generatePackageOnBuild",
       "type": "boolean",
       "label": "Generate NuGet package on build",
       "defaultValue": false,
@@ -104,7 +104,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "PackageRequireLicenseAcceptance",
+      "name": "packageRequireLicenseAcceptance",
       "type": "boolean",
       "label": "Require license acceptance",
       "defaultValue": false,
@@ -113,7 +113,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "PackageId",
+      "name": "packageId",
       "type": "string",
       "label": "Package id",
       "defaultValue": "",
@@ -122,7 +122,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "Authors",
+      "name": "authors",
       "type": "string",
       "label": "Authors",
       "defaultValue": "",
@@ -131,7 +131,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "Company",
+      "name": "company",
       "type": "string",
       "label": "Company",
       "defaultValue": "",
@@ -140,7 +140,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "Product",
+      "name": "product",
       "type": "string",
       "label": "Product",
       "defaultValue": "",
@@ -149,7 +149,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "Description",
+      "name": "description",
       "type": "string",
       "label": "Description",
       "defaultValue": "",
@@ -158,7 +158,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "Copyright",
+      "name": "copyright",
       "type": "string",
       "label": "Copyright",
       "defaultValue": "",
@@ -167,7 +167,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "PackageLicenseUrl",
+      "name": "packageLicenseUrl",
       "type": "string",
       "label": "License File",
       "defaultValue": "",
@@ -176,7 +176,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "PackageLicenseExpression",
+      "name": "packageLicenseExpression",
       "type": "string",
       "label": "License Expression",
       "defaultValue": "",
@@ -185,7 +185,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "PackageProjectUrl",
+      "name": "packageProjectUrl",
       "type": "string",
       "label": "Project Url",
       "defaultValue": "",
@@ -194,7 +194,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "PackageIconUrl",
+      "name": "packageIconUrl",
       "type": "string",
       "label": "Icon",
       "defaultValue": "",
@@ -203,7 +203,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "RepositoryUrl",
+      "name": "repositoryUrl",
       "type": "string",
       "label": "Repository Url",
       "defaultValue": "",
@@ -212,7 +212,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "RepositoryType",
+      "name": "repositoryType",
       "type": "string",
       "label": "Repository type",
       "defaultValue": "",
@@ -221,7 +221,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "PackageTags",
+      "name": "packageTags",
       "type": "string",
       "label": "Tags",
       "defaultValue": "",
@@ -230,7 +230,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "PackageReleaseNotes",
+      "name": "packageReleaseNotes",
       "type": "string",
       "label": "Release notes",
       "defaultValue": "",
@@ -239,7 +239,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "Culture",
+      "name": "culture",
       "type": "string",
       "label": "Assembly neutral language",
       "defaultValue": "",
@@ -248,7 +248,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "VersionNumber",
+      "name": "versionNumber",
       "type": "string",
       "label": "Assembly version",
       "defaultValue": "",
@@ -257,7 +257,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "FileVersionNumber",
+      "name": "fileVersionNumber",
       "type": "string",
       "label": "Assembly file version",
       "defaultValue": "",
@@ -266,7 +266,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "InformationalVersion",
+      "name": "informationalVersion",
       "type": "string",
       "label": "Informational version",
       "defaultValue": "",
@@ -275,7 +275,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "PackageVersion",
+      "name": "packageVersion",
       "type": "string",
       "label": "Package version",
       "defaultValue": "",
@@ -284,7 +284,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "LogLevel",
+      "name": "logLevel",
       "type": "pickList",
       "label": "Log Level",
       "defaultValue": "verbose",
@@ -298,7 +298,7 @@
       "groupName": "loggingGroup"
     },
     {
-      "name": "FailOnWarning",
+      "name": "failOnWarning",
       "type": "boolean",
       "label": "Fail on warning",
       "defaultValue": false,
@@ -307,7 +307,7 @@
       "groupName": "loggingGroup"
     },
     {
-      "name": "DisableTelemetry",
+      "name": "disableTelemetry",
       "type": "boolean",
       "label": "Disable Telemetry",
       "defaultValue": false,
@@ -316,7 +316,7 @@
       "groupName": "loggingGroup"
     },
     {
-      "name": "IgnoreNetFrameworkProjects",
+      "name": "ignoreNetFrameworkProjects",
       "type": "boolean",
       "label": "Ignore .Net Framework Projects",
       "defaultValue": false,
@@ -325,7 +325,7 @@
       "groupName": "loggingGroup"
     },
     {
-      "name": "UpdateBuildNumber",
+      "name": "updateBuildNumber",
       "type": "string",
       "label": "Update Build Name",
       "defaultValue": "",
@@ -334,7 +334,7 @@
       "groupName": "taggingGroup"
     },
     {
-      "name": "AddBuildTag",
+      "name": "addBuildTag",
       "type": "string",
       "label": "Add Build Tag",
       "defaultValue": "",

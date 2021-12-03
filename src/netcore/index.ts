@@ -9,14 +9,13 @@ import xml2js = require('xml2js');
 
 import { LoggingLevel } from './enums';
 import * as models from './models';
-import { Logger, TelemetryService } from './services';
-import * as utils from './services/utils.service';
+import { Logger, TelemetryService, Utils } from './services';
 
 let logger: Logger = new Logger(false, LoggingLevel.Normal);
 
 async function run() {
 
-    const disableTelemetry: boolean = tl.getBoolInput('DisableTelemetry', true);
+    const disableTelemetry: boolean = tl.getBoolInput('disableTelemetry', true);
     const telemetry = new TelemetryService(disableTelemetry, '#{NetCoreInstrumentationKey}#');
     telemetry.trackEvent('Start Net Core');
 
@@ -24,9 +23,9 @@ async function run() {
         const regExModel = new models.RegEx();
 
         const model = getDefaultModel();
-        model.fileNames = utils.formatFileNames(model.fileNames);
+        model.fileNames = Utils.formatFileNames(model.fileNames);
 
-        logger = new Logger(model.failOnWarning, utils.mapLogLevel(model.logLevel));
+        logger = new Logger(model.failOnWarning, Utils.mapLogLevel(model.logLevel));
 
         // Make sure path to source code directory is available
         if (!tl.exist(model.path)) {
@@ -56,7 +55,7 @@ function applyTransforms(model: models.NetCore, regex: models.RegEx): void {
         if (model.hasOwnProperty(key)) {
             const value = Reflect.get(model, key);
             if (typeof value === 'string' && value !== '') {
-                const newValue = utils.transformDates(value, regex);
+                const newValue = Utils.transformDates(value, regex);
                 if (value !== newValue) {
                     Reflect.set(model, key, newValue);
                     // logger.debug(`Key: ${key},  Value: ${value},  New Value: ${newValue}`);
@@ -68,45 +67,45 @@ function applyTransforms(model: models.NetCore, regex: models.RegEx): void {
 
 function getDefaultModel(): models.NetCore {
     const model: models.NetCore = {
-        path: tl.getPathInput('Path', true) || '',
-        fileNames: tl.getDelimitedInput('FileNames', '\n', true),
-        insertAttributes: tl.getBoolInput('InsertAttributes', true),
-        fileEncoding: tl.getInput('FileEncoding', true) || '',
+        path: tl.getPathInput('path', true) || '',
+        fileNames: tl.getDelimitedInput('fileNames', '\n', true),
+        insertAttributes: tl.getBoolInput('insertAttributes', true),
+        fileEncoding: tl.getInput('fileEncoding', true) || '',
         detectedFileEncoding: '',
-        writeBOM: tl.getBoolInput('WriteBOM', true),
+        writeBOM: tl.getBoolInput('writeBOM', true),
 
-        generatePackageOnBuild: tl.getBoolInput('GeneratePackageOnBuild', true),
-        requireLicenseAcceptance: tl.getBoolInput('PackageRequireLicenseAcceptance', true),
+        generatePackageOnBuild: tl.getBoolInput('generatePackageOnBuild', true),
+        requireLicenseAcceptance: tl.getBoolInput('packageRequireLicenseAcceptance', true),
 
-        packageId: tl.getInput('PackageId', false) || '',
-        packageVersion: tl.getInput('PackageVersion', false) || '',
-        authors: tl.getInput('Authors', false) || '',
-        company: tl.getInput('Company', false) || '',
-        product: tl.getInput('Product', false) || '',
-        description: tl.getInput('Description', false) || '',
-        copyright: tl.getInput('Copyright', false) || '',
-        licenseFile: tl.getInput('PackageLicenseUrl', false) || '',
-        licenseExpression: tl.getInput('PackageLicenseExpression', false) || '',
-        projectUrl: tl.getInput('PackageProjectUrl', false) || '',
-        packageIcon: tl.getInput('PackageIconUrl', false) || '',
-        repositoryUrl: tl.getInput('RepositoryUrl', false) || '',
-        repositoryType: tl.getInput('RepositoryType', false) || '',
-        tags: tl.getInput('PackageTags', false) || '',
-        releaseNotes: tl.getInput('PackageReleaseNotes', false) || '',
-        culture: tl.getInput('Culture', false) || '',
+        packageId: tl.getInput('packageId', false) || '',
+        packageVersion: tl.getInput('packageVersion', false) || '',
+        authors: tl.getInput('authors', false) || '',
+        company: tl.getInput('company', false) || '',
+        product: tl.getInput('product', false) || '',
+        description: tl.getInput('description', false) || '',
+        copyright: tl.getInput('copyright', false) || '',
+        licenseFile: tl.getInput('packageLicenseUrl', false) || '',
+        licenseExpression: tl.getInput('packageLicenseExpression', false) || '',
+        projectUrl: tl.getInput('packageProjectUrl', false) || '',
+        packageIcon: tl.getInput('packageIconUrl', false) || '',
+        repositoryUrl: tl.getInput('repositoryUrl', false) || '',
+        repositoryType: tl.getInput('repositoryType', false) || '',
+        tags: tl.getInput('packageTags', false) || '',
+        releaseNotes: tl.getInput('packageReleaseNotes', false) || '',
+        culture: tl.getInput('culture', false) || '',
 
-        version: tl.getInput('VersionNumber', false) || '',
-        fileVersion: tl.getInput('FileVersionNumber', false) || '',
-        informationalVersion: tl.getInput('InformationalVersion', false) || '',
+        version: tl.getInput('versionNumber', false) || '',
+        fileVersion: tl.getInput('fileVersionNumber', false) || '',
+        informationalVersion: tl.getInput('informationalVersion', false) || '',
         verBuild: '',
         verRelease: '',
 
-        logLevel: tl.getInput('LogLevel', true) || '',
-        failOnWarning: tl.getBoolInput('FailOnWarning', true),
-        ignoreNetFrameworkProjects: tl.getBoolInput('IgnoreNetFrameworkProjects', false) || false,
+        logLevel: tl.getInput('logLevel', true) || '',
+        failOnWarning: tl.getBoolInput('failOnWarning', true),
+        ignoreNetFrameworkProjects: tl.getBoolInput('ignoreNetFrameworkProjects', false) || false,
 
-        buildNumber: tl.getInput('UpdateBuildNumber', false) || '',
-        buildTag: tl.getInput('AddBuildTag', false) || '',
+        buildNumber: tl.getInput('updateBuildNumber', false) || '',
+        buildTag: tl.getInput('addBuildTag', false) || '',
     };
 
     return model;
@@ -131,13 +130,12 @@ function generateVersionNumbers(model: models.NetCore, regexModel: models.RegEx)
     const fileVersion = model.fileVersion.match(regexModel.version);
     const fileVersionValue = fileVersion && fileVersion[0] || '';
 
-    model.packageVersion = utils.setWildcardVersionNumber(model.packageVersion, model.verBuild, model.verRelease);
-    model.version = utils.setWildcardVersionNumber(versionValue, model.verBuild, model.verRelease);
-    model.fileVersion = utils.setWildcardVersionNumber(fileVersionValue, model.verBuild, model.verRelease);
-    model.informationalVersion = utils.setWildcardVersionNumber(model.informationalVersion, model.verBuild, model.verRelease);
-
-    model.buildNumber = utils.setWildcardVersionNumber(model.buildNumber, model.verBuild, model.verRelease);
-    model.buildTag = utils.setWildcardVersionNumber(model.buildTag, model.verBuild, model.verRelease);
+    model.packageVersion = Utils.setWildcardVersionNumber(model.packageVersion, model.verBuild, model.verRelease);
+    model.version = Utils.setWildcardVersionNumber(versionValue, model.verBuild, model.verRelease);
+    model.fileVersion = Utils.setWildcardVersionNumber(fileVersionValue, model.verBuild, model.verRelease);
+    model.informationalVersion = Utils.setWildcardVersionNumber(model.informationalVersion, model.verBuild, model.verRelease);
+    model.buildNumber = Utils.setWildcardVersionNumber(model.buildNumber, model.verBuild, model.verRelease);
+    model.buildTag = Utils.setWildcardVersionNumber(model.buildTag, model.verBuild, model.verRelease);
 }
 
 function printTaskParameters(model: models.NetCore): void {
@@ -324,8 +322,8 @@ function setAssemblyData(group: any, model: models.NetCore): void {
         }
 
         if (group.Version || group.Version === '') {
-            group.Version = model.packageVersion;
-            logger.info(`Version --> ${model.packageVersion}`);
+            group.Version = Utils.setVersionNumber(group.Version[0], model.packageVersion);
+            logger.info(`Version --> ${group.Version}`);
         }
     }
 
@@ -519,7 +517,7 @@ function setAssemblyData(group: any, model: models.NetCore): void {
         }
 
         if (group.AssemblyVersion || group.AssemblyVersion === '') {
-            group.AssemblyVersion = model.version;
+            group.AssemblyVersion = Utils.setVersionNumber(group.AssemblyVersion[0], model.version);
             logger.info(`AssemblyVersion --> ${model.version}`);
         }
     }
@@ -532,8 +530,8 @@ function setAssemblyData(group: any, model: models.NetCore): void {
         }
 
         if (group.FileVersion || group.FileVersion === '') {
-            group.FileVersion = model.fileVersion;
-            logger.info(`FileVersion --> ${model.fileVersion}`);
+            group.FileVersion = Utils.setVersionNumber(group.FileVersion[0], model.fileVersion);
+            logger.info(`FileVersion --> ${group.FileVersion}`);
         }
     }
 
@@ -545,8 +543,8 @@ function setAssemblyData(group: any, model: models.NetCore): void {
         }
 
         if (group.InformationalVersion || group.InformationalVersion === '') {
-            group.InformationalVersion = model.informationalVersion;
-            logger.info(`InformationalVersion --> ${model.informationalVersion}`);
+            group.InformationalVersion = Utils.setVersionNumber(group.InformationalVersion[0], model.informationalVersion);
+            logger.info(`InformationalVersion --> ${group.InformationalVersion}`);
         }
     }
 }

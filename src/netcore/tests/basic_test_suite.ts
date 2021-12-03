@@ -3,7 +3,7 @@ import * as ttm from 'azure-pipelines-task-lib/mock-test';
 import * as path from 'path';
 import * as testUtils from './helpers/test-utils';
 
-describe('Net Core Task Tests', function() {
+describe('Net Core Task Basic Tests', function() {
 
     const TestRegEx = {
         // copyright: /^(Copyright: Copyright © \d{4} \d{2}\.\d{2}\.\d{4} \d{2} \w+ \d{4} \d{2}:\d{2} \w+ Example Ltd)$/g,
@@ -12,8 +12,8 @@ describe('Net Core Task Tests', function() {
 
         assemblyVersion: /^(2018\.11\.\d{4}(.\d{1,5})?)$/g,
         fileVersion: /^(1990\.03\.\d{4}\.\d{1,5})$/g,
-        informationalVersion: /^(\d{1,4}\.\d{1,4}\.\d{1,5}-beta5)/g,
-        packageVersion: /^(\d{1,4}\.\d{1,4}\.\d{1,5}-beta65)/g,
+        informationalVersion: /^(\d{1,4}\.\d{1,4}\.\d{1,5}-prerelease)/g,
+        packageVersion: /^(\d{1,4}\.\d{1,4}\.\d{1,5}-beta5)/g,
     };
 
     let rootDir: string = '';
@@ -36,43 +36,43 @@ describe('Net Core Task Tests', function() {
         console.log(`Project Dir: \t${projectDir}`);
     });
 
-    it('should succeed with version number wildcard', (done: Mocha.Done) => {
-        this.timeout(1000);
+    // it('should succeed with version number wildcard', (done: Mocha.Done) => {
+    //     this.timeout(1000);
 
-        const tp = path.join(testDir, 'success-version-wildcard.js');
-        const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
+    //     const tp = path.join(testDir, 'success-version-wildcard.js');
+    //     const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
-        tr.run();
+    //     tr.run();
 
-        assert.strictEqual(tr.succeeded, true, 'should have succeeded');
-        assert.strictEqual(tr.invokedToolCount, 0, 'should not invoke any tooling');
-        assert.strictEqual(tr.warningIssues.length, 0, 'should have no warnings');
-        assert.strictEqual(tr.errorIssues.length, 0, 'should have no errors');
+    //     assert.strictEqual(tr.succeeded, true, 'should have succeeded');
+    //     assert.strictEqual(tr.invokedToolCount, 0, 'should not invoke any tooling');
+    //     assert.strictEqual(tr.warningIssues.length, 0, 'should have no warnings');
+    //     assert.strictEqual(tr.errorIssues.length, 0, 'should have no errors');
 
-        const netCoreLibProject = path.join(projectDir, 'NetCoreLib/NetCoreLib.csproj');
+    //     const netCoreLibProject = path.join(projectDir, 'NetCoreLib/NetCoreLib.csproj');
 
-        const assemblyVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'AssemblyVersion');
-        const assemblyVersionResult = assemblyVersion.match(TestRegEx.assemblyVersion) as RegExpMatchArray;
-        assert.notStrictEqual(assemblyVersionResult, null, 'AssemblyVersion field is empty');
-        assert.strictEqual(assemblyVersionResult.length, 1, 'AssemblyVersion is not set');
+    //     const assemblyVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'AssemblyVersion');
+    //     const assemblyVersionResult = assemblyVersion.match(TestRegEx.assemblyVersion) as RegExpMatchArray;
+    //     assert.notStrictEqual(assemblyVersionResult, null, 'AssemblyVersion field is empty');
+    //     assert.strictEqual(assemblyVersionResult.length, 1, 'AssemblyVersion is not set');
 
-        const fileVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'FileVersion');
-        const fileVersionResult = fileVersion.match(TestRegEx.fileVersion) as RegExpMatchArray;
-        assert.notStrictEqual(fileVersionResult, null, 'FileVersion field is empty');
-        assert.strictEqual(fileVersionResult.length, 1, 'FileVersion is not set');
+    //     const fileVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'FileVersion');
+    //     const fileVersionResult = fileVersion.match(TestRegEx.fileVersion) as RegExpMatchArray;
+    //     assert.notStrictEqual(fileVersionResult, null, 'FileVersion field is empty');
+    //     assert.strictEqual(fileVersionResult.length, 1, 'FileVersion is not set');
 
-        const informationalVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'InformationalVersion');
-        const informationalVersionResult = informationalVersion.match(TestRegEx.informationalVersion) as RegExpMatchArray;
-        assert.notStrictEqual(informationalVersionResult, null, 'InformationalVersion field is empty');
-        assert.strictEqual(informationalVersionResult.length, 1, 'InformationalVersion is not set');
+    //     const informationalVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'InformationalVersion');
+    //     const informationalVersionResult = informationalVersion.match(TestRegEx.informationalVersion) as RegExpMatchArray;
+    //     assert.notStrictEqual(informationalVersionResult, null, 'InformationalVersion field is empty');
+    //     assert.strictEqual(informationalVersionResult.length, 1, 'InformationalVersion is not set');
 
-        const version = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Version');
-        const versionResult = version.match(TestRegEx.packageVersion) as RegExpMatchArray;
-        assert.notStrictEqual(versionResult, null, 'Version field is empty');
-        assert.strictEqual(versionResult.length, 1, 'Version is not set');
+    //     const version = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Version');
+    //     const versionResult = version.match(TestRegEx.packageVersion) as RegExpMatchArray;
+    //     assert.notStrictEqual(versionResult, null, 'Version field is empty');
+    //     assert.strictEqual(versionResult.length, 1, 'Version is not set');
 
-        done();
-    });
+    //     done();
+    // });
 
     it('should succeed and update assembly info data', (done: Mocha.Done) => {
         this.timeout(1000);
@@ -99,7 +99,7 @@ describe('Net Core Task Tests', function() {
         assert.strictEqual(packageId, 'vsts-assemblyinfo-task', 'PackageId is not set');
 
         const version = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Version');
-        assert.strictEqual(version, '9.8.7-beta65', 'Version is not set');
+        assert.strictEqual(version, '9.8.7-beta5', 'Version is not set');
 
         const authors = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Authors');
         assert.strictEqual(authors, 'Bleddyn Richards', 'Authors is not set');
@@ -153,7 +153,7 @@ describe('Net Core Task Tests', function() {
         assert.strictEqual(fileVersionResult.length, 1, 'FileVersion is not set');
 
         const informationalVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'InformationalVersion');
-        assert.strictEqual(informationalVersion, '2.3.4-beta5', 'InformationalVersion is not set');
+        assert.strictEqual(informationalVersion, '2.3.4-prerelease', 'InformationalVersion is not set');
 
         done();
     });
@@ -241,7 +241,7 @@ describe('Net Core Task Tests', function() {
         assert.strictEqual(tr.errorIssues.length, 0, 'should have no errors');
 
         // Input Parameters Printed (only in debug mode)
-        assert.strictEqual(tr.stdout.indexOf('Source folder: C:\\DEV\\GIT\\vsts-assemblyinfo-task\\tests\\projects') > -1, true, `'Source folder' input printed`);
+        assert.strictEqual(tr.stdout.indexOf('Source folder: H:\\DEV\\GIT\\vsts-assemblyinfo-task\\tests\\projects') > -1, true, `'Source folder' input printed`);
         assert.strictEqual(tr.stdout.indexOf('Source files: **/NetCoreLib.csproj') > -1, true, `'Source files' input printed`);
         assert.strictEqual(tr.stdout.indexOf('Insert attributes: true') > -1, true, `'Insert attributes' input printed`);
         assert.strictEqual(tr.stdout.indexOf('File encoding: auto') > -1, true, `'File encoding' input printed`);
@@ -249,7 +249,7 @@ describe('Net Core Task Tests', function() {
         assert.strictEqual(tr.stdout.indexOf('Generate NuGet package on build: true') > -1, true, `'Generate NuGet package on build' input printed`);
         assert.strictEqual(tr.stdout.indexOf('Require license acceptance: true') > -1, true, `'Require license acceptance' input printed`);
         assert.strictEqual(tr.stdout.indexOf('Package id: vsts-assemblyinfo-task') > -1, true, `'Package id' input printed`);
-        assert.strictEqual(tr.stdout.indexOf('Package version: 9.8.7-beta65') > -1, true, `'Package version' input printed`);
+        assert.strictEqual(tr.stdout.indexOf('Package version: 9.8.7-beta5') > -1, true, `'Package version' input printed`);
         assert.strictEqual(tr.stdout.indexOf('Authors: Bleddyn Richards') > -1, true, `'Authors' input printed`);
         assert.strictEqual(tr.stdout.indexOf('Company: Bleddyn Richards Inc') > -1, true, `'Company' input printed`);
         assert.strictEqual(tr.stdout.indexOf('Product: Azure DevOps Assembly Info') > -1, true, `'Product' input printed`);
@@ -265,35 +265,14 @@ describe('Net Core Task Tests', function() {
         assert.strictEqual(tr.stdout.indexOf('Assembly neutral language: en-GB') > -1, true, `'Assembly neutral language' input printed`);
         assert.strictEqual(tr.stdout.indexOf('Assembly version: 2018.11.') > -1, true, `'Assembly version' input printed`);
         assert.strictEqual(tr.stdout.indexOf('Assembly file version: 1990.03.') > -1, true, `'Assembly file version' input printed`);
-        assert.strictEqual(tr.stdout.indexOf('Informational version: 2.3.4-beta5') > -1, true, `'Informational version' input printed`);
+        assert.strictEqual(tr.stdout.indexOf('Informational version: 2.3.4-prerelease') > -1, true, `'Informational version' input printed`);
         assert.strictEqual(tr.stdout.indexOf('Log Level: verbose') > -1, true, `'Log Level' input printed`);
         assert.strictEqual(tr.stdout.indexOf('Fail on Warning: true') > -1, true, `'Fail on Warning' input printed`);
 
         done();
     });
 
-    it('should succeed and set output variables', (done: Mocha.Done) => {
-        this.timeout(1000);
-
-        const tp = path.join(testDir, 'success.js');
-        const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
-
-        tr.run();
-
-        assert.strictEqual(tr.succeeded, true, 'should have succeeded');
-        assert.strictEqual(tr.invokedToolCount, 0, 'should not invoke any tooling');
-        assert.strictEqual(tr.warningIssues.length, 0, 'should have no warnings');
-
-        assert.strictEqual(tr.errorIssues.length, 0, 'should have no errors');
-        assert.strictEqual(tr.stdout.indexOf('##vso[task.setvariable variable=AssemblyInfo.Version;isOutput=true;issecret=false;]2018.11.') > -1, true, 'AssemblyInfo.Version output variable set');
-        assert.strictEqual(tr.stdout.indexOf('##vso[task.setvariable variable=AssemblyInfo.FileVersion;isOutput=true;issecret=false;]1990.03.') > -1, true, 'AssemblyInfo.FileVersion output variable set');
-        assert.strictEqual(tr.stdout.indexOf('##vso[task.setvariable variable=AssemblyInfo.InformationalVersion;isOutput=true;issecret=false;]2.3.4-beta5') > -1, true, 'AssemblyInfo.InformationalVersion output variable set');
-        assert.strictEqual(tr.stdout.indexOf('##vso[task.setvariable variable=AssemblyInfo.PackageVersion;isOutput=true;issecret=false;]9.8.7-beta65') > -1, true, 'PackageVersion output variable set');
-
-        done();
-    });
-
-    it('should succeed with basic inputs', (done: Mocha.Done) => {
+    it('should succeed and print transformations', (done: Mocha.Done) => {
         this.timeout(1000);
 
         const tp = path.join(testDir, 'success.js');
@@ -313,7 +292,7 @@ describe('Net Core Task Tests', function() {
         assert.strictEqual(tr.stdout.indexOf('GeneratePackageOnBuild --> true') > -1, true, 'GeneratePackageOnBuild is set');
         assert.strictEqual(tr.stdout.indexOf('PackageRequireLicenseAcceptance --> true') > -1, true, 'PackageRequireLicenseAcceptance is set');
         assert.strictEqual(tr.stdout.indexOf('PackageId --> vsts-assemblyinfo-task') > -1, true, 'PackageId is set');
-        assert.strictEqual(tr.stdout.indexOf('Version --> 9.8.7-beta65') > -1, true, 'Version is set');
+        assert.strictEqual(tr.stdout.indexOf('Version --> 9.8.7-beta5') > -1, true, 'Version is set');
         assert.strictEqual(tr.stdout.indexOf('Authors --> Bleddyn Richards') > -1, true, 'Authors is set');
         assert.strictEqual(tr.stdout.indexOf('Company --> Bleddyn Richards Inc') > -1, true, 'Company is set');
         assert.strictEqual(tr.stdout.indexOf('Product --> Azure DevOps Assembly Info') > -1, true, 'Product is set');
@@ -329,11 +308,32 @@ describe('Net Core Task Tests', function() {
         assert.strictEqual(tr.stdout.indexOf('NeutralLanguage --> en-GB') > -1, true, 'NeutralLanguage is set');
         assert.strictEqual(tr.stdout.indexOf('AssemblyVersion --> 2018.11.') > -1, true, 'AssemblyVersion is set');
         assert.strictEqual(tr.stdout.indexOf('FileVersion --> 1990.03.') > -1, true, 'FileVersion is set');
-        assert.strictEqual(tr.stdout.indexOf('InformationalVersion --> 2.3.4-beta5') > -1, true, 'InformationalVersion is set');
+        assert.strictEqual(tr.stdout.indexOf('InformationalVersion --> 2.3.4-prerelease') > -1, true, 'InformationalVersion is set');
 
         done();
     });
 
+    it('should succeed and set output variables', (done: Mocha.Done) => {
+        this.timeout(1000);
+
+        const tp = path.join(testDir, 'success.js');
+        const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
+
+        tr.run();
+
+        assert.strictEqual(tr.succeeded, true, 'should have succeeded');
+        assert.strictEqual(tr.invokedToolCount, 0, 'should not invoke any tooling');
+        assert.strictEqual(tr.warningIssues.length, 0, 'should have no warnings');
+
+        assert.strictEqual(tr.errorIssues.length, 0, 'should have no errors');
+        assert.strictEqual(tr.stdout.indexOf('##vso[task.setvariable variable=AssemblyInfo.Version;isOutput=true;issecret=false;]2018.11.') > -1, true, 'AssemblyInfo.Version output variable set');
+        assert.strictEqual(tr.stdout.indexOf('##vso[task.setvariable variable=AssemblyInfo.FileVersion;isOutput=true;issecret=false;]1990.03.') > -1, true, 'AssemblyInfo.FileVersion output variable set');
+        assert.strictEqual(tr.stdout.indexOf('##vso[task.setvariable variable=AssemblyInfo.InformationalVersion;isOutput=true;issecret=false;]2.3.4-prerelease') > -1, true, 'AssemblyInfo.InformationalVersion output variable set');
+        assert.strictEqual(tr.stdout.indexOf('##vso[task.setvariable variable=AssemblyInfo.PackageVersion;isOutput=true;issecret=false;]9.8.7-beta5') > -1, true, 'PackageVersion output variable set');
+
+        done();
+    });
+    
     it('should fail instantly when source directory does not exist', (done: Mocha.Done) => {
         this.timeout(1000);
 

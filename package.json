@@ -4,8 +4,8 @@
   "description": "Extension for Azure DevOps Services that sets assembly information from a build.",
   "scripts": {
     "test:run": "npm run build && npm run test:netcore",
-    "test:netcore": "mocha --colors src/netcore/tests/_suite.js",
-    "test:netcore-ci": "nyc --reporter=cobertura --reporter=html mocha --colors src/netcore/tests/_suite.js --reporter mocha-junit-reporter --reporter-option output=test-results.xml --timeout 10000",
+    "test:netcore": "mocha --colors src/netcore/tests/index.js",
+    "test:netcore-ci": "nyc --reporter=cobertura --reporter=html mocha --colors src/netcore/tests/index.js --reporter mocha-junit-reporter --reporter-option output=test-results.xml --timeout 10000",
     "app:netcore": "node -r dotenv/config src/netcore/index.js dotenv_config_path=config/netcore.env --trace-warnings",
     "build": "npm run clean:tasks && npm run compile:tasks",
     "build:dev:clean": "npm run initdev && npm run build",

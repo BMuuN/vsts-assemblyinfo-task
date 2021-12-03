@@ -7,7 +7,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Net Framework",
+            "name": "Launch .Net Framework",
             "protocol": "inspector",
             "envFile": "${workspaceFolder}/config/netframework.env",
             "args": [ "./src/netframework/index.ts" ],
@@ -18,7 +18,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Net Core",
+            "name": "Launch .Net Core",
             "protocol": "inspector",
             "envFile": "${workspaceFolder}/config/netcore.env",
             "args": [ "./src/netcore/index.ts" ],
@@ -35,7 +35,7 @@
                 "--require", "ts-node/register",
                 "--timeout", "999999",
                 "--colors", "--recursive",
-                "${workspaceFolder}\\src\\netcore\\tests\\_suite.ts"
+                "${workspaceFolder}\\src\\netcore\\tests\\index.ts"
             ],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
