@@ -28,7 +28,7 @@ new models.RequestModel(taskPath)
 
     // .withPackageVersion('9.8.7-beta65')
     // .withPackageVersion('*.*.7-beta65')
-    .withPackageVersion('9.*.*-beta65')
+    .withPackageVersion('9.*.*-beta5')
 
     // .withPackageVersion('*.8.7-beta65')
     // .withPackageVersion('9.*.7-beta65')
@@ -55,7 +55,7 @@ new models.RequestModel(taskPath)
 
     // .withInformationalVersionNumber('2.3.4-beta5')
     // .withInformationalVersionNumber('*.*.4-beta5')
-    .withInformationalVersionNumber('2.*.*-beta5')
+    .withInformationalVersionNumber('2.*.*-prerelease')
 
     // .withInformationalVersionNumber('*.3.4-beta5')
     // .withInformationalVersionNumber('2.*.4-beta5')

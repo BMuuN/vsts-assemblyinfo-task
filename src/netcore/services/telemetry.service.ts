@@ -22,13 +22,29 @@ export class TelemetryService {
 
     trackEvent(message: string) {
         if (this.client) {
-            this.client.trackEvent({name: message});
+            let data: appInsights.Contracts.EventTelemetry = {
+                name: message
+            };
+            this.client.trackEvent(data);
         }
     }
 
     trackException(message: string) {
         if (this.client) {
-            this.client.trackException({exception: new Error(message)});
+            let data: appInsights.Contracts.ExceptionTelemetry = {
+                exception: new Error(message)
+            };
+            this.client.trackException(data);
+        }
+    }
+
+    trackMetric(key: string, value: number) {
+        if (this.client) {
+            let data: appInsights.Contracts.MetricTelemetry = {
+                name: key,
+                value: value
+            };
+            this.client.trackMetric(data);
         }
     }
 }

@@ -8,8 +8,7 @@ import path = require('path');
 
 import { LoggingLevel } from './enums';
 import models = require('./models');
-import { Logger, TelemetryService } from './services';
-import utils = require('./services/utils.service');
+import { Logger, TelemetryService, Utils } from './services';
 
 let logger: Logger = new Logger(false, LoggingLevel.Normal);
 
@@ -23,9 +22,9 @@ async function run() {
         const regExModel = new models.RegEx();
 
         const model = getDefaultModel();
-        model.fileNames = utils.formatFileNames(model.fileNames);
+        model.fileNames = Utils.formatFileNames(model.fileNames);
 
-        logger = new Logger(model.failOnWarning, utils.mapLogLevel(model.logLevel));
+        logger = new Logger(model.failOnWarning, Utils.mapLogLevel(model.logLevel));
 
         // Make sure path to source code directory is available
         if (!tl.exist(model.path)) {
@@ -42,7 +41,7 @@ async function run() {
 
         logger.success('Complete.');
 
-    } catch (err) {
+    } catch (err: any) {
         logger.error(`Task failed with error: ${err.message}`);
         telemetry.trackException(err.message);
     }
@@ -55,7 +54,7 @@ function applyTransforms(model: models.NetFramework, regex: models.RegEx): void 
         if (model.hasOwnProperty(key)) {
             const value = Reflect.get(model, key);
             if (typeof value === 'string' && value !== '') {
-                const newValue = utils.transformDates(value, regex);
+                const newValue = Utils.transformDates(value, regex);
                 if (value !== newValue) {
                     Reflect.set(model, key, newValue);
                     // logger.debug(`Key: ${key},  Value: ${value},  New Value: ${newValue}`);
@@ -118,12 +117,12 @@ function generateVersionNumbers(model: models.NetFramework, regexModel: models.R
     const fileVersion = model.fileVersion.match(regexModel.version);
     const fileVersionValue = fileVersion && fileVersion[0] || '';
 
-    model.version = utils.setWildcardVersionNumber(versionValue, model.verBuild, model.verRelease);
-    model.fileVersion = utils.setWildcardVersionNumber(fileVersionValue, model.verBuild, model.verRelease);
-    model.informationalVersion = utils.setWildcardVersionNumber(model.informationalVersion, model.verBuild, model.verRelease);
+    model.version = Utils.setWildcardVersionNumber(versionValue, model.verBuild, model.verRelease);
+    model.fileVersion = Utils.setWildcardVersionNumber(fileVersionValue, model.verBuild, model.verRelease);
+    model.informationalVersion = Utils.setWildcardVersionNumber(model.informationalVersion, model.verBuild, model.verRelease);
 
-    model.buildNumber = utils.setWildcardVersionNumber(model.buildNumber, model.verBuild, model.verRelease);
-    model.buildTag = utils.setWildcardVersionNumber(model.buildTag, model.verBuild, model.verRelease);
+    model.buildNumber = Utils.setWildcardVersionNumber(model.buildNumber, model.verBuild, model.verRelease);
+    model.buildTag = Utils.setWildcardVersionNumber(model.buildTag, model.verBuild, model.verRelease);
 }
 
 function printTaskParameters(model: models.NetFramework): void {
@@ -195,17 +194,17 @@ function setManifestData(model: models.NetFramework, regEx: models.RegEx): void 
             fileContent = addUsingIfMissing(file, fileContent);
         }
 
-        fileContent = processNetFrameworkAttribute(file, fileContent, 'AssemblyVersion', regEx.word, model.version, model.insertAttributes);
-        fileContent = processNetFrameworkAttribute(file, fileContent, 'AssemblyFileVersion', regEx.word, model.fileVersion, model.insertAttributes);
-        fileContent = processNetFrameworkAttribute(file, fileContent, 'AssemblyInformationalVersion', regEx.word, model.informationalVersion, model.insertAttributes);
-        fileContent = processNetFrameworkAttribute(file, fileContent, 'AssemblyTitle', regEx.word, model.title, model.insertAttributes);
-        fileContent = processNetFrameworkAttribute(file, fileContent, 'AssemblyProduct', regEx.word, model.product, model.insertAttributes);
-        fileContent = processNetFrameworkAttribute(file, fileContent, 'AssemblyCompany', regEx.word, model.company, model.insertAttributes);
-        fileContent = processNetFrameworkAttribute(file, fileContent, 'AssemblyTrademark', regEx.word, model.trademark, model.insertAttributes);
-        fileContent = processNetFrameworkAttribute(file, fileContent, 'AssemblyDescription', regEx.word, model.description, model.insertAttributes);
-        fileContent = processNetFrameworkAttribute(file, fileContent, 'AssemblyCulture', regEx.word, model.culture, model.insertAttributes);
-        fileContent = processNetFrameworkAttribute(file, fileContent, 'AssemblyConfiguration', regEx.word, model.configuration, model.insertAttributes);
-        fileContent = processNetFrameworkAttribute(file, fileContent, 'AssemblyCopyright', regEx.word, model.copyright, model.insertAttributes);
+        fileContent = processAttribute(file, fileContent, 'AssemblyVersion', regEx.word, model.version, model.insertAttributes, true);
+        fileContent = processAttribute(file, fileContent, 'AssemblyFileVersion', regEx.word, model.fileVersion, model.insertAttributes, true);
+        fileContent = processAttribute(file, fileContent, 'AssemblyInformationalVersion', regEx.word, model.informationalVersion, model.insertAttributes, true);
+        fileContent = processAttribute(file, fileContent, 'AssemblyTitle', regEx.word, model.title, model.insertAttributes, false);
+        fileContent = processAttribute(file, fileContent, 'AssemblyProduct', regEx.word, model.product, model.insertAttributes, false);
+        fileContent = processAttribute(file, fileContent, 'AssemblyCompany', regEx.word, model.company, model.insertAttributes, false);
+        fileContent = processAttribute(file, fileContent, 'AssemblyTrademark', regEx.word, model.trademark, model.insertAttributes, false);
+        fileContent = processAttribute(file, fileContent, 'AssemblyDescription', regEx.word, model.description, model.insertAttributes, false);
+        fileContent = processAttribute(file, fileContent, 'AssemblyCulture', regEx.word, model.culture, model.insertAttributes, false);
+        fileContent = processAttribute(file, fileContent, 'AssemblyConfiguration', regEx.word, model.configuration, model.insertAttributes, false);
+        fileContent = processAttribute(file, fileContent, 'AssemblyCopyright', regEx.word, model.copyright, model.insertAttributes, false);
 
         fs.writeFileSync(file, iconv.encode(fileContent, model.detectedFileEncoding, { addBOM: model.writeBOM, stripBOM: undefined, defaultEncoding: undefined }));
 
@@ -254,13 +253,13 @@ function addUsingIfMissing(file: string, content: string) {
     return content;
 }
 
-function processNetFrameworkAttribute(file: string, fileContent: string, attributeName: string, regex: string, value: string, insertAttributes: boolean): string {
+function processAttribute(file: string, fileContent: string, attributeName: string, regex: string, value: string, insertAttributes: boolean, isVersionNumber: boolean): string {
 
     if (value && value.length > 0) {
         if (insertAttributes) {
             fileContent = insertAttribute(file, fileContent, attributeName, value);
         }
-        fileContent = replaceAttribute(fileContent, attributeName, regex, value);
+        fileContent = replaceAttribute(fileContent, attributeName, regex, value, isVersionNumber);
     }
 
     return fileContent;
@@ -290,9 +289,22 @@ function insertAttribute(file: string, content: string, name: string, value: str
     return content;
 }
 
-function replaceAttribute(content: string, name: string, regEx: string, value: string): string {
+function replaceAttribute(content: string, name: string, regEx: string, value: string, isVersionNumber: boolean): string {
     logger.info(`${name} --> ${value}`);
-    content = content.replace(new RegExp(`${name}\\s*\\w*\\(${regEx}\\)`, 'gi'), `${name}("${value}")`);
+
+    if (isVersionNumber) {
+        let existingVersioNumberResult = content.match(new RegExp(`${name}\\s*\\w*\\(${regEx}\\)`, 'gi')) as RegExpMatchArray;
+        if (existingVersioNumberResult && existingVersioNumberResult.length >= 1) {
+            existingVersioNumberResult.forEach((val: string, index: number, array: string[]) => {
+                let existingVersioNumber = val.substring(val.indexOf('("') + 2, val.indexOf('")'));
+                let newVersion  = Utils.setVersionNumber(existingVersioNumber, value);
+                content = content.replace(`${val}`, `${name}("${newVersion}")`);
+            });
+        }
+    } else {
+        content = content.replace(new RegExp(`${name}\\s*\\w*\\(${regEx}\\)`, 'gi'), `${name}("${value}")`);
+    }
+
     return content;
 }
 

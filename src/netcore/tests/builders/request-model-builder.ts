@@ -9,15 +9,15 @@ export class RequestModel {
 
         this.tmr = new tmrm.TaskMockRunner(taskPath);
 
-        this.tmr.setInput('PATH', 'C:\\DEV\\GIT\\vsts-assemblyinfo-task\\tests\\projects');
+        this.tmr.setInput('PATH', 'H:\\DEV\\GIT\\vsts-assemblyinfo-task\\tests\\projects');
         this.tmr.setInput('FILENAMES', '\n**/NetCoreLib.csproj');
         this.tmr.setInput('INSERTATTRIBUTES', 'true');
         this.tmr.setInput('FILEENCODING', 'auto');
         this.tmr.setInput('WRITEBOM', 'true');
-        this.tmr.setInput('PACKAGEVERSION', '9.8.7-beta65');
+        this.tmr.setInput('PACKAGEVERSION', '9.8.7-beta5');
         this.tmr.setInput('VERSIONNUMBER', 'TS Extension Test Build_2018.11.*');
         this.tmr.setInput('FILEVERSIONNUMBER', '1990.03.*.*');
-        this.tmr.setInput('INFORMATIONALVERSION', '2.3.4-beta5');
+        this.tmr.setInput('INFORMATIONALVERSION', '2.3.4-prerelease');
         this.tmr.setInput('TITLE', 'Assembly Info');
         this.tmr.setInput('PRODUCT', 'Azure DevOps Assembly Info');
         this.tmr.setInput('DESCRIPTION', 'Assembly Info is an extension for Azure DevOps that sets assembly information from a build.');
