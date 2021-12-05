@@ -134,6 +134,7 @@ function generateVersionNumbers(model: models.NetCore, regexModel: models.RegEx)
     model.version = Utils.setWildcardVersionNumber(versionValue, model.verBuild, model.verRelease);
     model.fileVersion = Utils.setWildcardVersionNumber(fileVersionValue, model.verBuild, model.verRelease);
     model.informationalVersion = Utils.setWildcardVersionNumber(model.informationalVersion, model.verBuild, model.verRelease);
+    
     model.buildNumber = Utils.setWildcardVersionNumber(model.buildNumber, model.verBuild, model.verRelease);
     model.buildTag = Utils.setWildcardVersionNumber(model.buildTag, model.verBuild, model.verRelease);
 }
