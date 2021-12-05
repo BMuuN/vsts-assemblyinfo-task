@@ -6,7 +6,6 @@ import { TestUtils } from './helpers/test-utils'
 describe('Net Core Task Version Tests', function() {
 
     const TestRegEx = {
-        //assemblyVersion: /^AssemblyVersion\s*\w*\\(\d{1,4}\.\d{1,4}\.\d{1,4}(.\d{1,5})?)$/g,
         assemblyVersion: /^(\d{1,4}\.\d{1,4}\.\d{1,4}(.\d{1,5})?)$/g,
         fileVersion: /^(\d{1,4}\.\d{1,4}\.\d{1,4}\.\d{1,5})$/g,
         informationalVersion: /^(\d{1,4}\.\d{1,4}\.\d{1,5}-prerelease)/g,

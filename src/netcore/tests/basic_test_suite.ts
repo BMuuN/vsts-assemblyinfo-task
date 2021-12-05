@@ -36,44 +36,6 @@ describe('Net Core Task Basic Tests', function() {
         console.log(`Project Dir: \t${projectDir}`);
     });
 
-    // it('should succeed with version number wildcard', (done: Mocha.Done) => {
-    //     this.timeout(1000);
-
-    //     const tp = path.join(testDir, 'success-version-wildcard.js');
-    //     const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
-
-    //     tr.run();
-
-    //     assert.strictEqual(tr.succeeded, true, 'should have succeeded');
-    //     assert.strictEqual(tr.invokedToolCount, 0, 'should not invoke any tooling');
-    //     assert.strictEqual(tr.warningIssues.length, 0, 'should have no warnings');
-    //     assert.strictEqual(tr.errorIssues.length, 0, 'should have no errors');
-
-    //     const netCoreLibProject = path.join(projectDir, 'NetCoreLib/NetCoreLib.csproj');
-
-    //     const assemblyVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'AssemblyVersion');
-    //     const assemblyVersionResult = assemblyVersion.match(TestRegEx.assemblyVersion) as RegExpMatchArray;
-    //     assert.notStrictEqual(assemblyVersionResult, null, 'AssemblyVersion field is empty');
-    //     assert.strictEqual(assemblyVersionResult.length, 1, 'AssemblyVersion is not set');
-
-    //     const fileVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'FileVersion');
-    //     const fileVersionResult = fileVersion.match(TestRegEx.fileVersion) as RegExpMatchArray;
-    //     assert.notStrictEqual(fileVersionResult, null, 'FileVersion field is empty');
-    //     assert.strictEqual(fileVersionResult.length, 1, 'FileVersion is not set');
-
-    //     const informationalVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'InformationalVersion');
-    //     const informationalVersionResult = informationalVersion.match(TestRegEx.informationalVersion) as RegExpMatchArray;
-    //     assert.notStrictEqual(informationalVersionResult, null, 'InformationalVersion field is empty');
-    //     assert.strictEqual(informationalVersionResult.length, 1, 'InformationalVersion is not set');
-
-    //     const version = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Version');
-    //     const versionResult = version.match(TestRegEx.packageVersion) as RegExpMatchArray;
-    //     assert.notStrictEqual(versionResult, null, 'Version field is empty');
-    //     assert.strictEqual(versionResult.length, 1, 'Version is not set');
-
-    //     done();
-    // });
-
     it('should succeed and update assembly info data', (done: Mocha.Done) => {
         this.timeout(1000);
 

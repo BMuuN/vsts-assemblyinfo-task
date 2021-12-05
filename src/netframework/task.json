@@ -40,7 +40,7 @@
     }
   ],
   "inputs": [{
-      "name": "Path",
+      "name": "path",
       "type": "filePath",
       "label": "Source folder",
       "defaultValue": "$(Build.SourcesDirectory)",
@@ -48,7 +48,7 @@
       "helpMarkDown": "Specify the project Source folder."
     },
     {
-      "name": "FileNames",
+      "name": "fileNames",
       "type": "multiLine",
       "label": "Source files",
       "defaultValue": "**\\AssemblyInfo.cs\r\n**\\AssemblyInfo.vb",
@@ -60,7 +60,7 @@
       }
     },
     {
-      "name": "InsertAttributes",
+      "name": "insertAttributes",
       "type": "boolean",
       "label": "Insert attributes",
       "defaultValue": false,
@@ -68,7 +68,7 @@
       "helpMarkDown": "If checked the task will insert missing attributes into the source files specified above."
     },
     {
-      "name": "FileEncoding",
+      "name": "fileEncoding",
       "type": "pickList",
       "label": "File encoding",
       "defaultValue": "auto",
@@ -85,7 +85,7 @@
       "groupName": "fileEncodingGroup"
     },
     {
-      "name": "WriteBOM",
+      "name": "writeBOM",
       "type": "boolean",
       "label": "Write unicode BOM",
       "defaultValue": false,
@@ -95,7 +95,7 @@
       "groupName": "fileEncodingGroup"
     },
     {
-      "name": "Title",
+      "name": "title",
       "type": "string",
       "label": "Title",
       "defaultValue": "",
@@ -104,7 +104,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "Product",
+      "name": "product",
       "type": "string",
       "label": "Product",
       "defaultValue": "",
@@ -113,7 +113,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "Description",
+      "name": "description",
       "type": "string",
       "label": "Description",
       "defaultValue": "",
@@ -122,7 +122,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "Company",
+      "name": "company",
       "type": "string",
       "label": "Company",
       "defaultValue": "",
@@ -131,7 +131,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "Copyright",
+      "name": "copyright",
       "type": "string",
       "label": "Copyright",
       "defaultValue": "",
@@ -140,7 +140,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "Trademark",
+      "name": "trademark",
       "type": "string",
       "label": "Trademark",
       "defaultValue": "",
@@ -149,7 +149,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "Culture",
+      "name": "culture",
       "type": "string",
       "label": "Culture",
       "defaultValue": "",
@@ -158,7 +158,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "Configuration",
+      "name": "configuration",
       "type": "string",
       "label": "Configuration",
       "defaultValue": "$(BuildConfiguration)",
@@ -167,7 +167,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "VersionNumber",
+      "name": "versionNumber",
       "type": "string",
       "label": "Assembly version",
       "defaultValue": "",
@@ -176,7 +176,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "FileVersionNumber",
+      "name": "fileVersionNumber",
       "type": "string",
       "label": "Assembly file version",
       "defaultValue": "",
@@ -185,7 +185,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "InformationalVersion",
+      "name": "informationalVersion",
       "type": "string",
       "label": "Informational version",
       "defaultValue": "",
@@ -194,7 +194,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "LogLevel",
+      "name": "logLevel",
       "type": "pickList",
       "label": "Log Level",
       "defaultValue": "verbose",
@@ -208,7 +208,7 @@
       "groupName": "loggingGroup"
     },
     {
-      "name": "FailOnWarning",
+      "name": "failOnWarning",
       "type": "boolean",
       "label": "Fail on warning",
       "defaultValue": false,
@@ -217,7 +217,7 @@
       "groupName": "loggingGroup"
     },
     {
-      "name": "DisableTelemetry",
+      "name": "disableTelemetry",
       "type": "boolean",
       "label": "Disable Telemetry",
       "defaultValue": false,
@@ -226,7 +226,7 @@
       "groupName": "loggingGroup"
     },
     {
-      "name": "UpdateBuildNumber",
+      "name": "updateBuildNumber",
       "type": "string",
       "label": "Update Build Name",
       "defaultValue": "",
@@ -235,7 +235,7 @@
       "groupName": "taggingGroup"
     },
     {
-      "name": "AddBuildTag",
+      "name": "addBuildTag",
       "type": "string",
       "label": "Add Build Tag",
       "defaultValue": "",
