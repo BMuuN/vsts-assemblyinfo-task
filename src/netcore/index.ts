@@ -9,14 +9,13 @@ import xml2js = require('xml2js');
 
 import { LoggingLevel } from './enums';
 import * as models from './models';
-import { Logger, TelemetryService } from './services';
-import * as utils from './services/utils.service';
+import { Logger, TelemetryService, Utils } from './services';
 
 let logger: Logger = new Logger(false, LoggingLevel.Normal);
 
 async function run() {
 
-    const disableTelemetry: boolean = tl.getBoolInput('DisableTelemetry', true);
+    const disableTelemetry: boolean = tl.getBoolInput('disableTelemetry', true);
     const telemetry = new TelemetryService(disableTelemetry, '#{NetCoreInstrumentationKey}#');
     telemetry.trackEvent('Start Net Core');
 
@@ -24,9 +23,9 @@ async function run() {
         const regExModel = new models.RegEx();
 
         const model = getDefaultModel();
-        model.fileNames = utils.formatFileNames(model.fileNames);
+        model.fileNames = Utils.formatFileNames(model.fileNames);
 
-        logger = new Logger(model.failOnWarning, utils.mapLogLevel(model.logLevel));
+        logger = new Logger(model.failOnWarning, Utils.mapLogLevel(model.logLevel));
 
         // Make sure path to source code directory is available
         if (!tl.exist(model.path)) {
@@ -38,16 +37,12 @@ async function run() {
         generateVersionNumbers(model, regExModel);
         printTaskParameters(model);
         setManifestData(model, regExModel);
-
-        // set output variables
-        tl.setVariable('AssemblyInfo.Version', model.version, false);
-        tl.setVariable('AssemblyInfo.FileVersion', model.fileVersion, false);
-        tl.setVariable('AssemblyInfo.InformationalVersion', model.informationalVersion, false);
-        tl.setVariable('AssemblyInfo.PackageVersion', model.packageVersion, false);
+        setOutputVariables(model);
+        setTaggingOptions(model);
 
         logger.success('Complete.');
 
-    } catch (err) {
+    } catch (err: any) {
         logger.error(`Task failed with error: ${err.message}`);
         telemetry.trackException(err.message);
     }
@@ -60,7 +55,7 @@ function applyTransforms(model: models.NetCore, regex: models.RegEx): void {
         if (model.hasOwnProperty(key)) {
             const value = Reflect.get(model, key);
             if (typeof value === 'string' && value !== '') {
-                const newValue = utils.transformDates(value, regex);
+                const newValue = Utils.transformDates(value, regex);
                 if (value !== newValue) {
                     Reflect.set(model, key, newValue);
                     // logger.debug(`Key: ${key},  Value: ${value},  New Value: ${newValue}`);
@@ -72,41 +67,45 @@ function applyTransforms(model: models.NetCore, regex: models.RegEx): void {
 
 function getDefaultModel(): models.NetCore {
     const model: models.NetCore = {
-        path: tl.getPathInput('Path', true) || '',
-        fileNames: tl.getDelimitedInput('FileNames', '\n', true),
-        insertAttributes: tl.getBoolInput('InsertAttributes', true),
-        fileEncoding: tl.getInput('FileEncoding', true) || '',
+        path: tl.getPathInput('path', true) || '',
+        fileNames: tl.getDelimitedInput('fileNames', '\n', true),
+        insertAttributes: tl.getBoolInput('insertAttributes', true),
+        fileEncoding: tl.getInput('fileEncoding', true) || '',
         detectedFileEncoding: '',
-        writeBOM: tl.getBoolInput('WriteBOM', true),
+        writeBOM: tl.getBoolInput('writeBOM', true),
 
-        generatePackageOnBuild: tl.getBoolInput('GeneratePackageOnBuild', true),
-        requireLicenseAcceptance: tl.getBoolInput('PackageRequireLicenseAcceptance', true),
+        generatePackageOnBuild: tl.getBoolInput('generatePackageOnBuild', true),
+        requireLicenseAcceptance: tl.getBoolInput('packageRequireLicenseAcceptance', true),
 
-        packageId: tl.getInput('PackageId', false) || '',
-        packageVersion: tl.getInput('PackageVersion', false) || '',
-        authors: tl.getInput('Authors', false) || '',
-        company: tl.getInput('Company', false) || '',
-        product: tl.getInput('Product', false) || '',
-        description: tl.getInput('Description', false) || '',
-        copyright: tl.getInput('Copyright', false) || '',
-        licenseUrl: tl.getInput('PackageLicenseUrl', false) || '',
-        projectUrl: tl.getInput('PackageProjectUrl', false) || '',
-        iconUrl: tl.getInput('PackageIconUrl', false) || '',
-        repositoryUrl: tl.getInput('RepositoryUrl', false) || '',
-        repositoryType: tl.getInput('RepositoryType', false) || '',
-        tags: tl.getInput('PackageTags', false) || '',
-        releaseNotes: tl.getInput('PackageReleaseNotes', false) || '',
-        culture: tl.getInput('Culture', false) || '',
+        packageId: tl.getInput('packageId', false) || '',
+        packageVersion: tl.getInput('packageVersion', false) || '',
+        authors: tl.getInput('authors', false) || '',
+        company: tl.getInput('company', false) || '',
+        product: tl.getInput('product', false) || '',
+        description: tl.getInput('description', false) || '',
+        copyright: tl.getInput('copyright', false) || '',
+        licenseFile: tl.getInput('packageLicenseUrl', false) || '',
+        licenseExpression: tl.getInput('packageLicenseExpression', false) || '',
+        projectUrl: tl.getInput('packageProjectUrl', false) || '',
+        packageIcon: tl.getInput('packageIconUrl', false) || '',
+        repositoryUrl: tl.getInput('repositoryUrl', false) || '',
+        repositoryType: tl.getInput('repositoryType', false) || '',
+        tags: tl.getInput('packageTags', false) || '',
+        releaseNotes: tl.getInput('packageReleaseNotes', false) || '',
+        culture: tl.getInput('culture', false) || '',
 
-        version: tl.getInput('VersionNumber', false) || '',
-        fileVersion: tl.getInput('FileVersionNumber', false) || '',
-        informationalVersion: tl.getInput('InformationalVersion', false) || '',
+        version: tl.getInput('versionNumber', false) || '',
+        fileVersion: tl.getInput('fileVersionNumber', false) || '',
+        informationalVersion: tl.getInput('informationalVersion', false) || '',
         verBuild: '',
         verRelease: '',
 
-        logLevel: tl.getInput('LogLevel', true) || '',
-        failOnWarning: tl.getBoolInput('FailOnWarning', true),
-        ignoreNetFrameworkProjects: tl.getBoolInput('IgnoreNetFrameworkProjects', false) || false,
+        logLevel: tl.getInput('logLevel', true) || '',
+        failOnWarning: tl.getBoolInput('failOnWarning', true),
+        ignoreNetFrameworkProjects: tl.getBoolInput('ignoreNetFrameworkProjects', false) || false,
+
+        buildNumber: tl.getInput('updateBuildNumber', false) || '',
+        buildTag: tl.getInput('addBuildTag', false) || '',
     };
 
     return model;
@@ -131,10 +130,13 @@ function generateVersionNumbers(model: models.NetCore, regexModel: models.RegEx)
     const fileVersion = model.fileVersion.match(regexModel.version);
     const fileVersionValue = fileVersion && fileVersion[0] || '';
 
-    model.packageVersion = utils.setWildcardVersionNumber(model.packageVersion, model.verBuild, model.verRelease);
-    model.version = utils.setWildcardVersionNumber(versionValue, model.verBuild, model.verRelease);
-    model.fileVersion = utils.setWildcardVersionNumber(fileVersionValue, model.verBuild, model.verRelease);
-    model.informationalVersion = utils.setWildcardVersionNumber(model.informationalVersion, model.verBuild, model.verRelease);
+    model.packageVersion = Utils.setWildcardVersionNumber(model.packageVersion, model.verBuild, model.verRelease);
+    model.version = Utils.setWildcardVersionNumber(versionValue, model.verBuild, model.verRelease);
+    model.fileVersion = Utils.setWildcardVersionNumber(fileVersionValue, model.verBuild, model.verRelease);
+    model.informationalVersion = Utils.setWildcardVersionNumber(model.informationalVersion, model.verBuild, model.verRelease);
+    
+    model.buildNumber = Utils.setWildcardVersionNumber(model.buildNumber, model.verBuild, model.verRelease);
+    model.buildTag = Utils.setWildcardVersionNumber(model.buildTag, model.verBuild, model.verRelease);
 }
 
 function printTaskParameters(model: models.NetCore): void {
@@ -156,9 +158,10 @@ function printTaskParameters(model: models.NetCore): void {
     logger.debug(`Product: ${model.product}`);
     logger.debug(`Description: ${model.description}`);
     logger.debug(`Copyright: ${model.copyright}`);
-    logger.debug(`License Url: ${model.licenseUrl}`);
+    logger.debug(`License File: ${model.licenseFile}`);
+    logger.debug(`License Expression: ${model.licenseExpression}`);
     logger.debug(`Project Url: ${model.projectUrl}`);
-    logger.debug(`Icon Url: ${model.iconUrl}`);
+    logger.debug(`Package Icon: ${model.packageIcon}`);
     logger.debug(`Repository Url: ${model.repositoryUrl}`);
     logger.debug(`Repository type: ${model.repositoryType}`);
     logger.debug(`Tags: ${model.tags}`);
@@ -171,6 +174,9 @@ function printTaskParameters(model: models.NetCore): void {
     logger.debug(`Log Level: ${model.logLevel}`);
     logger.debug(`Fail on Warning: ${model.failOnWarning}`);
 
+    logger.debug(`Build Tag: ${model.buildTag}`);
+    logger.debug(`Build Number: ${model.buildNumber}`);
+
     logger.debug('');
 }
 
@@ -178,7 +184,14 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
 
     logger.info('Setting .Net Core / .Net Standard assembly info...');
 
-    tl.findMatch(model.path, model.fileNames).forEach((file: string) => {
+    const files = tl.findMatch(model.path, model.fileNames);
+
+    if (files.length <= 0) {
+        logger.error(`No files found for: ${model.fileNames.join(', ')}`);
+        return;
+    }
+
+    files.forEach((file: string) => {
 
         logger.info(`Processing: ${file}`);
 
@@ -187,6 +200,7 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
             return;
         }
 
+        // this will never get called, remove?
         if (!tl.exist(file)) {
             logger.error(`File not found: ${file}`);
             return;
@@ -309,8 +323,8 @@ function setAssemblyData(group: any, model: models.NetCore): void {
         }
 
         if (group.Version || group.Version === '') {
-            group.Version = model.packageVersion;
-            logger.info(`Version --> ${model.packageVersion}`);
+            group.Version = Utils.setVersionNumber(group.Version[0], model.packageVersion);
+            logger.info(`Version --> ${group.Version}`);
         }
     }
 
@@ -379,16 +393,29 @@ function setAssemblyData(group: any, model: models.NetCore): void {
         }
     }
 
-    // License Url
-    if (model.licenseUrl) {
+    // License File
+    if (model.licenseFile) {
 
-        if (model.insertAttributes && !group.PackageLicenseUrl) {
-            group.PackageLicenseUrl = '';
+        if (model.insertAttributes && !group.PackageLicenseFile) {
+            group.PackageLicenseFile = '';
         }
 
-        if (group.PackageLicenseUrl || group.PackageLicenseUrl === '') {
-            group.PackageLicenseUrl = model.licenseUrl;
-            logger.info(`PackageLicenseUrl --> ${model.licenseUrl}`);
+        if (group.PackageLicenseFile || group.PackageLicenseFile === '') {
+            group.PackageLicenseFile = model.licenseFile;
+            logger.info(`PackageLicenseFile --> ${model.licenseFile}`);
+        }
+    }
+
+    // License Expression
+    if (model.licenseExpression) {
+
+        if (model.insertAttributes && !group.PackageLicenseExpression) {
+            group.PackageLicenseExpression = '';
+        }
+
+        if (group.PackageLicenseExpression || group.PackageLicenseExpression === '') {
+            group.PackageLicenseExpression = model.licenseExpression;
+            logger.info(`PackageLicenseExpression --> ${model.licenseExpression}`);
         }
     }
 
@@ -405,29 +432,17 @@ function setAssemblyData(group: any, model: models.NetCore): void {
         }
     }
 
-    // Icon Url
-    if (model.iconUrl) {
+    // Package Icon
+    if (model.packageIcon) {
 
-        if (model.insertAttributes && !group.PackageIconUrl) {
-            group.PackageIconUrl = '';
+        if (model.insertAttributes && !group.PackageIcon) {
+            group.PackageIcon = '';
         }
 
-        if (group.PackageIconUrl || group.PackageIconUrl === '') {
-            group.PackageIconUrl = model.iconUrl;
-            logger.info(`PackageIconUrl --> ${model.iconUrl}`);
+        if (group.PackageIcon || group.PackageIcon === '') {
+            group.PackageIcon = model.packageIcon;
+            logger.info(`PackageIcon --> ${model.packageIcon}`);
         }
-
-        // PackageIconUrl will be deprecated in favor of the new PackageIcon property.
-        // Starting with NuGet 5.3 & Visual Studio 2019 version 16.3, pack will raise NU5048 warning if the package metadata only specifies PackageIconUrl.
-        // https://docs.microsoft.com/en-us/nuget/reference/msbuild-targets#packageiconurl
-        // if (model.insertAttributes && !group.PackageIcon) {
-        //     group.PackageIcon = '';
-        // }
-
-        // if (group.PackageIcon || group.PackageIcon === '') {
-        //     group.PackageIcon = model.iconUrl;
-        //     logger.info(`PackageIcon --> ${model.iconUrl}`);
-        // }
     }
 
     // Repository Url
@@ -503,7 +518,7 @@ function setAssemblyData(group: any, model: models.NetCore): void {
         }
 
         if (group.AssemblyVersion || group.AssemblyVersion === '') {
-            group.AssemblyVersion = model.version;
+            group.AssemblyVersion = Utils.setVersionNumber(group.AssemblyVersion[0], model.version);
             logger.info(`AssemblyVersion --> ${model.version}`);
         }
     }
@@ -516,8 +531,8 @@ function setAssemblyData(group: any, model: models.NetCore): void {
         }
 
         if (group.FileVersion || group.FileVersion === '') {
-            group.FileVersion = model.fileVersion;
-            logger.info(`FileVersion --> ${model.fileVersion}`);
+            group.FileVersion = Utils.setVersionNumber(group.FileVersion[0], model.fileVersion);
+            logger.info(`FileVersion --> ${group.FileVersion}`);
         }
     }
 
@@ -529,9 +544,27 @@ function setAssemblyData(group: any, model: models.NetCore): void {
         }
 
         if (group.InformationalVersion || group.InformationalVersion === '') {
-            group.InformationalVersion = model.informationalVersion;
-            logger.info(`InformationalVersion --> ${model.informationalVersion}`);
+            group.InformationalVersion = Utils.setVersionNumber(group.InformationalVersion[0], model.informationalVersion);
+            logger.info(`InformationalVersion --> ${group.InformationalVersion}`);
         }
+    }
+}
+
+function setOutputVariables(model: models.NetCore) {
+    tl.setVariable('AssemblyInfo.Version', model.version, false, true);
+    tl.setVariable('AssemblyInfo.FileVersion', model.fileVersion, false, true);
+    tl.setVariable('AssemblyInfo.InformationalVersion', model.informationalVersion, false, true);
+    tl.setVariable('AssemblyInfo.PackageVersion', model.packageVersion, false, true);
+}
+
+function setTaggingOptions(model: models.NetCore) {
+
+    if (model.buildNumber) {
+        tl.updateBuildNumber(model.buildNumber);
+    }
+
+    if (model.buildTag) {
+        tl.addBuildTag(model.buildTag);
     }
 }
 

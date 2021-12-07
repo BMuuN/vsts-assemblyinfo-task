@@ -7,9 +7,10 @@ export class NetCore extends AssemblyInfo {
     packageId: string = '';
     packageVersion: string = '';
     authors: string = '';
-    licenseUrl: string = '';
+    licenseFile: string = '';
+    licenseExpression: string = '';
     projectUrl: string = '';
-    iconUrl: string = '';
+    packageIcon: string = '';
     repositoryUrl: string = '';
     repositoryType: string = '';
     tags: string = '';

@@ -1,13 +1,32 @@
 # Release Notes
+> **v3.1.x**
+> - Updated markdown files.
+> - Corrected property name cassing for yaml.
+> - Converted build pipelines to yaml
+> - Added ability to keep parts of original version number.
+
+> **v3.0.755**
+> - Added new logo.
+> - Changed `PackageLicenseUrl` element to `PackageLicenseFile`.
+> - Changed `PackageIconUrl` element to `PackageIcon`.
+> - The build will now fail when no source files are found.
+> - Started to add unit test coverage.
+> - Added output variables to task GUI.
+> - Added "Tagging Group" to tag the builds and update build name. See [wiki](https://github.com/BMuuN/vsts-assemblyinfo-task/wiki/Build-Tagging) for configuration options.  
+> Thanks to [andyste1](https://github.com/andyste1)
+> - Added support for `MSBuild.Sdk.Extras` projects.  
+> Thanks to [crb04c](https://github.com/crb04c)
+> - Upgraded to Node10
+
 > **v2.3.105**
 > - Added support for `.vbproj` to .Net Core task.
 
 > **v2.2.103**
-> - Added section to Overview.md about the issues faced with App Insights telemetry service.
+> - Added section to Overview.md about the issues faced with App Insights telemetry service.  
 > Thanks to [chwebdude](https://github.com/chwebdude)
-> - Added flag to ignore warnings when .Net Framework project found. Fixes [#136](https://github.com/BMuuN/vsts-assemblyinfo-task/issues/136)
+> - Added flag to ignore warnings when .Net Framework project found. Fixes [#136](https://github.com/BMuuN/vsts-assemblyinfo-task/issues/136)  
 > Thanks to [hermanvos](https://github.com/hermanvos)
-> - Bug fix: Wildcard verion number rounding.
+> - Bug fix: Wildcard verion number rounding.  
 > Thanks to [THues3010 ](https://github.com/THues3010)
 
 > **v2.1.85**
