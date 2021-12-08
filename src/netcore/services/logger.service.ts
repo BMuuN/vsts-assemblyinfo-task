@@ -53,13 +53,13 @@ export class Logger {
 
             case MessageType.Warning:
                 this.breakOnWarning
-                    ? tl.setResult(tl.TaskResult.Failed, message)
+                    ? tl.setResult(tl.TaskResult.Failed, message, true)
                     : tl.warning(message);
                 break;
 
             case MessageType.Error:
                 // tl.setResult(tl.TaskResult.Failed, tl.loc('TaskFailed', err.message));
-                tl.setResult(tl.TaskResult.Failed, message);
+                tl.setResult(tl.TaskResult.Failed, message, true);
                 break;
 
             case MessageType.Success:
