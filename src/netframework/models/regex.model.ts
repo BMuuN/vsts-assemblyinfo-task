@@ -1,5 +1,5 @@
 export class RegEx {
-    version: RegExp = /\d+\.\d+\.?\d*\**\.?\d*\**/;
+    version: RegExp = /[\d*#]+\.[\d*#]+\.?[\d*#]*\.?[\d*#]*/;
     word: string = '.*';
     date: RegExp = /\$\(date:(([\w.: +])*?)\)/g;
 }
