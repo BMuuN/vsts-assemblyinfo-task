@@ -115,7 +115,7 @@ function generateVersionNumbers(model: models.NetCore, regexModel: models.RegEx)
     const start = moment('2000-01-01');
     const end = moment();
     let duration = moment.duration(end.diff(start));
-    const verBuild = Math.ceil(duration.asDays());
+    const verBuild = Math.floor(duration.asDays());
 
     const midnight = moment().startOf('day');
     duration = moment.duration(end.diff(midnight));
