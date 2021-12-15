@@ -1,9 +1,11 @@
+![Asembly Info Logo](./src/images/logo_large.png)
+
 |      | Build | Release | Version | Downloads | Rating |
 |------|-------|---------|---------|-----------|--------|
-| Live | ![build](https://bmuun.visualstudio.com/TS%20Extensions/_apis/build/status/GitHub-Assembly-Info-Live.Published) | ![release](https://bmuun.vsrm.visualstudio.com/_apis/public/Release/badge/86c93e13-9469-4df8-95f0-98c43c760a09/1/2) | ![version](https://img.shields.io/badge/version-2.1.97-blue.svg?logo=tfs) | ![downloads](https://img.shields.io/badge/downloads-9k-brightgreen.svg?logo=tfs) | ![rating](https://img.shields.io/badge/rating-4.4/5_(26)-brightgreen.svg?logo=tfs) |
-| Test | ![build](https://bmuun.visualstudio.com/TS%20Extensions/_apis/build/status/GitHub-Assembly-Info-Test.Published) | ![release](https://bmuun.vsrm.visualstudio.com/_apis/public/Release/badge/86c93e13-9469-4df8-95f0-98c43c760a09/1/1) | ![version](https://img.shields.io/badge/version-2.2.103-blue.svg?logo=tfs) |     |     |
+| Live | ![build](https://dev.azure.com/bmuun/TS%20Extensions/_apis/build/status/Verify-Published.Live) | ![release](https://bmuun.vsrm.visualstudio.com/_apis/public/Release/badge/86c93e13-9469-4df8-95f0-98c43c760a09/1/2) | ![version](https://img.shields.io/visual-studio-marketplace/v/bleddynrichards.Assembly-Info-Task?logo=tfs) | ![downloads](https://img.shields.io/visual-studio-marketplace/azure-devops/installs/total/bleddynrichards.Assembly-Info-Task?label=downloads&logo=tfs&color=important) | ![rating](https://img.shields.io/visual-studio-marketplace/r/bleddynrichards.Assembly-Info-Task?logo=tfs&color=yellow) |
+| Test | ![build](https://dev.azure.com/bmuun/TS%20Extensions/_apis/build/status/Verify-Published.Test?branchName=3.0.x) | ![release](https://bmuun.vsrm.visualstudio.com/_apis/public/Release/badge/86c93e13-9469-4df8-95f0-98c43c760a09/1/1) |     |     |     |
 
-# Assembly Info
+# Introduction
 Assembly Info is an extension for Azure DevOps that populates assembly information metadata from a build pipeline.
 
 ## Details
@@ -15,13 +17,13 @@ The Visual Studio Marketplace listing can be found here:
 # Help and Support
 For detailed instructions on how to configure the extension please see the [wiki](https://github.com/BMuuN/vsts-assemblyinfo-task/wiki).
 
-## Upgrade to Version 2
-With the release of version 2 the extension has been re-written from the ground up using Node.js and includes a number of breaking changes.  Please see the [wiki](https://github.com/BMuuN/vsts-assemblyinfo-task/wiki/Upgrade-v1-to-v2) for details on the upgrade.
-
 # Contributions
 All contributions are welcome whether it's logging issues, creating suggestions or submitting pull requests.  
 
 If you use this extension and would like to say thanks for all the time and effort I've spent during my evening and weekends to deliver this product then please <a href="https://www.buymeacoffee.com/bleddynrichards" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
+
+## Development
+Please see the [local development](https://github.com/BMuuN/vsts-assemblyinfo-task/wiki/Local-Development) wiki article to setup and debug the extension on your local development environments.
 
 ## Release Notes
 See the [release notes](ReleaseNotes.md) for all changes included in each release.

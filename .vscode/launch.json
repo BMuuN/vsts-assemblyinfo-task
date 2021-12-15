@@ -7,9 +7,9 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Net Framework",
+            "name": "Launch .Net Framework",
             "protocol": "inspector",
-            "envFile": "${workspaceFolder}/config/prod.env",
+            "envFile": "${workspaceFolder}/config/netframework.env",
             "args": [ "./src/netframework/index.ts" ],
             "cwd": "${workspaceRoot}",
             "runtimeArgs": [ "-r", "ts-node/register" ],
@@ -18,9 +18,24 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Net Core",
+            "name": "Mocha .Net Framework",
+            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+            "args": [
+                "--require", "ts-node/register",
+                "--timeout", "999999",
+                "--colors", "--recursive",
+                "${workspaceFolder}\\src\\netframework\\tests\\index.ts"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "protocol": "inspector"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch .Net Core",
             "protocol": "inspector",
-            "envFile": "${workspaceFolder}/config/prod.env",
+            "envFile": "${workspaceFolder}/config/netcore.env",
             "args": [ "./src/netcore/index.ts" ],
             "cwd": "${workspaceRoot}",
             "runtimeArgs": [ "-r", "ts-node/register" ],
@@ -29,48 +44,17 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Current File",
-            "protocol": "inspector",
-            "envFile": "${workspaceFolder}/config/prod.env",
-            "args": [ "${relativeFile}" ],
-            "cwd": "${workspaceRoot}",
-            "runtimeArgs": [ "-r", "ts-node/register" ],
-            "sourceMaps": true,
-            "internalConsoleOptions": "openOnSessionStart"
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Mocha All",
+            "name": "Mocha .Net Core",
             "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
             "args": [
-                "-r",
-                "ts-node/register",
-                "--timeout",
-                "999999",
-                "--colors",
-                "${workspaceFolder}/tests"
+                "--require", "ts-node/register",
+                "--timeout", "999999",
+                "--colors", "--recursive",
+                "${workspaceFolder}\\src\\netcore\\tests\\index.ts"
             ],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
             "protocol": "inspector"
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Mocha Current File",
-            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
-            "args": [
-                "-r",
-                "ts-node/register",
-                "--timeout",
-                "999999",
-                "--colors",
-                "${file}"
-            ],
-            "console": "integratedTerminal",
-            "internalConsoleOptions": "neverOpen",
-            "protocol": "inspector"
-        },
+        }
     ]
 }
