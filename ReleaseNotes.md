@@ -3,7 +3,9 @@
 > - Updated markdown files.
 > - Corrected property name cassing for yaml.
 > - Converted build pipelines to yaml
-> - Added ability to keep parts of original version number.
+> - Added ability to keep parts of original version number [#47](https://github.com/BMuuN/vsts-assemblyinfo-task/issues/47).
+> - Added support for .prop files [#116](https://github.com/BMuuN/vsts-assemblyinfo-task/issues/116).  
+> Thanks to [godefroyo](https://github.com/godefroyo), [IanMercer](https://github.com/IanMercer), [auriou](https://github.com/auriou)
 
 > **v3.0.755**
 > - Added new logo.
@@ -89,3 +91,4 @@
 
 > **v1.0.14**
 > - Initial release
+

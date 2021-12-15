@@ -23,7 +23,7 @@ All contributions are welcome whether it's logging issues, creating suggestions 
 If you use this extension and would like to say thanks for all the time and effort I've spent during my evening and weekends to deliver this product then please <a href="https://www.buymeacoffee.com/bleddynrichards" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
 
 ## Development
-Please see the [local development](https://github.com/BMuuN/vsts-assemblyinfo-task/wiki/Local-Development) wiki article to setup the extension on your local development environments.
+Please see the [local development](https://github.com/BMuuN/vsts-assemblyinfo-task/wiki/Local-Development) wiki article to setup and debug the extension on your local development environments.
 
 ## Release Notes
 See the [release notes](ReleaseNotes.md) for all changes included in each release.

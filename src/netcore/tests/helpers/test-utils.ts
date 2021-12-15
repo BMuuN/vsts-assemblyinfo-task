@@ -12,28 +12,33 @@ export class TestUtils {
 
     static getAssemblyInfoValue(filePath: string, propName: string): string {
 
-        let value = '';
-
+        let _value = '';
         const fileContent: string = iconv.decode(fs.readFileSync(filePath), 'utf-8');
-
         const parser = new xml2js.Parser();
+        
         parser.parseString(fileContent, (err: any, result: any) => {
 
-            for (const group of result.Project.PropertyGroup) {
+            let group = this.getPropertyGroup(result.Project.PropertyGroup, propName);
+            const propValue = Reflect.get(group, propName) as string[];
 
-                if (!group.TargetFramework && !group.TargetFrameworks) {
-                    continue;
-                }
-
-                const propValue = Reflect.get(group, propName) as string[];
-
-                if (propValue && propValue.length > 0) {
-                    value = propValue[0];
-                    break;
-                }
+            if (propValue && propValue.length > 0) {
+                _value = propValue[0];
             }
         });
 
-        return value;
+        return _value;
+    }
+
+    private static getPropertyGroup(propertyGroups: any, name: string): any {
+        for (const group of propertyGroups) {
+            let keys = Object.keys(group);
+            for (const key of keys) {
+                if (key.toLowerCase() === name.toLowerCase()) {
+                    return group;
+                } 
+            }
+        }
+    
+        return propertyGroups[0];
     }
 }

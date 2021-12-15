@@ -3,7 +3,7 @@ import * as ttm from 'azure-pipelines-task-lib/mock-test';
 import * as path from 'path';
 import * as testUtils from './helpers/test-utils';
 
-describe('Net Core Task Version Tests', function() {
+describe('Net Core - Version Tests', function() {
 
     const TestRegEx = {
         assemblyVersion: /^(\d{1,4}\.\d{1,4}\.\d{1,4}(.\d{1,5})?)$/g,

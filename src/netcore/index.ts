@@ -11,6 +11,7 @@ import { LoggingLevel } from './enums';
 import * as models from './models';
 import { Logger, TelemetryService, Utils } from './services';
 
+let hasCreatedPropertyGroup: boolean = false;
 let logger: Logger = new Logger(false, LoggingLevel.Normal);
 
 async function run() {
@@ -102,7 +103,6 @@ function getDefaultModel(): models.NetCore {
 
         logLevel: tl.getInput('logLevel', true) || '',
         failOnWarning: tl.getBoolInput('failOnWarning', true),
-        ignoreNetFrameworkProjects: tl.getBoolInput('ignoreNetFrameworkProjects', false) || false,
 
         buildNumber: tl.getInput('updateBuildNumber', false) || '',
         buildTag: tl.getInput('addBuildTag', false) || '',
@@ -195,8 +195,11 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
 
         logger.info(`Processing: ${file}`);
 
-        if (path.extname(file) !== '.csproj' && path.extname(file) !== '.vbproj') {
-            logger.warning('File is not .csproj or .vbproj');
+        // Reset flag to control if our own <PropertyGroup> was created.
+        hasCreatedPropertyGroup = false;
+
+        if (path.extname(file) !== '.csproj' && path.extname(file) !== '.vbproj' && path.extname(file) !== '.props') {
+            logger.warning('Invalid file.  Only the following file extensions are supported: .csproj, .vbproj, .props');
             return;
         }
 
@@ -223,31 +226,22 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
                 return;
             }
 
-            if (!result.Project || !result.Project.PropertyGroup) {
+            if (!result.Project) {
                 logger.error(`Error reading file: ${err}`);
                 return;
             }
 
-            // Ensure the project is in the new format
-            if (!result.Project.$.Sdk || (result.Project.$.Sdk.indexOf('Microsoft.NET.Sdk') < 0 && result.Project.$.Sdk.indexOf('MSBuild.Sdk.Extras') < 0)) {
-
-                if (!model.ignoreNetFrameworkProjects) {
-                    logger.warning(`Project is not targeting .Net Core or .Net Standard, moving to next file.`);
-                }
-
-                logger.info('');
-                return;
+            // Empty Project node
+            if (typeof result.Project !== 'object') {
+                result.Project = {};
             }
 
-            for (const group of result.Project.PropertyGroup) {
-
-                // Ensure we're in the correct property group
-                if (!group.TargetFramework && !group.TargetFrameworks) {
-                    continue;
-                }
-
-                setAssemblyData(group, model);
+            // Missing PropertyGroup
+            if (!result.Project.PropertyGroup) {
+                result.Project.PropertyGroup = [];
             }
+
+            setAssemblyData(result.Project.PropertyGroup, model);
 
             // rebuild xml project structure
             const builder = new xml2js.Builder({ headless: true });
@@ -280,9 +274,30 @@ function setFileEncoding(file: string, model: models.NetCore) {
     }
 }
 
-function setAssemblyData(group: any, model: models.NetCore): void {
+function getPropertyGroup(propertyGroups: any, name: string): any {
+    for (const group of propertyGroups) {
+        let keys = Object.keys(group);
+        for (const key of keys) {
+            if (key.toLowerCase() === name.toLowerCase()) {
+                return group;
+            } 
+        }
+    }
+
+    // If the property group is not found, create our own <PropertyGroup> node to ensure attributes
+    // are added to our node and don't affect any existing nodes which may contain conditions.
+    if (!hasCreatedPropertyGroup) {
+        propertyGroups.unshift({});
+        hasCreatedPropertyGroup = true;
+    }
+
+    return propertyGroups[0];
+}
+
+function setAssemblyData(propertyGroups: any, model: models.NetCore): void {
 
     // Generate Package On Build
+    let group = getPropertyGroup(propertyGroups, 'GeneratePackageOnBuild');
     if (model.insertAttributes && !group.GeneratePackageOnBuild) {
         group.GeneratePackageOnBuild = '';
     }
@@ -293,6 +308,7 @@ function setAssemblyData(group: any, model: models.NetCore): void {
     }
 
     // Package Require License Acceptance
+    group = getPropertyGroup(propertyGroups, 'PackageRequireLicenseAcceptance');
     if (model.insertAttributes && !group.PackageRequireLicenseAcceptance) {
         group.PackageRequireLicenseAcceptance = '';
     }
@@ -304,6 +320,8 @@ function setAssemblyData(group: any, model: models.NetCore): void {
 
     // Package Id
     if (model.packageId) {
+
+        group = getPropertyGroup(propertyGroups, 'PackageId');
 
         if (model.insertAttributes && !group.PackageId) {
             group.PackageId = '';
@@ -317,6 +335,8 @@ function setAssemblyData(group: any, model: models.NetCore): void {
 
     // Package Version
     if (model.packageVersion) {
+        
+        group = getPropertyGroup(propertyGroups, 'Version');
 
         if (model.insertAttributes && !group.Version) {
             group.Version = '';
@@ -331,6 +351,8 @@ function setAssemblyData(group: any, model: models.NetCore): void {
     // Authors
     if (model.authors) {
 
+        group = getPropertyGroup(propertyGroups, 'Authors');
+
         if (model.insertAttributes && !group.Authors) {
             group.Authors = '';
         }
@@ -343,6 +365,8 @@ function setAssemblyData(group: any, model: models.NetCore): void {
 
     // Company
     if (model.company) {
+
+        group = getPropertyGroup(propertyGroups, 'Company');
 
         if (model.insertAttributes && !group.Company) {
             group.Company = '';
@@ -357,6 +381,8 @@ function setAssemblyData(group: any, model: models.NetCore): void {
     // Product
     if (model.product) {
 
+        group = getPropertyGroup(propertyGroups, 'Product');
+
         if (model.insertAttributes && !group.Product) {
             group.Product = '';
         }
@@ -369,6 +395,8 @@ function setAssemblyData(group: any, model: models.NetCore): void {
 
     // Description
     if (model.description) {
+
+        group = getPropertyGroup(propertyGroups, 'Description');
 
         if (model.insertAttributes && !group.Description) {
             group.Description = '';
@@ -383,6 +411,8 @@ function setAssemblyData(group: any, model: models.NetCore): void {
     // Copyright
     if (model.copyright) {
 
+        group = getPropertyGroup(propertyGroups, 'Copyright');
+
         if (model.insertAttributes && !group.Copyright) {
             group.Copyright = '';
         }
@@ -395,6 +425,8 @@ function setAssemblyData(group: any, model: models.NetCore): void {
 
     // License File
     if (model.licenseFile) {
+
+        group = getPropertyGroup(propertyGroups, 'PackageLicenseFile');
 
         if (model.insertAttributes && !group.PackageLicenseFile) {
             group.PackageLicenseFile = '';
@@ -409,6 +441,8 @@ function setAssemblyData(group: any, model: models.NetCore): void {
     // License Expression
     if (model.licenseExpression) {
 
+        group = getPropertyGroup(propertyGroups, 'PackageLicenseExpression');
+
         if (model.insertAttributes && !group.PackageLicenseExpression) {
             group.PackageLicenseExpression = '';
         }
@@ -421,6 +455,8 @@ function setAssemblyData(group: any, model: models.NetCore): void {
 
     // Project Url
     if (model.projectUrl) {
+
+        group = getPropertyGroup(propertyGroups, 'PackageProjectUrl');
 
         if (model.insertAttributes && !group.PackageProjectUrl) {
             group.PackageProjectUrl = '';
@@ -435,6 +471,8 @@ function setAssemblyData(group: any, model: models.NetCore): void {
     // Package Icon
     if (model.packageIcon) {
 
+        group = getPropertyGroup(propertyGroups, 'PackageIcon');
+
         if (model.insertAttributes && !group.PackageIcon) {
             group.PackageIcon = '';
         }
@@ -447,6 +485,8 @@ function setAssemblyData(group: any, model: models.NetCore): void {
 
     // Repository Url
     if (model.repositoryUrl) {
+
+        group = getPropertyGroup(propertyGroups, 'RepositoryUrl');
 
         if (model.insertAttributes && !group.RepositoryUrl) {
             group.RepositoryUrl = '';
@@ -461,6 +501,8 @@ function setAssemblyData(group: any, model: models.NetCore): void {
     // Repository Type
     if (model.repositoryType) {
 
+        group = getPropertyGroup(propertyGroups, 'RepositoryType');
+
         if (model.insertAttributes && !group.RepositoryType) {
             group.RepositoryType = '';
         }
@@ -473,6 +515,8 @@ function setAssemblyData(group: any, model: models.NetCore): void {
 
     // Tags
     if (model.tags) {
+
+        group = getPropertyGroup(propertyGroups, 'PackageTags');
 
         if (model.insertAttributes && !group.PackageTags) {
             group.PackageTags = '';
@@ -487,6 +531,8 @@ function setAssemblyData(group: any, model: models.NetCore): void {
     // Release Notes
     if (model.releaseNotes) {
 
+        group = getPropertyGroup(propertyGroups, 'PackageReleaseNotes');
+
         if (model.insertAttributes && !group.PackageReleaseNotes) {
             group.PackageReleaseNotes = '';
         }
@@ -499,6 +545,8 @@ function setAssemblyData(group: any, model: models.NetCore): void {
 
     // Culture
     if (model.culture) {
+
+        group = getPropertyGroup(propertyGroups, 'NeutralLanguage');
 
         if (model.insertAttributes && !group.NeutralLanguage) {
             group.NeutralLanguage = '';
@@ -513,6 +561,8 @@ function setAssemblyData(group: any, model: models.NetCore): void {
     // Assembly Version
     if (model.version) {
 
+        group = getPropertyGroup(propertyGroups, 'AssemblyVersion');
+
         if (model.insertAttributes && !group.AssemblyVersion) {
             group.AssemblyVersion = '';
         }
@@ -526,6 +576,8 @@ function setAssemblyData(group: any, model: models.NetCore): void {
     // File Version
     if (model.fileVersion) {
 
+        group = getPropertyGroup(propertyGroups, 'FileVersion');
+
         if (model.insertAttributes && !group.FileVersion) {
             group.FileVersion = '';
         }
@@ -538,6 +590,8 @@ function setAssemblyData(group: any, model: models.NetCore): void {
 
     // Informational Version
     if (model.informationalVersion) {
+
+        group = getPropertyGroup(propertyGroups, 'InformationalVersion');
 
         if (model.insertAttributes && !group.InformationalVersion) {
             group.InformationalVersion = '';

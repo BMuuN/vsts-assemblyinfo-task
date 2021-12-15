@@ -27,7 +27,6 @@ export class RequestModel {
         this.tmr.setInput('LOGLEVEL', 'verbose');
         this.tmr.setInput('FAILONWARNING', 'false');
         this.tmr.setInput('DISABLETELEMETRY', 'true');
-        this.tmr.setInput('IGNORENETFRAMEWORKPROJECTS', 'false');
 
         this.tmr.setInput('TRADEMARK', 'Example Trademark');
         this.tmr.setInput('CONFIGURATION', 'debug');
@@ -104,40 +103,40 @@ export class RequestModel {
         return this;
     }
 
-    withAnswers(): void {
-        const a: tmma.TaskLibAnswers = {
-            which: {
-                xcodebuild: '/home/bin/xcodebuild',
-            },
-            checkPath : {
-                '/home/bin/xcodebuild': true,
-            },
-            getVariable: {
-                'build.sourcesDirectory': '/user/build',
-                'HOME': '/users/test',
-            },
-            findMatch: {
-                '**/*.xcodeproj/*.xcworkspace': [
-                  '/user/build/fun.xcodeproj/project.xcworkspace',
-                ],
-                '**/*.app': [
-                  '/user/build/output/$(SDK)/$(Configuration)/build.sym/Release.iphoneos/fun.app',
-                ],
-            },
-            exec: {
-                '/home/bin/xcodebuild -version': {
-                  code: 0,
-                  stdout: 'Xcode 7.2.1',
-                },
-                '/home/bin/xcodebuild -sdk $(SDK) -configuration $(Configuration) -workspace /user/build/fun.xcodeproj/project.xcworkspace -scheme myscheme build': {
-                  code: 0,
-                  stdout: 'xcodebuild output here',
-                },
-            },
-        } as tmma.TaskLibAnswers;
+    // withAnswers(): void {
+    //     const a: tmma.TaskLibAnswers = {
+    //         which: {
+    //             xcodebuild: '/home/bin/xcodebuild',
+    //         },
+    //         checkPath : {
+    //             '/home/bin/xcodebuild': true,
+    //         },
+    //         getVariable: {
+    //             'build.sourcesDirectory': '/user/build',
+    //             'HOME': '/users/test',
+    //         },
+    //         findMatch: {
+    //             '**/*.xcodeproj/*.xcworkspace': [
+    //               '/user/build/fun.xcodeproj/project.xcworkspace',
+    //             ],
+    //             '**/*.app': [
+    //               '/user/build/output/$(SDK)/$(Configuration)/build.sym/Release.iphoneos/fun.app',
+    //             ],
+    //         },
+    //         exec: {
+    //             '/home/bin/xcodebuild -version': {
+    //               code: 0,
+    //               stdout: 'Xcode 7.2.1',
+    //             },
+    //             '/home/bin/xcodebuild -sdk $(SDK) -configuration $(Configuration) -workspace /user/build/fun.xcodeproj/project.xcworkspace -scheme myscheme build': {
+    //               code: 0,
+    //               stdout: 'xcodebuild output here',
+    //             },
+    //         },
+    //     } as tmma.TaskLibAnswers;
 
-        this.tmr.setAnswers(a);
-    }
+    //     this.tmr.setAnswers(a);
+    // }
 
     build(): RequestModel {
         this.tmr.run(true);

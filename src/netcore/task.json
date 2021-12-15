@@ -53,7 +53,7 @@
       "label": "Source files",
       "defaultValue": "**/*.csproj",
       "required": true,
-      "helpMarkDown": "Specify the project file(s). Wildcards can be used.  For example, `**/*.csproj` for all csproj files in all the sub folders.\r\n[More Information](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/file-matching-patterns?view=vsts)",
+      "helpMarkDown": "Specify the project or custom property file(s). Wildcards can be used.  For example, `**/*.csproj` for all csproj files in all the sub folders.\r\n[More Information](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/file-matching-patterns?view=vsts)",
       "properties": {
         "resizable": "true",
         "rows": "6"
@@ -313,15 +313,6 @@
       "defaultValue": false,
       "required": true,
       "helpMarkDown": "If checked the task will disable Application Insights telemetry.",
-      "groupName": "loggingGroup"
-    },
-    {
-      "name": "ignoreNetFrameworkProjects",
-      "type": "boolean",
-      "label": "Ignore .Net Framework Projects",
-      "defaultValue": false,
-      "required": false,
-      "helpMarkDown": "If checked no warning will be written for .Net Framework projects.",
       "groupName": "loggingGroup"
     },
     {
