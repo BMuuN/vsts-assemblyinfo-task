@@ -1,27 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxpath>SAK</SccAuxpath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>NetCoreLib</AssemblyName>
     <RootNamespace>NetCoreLib</RootNamespace>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageId>NetCoreLib</PackageId>
-    <Version>1.0.1-beta</Version>
-    <Authors>Authors</Authors>
-    <Company>Company</Company>
-    <Product>Product</Product>
-    <Description>Description</Description>
-    <Copyright>Copyright</Copyright>
-    <PackageLicenseUrl>License Url</PackageLicenseUrl>
-    <PackageProjectUrl>Project Url</PackageProjectUrl>
-    <PackageIconUrl>Icon Url</PackageIconUrl>
-    <RepositoryUrl>Repository Url</RepositoryUrl>
-    <RepositoryType>Repository Type</RepositoryType>
-    <PackageTags>Tags</PackageTags>
-    <PackageReleaseNotes>Release Notes</PackageReleaseNotes>
-    <NeutralLanguage>en-US</NeutralLanguage>
-    <AssemblyVersion>1.0.0.1</AssemblyVersion>
-    <FileVersion>1.0.0.2</FileVersion>
-    <InformationalVersion>1.0.1-beta</InformationalVersion>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <None Include="Resource\favicon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="Resource\License.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+  
 </Project>

@@ -20,4 +20,7 @@ export abstract class AssemblyInfo {
 
     logLevel: string = '';
     failOnWarning: boolean = false;
+
+    buildTag: string = '';
+    buildNumber: string = '';
 }
