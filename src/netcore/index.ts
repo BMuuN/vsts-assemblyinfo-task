@@ -11,6 +11,7 @@ import { LoggingLevel } from './enums';
 import * as models from './models';
 import { Logger, TelemetryService, Utils } from './services';
 
+let hasCreatedPropertyGroup: boolean = false;
 let logger: Logger = new Logger(false, LoggingLevel.Normal);
 
 async function run() {
@@ -194,6 +195,9 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
 
         logger.info(`Processing: ${file}`);
 
+        // Reset flag to control if our own <PropertyGroup> was created.
+        hasCreatedPropertyGroup = false;
+
         if (path.extname(file) !== '.csproj' && path.extname(file) !== '.vbproj' && path.extname(file) !== '.props') {
             logger.warning('Invalid file.  Only the following file extensions are supported: .csproj, .vbproj, .props');
             return;
@@ -222,9 +226,19 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
                 return;
             }
 
-            if (!result.Project || !result.Project.PropertyGroup) {
+            if (!result.Project) {
                 logger.error(`Error reading file: ${err}`);
                 return;
+            }
+
+            // Empty Project node
+            if (typeof result.Project !== 'object') {
+                result.Project = {};
+            }
+
+            // Missing PropertyGroup
+            if (!result.Project.PropertyGroup) {
+                result.Project.PropertyGroup = [];
             }
 
             setAssemblyData(result.Project.PropertyGroup, model);
@@ -268,6 +282,13 @@ function getPropertyGroup(propertyGroups: any, name: string): any {
                 return group;
             } 
         }
+    }
+
+    // If the property group is not found, create our own <PropertyGroup> node to ensure attributes
+    // are added to our node and don't affect any existing nodes which may contain conditions.
+    if (!hasCreatedPropertyGroup) {
+        propertyGroups.unshift({});
+        hasCreatedPropertyGroup = true;
     }
 
     return propertyGroups[0];

@@ -1,4 +1,5 @@
 ﻿<Project>
+	<PropertyGroup />
 	<PropertyGroup>
         <Company>Stark Industries</Company>
         <Copyright>Stark Industeis © 2016</Copyright>
