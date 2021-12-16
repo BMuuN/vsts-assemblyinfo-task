@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import * as ttm from 'azure-pipelines-task-lib/mock-test';
 import * as path from 'path';
-import * as testUtils from './helpers/test-utils';
+import { TestUtils } from './helpers/test-utils'
 
 describe('Net Core - Date Transforms Tests', function() {
 
@@ -34,7 +34,7 @@ describe('Net Core - Date Transforms Tests', function() {
         assert.strictEqual(tr.warningIssues.length, 0, 'should have no warnings');
         assert.strictEqual(tr.errorIssues.length, 0, 'should have no errors');
 
-        const copyright = testUtils.TestUtils.getLine(tr.stdout, 'Copyright: Copyright © ');
+        const copyright = TestUtils.getLine(tr.stdout, 'Copyright: Copyright © ');
         const regex = /^(Copyright: Copyright © \d{4} \d{2}\.\d{2}\.\d{4} \d{2} \w+ \d{4} \d{2}:\d{2} \w+ Example Ltd)$/g;
         const result = copyright.match(regex) as RegExpMatchArray;
 
@@ -57,7 +57,7 @@ describe('Net Core - Date Transforms Tests', function() {
         assert.strictEqual(tr.warningIssues.length, 0, 'should have no warnings');
         assert.strictEqual(tr.errorIssues.length, 0, 'should have no errors');
 
-        const copyright = testUtils.TestUtils.getLine(tr.stdout, 'Company: Bleddyn Richards Inc ');
+        const copyright = TestUtils.getLine(tr.stdout, 'Company: Bleddyn Richards Inc ');
         const regex = /^(Company: Bleddyn Richards Inc \d{4})$/g;
         const result = copyright.match(regex) as RegExpMatchArray;
 
@@ -80,7 +80,7 @@ describe('Net Core - Date Transforms Tests', function() {
         assert.strictEqual(tr.warningIssues.length, 0, 'should have no warnings');
         assert.strictEqual(tr.errorIssues.length, 0, 'should have no errors');
 
-        const copyright = testUtils.TestUtils.getLine(tr.stdout, 'Description: Assembly Info ');
+        const copyright = TestUtils.getLine(tr.stdout, 'Description: Assembly Info ');
         const regex = /^(Description: Assembly Info \d{4} is an extension for Azure DevOps that sets assembly information from a build.)$/g;
         const result = copyright.match(regex) as RegExpMatchArray;
 

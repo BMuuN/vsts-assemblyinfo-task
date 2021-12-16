@@ -15,7 +15,7 @@ export class TestUtils {
 
         const fileContent: string = iconv.decode(fs.readFileSync(filePath), 'utf-8');
 
-        let result = fileContent.match(new RegExp(`${propertyName}\\s*\\w*\\("\\d.*"\\)`, 'gi')) as RegExpMatchArray;
+        let result = fileContent.match(new RegExp(`${propertyName}\\s*\\w*\\(".*"\\)`, 'gi')) as RegExpMatchArray;
 
         if (!result) {
             return value;

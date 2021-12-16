@@ -1,1 +1,2 @@
-export * from './version_test_suite'
+export * from './input-files-test-suite'
+export * from './version-test-suite'
