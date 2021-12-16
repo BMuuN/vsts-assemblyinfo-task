@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import * as ttm from 'azure-pipelines-task-lib/mock-test';
 import * as path from 'path';
-import * as testUtils from './helpers/test-utils';
+import { TestUtils } from './helpers/test-utils'
 
 describe('Net Core - Version Tests', function() {
 
@@ -43,22 +43,22 @@ describe('Net Core - Version Tests', function() {
 
         const netCoreLibProject = path.join(projectDir, 'NetCoreLib/NetCoreLib.csproj');
 
-        const assemblyVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'AssemblyVersion');
+        const assemblyVersion = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'AssemblyVersion');
         const assemblyVersionResult = assemblyVersion.match(TestRegEx.assemblyVersion) as RegExpMatchArray;
         assert.notStrictEqual(assemblyVersionResult, null, 'AssemblyVersion field is empty');
         assert.strictEqual(assemblyVersionResult.length, 1, 'AssemblyVersion is not set');
 
-        const fileVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'FileVersion');
+        const fileVersion = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'FileVersion');
         const fileVersionResult = fileVersion.match(TestRegEx.fileVersion) as RegExpMatchArray;
         assert.notStrictEqual(fileVersionResult, null, 'FileVersion field is empty');
         assert.strictEqual(fileVersionResult.length, 1, 'FileVersion is not set');
 
-        const informationalVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'InformationalVersion');
+        const informationalVersion = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'InformationalVersion');
         const informationalVersionResult = informationalVersion.match(TestRegEx.informationalVersion) as RegExpMatchArray;
         assert.notStrictEqual(informationalVersionResult, null, 'InformationalVersion field is empty');
         assert.strictEqual(informationalVersionResult.length, 1, 'InformationalVersion is not set');
 
-        const packageVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Version');
+        const packageVersion = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Version');
         const packageVersionResult = packageVersion.match(TestRegEx.packageVersion) as RegExpMatchArray;
         assert.notStrictEqual(packageVersionResult, null, 'Package version field is empty');
         assert.strictEqual(packageVersionResult.length, 1, 'Package version is not set');
@@ -84,22 +84,22 @@ describe('Net Core - Version Tests', function() {
         // These tests run after 'basic_test_suite' therefore the version numbers have already been set.
         // This ensure the unit tests here for the hash '#' check skip are working as intended.
 
-        const assemblyVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'AssemblyVersion');
+        const assemblyVersion = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'AssemblyVersion');
         const assemblyVersionResult = assemblyVersion.match(/^(\d{1,4}\.15\.\d{1,4}(.98)?)$/g) as RegExpMatchArray;
         assert.notStrictEqual(assemblyVersionResult, null, 'AssemblyVersion field is not empty');
         assert.strictEqual(assemblyVersionResult.length, 1, 'AssemblyVersion is not set');
 
-        const fileVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'FileVersion');
+        const fileVersion = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'FileVersion');
         const fileVersionResult = fileVersion.match(/^(\d{1,4}\.92\.\d{1,4}\.6)$/g) as RegExpMatchArray;
         assert.notStrictEqual(fileVersionResult, null, 'FileVersion field is empty');
         assert.strictEqual(fileVersionResult.length, 1, 'FileVersion is not set');
 
-        const informationalVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'InformationalVersion');
+        const informationalVersion = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'InformationalVersion');
         const informationalVersionResult = informationalVersion.match(/^(2\.\d{1,4}\.\d{1,5}-prerelease)/g) as RegExpMatchArray;
         assert.notStrictEqual(informationalVersionResult, null, 'InformationalVersion field is empty');
         assert.strictEqual(informationalVersionResult.length, 1, 'InformationalVersion is not set');
 
-        const packageVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Version');
+        const packageVersion = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Version');
         const packageVersionResult = packageVersion.match(/^(\d{1,4}\.\d{1,4}\.2-beta1)/g) as RegExpMatchArray;
         assert.notStrictEqual(packageVersionResult, null, 'Packave version field is empty');
         assert.strictEqual(packageVersionResult.length, 1, 'Package version is not set');

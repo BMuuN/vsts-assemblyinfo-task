@@ -1,7 +1,6 @@
 import * as assert from 'assert';
 import * as ttm from 'azure-pipelines-task-lib/mock-test';
 import * as path from 'path';
-import * as testUtils from './helpers/test-utils';
 
 describe('Net Core - Task Tests', function() {
 

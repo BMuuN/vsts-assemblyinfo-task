@@ -3,7 +3,7 @@ import * as ttm from 'azure-pipelines-task-lib/mock-test';
 import * as path from 'path';
 import { TestUtils } from './helpers/test-utils'
 
-describe('Net Core Task Version Tests', function() {
+describe('Net Framework - Version Tests', function() {
 
     const TestRegEx = {
         assemblyVersion: /^(\d{1,4}\.\d{1,4}\.\d{1,4}(.\d{1,5})?)$/g,
@@ -47,15 +47,15 @@ describe('Net Core Task Version Tests', function() {
         assert.notStrictEqual(assemblyVersionResult, null, 'AssemblyVersion field is empty');
         assert.strictEqual(assemblyVersionResult.length, 1, 'AssemblyVersion is not set');
 
-        const fileVersion = TestUtils.getAssemblyInfoValue(cSharpLibProject, 'FileVersion');
+        const fileVersion = TestUtils.getAssemblyInfoValue(cSharpLibProject, 'AssemblyFileVersion');
         const fileVersionResult = fileVersion.match(TestRegEx.fileVersion) as RegExpMatchArray;
-        assert.notStrictEqual(fileVersionResult, null, 'FileVersion field is empty');
-        assert.strictEqual(fileVersionResult.length, 1, 'FileVersion is not set');
+        assert.notStrictEqual(fileVersionResult, null, 'AssemblyFileVersion field is empty');
+        assert.strictEqual(fileVersionResult.length, 1, 'AssemblyFileVersion is not set');
 
-        const informationalVersion = TestUtils.getAssemblyInfoValue(cSharpLibProject, 'InformationalVersion');
+        const informationalVersion = TestUtils.getAssemblyInfoValue(cSharpLibProject, 'AssemblyInformationalVersion');
         const informationalVersionResult = informationalVersion.match(TestRegEx.informationalVersion) as RegExpMatchArray;
-        assert.notStrictEqual(informationalVersionResult, null, 'InformationalVersion field is empty');
-        assert.strictEqual(informationalVersionResult.length, 1, 'InformationalVersion is not set');
+        assert.notStrictEqual(informationalVersionResult, null, 'AssemblyInformationalVersion field is empty');
+        assert.strictEqual(informationalVersionResult.length, 1, 'AssemblyInformationalVersion is not set');
 
         done();
     });
@@ -83,15 +83,15 @@ describe('Net Core Task Version Tests', function() {
         assert.notStrictEqual(assemblyVersionResult, null, 'AssemblyVersion field is not empty');
         assert.strictEqual(assemblyVersionResult.length, 1, 'AssemblyVersion is not set');
 
-        const fileVersion = TestUtils.getAssemblyInfoValue(cSharpLibProject, 'FileVersion');
+        const fileVersion = TestUtils.getAssemblyInfoValue(cSharpLibProject, 'AssemblyFileVersion');
         const fileVersionResult = fileVersion.match(/^(\d{1,4}\.92\.\d{1,4}\.6)$/g) as RegExpMatchArray;
-        assert.notStrictEqual(fileVersionResult, null, 'FileVersion field is empty');
-        assert.strictEqual(fileVersionResult.length, 1, 'FileVersion is not set');
+        assert.notStrictEqual(fileVersionResult, null, 'AssemblyFileVersion field is empty');
+        assert.strictEqual(fileVersionResult.length, 1, 'AssemblyFileVersion is not set');
 
-        const informationalVersion = TestUtils.getAssemblyInfoValue(cSharpLibProject, 'InformationalVersion');
+        const informationalVersion = TestUtils.getAssemblyInfoValue(cSharpLibProject, 'AssemblyInformationalVersion');
         const informationalVersionResult = informationalVersion.match(/^(2\.\d{1,4}\.\d{1,5}-prerelease)/g) as RegExpMatchArray;
-        assert.notStrictEqual(informationalVersionResult, null, 'InformationalVersion field is empty');
-        assert.strictEqual(informationalVersionResult.length, 1, 'InformationalVersion is not set');
+        assert.notStrictEqual(informationalVersionResult, null, 'AssemblyInformationalVersion field is empty');
+        assert.strictEqual(informationalVersionResult.length, 1, 'AssemblyInformationalVersion is not set');
 
         done();
     });

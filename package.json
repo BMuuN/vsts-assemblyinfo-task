@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Extension for Azure DevOps Services that sets assembly information from a build.",
   "scripts": {
-    "test:run": "npm run build && npm run test:netcore && npm run test:netframework",
+    "test": "npm run build && npm run test:netcore && npm run test:netframework",
     "test:netcore": "mocha --colors src/netcore/tests/index.js",
     "test:netcore-ci": "nyc --reporter=cobertura --reporter=html mocha --colors src/netcore/tests/index.js --reporter mocha-junit-reporter --reporter-option output=test-results.xml --timeout 10000",
     "test:netframework": "mocha --colors src/netframework/tests/index.js",

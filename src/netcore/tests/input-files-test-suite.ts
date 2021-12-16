@@ -1,7 +1,8 @@
 import * as assert from 'assert';
 import * as ttm from 'azure-pipelines-task-lib/mock-test';
 import * as path from 'path';
-import * as testUtils from './helpers/test-utils';
+import { TestUtils } from './helpers/test-utils'
+
 
 describe('Net Core - Input Files Tests', function() {
 
@@ -47,70 +48,70 @@ describe('Net Core - Input Files Tests', function() {
 
         const netCoreLibProject = path.join(projectDir, 'NetCoreLib/NetCoreLib.csproj');
 
-        const generatePackageOnBuild = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'GeneratePackageOnBuild');
+        const generatePackageOnBuild = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'GeneratePackageOnBuild');
         assert.strictEqual(generatePackageOnBuild, 'true', 'GeneratePackageOnBuild is not set');
 
-        const packageRequireLicenseAcceptance = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageRequireLicenseAcceptance');
+        const packageRequireLicenseAcceptance = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageRequireLicenseAcceptance');
         assert.strictEqual(packageRequireLicenseAcceptance, 'true', 'PackageRequireLicenseAcceptance is not set');
 
-        const packageId = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageId');
+        const packageId = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageId');
         assert.strictEqual(packageId, 'vsts-assemblyinfo-task', 'PackageId is not set');
 
-        const version = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Version');
+        const version = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Version');
         assert.strictEqual(version, '9.8.7-beta5', 'Version is not set');
 
-        const authors = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Authors');
+        const authors = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Authors');
         assert.strictEqual(authors, 'Bleddyn Richards', 'Authors is not set');
 
-        const company = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Company');
+        const company = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Company');
         assert.strictEqual(company, 'Bleddyn Richards Inc', 'Company is not set');
 
-        const product = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Product');
+        const product = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Product');
         assert.strictEqual(product, 'Azure DevOps Assembly Info', 'Product is not set');
 
-        const description = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Description');
+        const description = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Description');
         assert.strictEqual(description, 'Assembly Info is an extension for Azure DevOps that sets assembly information from a build.', 'Description is not set');
 
-        const copyright = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Copyright');
+        const copyright = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Copyright');
         const copyrightResult = copyright.match(/^(Copyright © \d{4} \d{2}\.\d{2}\.\d{4} \d{2} \w+ \d{4} \d{2}:\d{2} \w+ Example Ltd)$/g) as RegExpMatchArray;
         assert.notStrictEqual(copyrightResult, null, 'Copyright field is empty');
         assert.strictEqual(copyrightResult.length, 1, 'Copyright is not set');
 
-        const packageLicenseFile = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageLicenseFile');
+        const packageLicenseFile = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageLicenseFile');
         assert.strictEqual(packageLicenseFile, 'https://github.com/BMuuN/vsts-assemblyinfo-task/License.md', 'PackageLicenseFile is not set');
 
-        const packageProjectUrl = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageProjectUrl');
+        const packageProjectUrl = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageProjectUrl');
         assert.strictEqual(packageProjectUrl, 'https://github.com/BMuuN/vsts-assemblyinfo-task/release', 'PackageProjectUrl is not set');
 
-        const packageIcon = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageIcon');
+        const packageIcon = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageIcon');
         assert.strictEqual(packageIcon, 'https://github.com/BMuuN/vsts-assemblyinfo-task/favicon.png', 'PackageIcon is not set');
 
-        const repositoryUrl = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'RepositoryUrl');
+        const repositoryUrl = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'RepositoryUrl');
         assert.strictEqual(repositoryUrl, 'https://github.com/BMuuN/vsts-assemblyinfo-task', 'RepositoryUrl is not set');
 
-        const repositoryType = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'RepositoryType');
+        const repositoryType = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'RepositoryType');
         assert.strictEqual(repositoryType, 'OSS for Azure Dev Ops', 'RepositoryType is not set');
 
-        const packageTags = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageTags');
+        const packageTags = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageTags');
         assert.strictEqual(packageTags, 'Tags, Build, Release, VSTS', 'PackageTags is not set');
 
-        const packageReleaseNotes = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageReleaseNotes');
+        const packageReleaseNotes = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageReleaseNotes');
         assert.strictEqual(packageReleaseNotes, 'The extension will recursively search the specified Source Folder for all files listed in the Source Files field and set the assembly data.', 'PackageReleaseNotes is not set');
 
-        const neutralLanguage = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'NeutralLanguage');
+        const neutralLanguage = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'NeutralLanguage');
         assert.strictEqual(neutralLanguage, 'en-GB', 'NeutralLanguage is not set');
 
-        const assemblyVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'AssemblyVersion');
+        const assemblyVersion = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'AssemblyVersion');
         const assemblyVersionResult = assemblyVersion.match(TestRegEx.assemblyVersion) as RegExpMatchArray;
         assert.notStrictEqual(assemblyVersionResult, null, 'AssemblyVersion field is not empty');
         assert.strictEqual(assemblyVersionResult.length, 1, 'AssemblyVersion is not set');
 
-        const fileVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'FileVersion');
+        const fileVersion = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'FileVersion');
         const fileVersionResult = fileVersion.match(TestRegEx.fileVersion) as RegExpMatchArray;
         assert.notStrictEqual(fileVersionResult, null, 'FileVersion field is empty');
         assert.strictEqual(fileVersionResult.length, 1, 'FileVersion is not set');
 
-        const informationalVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'InformationalVersion');
+        const informationalVersion = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'InformationalVersion');
         assert.strictEqual(informationalVersion, '2.3.4-prerelease', 'InformationalVersion is not set');
 
         done();
@@ -131,70 +132,70 @@ describe('Net Core - Input Files Tests', function() {
 
         const netCoreLibProject = path.join(projectDir, 'Directory.Build.props');
 
-        const generatePackageOnBuild = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'GeneratePackageOnBuild');
+        const generatePackageOnBuild = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'GeneratePackageOnBuild');
         assert.strictEqual(generatePackageOnBuild, 'true', 'GeneratePackageOnBuild is not set');
 
-        const packageRequireLicenseAcceptance = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageRequireLicenseAcceptance');
+        const packageRequireLicenseAcceptance = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageRequireLicenseAcceptance');
         assert.strictEqual(packageRequireLicenseAcceptance, 'true', 'PackageRequireLicenseAcceptance is not set');
 
-        const packageId = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageId');
+        const packageId = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageId');
         assert.strictEqual(packageId, 'vsts-assemblyinfo-task', 'PackageId is not set');
 
-        const version = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Version');
+        const version = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Version');
         assert.strictEqual(version, '9.8.7-beta5', 'Version is not set');
 
-        const authors = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Authors');
+        const authors = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Authors');
         assert.strictEqual(authors, 'Bleddyn Richards', 'Authors is not set');
 
-        const company = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Company');
+        const company = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Company');
         assert.strictEqual(company, 'Bleddyn Richards Inc', 'Company is not set');
 
-        const product = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Product');
+        const product = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Product');
         assert.strictEqual(product, 'Azure DevOps Assembly Info', 'Product is not set');
 
-        const description = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Description');
+        const description = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Description');
         assert.strictEqual(description, 'Assembly Info is an extension for Azure DevOps that sets assembly information from a build.', 'Description is not set');
 
-        const copyright = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Copyright');
+        const copyright = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Copyright');
         const copyrightResult = copyright.match(/^(Copyright © \d{4} \d{2}\.\d{2}\.\d{4} \d{2} \w+ \d{4} \d{2}:\d{2} \w+ Example Ltd)$/g) as RegExpMatchArray;
         assert.notStrictEqual(copyrightResult, null, 'Copyright field is empty');
         assert.strictEqual(copyrightResult.length, 1, 'Copyright is not set');
 
-        const packageLicenseFile = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageLicenseFile');
+        const packageLicenseFile = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageLicenseFile');
         assert.strictEqual(packageLicenseFile, 'https://github.com/BMuuN/vsts-assemblyinfo-task/License.md', 'PackageLicenseFile is not set');
 
-        const packageProjectUrl = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageProjectUrl');
+        const packageProjectUrl = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageProjectUrl');
         assert.strictEqual(packageProjectUrl, 'https://github.com/BMuuN/vsts-assemblyinfo-task/release', 'PackageProjectUrl is not set');
 
-        const packageIcon = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageIcon');
+        const packageIcon = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageIcon');
         assert.strictEqual(packageIcon, 'https://github.com/BMuuN/vsts-assemblyinfo-task/favicon.png', 'PackageIcon is not set');
 
-        const repositoryUrl = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'RepositoryUrl');
+        const repositoryUrl = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'RepositoryUrl');
         assert.strictEqual(repositoryUrl, 'https://github.com/BMuuN/vsts-assemblyinfo-task', 'RepositoryUrl is not set');
 
-        const repositoryType = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'RepositoryType');
+        const repositoryType = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'RepositoryType');
         assert.strictEqual(repositoryType, 'OSS for Azure Dev Ops', 'RepositoryType is not set');
 
-        const packageTags = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageTags');
+        const packageTags = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageTags');
         assert.strictEqual(packageTags, 'Tags, Build, Release, VSTS', 'PackageTags is not set');
 
-        const packageReleaseNotes = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageReleaseNotes');
+        const packageReleaseNotes = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageReleaseNotes');
         assert.strictEqual(packageReleaseNotes, 'The extension will recursively search the specified Source Folder for all files listed in the Source Files field and set the assembly data.', 'PackageReleaseNotes is not set');
 
-        const neutralLanguage = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'NeutralLanguage');
+        const neutralLanguage = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'NeutralLanguage');
         assert.strictEqual(neutralLanguage, 'en-GB', 'NeutralLanguage is not set');
 
-        const assemblyVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'AssemblyVersion');
+        const assemblyVersion = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'AssemblyVersion');
         const assemblyVersionResult = assemblyVersion.match(TestRegEx.assemblyVersion) as RegExpMatchArray;
         assert.notStrictEqual(assemblyVersionResult, null, 'AssemblyVersion field is not empty');
         assert.strictEqual(assemblyVersionResult.length, 1, 'AssemblyVersion is not set');
 
-        const fileVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'FileVersion');
+        const fileVersion = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'FileVersion');
         const fileVersionResult = fileVersion.match(TestRegEx.fileVersion) as RegExpMatchArray;
         assert.notStrictEqual(fileVersionResult, null, 'FileVersion field is empty');
         assert.strictEqual(fileVersionResult.length, 1, 'FileVersion is not set');
 
-        const informationalVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'InformationalVersion');
+        const informationalVersion = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'InformationalVersion');
         assert.strictEqual(informationalVersion, '2.3.4-prerelease', 'InformationalVersion is not set');
 
         done();
@@ -215,70 +216,70 @@ describe('Net Core - Input Files Tests', function() {
 
         const netCoreLibProject = path.join(projectDir, 'EmptyDirectory.Build.props');
 
-        const generatePackageOnBuild = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'GeneratePackageOnBuild');
+        const generatePackageOnBuild = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'GeneratePackageOnBuild');
         assert.strictEqual(generatePackageOnBuild, 'true', 'GeneratePackageOnBuild is not set');
 
-        const packageRequireLicenseAcceptance = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageRequireLicenseAcceptance');
+        const packageRequireLicenseAcceptance = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageRequireLicenseAcceptance');
         assert.strictEqual(packageRequireLicenseAcceptance, 'true', 'PackageRequireLicenseAcceptance is not set');
 
-        const packageId = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageId');
+        const packageId = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageId');
         assert.strictEqual(packageId, 'vsts-assemblyinfo-task', 'PackageId is not set');
 
-        const version = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Version');
+        const version = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Version');
         assert.strictEqual(version, '9.8.7-beta5', 'Version is not set');
 
-        const authors = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Authors');
+        const authors = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Authors');
         assert.strictEqual(authors, 'Bleddyn Richards', 'Authors is not set');
 
-        const company = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Company');
+        const company = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Company');
         assert.strictEqual(company, 'Bleddyn Richards Inc', 'Company is not set');
 
-        const product = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Product');
+        const product = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Product');
         assert.strictEqual(product, 'Azure DevOps Assembly Info', 'Product is not set');
 
-        const description = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Description');
+        const description = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Description');
         assert.strictEqual(description, 'Assembly Info is an extension for Azure DevOps that sets assembly information from a build.', 'Description is not set');
 
-        const copyright = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Copyright');
+        const copyright = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Copyright');
         const copyrightResult = copyright.match(/^(Copyright © \d{4} \d{2}\.\d{2}\.\d{4} \d{2} \w+ \d{4} \d{2}:\d{2} \w+ Example Ltd)$/g) as RegExpMatchArray;
         assert.notStrictEqual(copyrightResult, null, 'Copyright field is empty');
         assert.strictEqual(copyrightResult.length, 1, 'Copyright is not set');
 
-        const packageLicenseFile = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageLicenseFile');
+        const packageLicenseFile = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageLicenseFile');
         assert.strictEqual(packageLicenseFile, 'https://github.com/BMuuN/vsts-assemblyinfo-task/License.md', 'PackageLicenseFile is not set');
 
-        const packageProjectUrl = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageProjectUrl');
+        const packageProjectUrl = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageProjectUrl');
         assert.strictEqual(packageProjectUrl, 'https://github.com/BMuuN/vsts-assemblyinfo-task/release', 'PackageProjectUrl is not set');
 
-        const packageIcon = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageIcon');
+        const packageIcon = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageIcon');
         assert.strictEqual(packageIcon, 'https://github.com/BMuuN/vsts-assemblyinfo-task/favicon.png', 'PackageIcon is not set');
 
-        const repositoryUrl = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'RepositoryUrl');
+        const repositoryUrl = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'RepositoryUrl');
         assert.strictEqual(repositoryUrl, 'https://github.com/BMuuN/vsts-assemblyinfo-task', 'RepositoryUrl is not set');
 
-        const repositoryType = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'RepositoryType');
+        const repositoryType = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'RepositoryType');
         assert.strictEqual(repositoryType, 'OSS for Azure Dev Ops', 'RepositoryType is not set');
 
-        const packageTags = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageTags');
+        const packageTags = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageTags');
         assert.strictEqual(packageTags, 'Tags, Build, Release, VSTS', 'PackageTags is not set');
-
-        const packageReleaseNotes = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageReleaseNotes');
+        
+        const packageReleaseNotes = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageReleaseNotes');
         assert.strictEqual(packageReleaseNotes, 'The extension will recursively search the specified Source Folder for all files listed in the Source Files field and set the assembly data.', 'PackageReleaseNotes is not set');
 
-        const neutralLanguage = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'NeutralLanguage');
+        const neutralLanguage = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'NeutralLanguage');
         assert.strictEqual(neutralLanguage, 'en-GB', 'NeutralLanguage is not set');
 
-        const assemblyVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'AssemblyVersion');
+        const assemblyVersion = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'AssemblyVersion');
         const assemblyVersionResult = assemblyVersion.match(TestRegEx.assemblyVersion) as RegExpMatchArray;
         assert.notStrictEqual(assemblyVersionResult, null, 'AssemblyVersion field is not empty');
         assert.strictEqual(assemblyVersionResult.length, 1, 'AssemblyVersion is not set');
 
-        const fileVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'FileVersion');
+        const fileVersion = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'FileVersion');
         const fileVersionResult = fileVersion.match(TestRegEx.fileVersion) as RegExpMatchArray;
         assert.notStrictEqual(fileVersionResult, null, 'FileVersion field is empty');
         assert.strictEqual(fileVersionResult.length, 1, 'FileVersion is not set');
 
-        const informationalVersion = testUtils.TestUtils.getAssemblyInfoValue(netCoreLibProject, 'InformationalVersion');
+        const informationalVersion = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'InformationalVersion');
         assert.strictEqual(informationalVersion, '2.3.4-prerelease', 'InformationalVersion is not set');
 
         done();

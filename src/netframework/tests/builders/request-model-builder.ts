@@ -25,7 +25,7 @@ export class RequestModel {
         this.tmr.setInput('COMPANY', 'Bleddyn Richards Inc');
         this.tmr.setInput('CULTURE', 'en-GB');
         this.tmr.setInput('COPYRIGHT', 'Copyright © $(date:YYYY) $(date:DD.MM.YYYY DD MMMM YYYY HH:mm a) Example Ltd');
-        this.tmr.setInput('TRADEMARK', 'Example Trademark');
+        this.tmr.setInput('TRADEMARK', 'Example ® Trademark');
         this.tmr.setInput('CONFIGURATION', 'debug');
 
         this.tmr.setInput('LOGLEVEL', 'verbose');
