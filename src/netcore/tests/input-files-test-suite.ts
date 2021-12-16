@@ -48,6 +48,9 @@ describe('Net Core - Input Files Tests', function() {
 
         const netCoreLibProject = path.join(projectDir, 'NetCoreLib/NetCoreLib.csproj');
 
+        const generateDocumentationFile = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'GenerateDocumentationFile');
+        assert.strictEqual(generateDocumentationFile, 'true', 'GenerateDocumentationFile is not set');
+
         const generatePackageOnBuild = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'GeneratePackageOnBuild');
         assert.strictEqual(generatePackageOnBuild, 'true', 'GeneratePackageOnBuild is not set');
 
@@ -131,6 +134,9 @@ describe('Net Core - Input Files Tests', function() {
         assert.strictEqual(tr.errorIssues.length, 0, 'should have no errors');
 
         const netCoreLibProject = path.join(projectDir, 'Directory.Build.props');
+
+        const generateDocumentationFile = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'GenerateDocumentationFile');
+        assert.strictEqual(generateDocumentationFile, 'true', 'GenerateDocumentationFile is not set');
 
         const generatePackageOnBuild = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'GeneratePackageOnBuild');
         assert.strictEqual(generatePackageOnBuild, 'true', 'GeneratePackageOnBuild is not set');
@@ -216,6 +222,9 @@ describe('Net Core - Input Files Tests', function() {
 
         const netCoreLibProject = path.join(projectDir, 'EmptyDirectory.Build.props');
 
+        const generateDocumentationFile = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'GenerateDocumentationFile');
+        assert.strictEqual(generateDocumentationFile, 'true', 'GenerateDocumentationFile is not set');
+        
         const generatePackageOnBuild = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'GeneratePackageOnBuild');
         assert.strictEqual(generatePackageOnBuild, 'true', 'GeneratePackageOnBuild is not set');
 

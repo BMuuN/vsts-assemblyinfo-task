@@ -95,6 +95,15 @@
       "groupName": "fileEncodingGroup"
     },
     {
+      "name": "generateDocumentationFile",
+      "type": "boolean",
+      "label": "Generate XML documentation file",
+      "defaultValue": false,
+      "required": false,
+      "helpMarkDown": "Sets the `GenerateDocumentationFile` attribute.\r\nIf checked will generate an XML documentation file.",
+      "groupName": "attributesGroup"
+    },
+    {
       "name": "generatePackageOnBuild",
       "type": "boolean",
       "label": "Generate NuGet package on build",
