@@ -75,6 +75,7 @@ function getDefaultModel(): models.NetCore {
         detectedFileEncoding: '',
         writeBOM: tl.getBoolInput('writeBOM', true),
 
+        generateDocumentationFile: tl.getBoolInput('generateDocumentationFile', true),
         generatePackageOnBuild: tl.getBoolInput('generatePackageOnBuild', true),
         requireLicenseAcceptance: tl.getBoolInput('packageRequireLicenseAcceptance', true),
 
@@ -148,6 +149,7 @@ function printTaskParameters(model: models.NetCore): void {
     logger.debug(`File encoding: ${model.fileEncoding}`);
     logger.debug(`Write unicode BOM: ${model.writeBOM}`);
 
+    logger.debug(`Generate XML documentation file: ${model.generateDocumentationFile}`);
     logger.debug(`Generate NuGet package on build: ${model.generatePackageOnBuild}`);
     logger.debug(`Require license acceptance: ${model.requireLicenseAcceptance}`);
 
@@ -296,8 +298,19 @@ function getPropertyGroup(propertyGroups: any, name: string): any {
 
 function setAssemblyData(propertyGroups: any, model: models.NetCore): void {
 
+    // Generate XML Documentation File
+    let group = getPropertyGroup(propertyGroups, 'GenerateDocumentationFile');
+    if (model.insertAttributes && !group.GenerateDocumentationFile) {
+        group.GenerateDocumentationFile = '';
+    }
+
+    if (group.GenerateDocumentationFile || group.GenerateDocumentationFile === '') {
+        group.GenerateDocumentationFile = model.generateDocumentationFile;
+        logger.info(`GenerateDocumentationFile --> ${model.generateDocumentationFile}`);
+    }
+
     // Generate Package On Build
-    let group = getPropertyGroup(propertyGroups, 'GeneratePackageOnBuild');
+    group = getPropertyGroup(propertyGroups, 'GeneratePackageOnBuild');
     if (model.insertAttributes && !group.GeneratePackageOnBuild) {
         group.GeneratePackageOnBuild = '';
     }

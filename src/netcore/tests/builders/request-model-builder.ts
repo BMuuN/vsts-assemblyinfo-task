@@ -30,6 +30,7 @@ export class RequestModel {
 
         this.tmr.setInput('TRADEMARK', 'Example Trademark');
         this.tmr.setInput('CONFIGURATION', 'debug');
+        this.tmr.setInput('GENERATEDOCUMENTATIONFILE', 'true');
         this.tmr.setInput('GENERATEPACKAGEONBUILD', 'true');
         this.tmr.setInput('PACKAGEREQUIRELICENSEACCEPTANCE', 'true');
         this.tmr.setInput('PACKAGEID', 'vsts-assemblyinfo-task');
