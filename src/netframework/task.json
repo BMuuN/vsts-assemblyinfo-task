@@ -40,7 +40,7 @@
     }
   ],
   "inputs": [{
-      "name": "path",
+      "name": "Path",
       "type": "filePath",
       "label": "Source folder",
       "defaultValue": "$(Build.SourcesDirectory)",
@@ -48,19 +48,19 @@
       "helpMarkDown": "Specify the project Source folder."
     },
     {
-      "name": "fileNames",
+      "name": "FileNames",
       "type": "multiLine",
       "label": "Source files",
       "defaultValue": "**\\AssemblyInfo.cs\r\n**\\AssemblyInfo.vb",
       "required": true,
       "helpMarkDown": "Specify the assembly info file(s). Wildcards can be used.  For example, `**/AssemblyInfo.cs` for all `AssemblyInfo.cs` files in all the sub folders.\r\n[More Information](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/file-matching-patterns?view=vsts)",
       "properties": {
-        "resizable": "true",
+        "resizable": true,
         "rows": "6"
       }
     },
     {
-      "name": "insertAttributes",
+      "name": "InsertAttributes",
       "type": "boolean",
       "label": "Insert attributes",
       "defaultValue": false,
@@ -68,7 +68,7 @@
       "helpMarkDown": "If checked the task will insert missing attributes into the source files specified above."
     },
     {
-      "name": "fileEncoding",
+      "name": "FileEncoding",
       "type": "pickList",
       "label": "File encoding",
       "defaultValue": "auto",
@@ -85,7 +85,7 @@
       "groupName": "fileEncodingGroup"
     },
     {
-      "name": "writeBOM",
+      "name": "WriteBOM",
       "type": "boolean",
       "label": "Write unicode BOM",
       "defaultValue": false,
@@ -95,7 +95,7 @@
       "groupName": "fileEncodingGroup"
     },
     {
-      "name": "title",
+      "name": "Title",
       "type": "string",
       "label": "Title",
       "defaultValue": "",
@@ -104,7 +104,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "product",
+      "name": "Product",
       "type": "string",
       "label": "Product",
       "defaultValue": "",
@@ -113,7 +113,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "description",
+      "name": "Description",
       "type": "string",
       "label": "Description",
       "defaultValue": "",
@@ -122,7 +122,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "company",
+      "name": "Company",
       "type": "string",
       "label": "Company",
       "defaultValue": "",
@@ -131,7 +131,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "copyright",
+      "name": "Copyright",
       "type": "string",
       "label": "Copyright",
       "defaultValue": "",
@@ -140,7 +140,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "trademark",
+      "name": "Trademark",
       "type": "string",
       "label": "Trademark",
       "defaultValue": "",
@@ -149,7 +149,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "culture",
+      "name": "Culture",
       "type": "string",
       "label": "Culture",
       "defaultValue": "",
@@ -158,7 +158,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "configuration",
+      "name": "Configuration",
       "type": "string",
       "label": "Configuration",
       "defaultValue": "$(BuildConfiguration)",
@@ -167,7 +167,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "versionNumber",
+      "name": "VersionNumber",
       "type": "string",
       "label": "Assembly version",
       "defaultValue": "",
@@ -176,7 +176,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "fileVersionNumber",
+      "name": "FileVersionNumber",
       "type": "string",
       "label": "Assembly file version",
       "defaultValue": "",
@@ -185,7 +185,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "informationalVersion",
+      "name": "InformationalVersion",
       "type": "string",
       "label": "Informational version",
       "defaultValue": "",
@@ -194,7 +194,7 @@
       "groupName": "attributesGroup"
     },
     {
-      "name": "logLevel",
+      "name": "LogLevel",
       "type": "pickList",
       "label": "Log Level",
       "defaultValue": "verbose",
@@ -208,7 +208,7 @@
       "groupName": "loggingGroup"
     },
     {
-      "name": "failOnWarning",
+      "name": "FailOnWarning",
       "type": "boolean",
       "label": "Fail on warning",
       "defaultValue": false,
@@ -217,7 +217,7 @@
       "groupName": "loggingGroup"
     },
     {
-      "name": "disableTelemetry",
+      "name": "DisableTelemetry",
       "type": "boolean",
       "label": "Disable Telemetry",
       "defaultValue": false,
@@ -226,7 +226,7 @@
       "groupName": "loggingGroup"
     },
     {
-      "name": "updateBuildNumber",
+      "name": "UpdateBuildNumber",
       "type": "string",
       "label": "Update Build Name",
       "defaultValue": "",
@@ -235,7 +235,7 @@
       "groupName": "taggingGroup"
     },
     {
-      "name": "addBuildTag",
+      "name": "AddBuildTag",
       "type": "string",
       "label": "Add Build Tag",
       "defaultValue": "",
@@ -244,7 +244,7 @@
       "groupName": "taggingGroup"
     }
   ],
-  "OutputVariables": [
+  "outputVariables": [
     {
       "name": "AssemblyInfo.Version",
       "description": "Is set with the calculated version number."
