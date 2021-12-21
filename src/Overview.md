@@ -27,18 +27,18 @@ steps:
 - task: Assembly-Info-NetCore@3
   displayName: 'Set Assembly Metadata'
   inputs:
-    Path: '$(Build.SourcesDirectory)'
-    FileNames: '**/*.csproj'
-    InsertAttributes: true
-    FileEncoding: 'utf-8'
-    WriteBOM: true
-    FailOnWarning: true
-    Authors: 'Bleddyn Richards'
-    Company: 'Example Ltd'
-    Copyright: 'Copyright © $(date:YYYY) Example Ltd'
-    PackageVersion: '$(appVersion)'
-    UpdateBuildNumber: '$(Build.DefinitionName)_v$(appVersion)'
-    AddBuildTag: 'v$(appVersion)'
+    path: '$(Build.SourcesDirectory)'
+    fileNames: '**/*.csproj'
+    insertAttributes: true
+    fileEncoding: 'utf-8'
+    writeBOM: true
+    failOnWarning: true
+    authors: 'Bleddyn Richards'
+    company: 'Example Ltd'
+    copyright: 'Copyright © $(date:YYYY) Example Ltd'
+    packageVersion: '$(appVersion)'
+    updateBuildNumber: '$(Build.DefinitionName)_v$(appVersion)'
+    addBuildTag: 'v$(appVersion)'
 ```
 
 ## Considerations
