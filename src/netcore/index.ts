@@ -39,7 +39,6 @@ async function run() {
         printTaskParameters(model);
         setManifestData(model, regExModel);
         setOutputVariables(model);
-        setTaggingOptions(model);
 
         logger.success('Complete.');
 
@@ -103,10 +102,7 @@ function getDefaultModel(): models.NetCore {
         verRelease: '',
 
         logLevel: tl.getInput('logLevel', true) || '',
-        failOnWarning: tl.getBoolInput('failOnWarning', true),
-
-        buildNumber: tl.getInput('updateBuildNumber', false) || '',
-        buildTag: tl.getInput('addBuildTag', false) || '',
+        failOnWarning: tl.getBoolInput('failOnWarning', true)
     };
 
     return model;
@@ -135,9 +131,6 @@ function generateVersionNumbers(model: models.NetCore, regexModel: models.RegEx)
     model.version = Utils.setWildcardVersionNumber(versionValue, model.verBuild, model.verRelease);
     model.fileVersion = Utils.setWildcardVersionNumber(fileVersionValue, model.verBuild, model.verRelease);
     model.informationalVersion = Utils.setWildcardVersionNumber(model.informationalVersion, model.verBuild, model.verRelease);
-    
-    model.buildNumber = Utils.setWildcardVersionNumber(model.buildNumber, model.verBuild, model.verRelease);
-    model.buildTag = Utils.setWildcardVersionNumber(model.buildTag, model.verBuild, model.verRelease);
 }
 
 function printTaskParameters(model: models.NetCore): void {
@@ -175,9 +168,6 @@ function printTaskParameters(model: models.NetCore): void {
 
     logger.debug(`Log Level: ${model.logLevel}`);
     logger.debug(`Fail on Warning: ${model.failOnWarning}`);
-
-    logger.debug(`Build Tag: ${model.buildTag}`);
-    logger.debug(`Build Number: ${model.buildNumber}`);
 
     logger.debug('');
 }
@@ -618,21 +608,10 @@ function setAssemblyData(propertyGroups: any, model: models.NetCore): void {
 }
 
 function setOutputVariables(model: models.NetCore) {
-    tl.setVariable('AssemblyInfo.Version', model.version, false, true);
-    tl.setVariable('AssemblyInfo.FileVersion', model.fileVersion, false, true);
-    tl.setVariable('AssemblyInfo.InformationalVersion', model.informationalVersion, false, true);
-    tl.setVariable('AssemblyInfo.PackageVersion', model.packageVersion, false, true);
-}
-
-function setTaggingOptions(model: models.NetCore) {
-
-    if (model.buildNumber) {
-        tl.updateBuildNumber(model.buildNumber);
-    }
-
-    if (model.buildTag) {
-        tl.addBuildTag(model.buildTag);
-    }
+    tl.setVariable('Version', model.version, false, true);
+    tl.setVariable('FileVersion', model.fileVersion, false, true);
+    tl.setVariable('InformationalVersion', model.informationalVersion, false, true);
+    tl.setVariable('PackageVersion', model.packageVersion, false, true);
 }
 
 run();

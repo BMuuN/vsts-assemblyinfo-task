@@ -32,11 +32,6 @@
       "name": "loggingGroup",
       "displayName": "Logging",
       "isExpanded": false
-    },
-    {
-      "name": "taggingGroup",
-      "displayName": "Tagging",
-      "isExpanded": false
     }
   ],
   "inputs": [{
@@ -55,7 +50,7 @@
       "required": true,
       "helpMarkDown": "Specify the assembly info file(s). Wildcards can be used.  For example, `**/AssemblyInfo.cs` for all `AssemblyInfo.cs` files in all the sub folders.\r\n[More Information](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/file-matching-patterns?view=vsts)",
       "properties": {
-        "resizable": "true",
+        "resizable": true,
         "rows": "6"
       }
     },
@@ -224,37 +219,19 @@
       "required": true,
       "helpMarkDown": "If checked the task will disable Application Insights telemetry.",
       "groupName": "loggingGroup"
-    },
-    {
-      "name": "updateBuildNumber",
-      "type": "string",
-      "label": "Update Build Name",
-      "defaultValue": "",
-      "required": false,
-      "helpMarkDown": "If set will update the build name on task completion.",
-      "groupName": "taggingGroup"
-    },
-    {
-      "name": "addBuildTag",
-      "type": "string",
-      "label": "Add Build Tag",
-      "defaultValue": "",
-      "required": false,
-      "helpMarkDown": "If set will add a tag to the build.",
-      "groupName": "taggingGroup"
     }
   ],
-  "OutputVariables": [
+  "outputVariables": [
     {
-      "name": "AssemblyInfo.Version",
+      "name": "Version",
       "description": "Is set with the calculated version number."
     },
     {
-      "name": "AssemblyInfo.FileVersion",
+      "name": "FileVersion",
       "description": "Is set with the calculated file version number."
     },
     {
-      "name": "AssemblyInfo.InformationalVersion",
+      "name": "InformationalVersion",
       "description": "Is set with the calculated informational version number."
     }
   ],

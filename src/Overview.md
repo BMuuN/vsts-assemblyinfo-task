@@ -50,13 +50,13 @@ steps:
 All version numbers used within the task are outputted as variables to be used in subsequent tasks within your build pipeline.  The following output variables are created by the Assembly Info task:
 
 ```
-AssemblyInfo.Version
-AssemblyInfo.FileVersion
-AssemblyInfo.InformationalVersion
-AssemblyInfo.PackageVersion
+Version
+FileVersion
+InformationalVersion
+PackageVersion
 ```
 
-> Please note `AssemblyInfo.PackageVersion` is only available from v2 of the .Net Core & .Net Standard task.
+> Please note `PackageVersion` is only available from v2 of the .Net Core & .Net Standard task.
 
 ## Build Tagging
 You can add a tag to your build or update the build name by setting the following "Tagging" task parameters:
