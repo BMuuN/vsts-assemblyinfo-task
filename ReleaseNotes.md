@@ -1,7 +1,10 @@
 # Release Notes
+> **v4.x.x**
+> - Corrected property name cassing for yaml.
+> - Move "Build Tagging" into its own task so it can be used on release pipelines.
+
 > **v3.1.x**
 > - Updated markdown files.
-> - Corrected property name cassing for yaml.
 > - Converted build pipelines to yaml
 > - Added ability to keep parts of original version number [#47](https://github.com/BMuuN/vsts-assemblyinfo-task/issues/47).
 > - Added support for .prop files to Net Core task [#116](https://github.com/BMuuN/vsts-assemblyinfo-task/issues/116).  

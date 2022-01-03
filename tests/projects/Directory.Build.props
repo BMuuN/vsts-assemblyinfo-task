@@ -1,18 +1,32 @@
 ﻿<Project>
-	<PropertyGroup />
-	<PropertyGroup>
-        <Company>Stark Industries</Company>
-        <Copyright>Stark Industeis © 2016</Copyright>
-        <FileVersion>1.0.0.2</FileVersion>
-        <InformationalVersion>1.0.1-beta</InformationalVersion>
-	</PropertyGroup>
-    <PropertyGroup>
-        <AssemblyVersion>1.0.0.1</AssemblyVersion>
-    </PropertyGroup>
-    <PropertyGroup>
-        <Authors>Tony Stark</Authors>
-        <Product>B.A.R.F</Product>
-        <Description>Binarily Augmented Retro-Framing, or B.A.R.F. – God, I gotta work on that acronym.</Description>
-        <Version>1.0.1-beta</Version>
-    </PropertyGroup>
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageId>vsts-assemblyinfo-task</PackageId>
+    <PackageLicenseFile>https://github.com/BMuuN/vsts-assemblyinfo-task/License.md</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/BMuuN/vsts-assemblyinfo-task/release</PackageProjectUrl>
+    <PackageIcon>https://github.com/BMuuN/vsts-assemblyinfo-task/favicon.png</PackageIcon>
+    <RepositoryUrl>https://github.com/BMuuN/vsts-assemblyinfo-task</RepositoryUrl>
+    <RepositoryType>OSS for Azure Dev Ops</RepositoryType>
+    <PackageTags>Tags, Build, Release, VSTS</PackageTags>
+    <PackageReleaseNotes>The extension will recursively search the specified Source Folder for all files listed in the Source Files field and set the assembly data.</PackageReleaseNotes>
+    <NeutralLanguage>en-GB</NeutralLanguage>
+  </PropertyGroup>
+  <PropertyGroup/>
+  <PropertyGroup>
+    <Company>Bleddyn Richards Inc</Company>
+    <Copyright>Copyright © 2022 03.01.2022 03 January 2022 12:05 pm Example Ltd</Copyright>
+    <FileVersion>1990.03.8038.21768</FileVersion>
+    <InformationalVersion>2.3.4-prerelease</InformationalVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyVersion>2018.11.8038</AssemblyVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Authors>Bleddyn Richards</Authors>
+    <Product>Azure DevOps Assembly Info</Product>
+    <Description>Assembly Info is an extension for Azure DevOps that sets assembly information from a build.</Description>
+    <Version>9.8.7-beta5</Version>
+  </PropertyGroup>
 </Project>

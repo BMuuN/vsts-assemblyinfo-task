@@ -37,7 +37,6 @@ async function run() {
         printTaskParameters(model);
         setManifestData(model, regExModel);
         setOutputVariables(model);
-        setTaggingOptions(model);
 
         logger.success('Complete.');
 
@@ -90,9 +89,6 @@ function getDefaultModel(): models.NetFramework {
 
         logLevel: tl.getInput('LogLevel', true) || '',
         failOnWarning: tl.getBoolInput('FailOnWarning', true),
-
-        buildNumber: tl.getInput('UpdateBuildNumber', false) || '',
-        buildTag: tl.getInput('AddBuildTag', false) || '',
     };
 
     return model;
@@ -120,9 +116,6 @@ function generateVersionNumbers(model: models.NetFramework, regexModel: models.R
     model.version = Utils.setWildcardVersionNumber(versionValue, model.verBuild, model.verRelease);
     model.fileVersion = Utils.setWildcardVersionNumber(fileVersionValue, model.verBuild, model.verRelease);
     model.informationalVersion = Utils.setWildcardVersionNumber(model.informationalVersion, model.verBuild, model.verRelease);
-
-    model.buildNumber = Utils.setWildcardVersionNumber(model.buildNumber, model.verBuild, model.verRelease);
-    model.buildTag = Utils.setWildcardVersionNumber(model.buildTag, model.verBuild, model.verRelease);
 }
 
 function printTaskParameters(model: models.NetFramework): void {
@@ -148,9 +141,6 @@ function printTaskParameters(model: models.NetFramework): void {
 
     logger.debug(`Log Level: ${model.logLevel}`);
     logger.debug(`Fail on Warning: ${model.failOnWarning}`);
-
-    logger.debug(`Build Tag: ${model.buildTag}`);
-    logger.debug(`Build Number: ${model.buildNumber}`);
 
     logger.debug('');
 }
@@ -320,20 +310,9 @@ function replaceAttribute(content: string, name: string, regEx: string, value: s
 }
 
 function setOutputVariables(model: models.NetFramework) {
-    tl.setVariable('AssemblyInfo.Version', model.version, false);
-    tl.setVariable('AssemblyInfo.FileVersion', model.fileVersion, false);
-    tl.setVariable('AssemblyInfo.InformationalVersion', model.informationalVersion, false);
-}
-
-function setTaggingOptions(model: models.NetFramework) {
-
-    if (model.buildNumber) {
-        tl.updateBuildNumber(`${model.buildNumber}`);
-    }
-
-    if (model.buildTag) {
-        tl.addBuildTag(`${model.buildTag}`);
-    }
+    tl.setVariable('Version', model.version, false);
+    tl.setVariable('FileVersion', model.fileVersion, false);
+    tl.setVariable('InformationalVersion', model.informationalVersion, false);
 }
 
 run();

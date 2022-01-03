@@ -1,27 +1,46 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageId>vsts-assemblyinfo-task</PackageId>
+    <Version>9.8038.2-beta1</Version>
+    <Authors>Bleddyn Richards</Authors>
+    <Company>Bleddyn Richards Inc</Company>
+    <Product>Azure DevOps Assembly Info</Product>
+    <Description>Assembly Info is an extension for Azure DevOps that sets assembly information from a build.</Description>
+    <Copyright>Copyright © 2022 03.01.2022 03 January 2022 12:05 pm Example Ltd</Copyright>
+    <PackageLicenseFile>https://github.com/BMuuN/vsts-assemblyinfo-task/License.md</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/BMuuN/vsts-assemblyinfo-task/release</PackageProjectUrl>
+    <PackageIcon>https://github.com/BMuuN/vsts-assemblyinfo-task/favicon.png</PackageIcon>
+    <RepositoryUrl>https://github.com/BMuuN/vsts-assemblyinfo-task</RepositoryUrl>
+    <RepositoryType>OSS for Azure Dev Ops</RepositoryType>
+    <PackageTags>Tags, Build, Release, VSTS</PackageTags>
+    <PackageReleaseNotes>The extension will recursively search the specified Source Folder for all files listed in the Source Files field and set the assembly data.</PackageReleaseNotes>
+    <NeutralLanguage>en-GB</NeutralLanguage>
+    <AssemblyVersion>2018.15.8038.98</AssemblyVersion>
+    <FileVersion>1990.92.8038.6</FileVersion>
+    <InformationalVersion>2.8038.21769-prerelease</InformationalVersion>
+  </PropertyGroup>
   <PropertyGroup Label="Globals">
     <SccProjectName>SAK</SccProjectName>
     <SccProvider>SAK</SccProvider>
     <SccAuxpath>SAK</SccAuxpath>
     <SccLocalPath>SAK</SccLocalPath>
   </PropertyGroup>
-  
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>NetCoreLib</AssemblyName>
     <RootNamespace>NetCoreLib</RootNamespace>
   </PropertyGroup>
-  
   <ItemGroup>
     <None Include="Resource\favicon.png">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath/>
     </None>
     <None Include="Resource\License.txt">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath/>
     </None>
   </ItemGroup>
-  
 </Project>

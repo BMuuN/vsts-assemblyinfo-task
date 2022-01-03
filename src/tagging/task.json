@@ -1,0 +1,88 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
+  "id": "22F7475B-8969-4974-8248-740FC2E251F8",
+  "name": "Assembly-Info-Tagging",
+  "friendlyName": "Assembly Info Pipeline Tagging",
+  "description": "Update the build or release pipeline name or add a tag.",
+  "helpMarkDown": "[More Information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task)",
+  "category": "Azure *",
+  "author": "Bleddyn Richards",
+  "version": {
+    "Major": 1,
+    "Minor": 0,
+    "Patch": 0
+  },
+  "minimumAgentVersion": "2.115.0",
+  "instanceNameFormat": "Update Pipeline Name and Tags",
+  "visibility": [
+    "Build",
+    "Release"
+  ],
+  "groups": [
+    {
+      "name": "loggingGroup",
+      "displayName": "Logging",
+      "isExpanded": false
+    }
+  ],
+  "inputs": [
+    {
+      "name": "pipelineName",
+      "type": "string",
+      "label": "Update Pipeline Name",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "If set will update the pipeline name on task completion."
+    },
+    {
+      "name": "pipelineTag",
+      "type": "string",
+      "label": "Add Tag",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "If set will add a tag to the pipeline. Please not this will only work on build pipelines."
+    },
+    {
+      "name": "logLevel",
+      "type": "pickList",
+      "label": "Log Level",
+      "defaultValue": "verbose",
+      "required": true,
+      "options": {
+          "normal": "Normal",
+          "verbose": "Verbose",
+          "off": "Off"
+      },
+      "helpMarkDown": "Specify the logging level.",
+      "groupName": "loggingGroup"
+    },
+    {
+      "name": "failOnWarning",
+      "type": "boolean",
+      "label": "Fail on warning",
+      "defaultValue": false,
+      "required": true,
+      "helpMarkDown": "If checked the task will fail when a warning is triggered.",
+      "groupName": "loggingGroup"
+    },
+    {
+      "name": "disableTelemetry",
+      "type": "boolean",
+      "label": "Disable Telemetry",
+      "defaultValue": false,
+      "required": true,
+      "helpMarkDown": "If checked the task will disable Application Insights telemetry.",
+      "groupName": "loggingGroup"
+    }
+  ],
+  "outputVariables": [],
+  "execution": {
+    "Node10": {
+      "target": "index.js"
+    }
+  },
+  "messages": {
+    "TaskReturnCode": "Task Complete!",
+    "TaskFailed": "Task failed with error: %s"
+  }
+}
