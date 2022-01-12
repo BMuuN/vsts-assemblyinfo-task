@@ -4,6 +4,15 @@ import * as sharedModels from '../models';
 
 export class Utils {
 
+    static isIgnored(value: string): boolean {
+        
+        if (!value) {
+            return true;
+        }
+
+        return value.toLowerCase() === 'ignore';
+    }
+
     static transformDates(value: string, regExModel: sharedModels.RegEx): string {
         return value.replace(regExModel.date, (match: string, g1: any, g2: any): string => {
             return moment().format(g1);

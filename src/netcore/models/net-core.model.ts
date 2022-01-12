@@ -1,9 +1,9 @@
 import { AssemblyInfo } from './';
 
 export class NetCore extends AssemblyInfo {
-    generateDocumentationFile: boolean = false;
-    generatePackageOnBuild: boolean = false;
-    requireLicenseAcceptance: boolean = false;
+    generateDocumentationFile: string = '';
+    generatePackageOnBuild: string = '';
+    requireLicenseAcceptance: string = '';
 
     packageId: string = '';
     packageVersion: string = '';

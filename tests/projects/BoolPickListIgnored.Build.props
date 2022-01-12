@@ -1,0 +1,29 @@
+﻿<Project>
+  <PropertyGroup>
+    <PackageId>vsts-assemblyinfo-task</PackageId>
+    <PackageLicenseFile>https://github.com/BMuuN/vsts-assemblyinfo-task/License.md</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/BMuuN/vsts-assemblyinfo-task/release</PackageProjectUrl>
+    <PackageIcon>https://github.com/BMuuN/vsts-assemblyinfo-task/favicon.png</PackageIcon>
+    <RepositoryUrl>https://github.com/BMuuN/vsts-assemblyinfo-task</RepositoryUrl>
+    <RepositoryType>OSS for Azure Dev Ops</RepositoryType>
+    <PackageTags>Tags, Build, Release, VSTS</PackageTags>
+    <PackageReleaseNotes>The extension will recursively search the specified Source Folder for all files listed in the Source Files field and set the assembly data.</PackageReleaseNotes>
+    <NeutralLanguage>en-GB</NeutralLanguage>
+  </PropertyGroup>
+  <PropertyGroup/>
+  <PropertyGroup>
+    <Company>Bleddyn Richards Inc</Company>
+    <Copyright>Copyright © 2022 12.01.2022 12 January 2022 19:40 pm Example Ltd</Copyright>
+    <FileVersion>1990.03.8047.35403</FileVersion>
+    <InformationalVersion>2.3.4-prerelease</InformationalVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyVersion>2018.11.8047</AssemblyVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Authors>Bleddyn Richards</Authors>
+    <Product>Azure DevOps Assembly Info</Product>
+    <Description>Assembly Info is an extension for Azure DevOps that sets assembly information from a build.</Description>
+    <Version>9.8.7-beta5</Version>
+  </PropertyGroup>
+</Project>

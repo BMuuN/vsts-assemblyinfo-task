@@ -1,5 +1,8 @@
 # Release Notes
-> **v3.1.x**
+> **v3.1.3**
+> - Converted some checkboxes (boolean) attributes to dropdown list to allow attributes to be ignored.  Fixes [#214](https://github.com/BMuuN/vsts-assemblyinfo-task/issues/214) and [#170](https://github.com/BMuuN/vsts-assemblyinfo-task/issues/170) by allowing `true|false|ignore` to be specified, defaults to `ignore`.  
+
+> **v3.1.2**
 > - Updated markdown files.
 > - Corrected property name cassing for yaml.
 > - Converted build pipelines to yaml

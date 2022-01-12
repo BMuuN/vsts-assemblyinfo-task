@@ -90,17 +90,32 @@ export class RequestModel {
     }
 
     withCompany(value: string): RequestModel {
-        this.tmr.setInput('COMPANY', value.toString());
+        this.tmr.setInput('COMPANY', value);
         return this;
     }
 
     withDescription(value: string): RequestModel {
-        this.tmr.setInput('DESCRIPTION', value.toString());
+        this.tmr.setInput('DESCRIPTION', value);
         return this;
     }
 
     withCopyright(value: string): RequestModel {
-        this.tmr.setInput('COPYRIGHT', value.toString());
+        this.tmr.setInput('COPYRIGHT', value);
+        return this;
+    }
+
+    withGenerateDocumentationFile(value: string): RequestModel {
+        this.tmr.setInput('GENERATEDOCUMENTATIONFILE', value);
+        return this;
+    }
+
+    withGeneratePackageOnBuild(value: string): RequestModel {
+        this.tmr.setInput('GENERATEPACKAGEONBUILD', value);
+        return this;
+    }
+
+    withPackageRequireLicenseAcceptance(value: string): RequestModel {
+        this.tmr.setInput('PACKAGEREQUIRELICENSEACCEPTANCE', value);
         return this;
     }
 

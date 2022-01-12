@@ -96,29 +96,44 @@
     },
     {
       "name": "GenerateDocumentationFile",
-      "type": "boolean",
+      "type": "pickList",
       "label": "Generate XML documentation file",
-      "defaultValue": false,
+      "defaultValue": "ignore",
       "required": false,
-      "helpMarkDown": "Sets the `GenerateDocumentationFile` attribute.\r\nIf checked will generate an XML documentation file.",
+      "options": {
+        "ignore": "ignore",
+        "true": "true",
+        "false": "false"
+      },
+      "helpMarkDown": "Sets the `GenerateDocumentationFile` attribute.\r\nSet to 'ignore' to skip this attribute.",
       "groupName": "attributesGroup"
     },
     {
       "name": "GeneratePackageOnBuild",
-      "type": "boolean",
+      "type": "pickList",
       "label": "Generate NuGet package on build",
-      "defaultValue": false,
+      "defaultValue": "ignore",
       "required": false,
-      "helpMarkDown": "Sets the `GeneratePackageOnBuild` attribute.\r\nIf checked will create a NuGet package on a successful build.",
+      "options": {
+        "ignore": "ignore",
+        "true": "true",
+        "false": "false"
+      },
+      "helpMarkDown": "Sets the `GeneratePackageOnBuild` attribute.\r\nSet to 'true' to create a NuGet package on a successful build.\r\nSet to 'ignore' to skip this attribute",
       "groupName": "attributesGroup"
     },
     {
       "name": "PackageRequireLicenseAcceptance",
-      "type": "boolean",
+      "type": "pickList",
       "label": "Require license acceptance",
-      "defaultValue": false,
+      "defaultValue": "ignore",
       "required": false,
-      "helpMarkDown": "Sets the `PackageRequireLicenseAcceptance` attribute.\r\nIf checked a **License Url** must be supplied, else the build will fail.",
+      "options": {
+        "ignore": "ignore",
+        "true": "true",
+        "false": "false"
+      },
+      "helpMarkDown": "Sets the `PackageRequireLicenseAcceptance` attribute.\r\nWhen set to 'true' a **License Url** must be supplied, else the build will fail.\r\nSet to 'ignore' to skip this attribute",
       "groupName": "attributesGroup"
     },
     {

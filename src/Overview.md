@@ -61,7 +61,7 @@ AssemblyInfo.PackageVersion
 ## Build Tagging
 You can add a tag to your build or update the build name by setting the following "Tagging" task parameters:
 
-![Task Tagging](./images/Build_Tagging.png)
+![Task Tagging](images/Build_Tagging.png)
 
 Both fields accept [date and time formats](https://github.com/BMuuN/vsts-assemblyinfo-task/wiki/Date-&-Time-Format) including any flavour of [versioning](https://github.com/BMuuN/vsts-assemblyinfo-task/wiki/Versioning).  Check the wiki for more information on [Build Tagging](https://github.com/BMuuN/vsts-assemblyinfo-task/wiki/Build-Tagging).
 
