@@ -1,3 +1,4 @@
+export * from './bool-picklist-test-suite';
 export * from './date-transforms-test-suite';
 export * from './input-files-test-suite';
 export * from './task-test-suite';

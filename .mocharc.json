@@ -1,8 +1,6 @@
 {
-    "extension": ["ts"],
-    "spec": "src/**/tests/*.ts",
-    "require": ["ts-node/register"],
+    "spec": "src/**/tests/*.js",
     "colors": true,
     "timeout": 999999,
-    "recursive": true
+    "recursive": false
 }

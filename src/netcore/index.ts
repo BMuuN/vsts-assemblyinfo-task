@@ -75,9 +75,9 @@ function getDefaultModel(): models.NetCore {
         detectedFileEncoding: '',
         writeBOM: tl.getBoolInput('WriteBOM', true),
 
-        generateDocumentationFile: tl.getBoolInput('GenerateDocumentationFile', true),
-        generatePackageOnBuild: tl.getBoolInput('GeneratePackageOnBuild', true),
-        requireLicenseAcceptance: tl.getBoolInput('PackageRequireLicenseAcceptance', true),
+        generateDocumentationFile: tl.getInput('GenerateDocumentationFile', false) || 'ignore',
+        generatePackageOnBuild: tl.getInput('GeneratePackageOnBuild', false) || 'ignore',
+        requireLicenseAcceptance: tl.getInput('PackageRequireLicenseAcceptance', false) || 'ignore',
 
         packageId: tl.getInput('PackageId', false) || '',
         packageVersion: tl.getInput('PackageVersion', false) || '',
@@ -298,37 +298,45 @@ function getPropertyGroup(propertyGroups: any, name: string): any {
 
 function setAssemblyData(propertyGroups: any, model: models.NetCore): void {
 
-    // Generate XML Documentation File
-    let group = getPropertyGroup(propertyGroups, 'GenerateDocumentationFile');
-    if (model.insertAttributes && !group.GenerateDocumentationFile) {
-        group.GenerateDocumentationFile = '';
-    }
+    let group;
 
-    if (group.GenerateDocumentationFile || group.GenerateDocumentationFile === '') {
-        group.GenerateDocumentationFile = model.generateDocumentationFile;
-        logger.info(`GenerateDocumentationFile --> ${model.generateDocumentationFile}`);
+    // Generate XML Documentation File
+    if (!Utils.isIgnored(model.generateDocumentationFile)) {
+        group = getPropertyGroup(propertyGroups, 'GenerateDocumentationFile');
+        if (model.insertAttributes && !group.GenerateDocumentationFile) {
+            group.GenerateDocumentationFile = '';
+        }
+    
+        if (group.GenerateDocumentationFile || group.GenerateDocumentationFile === '') {
+            group.GenerateDocumentationFile = model.generateDocumentationFile;
+            logger.info(`GenerateDocumentationFile --> ${model.generateDocumentationFile}`);
+        }
     }
 
     // Generate Package On Build
-    group = getPropertyGroup(propertyGroups, 'GeneratePackageOnBuild');
-    if (model.insertAttributes && !group.GeneratePackageOnBuild) {
-        group.GeneratePackageOnBuild = '';
-    }
-
-    if (group.GeneratePackageOnBuild || group.GeneratePackageOnBuild === '') {
-        group.GeneratePackageOnBuild = model.generatePackageOnBuild;
-        logger.info(`GeneratePackageOnBuild --> ${model.generatePackageOnBuild}`);
+    if (!Utils.isIgnored(model.generatePackageOnBuild)) {
+        group = getPropertyGroup(propertyGroups, 'GeneratePackageOnBuild');
+        if (model.insertAttributes && !group.GeneratePackageOnBuild) {
+            group.GeneratePackageOnBuild = '';
+        }
+    
+        if (group.GeneratePackageOnBuild || group.GeneratePackageOnBuild === '') {
+            group.GeneratePackageOnBuild = model.generatePackageOnBuild;
+            logger.info(`GeneratePackageOnBuild --> ${model.generatePackageOnBuild}`);
+        }
     }
 
     // Package Require License Acceptance
-    group = getPropertyGroup(propertyGroups, 'PackageRequireLicenseAcceptance');
-    if (model.insertAttributes && !group.PackageRequireLicenseAcceptance) {
-        group.PackageRequireLicenseAcceptance = '';
-    }
-
-    if (group.PackageRequireLicenseAcceptance || group.PackageRequireLicenseAcceptance === '') {
-        group.PackageRequireLicenseAcceptance = model.requireLicenseAcceptance;
-        logger.info(`PackageRequireLicenseAcceptance --> ${model.requireLicenseAcceptance}`);
+    if (!Utils.isIgnored(model.requireLicenseAcceptance)) {
+        group = getPropertyGroup(propertyGroups, 'PackageRequireLicenseAcceptance');
+        if (model.insertAttributes && !group.PackageRequireLicenseAcceptance) {
+            group.PackageRequireLicenseAcceptance = '';
+        }
+    
+        if (group.PackageRequireLicenseAcceptance || group.PackageRequireLicenseAcceptance === '') {
+            group.PackageRequireLicenseAcceptance = model.requireLicenseAcceptance;
+            logger.info(`PackageRequireLicenseAcceptance --> ${model.requireLicenseAcceptance}`);
+        }
     }
 
     // Package Id

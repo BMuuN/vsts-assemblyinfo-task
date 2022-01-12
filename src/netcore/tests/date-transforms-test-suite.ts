@@ -34,8 +34,10 @@ describe('Net Core - Date Transforms Tests', function() {
         assert.strictEqual(tr.warningIssues.length, 0, 'should have no warnings');
         assert.strictEqual(tr.errorIssues.length, 0, 'should have no errors');
 
-        const copyright = TestUtils.getLine(tr.stdout, 'Copyright: Copyright © ');
-        const regex = /^(Copyright: Copyright © \d{4} \d{2}\.\d{2}\.\d{4} \d{2} \w+ \d{4} \d{2}:\d{2} \w+ Example Ltd)$/g;
+        const netCoreLibProject = path.join(projectDir, 'NetCoreLib/NetCoreLib.csproj');
+
+        const copyright = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Copyright');
+        const regex = /^(Copyright © \d{4} \d{2}\.\d{2}\.\d{4} \d{2} \w+ \d{4} \d{2}:\d{2} \w+ Example Ltd)$/g;
         const result = copyright.match(regex) as RegExpMatchArray;
 
         assert.notStrictEqual(result, null, 'Copyright field is not empty');
@@ -57,9 +59,11 @@ describe('Net Core - Date Transforms Tests', function() {
         assert.strictEqual(tr.warningIssues.length, 0, 'should have no warnings');
         assert.strictEqual(tr.errorIssues.length, 0, 'should have no errors');
 
-        const copyright = TestUtils.getLine(tr.stdout, 'Company: Bleddyn Richards Inc ');
-        const regex = /^(Company: Bleddyn Richards Inc \d{4})$/g;
-        const result = copyright.match(regex) as RegExpMatchArray;
+        const netCoreLibProject = path.join(projectDir, 'NetCoreLib/NetCoreLib.csproj');
+
+        const company = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Company');
+        const regex = /^(Bleddyn Richards Inc \d{4})$/g;
+        const result = company.match(regex) as RegExpMatchArray;
 
         assert.notStrictEqual(result, null, 'Company field is not empty');
         assert.strictEqual(result.length, 1, 'Dates not transformed for company field');
@@ -80,9 +84,11 @@ describe('Net Core - Date Transforms Tests', function() {
         assert.strictEqual(tr.warningIssues.length, 0, 'should have no warnings');
         assert.strictEqual(tr.errorIssues.length, 0, 'should have no errors');
 
-        const copyright = TestUtils.getLine(tr.stdout, 'Description: Assembly Info ');
-        const regex = /^(Description: Assembly Info \d{4} is an extension for Azure DevOps that sets assembly information from a build.)$/g;
-        const result = copyright.match(regex) as RegExpMatchArray;
+        const netCoreLibProject = path.join(projectDir, 'NetCoreLib/NetCoreLib.csproj');
+
+        const description = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'Description');
+        const regex = /^(Assembly Info \d{4} is an extension for Azure DevOps that sets assembly information from a build.)$/g;
+        const result = description.match(regex) as RegExpMatchArray;
 
         assert.notStrictEqual(result, null, 'Description field is not empty');
         assert.strictEqual(result.length, 1, 'Dates not transformed for description field');
