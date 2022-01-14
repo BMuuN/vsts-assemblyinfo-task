@@ -2,7 +2,6 @@ trigger:
   branches:
     include:
     - master
-    - 4.0.x
   batch: True
 
 name: 'AssemblyInfo-Extension_$(date:yyyy).$(date:MM).$(date:dd)$(rev:.r)'
