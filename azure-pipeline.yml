@@ -1,0 +1,280 @@
+trigger:
+  branches:
+    include:
+    - master
+  batch: True
+
+name: 'AssemblyInfo-Extension_$(date:yyyy).$(date:MM).$(date:dd)$(rev:.r)'
+
+pool:
+  name: Azure Pipelines
+  demands: npm
+
+resources:
+  repositories:
+  - repository: self
+    type: git
+    ref: master
+
+variables:
+  buildConfiguration: 'release'
+  buildPlatform: 'any cpu'
+  extensionVersion: '3.1.3'
+
+jobs:
+- job: Job_1
+  displayName: 'Run Tests'
+  cancelTimeoutInMinutes: 1
+  pool:
+    vmImage: ubuntu-20.04
+  steps:
+  - checkout: self
+  - task: Npm@1
+    displayName: 'Build Development'
+    inputs:
+      command: custom
+      verbose: false
+      customCommand: run build:dev:clean
+  - task: Npm@1
+    displayName: 'Run Tests'
+    enabled: False
+    inputs:
+      command: custom
+      verbose: false
+      customCommand: run test:run
+  - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+      testRunTitle: Assembly Info Test Results
+  - task: PublishCodeCoverageResults@1
+    displayName: 'Publish Code Coverage'
+    inputs:
+      codeCoverageTool: Cobertura
+      summaryFileLocation: $(Build.SourcesDirectory)/coverage/cobertura-coverage.xml
+  - task: ArchiveFiles@2
+    displayName: 'Archive Source'
+    condition: succeededOrFailed()
+    inputs:
+      rootFolderOrFile: $(Build.SourcesDirectory)
+      includeRootFolder: false
+      sevenZipCompression: 5
+      archiveFile: $(Build.ArtifactStagingDirectory)/AssemblyInfo - Source.zip
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Source'
+    inputs:
+      PathtoPublish: $(Build.ArtifactStagingDirectory)/AssemblyInfo - Source.zip
+  - task: ArchiveFiles@2
+    displayName: 'Archive Build Directory'
+    inputs:
+      rootFolderOrFile: '$(Agent.BuildDirectory)'
+      includeRootFolder: false
+      archiveFile: '$(Build.ArtifactStagingDirectory)/AssemblyInfo - Build Directory.zip'
+    condition: succeededOrFailed()
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Build Directory'
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/AssemblyInfo - Build Directory.zip'
+  - task: ArchiveFiles@2
+    displayName: 'Archive Build Directory'
+    condition: succeededOrFailed()
+    inputs:
+      rootFolderOrFile: $(Agent.BuildDirectory)
+      includeRootFolder: false
+      sevenZipCompression: 5
+      archiveFile: $(Build.ArtifactStagingDirectory)/AssemblyInfo - Build Directory.zip
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Build Directory'
+    inputs:
+      PathtoPublish: $(Build.ArtifactStagingDirectory)/AssemblyInfo - Build Directory.zip
+
+- job: Job_2
+  displayName: 'Build Extension'
+  cancelTimeoutInMinutes: 1
+  dependsOn: Job_1
+  pool:
+    vmImage: ubuntu-20.04
+  steps:
+  - checkout: self
+  - task: Npm@1
+    displayName: 'Install Node Application Packages'
+    enabled: False
+    inputs:
+      verbose: false
+  - task: Npm@1
+    displayName: 'Build Production'
+    inputs:
+      command: custom
+      verbose: false
+      customCommand: run build:prod:clean
+  - task: CopyFiles@2
+    displayName: 'Copy Extension Build for Test '
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)/src'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/src_test'
+      CleanTargetFolder: true
+      OverWrite: true
+  - task: CopyFiles@2
+    displayName: 'Copy Extension Build for Production'
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)/src'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/src_production'
+      CleanTargetFolder: true
+      OverWrite: true
+
+- job: Job_3
+  displayName: 'Package Extension - Test'
+  cancelTimeoutInMinutes: 1
+  dependsOn: Job_2
+  pool:
+    vmImage: ubuntu-20.04
+  steps:
+  - task: qetza.replacetokens.replacetokens-task.replacetokens@3
+    displayName: 'Replace Tokens'
+    inputs:
+      targetFiles: |
+      $(Build.ArtifactStagingDirectory)/src_test/**/NetCore/index.js
+      $(Build.ArtifactStagingDirectory)/src_test/**/NetCore/services/telemetry.service.js
+      $(Build.ArtifactStagingDirectory)/src_test/**/NetFramework/index.js
+      $(Build.ArtifactStagingDirectory)/src_test/**/NetFramework/services/telemetry.service.js
+  - task: sergeyzwezdin.magic-chunks.magic.chunks.MagicChunks@2
+    displayName: 'Replace Task Properties for Net Framework'
+    inputs:
+      sourcePath: '$(Build.ArtifactStagingDirectory)/src_test/NetFramework/task.json'
+      fileType: Json
+      transformations: |
+      {
+        "id": "$(netFrameworkTaskId)",
+        "name": "$(netFrameworkTaskName)",
+        "friendlyName": "$(netFrameworkTaskFriendlyName)"
+      }
+  - task: sergeyzwezdin.magic-chunks.magic.chunks.MagicChunks@2
+    displayName: 'Replace Task Properties for Net Core'
+    inputs:
+      sourcePath: '$(Build.ArtifactStagingDirectory)/src_test/NetCore/task.json'
+      fileType: Json
+      transformations: |
+      {
+        "id": "$(netCoreTaskId)",
+        "name": "$(netCoreTaskName)",
+        "friendlyName": "$(netCoreTaskFriendlyName)"
+      }
+  - task: ms-devlabs.vsts-developer-tools-build-tasks.tfx-installer-build-task.TfxInstaller@3
+    displayName: 'Use Node CLI for Azure DevOps (tfx-cli): v0.6.x'
+    inputs:
+      version: v0.6.x
+  - task: ms-devlabs.vsts-developer-tools-build-tasks.package-extension-build-task.PackageAzureDevOpsExtension@3
+    displayName: 'Package Extension - Test'
+    inputs:
+      rootFolder: '$(Build.ArtifactStagingDirectory)/src_test'
+      outputPath: '$(Build.ArtifactStagingDirectory)/packages/Assembly-Info-$(extensionVersion)-private.vsix'
+      outputVariable: Extension.OutputPathTest
+      publisherId: '$(publisherId)'
+      extensionId: '$(extensionId)'
+      extensionName: '$(extensionName)'
+      extensionVersion: '$(extensionVersion)'
+      updateTasksVersion: true
+      extensionVisibility: private
+      extensionPricing: free  
+  - task: ArchiveFiles@2
+    displayName: 'Archive Extension'
+    inputs:
+      rootFolderOrFile: $(Build.ArtifactStagingDirectory)/src_test
+      includeRootFolder: false
+      sevenZipCompression: 5
+      archiveFile: $(Build.ArtifactStagingDirectory)/AssemblyInfo - Extension Build - Test.zip
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Extension Build'
+    inputs:
+      PathtoPublish: $(Build.ArtifactStagingDirectory)/AssemblyInfo - Extension Build - Test.zip
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Extension'
+    inputs:
+      PathtoPublish: $(Build.ArtifactStagingDirectory)/packages/Assembly-Info-$(extensionVersion)-private.vsix
+
+- job: Job_4
+  displayName: 'Package Extension - Production'
+  cancelTimeoutInMinutes: 1
+  dependsOn: Job_2
+  pool:
+    vmImage: ubuntu-20.04
+  steps:
+  - task: qetza.replacetokens.replacetokens-task.replacetokens@3
+    displayName: 'Replace Tokens'
+    inputs:
+      targetFiles: |
+      $(Build.ArtifactStagingDirectory)/src_production/**/NetCore/index.js
+      $(Build.ArtifactStagingDirectory)/src_production/**/NetCore/services/telemetry.service.js
+      $(Build.ArtifactStagingDirectory)/src_production/**/NetFramework/index.js
+      $(Build.ArtifactStagingDirectory)/src_production/**/NetFramework/services/telemetry.service.js
+  - task: sergeyzwezdin.magic-chunks.magic.chunks.MagicChunks@2
+    displayName: 'Replace Task Properties for Net Framework'
+    inputs:
+      sourcePath: '$(Build.ArtifactStagingDirectory)/src_production/NetFramework/task.json'
+      fileType: Json
+      transformations: |
+      {
+        "id": "$(netFrameworkTaskId)",
+        "name": "$(netFrameworkTaskName)",
+        "friendlyName": "$(netFrameworkTaskFriendlyName)"
+      }
+  - task: sergeyzwezdin.magic-chunks.magic.chunks.MagicChunks@2
+    displayName: 'Replace Task Properties for Net Core'
+    inputs:
+      sourcePath: '$(Build.ArtifactStagingDirectory)/src_production/NetCore/task.json'
+      fileType: Json
+      transformations: |
+      {
+        "id": "$(netCoreTaskId)",
+        "name": "$(netCoreTaskName)",
+        "friendlyName": "$(netCoreTaskFriendlyName)"
+      }
+  - task: ms-devlabs.vsts-developer-tools-build-tasks.tfx-installer-build-task.TfxInstaller@3
+    displayName: 'Use Node CLI for Azure DevOps (tfx-cli): v0.6.x'
+    inputs:
+      version: v0.6.x
+  - task: ms-devlabs.vsts-developer-tools-build-tasks.package-extension-build-task.PackageAzureDevOpsExtension@3
+    displayName: 'Package Extension - Production'
+    inputs:
+      rootFolder: '$(Build.ArtifactStagingDirectory)/src_production'
+      outputPath: '$(Build.ArtifactStagingDirectory)/packages/Assembly-Info-$(extensionVersion).vsix'
+      outputVariable: Extension.OutputPathLive
+      publisherId: '$(publisherId)'
+      extensionId: '$(extensionId)'
+      extensionName: '$(extensionName)'
+      extensionVersion: '$(extensionVersion)'
+      updateTasksVersion: true
+      extensionVisibility: public
+      extensionPricing: free  
+  - task: ArchiveFiles@2
+    displayName: 'Archive Extension'
+    inputs:
+      rootFolderOrFile: $(Build.ArtifactStagingDirectory)/src_production
+      includeRootFolder: false
+      sevenZipCompression: 5
+      archiveFile: $(Build.ArtifactStagingDirectory)/AssemblyInfo - Extension Build - Production.zip
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Extension Build'
+    inputs:
+      PathtoPublish: $(Build.ArtifactStagingDirectory)/AssemblyInfo - Extension Build - Production.zip
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Extension'
+    inputs:
+      PathtoPublish: $(Build.ArtifactStagingDirectory)/packages/Assembly-Info-$(extensionVersion).vsix
+
+- job: Job_5
+  displayName: Publish
+  cancelTimeoutInMinutes: 1
+  dependsOn:
+  - Job_3
+  - Job_4
+  condition: succeededOrFailed()
+  pool:
+    vmImage: ubuntu-20.04
+  steps:
+  - checkout: self
+  - task: Assembly-Info-NetCore-Test@3
+    displayName: Set Assembly Manifest Data
+    condition: always()
+    inputs:
+      UpdateBuildNumber: $(Build.DefinitionName)_v$(extensionVersion)
+      AddBuildTag: v$(extensionVersion)
