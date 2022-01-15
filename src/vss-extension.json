@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
-    "id": "Assembly-Info-Task",
-    "name": "Assembly Info",
+    "id": "#{ExtensionId}#",
+    "name": "#{ExtensionName}#",
     "public": true,
     "version": "1.0.0",
     "publisher": "bleddynrichards",
@@ -10,7 +10,7 @@
             "id": "Microsoft.VisualStudio.Services"
         }
     ],
-    "description": "Set assembly information such as Version, Copyright and Trademark etc from Azure DevOps build.",
+    "description": "Set assembly information such as Version, Copyright and Trademark etc from Azure DevOps build pipeline.",
     "icons": {
         "default": "images/Logo128x128.png"
     },

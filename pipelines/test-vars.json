@@ -1,0 +1,12 @@
+{
+    "ExtensionId": "Assembly-Info-Task-Test",
+    "ExtensionName": "Assembly Info (Test)",
+    "NetFrameworkInstrumentationKey": "CAB1664A-DB78-4058-B55C-3DB8D219E616",
+    "NetFrameworkTaskId": "F6C609D1-94DE-4FA6-B9E9-F146161EC47A",
+    "NetFrameworkTaskName": "Assembly-Info-NetFramework-Test",
+    "NetFrameworkTaskFriendlyName": "Assembly Info (.Net Framework) - TEST",
+    "NetCoreInstrumentationKey": "69B9EBE1-C97F-4832-AB47-E33832D1E8B9",
+    "NetCoreTaskId": "9E9CFB95-62DC-4A63-BC66-FB8F57AF76FF",
+    "NetCoreTaskName": "Assembly-Info-NetCore-Test",
+    "NetCoreTaskFriendlyName": "Assembly Info (.Net Core & .Net Standard) - TEST"
+}
