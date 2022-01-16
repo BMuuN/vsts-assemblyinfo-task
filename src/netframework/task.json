@@ -1,8 +1,8 @@
 {
   "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
-  "id": "3EDC451E-360C-40E5-A221-A42D5C987AB8",
-  "name": "Assembly-Info-NetFramework",
-  "friendlyName": "Assembly Info (.Net Framework)",
+  "id": "#{NetFrameworkTaskId}#",
+  "name": "#{NetFrameworkTaskName}#",
+  "friendlyName": "#{NetFrameworkTaskFriendlyName}#",
   "description": "Set assembly information such as Version, Copyright and Trademark etc.",
   "helpMarkDown": "[More Information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task)",
   "category": "Build",

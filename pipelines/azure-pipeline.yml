@@ -96,18 +96,13 @@ jobs:
   steps:
   - checkout: self
   - task: Npm@1
-    displayName: 'Install Node Application Packages'
-    enabled: False
-    inputs:
-      verbose: false
-  - task: Npm@1
     displayName: 'Build Production'
     inputs:
       command: custom
       verbose: false
       customCommand: run build:prod:clean
   - task: CopyFiles@2
-    displayName: 'Copy Extension Build for Test '
+    displayName: 'Copy Extension Build for Test'
     inputs:
       SourceFolder: '$(Build.SourcesDirectory)/src'
       TargetFolder: '$(Build.ArtifactStagingDirectory)/src_test'
