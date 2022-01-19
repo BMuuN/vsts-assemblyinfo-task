@@ -1,8 +1,8 @@
 {
   "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
-  "id": "9E9CFB95-62DC-4A63-BC66-FB8F57AF76FF",
-  "name": "Assembly-Info-NetCore",
-  "friendlyName": "Assembly Info (.Net Core & .Net Standard)",
+  "id": "#{NetCoreTaskId}#",
+  "name": "#{NetCoreTaskName}#",
+  "friendlyName": "#{NetCoreTaskFriendlyName}#",
   "description": "Set assembly or package information such as Version, Copyright and Repository URL's etc.",
   "helpMarkDown": "[More Information](https://marketplace.visualstudio.com/items?itemName=bleddynrichards.Assembly-Info-Task)",
   "category": "Build",

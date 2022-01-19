@@ -1,0 +1,12 @@
+{
+    "ExtensionId": "Assembly-Info-Task",
+    "ExtensionName": "Assembly Info",
+    "NetFrameworkInstrumentationKey": "14430f00-2e5d-45dd-9538-34c96373448f",
+    "NetFrameworkTaskId": "3EDC451E-360C-40E5-A221-A42D5C987AB8",
+    "NetFrameworkTaskName": "Assembly-Info-NetFramework",
+    "NetFrameworkTaskFriendlyName": "Assembly Info (.Net Framework)",
+    "NetCoreInstrumentationKey": "e06d7d33-348e-46d8-93d3-375f08b9e381",
+    "NetCoreTaskId": "F15DC48C-4351-4C96-927C-729360A3164B",
+    "NetCoreTaskName": "Assembly-Info-NetCore",
+    "NetCoreTaskFriendlyName": "Assembly Info (.Net Core & .Net Standard)"
+}
