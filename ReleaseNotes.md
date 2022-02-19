@@ -2,6 +2,7 @@
 > **v3.2.0**
 > - Added message grouping to task output.
 > - Added new check to skip .Net Framework project from the Net Core task.
+> - Bug fix for output variables in .Net Framework task.
 
 > **v3.1.6**
 > - Converted some checkboxes (boolean) attributes to dropdown list to allow attributes to be ignored.  Fixes [#214](https://github.com/BMuuN/vsts-assemblyinfo-task/issues/214) and [#170](https://github.com/BMuuN/vsts-assemblyinfo-task/issues/170) by allowing `true|false|ignore` to be specified, defaults to `ignore`.  

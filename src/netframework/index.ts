@@ -127,7 +127,7 @@ function generateVersionNumbers(model: models.NetFramework, regexModel: models.R
 
 function printTaskParameters(model: models.NetFramework): void {
 
-    logger.debug('Task Parameters...');
+    logger.debug('##[group]Task Parameters...');
     logger.debug(`Source folder: ${model.path}`);
     logger.debug(`Source files: ${model.fileNames}`);
     logger.debug(`Insert attributes: ${model.insertAttributes}`);
@@ -152,6 +152,7 @@ function printTaskParameters(model: models.NetFramework): void {
     logger.debug(`Build Tag: ${model.buildTag}`);
     logger.debug(`Build Number: ${model.buildNumber}`);
 
+    logger.debug('##[endgroup]');
     logger.debug('');
 }
 
@@ -321,12 +322,15 @@ function replaceAttribute(content: string, name: string, regEx: string, value: s
 }
 
 function setOutputVariables(model: models.NetFramework) {
-    tl.setVariable('AssemblyInfo.Version', model.version, false);
-    tl.setVariable('AssemblyInfo.FileVersion', model.fileVersion, false);
-    tl.setVariable('AssemblyInfo.InformationalVersion', model.informationalVersion, false);
+    logger.debug(`Setting output variables...`);
+    tl.setVariable('AssemblyInfo.Version', model.version, false, true);
+    tl.setVariable('AssemblyInfo.FileVersion', model.fileVersion, false, true);
+    tl.setVariable('AssemblyInfo.InformationalVersion', model.informationalVersion, false, true);
 }
 
 function setTaggingOptions(model: models.NetFramework) {
+
+    logger.debug(`Tagging build...`);
 
     if (model.buildNumber) {
         tl.updateBuildNumber(`${model.buildNumber}`);
