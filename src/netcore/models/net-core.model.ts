@@ -1,6 +1,8 @@
 import { AssemblyInfo } from './';
 
 export class NetCore extends AssemblyInfo {
+    ignoreNetFrameworkProjects: boolean = false;
+    
     generateDocumentationFile: string = '';
     generatePackageOnBuild: string = '';
     requireLicenseAcceptance: string = '';

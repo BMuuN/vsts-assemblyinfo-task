@@ -27,6 +27,7 @@ export class RequestModel {
         this.tmr.setInput('LOGLEVEL', 'verbose');
         this.tmr.setInput('FAILONWARNING', 'false');
         this.tmr.setInput('DISABLETELEMETRY', 'true');
+        this.tmr.setInput('IGNORENETFRAMEWORKPROJECTS', 'false');
 
         this.tmr.setInput('TRADEMARK', 'Example Trademark');
         this.tmr.setInput('CONFIGURATION', 'debug');

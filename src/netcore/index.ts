@@ -71,6 +71,7 @@ function getDefaultModel(): models.NetCore {
         path: tl.getPathInput('Path', true) || '',
         fileNames: tl.getDelimitedInput('FileNames', '\n', true),
         insertAttributes: tl.getBoolInput('InsertAttributes', true),
+        ignoreNetFrameworkProjects: tl.getBoolInput('IgnoreNetFrameworkProjects', false) || false,
         fileEncoding: tl.getInput('FileEncoding', true) || '',
         detectedFileEncoding: '',
         writeBOM: tl.getBoolInput('WriteBOM', true),
@@ -142,10 +143,11 @@ function generateVersionNumbers(model: models.NetCore, regexModel: models.RegEx)
 
 function printTaskParameters(model: models.NetCore): void {
 
-    logger.debug('Task Parameters...');
+    logger.debug('##[group]Task Parameters...');
     logger.debug(`Source folder: ${model.path}`);
     logger.debug(`Source files: ${model.fileNames}`);
     logger.debug(`Insert attributes: ${model.insertAttributes}`);
+    logger.debug(`Ignore .Net Framework projects: ${model.ignoreNetFrameworkProjects}`);
     logger.debug(`File encoding: ${model.fileEncoding}`);
     logger.debug(`Write unicode BOM: ${model.writeBOM}`);
 
@@ -178,6 +180,7 @@ function printTaskParameters(model: models.NetCore): void {
 
     logger.debug(`Build Tag: ${model.buildTag}`);
     logger.debug(`Build Number: ${model.buildNumber}`);
+    logger.debug('##[endgroup]');
 
     logger.debug('');
 }
@@ -195,7 +198,7 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
 
     files.forEach((file: string) => {
 
-        logger.info(`Processing: ${file}`);
+        logger.info(`##[group]Processing: ${file}`);
 
         // Reset flag to control if our own <PropertyGroup> was created.
         hasCreatedPropertyGroup = false;
@@ -205,7 +208,6 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
             return;
         }
 
-        // this will never get called, remove?
         if (!tl.exist(file)) {
             logger.error(`File not found: ${file}`);
             return;
@@ -243,6 +245,14 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
                 result.Project.PropertyGroup = [];
             }
 
+            // Skip .Net Framework project files
+            if (model.ignoreNetFrameworkProjects) {
+                if (isTargetingNetFramework(result.Project.PropertyGroup)) {
+                    logger.info(`Project has been identified as a .Net Framework project.  Skipping and moving to the next project.`);
+                    return;
+                }
+            }
+
             setAssemblyData(result.Project.PropertyGroup, model);
 
             // rebuild xml project structure
@@ -253,8 +263,10 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
 
             const encodingResult = getFileEncoding(file);
             logger.debug(`Verify file encoding: ${encodingResult}`);
-            logger.info('');
         });
+
+        logger.info('##[endgroup]');
+        logger.info('');
     });
 }
 
@@ -274,6 +286,19 @@ function setFileEncoding(file: string, model: models.NetCore) {
     } else if (model.fileEncoding !== encoding) {
         logger.warning(`Detected file encoding (${encoding}) is different to the one specified (${model.fileEncoding}).`);
     }
+}
+
+function isTargetingNetFramework(propertyGroups: any): boolean {
+    for (const group of propertyGroups) {
+        let keys = Object.keys(group);
+        for (const key of keys) {
+            if (key.toLowerCase() === 'TargetFrameworkVersion'.toLowerCase()) {
+                return true;
+            } 
+        }
+    }
+
+    return false;
 }
 
 function getPropertyGroup(propertyGroups: any, name: string): any {
@@ -626,6 +651,7 @@ function setAssemblyData(propertyGroups: any, model: models.NetCore): void {
 }
 
 function setOutputVariables(model: models.NetCore) {
+    logger.debug(`Setting output variables...`);
     tl.setVariable('AssemblyInfo.Version', model.version, false, true);
     tl.setVariable('AssemblyInfo.FileVersion', model.fileVersion, false, true);
     tl.setVariable('AssemblyInfo.InformationalVersion', model.informationalVersion, false, true);
@@ -633,6 +659,8 @@ function setOutputVariables(model: models.NetCore) {
 }
 
 function setTaggingOptions(model: models.NetCore) {
+
+    logger.debug(`Tagging build...`);
 
     if (model.buildNumber) {
         tl.updateBuildNumber(model.buildNumber);

@@ -168,7 +168,7 @@ function setManifestData(model: models.NetFramework, regEx: models.RegEx): void 
 
     files.forEach((file: string) => {
 
-        logger.info(`Processing: ${file}`);
+        logger.info(`##[group]Processing: ${file}`);
 
         if (path.extname(file) !== '.vb' && path.extname(file) !== '.cs' && path.extname(file) !== '.cpp') {
             logger.warning('Invalid file.  Only the following file extensions are supported: .cs, .vb, .cpp');
@@ -210,6 +210,7 @@ function setManifestData(model: models.NetFramework, regEx: models.RegEx): void 
 
         const encodingResult = getFileEncoding(file);
         logger.debug(`Verify file encoding: ${encodingResult}`);
+        logger.info('##[endgroup]');
         logger.info('');
     });
 }
