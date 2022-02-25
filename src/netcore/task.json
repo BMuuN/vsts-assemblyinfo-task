@@ -68,6 +68,14 @@
       "helpMarkDown": "If checked the task will insert missing attributes into the source files specified above."
     },
     {
+      "name": "IgnoreNetFrameworkProjects",
+      "type": "boolean",
+      "label": "Ignore/Skip .Net Framework Projects",
+      "defaultValue": false,
+      "required": false,
+      "helpMarkDown": "If checked the task will ignore/skip all project files identified as .Net Framework projects."
+    },
+    {
       "name": "FileEncoding",
       "type": "pickList",
       "label": "File encoding",
