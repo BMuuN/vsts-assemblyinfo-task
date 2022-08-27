@@ -181,8 +181,6 @@ function printTaskParameters(model: models.NetCore): void {
     logger.debug(`Build Tag: ${model.buildTag}`);
     logger.debug(`Build Number: ${model.buildNumber}`);
     logger.debug('##[endgroup]');
-
-    logger.debug('');
 }
 
 function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
@@ -266,7 +264,6 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
         });
 
         logger.info('##[endgroup]');
-        logger.info('');
     });
 }
 
@@ -391,6 +388,7 @@ function setAssemblyData(propertyGroups: any, model: models.NetCore): void {
         if (group.Version || group.Version === '') {
             group.Version = Utils.setVersionNumber(group.Version[0], model.packageVersion);
             logger.info(`Version --> ${group.Version}`);
+            model.packageVersion = group.Version; //ensure output variable is correct
         }
     }
 
@@ -615,7 +613,8 @@ function setAssemblyData(propertyGroups: any, model: models.NetCore): void {
 
         if (group.AssemblyVersion || group.AssemblyVersion === '') {
             group.AssemblyVersion = Utils.setVersionNumber(group.AssemblyVersion[0], model.version);
-            logger.info(`AssemblyVersion --> ${model.version}`);
+            logger.info(`AssemblyVersion --> ${group.AssemblyVersion}`);
+            model.version = group.AssemblyVersion; //ensure output variable is correct
         }
     }
 
@@ -631,6 +630,7 @@ function setAssemblyData(propertyGroups: any, model: models.NetCore): void {
         if (group.FileVersion || group.FileVersion === '') {
             group.FileVersion = Utils.setVersionNumber(group.FileVersion[0], model.fileVersion);
             logger.info(`FileVersion --> ${group.FileVersion}`);
+            model.fileVersion = group.FileVersion; //ensure output variable is correct
         }
     }
 
@@ -646,16 +646,28 @@ function setAssemblyData(propertyGroups: any, model: models.NetCore): void {
         if (group.InformationalVersion || group.InformationalVersion === '') {
             group.InformationalVersion = Utils.setVersionNumber(group.InformationalVersion[0], model.informationalVersion);
             logger.info(`InformationalVersion --> ${group.InformationalVersion}`);
+            model.informationalVersion = group.InformationalVersion; //ensure output variable is correct
         }
     }
 }
 
 function setOutputVariables(model: models.NetCore) {
-    logger.debug(`Setting output variables...`);
+    
+    logger.debug(`##[group]Setting output variables...`);
+
     tl.setVariable('AssemblyInfo.Version', model.version, false, true);
+    logger.debug(`$.AssemblyInfo.Version: ${model.version}`);
+
     tl.setVariable('AssemblyInfo.FileVersion', model.fileVersion, false, true);
+    logger.debug(`$.AssemblyInfo.FileVersion: ${model.fileVersion}`);
+
     tl.setVariable('AssemblyInfo.InformationalVersion', model.informationalVersion, false, true);
+    logger.debug(`$.AssemblyInfo.InformationalVersion: ${model.informationalVersion}`);
+
     tl.setVariable('AssemblyInfo.PackageVersion', model.packageVersion, false, true);
+    logger.debug(`$.AssemblyInfo.PackageVersion: ${model.packageVersion}`);
+    
+    logger.debug('##[endgroup]');
 }
 
 function setTaggingOptions(model: models.NetCore) {
