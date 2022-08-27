@@ -153,7 +153,6 @@ function printTaskParameters(model: models.NetFramework): void {
     logger.debug(`Build Number: ${model.buildNumber}`);
 
     logger.debug('##[endgroup]');
-    logger.debug('');
 }
 
 function setManifestData(model: models.NetFramework, regEx: models.RegEx): void {
@@ -195,24 +194,47 @@ function setManifestData(model: models.NetFramework, regEx: models.RegEx): void 
             fileContent = addUsingIfMissing(file, fileContent);
         }
 
-        fileContent = processAttribute(file, fileContent, 'AssemblyVersion', regEx.word, model.version, model.insertAttributes, true);
-        fileContent = processAttribute(file, fileContent, 'AssemblyFileVersion', regEx.word, model.fileVersion, model.insertAttributes, true);
-        fileContent = processAttribute(file, fileContent, 'AssemblyInformationalVersion', regEx.word, model.informationalVersion, model.insertAttributes, true);
-        fileContent = processAttribute(file, fileContent, 'AssemblyTitle', regEx.word, model.title, model.insertAttributes, false);
-        fileContent = processAttribute(file, fileContent, 'AssemblyProduct', regEx.word, model.product, model.insertAttributes, false);
-        fileContent = processAttribute(file, fileContent, 'AssemblyCompany', regEx.word, model.company, model.insertAttributes, false);
-        fileContent = processAttribute(file, fileContent, 'AssemblyTrademark', regEx.word, model.trademark, model.insertAttributes, false);
-        fileContent = processAttribute(file, fileContent, 'AssemblyDescription', regEx.word, model.description, model.insertAttributes, false);
-        fileContent = processAttribute(file, fileContent, 'AssemblyCulture', regEx.word, model.culture, model.insertAttributes, false);
-        fileContent = processAttribute(file, fileContent, 'AssemblyConfiguration', regEx.word, model.configuration, model.insertAttributes, false);
-        fileContent = processAttribute(file, fileContent, 'AssemblyCopyright', regEx.word, model.copyright, model.insertAttributes, false);
+        let result = processAttribute(file, fileContent, 'AssemblyVersion', regEx.word, model.version, model.insertAttributes, true);
+        fileContent = result.fileContent;
+        model.version = result.value;
+
+        result = processAttribute(file, fileContent, 'AssemblyFileVersion', regEx.word, model.fileVersion, model.insertAttributes, true);
+        fileContent = result.fileContent;
+        model.fileVersion = result.value;
+
+        result = processAttribute(file, fileContent, 'AssemblyInformationalVersion', regEx.word, model.informationalVersion, model.insertAttributes, true);
+        fileContent = result.fileContent;
+        model.informationalVersion = result.value;
+
+        result = processAttribute(file, fileContent, 'AssemblyTitle', regEx.word, model.title, model.insertAttributes, false);
+        fileContent = result.fileContent;
+
+        result = processAttribute(file, fileContent, 'AssemblyProduct', regEx.word, model.product, model.insertAttributes, false);
+        fileContent = result.fileContent;
+
+        result = processAttribute(file, fileContent, 'AssemblyCompany', regEx.word, model.company, model.insertAttributes, false);
+        fileContent = result.fileContent;
+
+        result = processAttribute(file, fileContent, 'AssemblyTrademark', regEx.word, model.trademark, model.insertAttributes, false);
+        fileContent = result.fileContent;
+
+        result = processAttribute(file, fileContent, 'AssemblyDescription', regEx.word, model.description, model.insertAttributes, false);
+        fileContent = result.fileContent;
+
+        result = processAttribute(file, fileContent, 'AssemblyCulture', regEx.word, model.culture, model.insertAttributes, false);
+        fileContent = result.fileContent;
+
+        result = processAttribute(file, fileContent, 'AssemblyConfiguration', regEx.word, model.configuration, model.insertAttributes, false);
+        fileContent = result.fileContent;
+
+        result = processAttribute(file, fileContent, 'AssemblyCopyright', regEx.word, model.copyright, model.insertAttributes, false);
+        fileContent = result.fileContent;
 
         fs.writeFileSync(file, iconv.encode(fileContent, model.detectedFileEncoding, { addBOM: model.writeBOM, stripBOM: undefined, defaultEncoding: undefined }));
 
         const encodingResult = getFileEncoding(file);
         logger.debug(`Verify file encoding: ${encodingResult}`);
         logger.info('##[endgroup]');
-        logger.info('');
     });
 }
 
@@ -257,19 +279,21 @@ function addUsingIfMissing(file: string, content: string) {
     return content;
 }
 
-function processAttribute(file: string, fileContent: string, attributeName: string, regex: string, value: string, insertAttributes: boolean, isVersionNumber: boolean): string {
+function processAttribute(file: string, fileContent: string, attributeName: string, regex: string, value: string, insertAttributes: boolean, isVersionNumber: boolean): models.ReplaceResult {
+    
+    let result = new models.ReplaceResult(fileContent, value);
 
     if (value && value.length > 0) {
         if (insertAttributes) {
-            fileContent = insertAttribute(file, fileContent, attributeName, value);
+            result = insertAttribute(file, result.fileContent, attributeName, result.value);
         }
-        fileContent = replaceAttribute(fileContent, attributeName, regex, value, isVersionNumber);
+        result = replaceAttribute(result.fileContent, attributeName, regex, result.value, isVersionNumber);
     }
 
-    return fileContent;
+    return result;
 }
 
-function insertAttribute(file: string, content: string, name: string, value: string): string {
+function insertAttribute(file: string, content: string, name: string, value: string): models.ReplaceResult {
 
     if (file.endsWith('.vb')) {
 
@@ -299,18 +323,20 @@ function insertAttribute(file: string, content: string, name: string, value: str
         }
     }
 
-    return content;
+    return new models.ReplaceResult(content, value);
 }
 
-function replaceAttribute(content: string, name: string, regEx: string, value: string, isVersionNumber: boolean): string {
+function replaceAttribute(content: string, name: string, regEx: string, value: string, isVersionNumber: boolean): models.ReplaceResult {
     logger.info(`${name} --> ${value}`);
 
+    let newVersion = '';
+
     if (isVersionNumber) {
-        let existingVersioNumberResult = content.match(new RegExp(`${name}\\s*\\w*\\(${regEx}\\)`, 'gi')) as RegExpMatchArray;
-        if (existingVersioNumberResult && existingVersioNumberResult.length >= 1) {
-            existingVersioNumberResult.forEach((val: string, index: number, array: string[]) => {
-                let existingVersioNumber = val.substring(val.indexOf('("') + 2, val.indexOf('")'));
-                let newVersion  = Utils.setVersionNumber(existingVersioNumber, value);
+        let existingVersionNumberResult = content.match(new RegExp(`${name}\\s*\\w*\\(${regEx}\\)`, 'gi')) as RegExpMatchArray;
+        if (existingVersionNumberResult && existingVersionNumberResult.length >= 1) {
+            existingVersionNumberResult.forEach((val: string, index: number, array: string[]) => {
+                let existingVersionNumber = val.substring(val.indexOf('("') + 2, val.indexOf('")'));
+                newVersion = Utils.setVersionNumber(existingVersionNumber, value);
                 content = content.replace(`${val}`, `${name}("${newVersion}")`);
             });
         }
@@ -318,14 +344,22 @@ function replaceAttribute(content: string, name: string, regEx: string, value: s
         content = content.replace(new RegExp(`${name}\\s*\\w*\\(${regEx}\\)`, 'gi'), `${name}("${value}")`);
     }
 
-    return content;
+    return new models.ReplaceResult(content, newVersion);
 }
 
 function setOutputVariables(model: models.NetFramework) {
-    logger.debug(`Setting output variables...`);
+    logger.debug(`##[group]Setting output variables...`);
+
     tl.setVariable('AssemblyInfo.Version', model.version, false, true);
+    logger.debug(`$.AssemblyInfo.Version: ${model.version}`);
+
     tl.setVariable('AssemblyInfo.FileVersion', model.fileVersion, false, true);
+    logger.debug(`$.AssemblyInfo.FileVersion: ${model.fileVersion}`);
+
     tl.setVariable('AssemblyInfo.InformationalVersion', model.informationalVersion, false, true);
+    logger.debug(`$.AssemblyInfo.InformationalVersion: ${model.informationalVersion}`);
+
+    logger.debug('##[endgroup]');
 }
 
 function setTaggingOptions(model: models.NetFramework) {
