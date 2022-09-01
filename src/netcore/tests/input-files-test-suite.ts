@@ -123,7 +123,7 @@ describe('Net Core - Input Files Tests', function() {
     it('should succeed and update assembly data (Directory.Build.props)', (done: Mocha.Done) => {
         this.timeout(1000);
 
-        const tp = path.join(testDir, 'success-file-props-utf8');
+        const tp = path.join(testDir, 'success-file-props-utf8.js');
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
         tr.run();
@@ -210,7 +210,7 @@ describe('Net Core - Input Files Tests', function() {
     it('should succeed and update assembly data (EmptyDirectory.Build.props)', (done: Mocha.Done) => {
         this.timeout(1000);
 
-        const tp = path.join(testDir, 'success-file-empty-props-utf8');
+        const tp = path.join(testDir, 'success-file-empty-props-utf8.js');
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
         tr.run();
