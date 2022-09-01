@@ -194,43 +194,26 @@ function setManifestData(model: models.NetFramework, regEx: models.RegEx): void 
             fileContent = addUsingIfMissing(file, fileContent);
         }
 
-        let result = processAttribute(file, fileContent, 'AssemblyVersion', regEx.word, model.version, model.insertAttributes, true);
-        fileContent = result.fileContent;
+        let result = new models.ReplaceResult(fileContent, '');
+        result = processAttribute(file, result.fileContent, 'AssemblyVersion', regEx.word, model.version, model.insertAttributes, true);
         model.version = result.value;
 
-        result = processAttribute(file, fileContent, 'AssemblyFileVersion', regEx.word, model.fileVersion, model.insertAttributes, true);
-        fileContent = result.fileContent;
+        result = processAttribute(file, result.fileContent, 'AssemblyFileVersion', regEx.word, model.fileVersion, model.insertAttributes, true);
         model.fileVersion = result.value;
 
-        result = processAttribute(file, fileContent, 'AssemblyInformationalVersion', regEx.word, model.informationalVersion, model.insertAttributes, true);
-        fileContent = result.fileContent;
+        result = processAttribute(file, result.fileContent, 'AssemblyInformationalVersion', regEx.word, model.informationalVersion, model.insertAttributes, true);
         model.informationalVersion = result.value;
 
-        result = processAttribute(file, fileContent, 'AssemblyTitle', regEx.word, model.title, model.insertAttributes, false);
-        fileContent = result.fileContent;
+        result = processAttribute(file, result.fileContent, 'AssemblyTitle', regEx.word, model.title, model.insertAttributes, false);
+        result = processAttribute(file, result.fileContent, 'AssemblyProduct', regEx.word, model.product, model.insertAttributes, false);
+        result = processAttribute(file, result.fileContent, 'AssemblyCompany', regEx.word, model.company, model.insertAttributes, false);
+        result = processAttribute(file, result.fileContent, 'AssemblyTrademark', regEx.word, model.trademark, model.insertAttributes, false);
+        result = processAttribute(file, result.fileContent, 'AssemblyDescription', regEx.word, model.description, model.insertAttributes, false);
+        result = processAttribute(file, result.fileContent, 'AssemblyCulture', regEx.word, model.culture, model.insertAttributes, false);
+        result = processAttribute(file, result.fileContent, 'AssemblyConfiguration', regEx.word, model.configuration, model.insertAttributes, false);
+        result = processAttribute(file, result.fileContent, 'AssemblyCopyright', regEx.word, model.copyright, model.insertAttributes, false);
 
-        result = processAttribute(file, fileContent, 'AssemblyProduct', regEx.word, model.product, model.insertAttributes, false);
-        fileContent = result.fileContent;
-
-        result = processAttribute(file, fileContent, 'AssemblyCompany', regEx.word, model.company, model.insertAttributes, false);
-        fileContent = result.fileContent;
-
-        result = processAttribute(file, fileContent, 'AssemblyTrademark', regEx.word, model.trademark, model.insertAttributes, false);
-        fileContent = result.fileContent;
-
-        result = processAttribute(file, fileContent, 'AssemblyDescription', regEx.word, model.description, model.insertAttributes, false);
-        fileContent = result.fileContent;
-
-        result = processAttribute(file, fileContent, 'AssemblyCulture', regEx.word, model.culture, model.insertAttributes, false);
-        fileContent = result.fileContent;
-
-        result = processAttribute(file, fileContent, 'AssemblyConfiguration', regEx.word, model.configuration, model.insertAttributes, false);
-        fileContent = result.fileContent;
-
-        result = processAttribute(file, fileContent, 'AssemblyCopyright', regEx.word, model.copyright, model.insertAttributes, false);
-        fileContent = result.fileContent;
-
-        fs.writeFileSync(file, iconv.encode(fileContent, model.detectedFileEncoding, { addBOM: model.writeBOM, stripBOM: undefined, defaultEncoding: undefined }));
+        fs.writeFileSync(file, iconv.encode(result.fileContent, model.detectedFileEncoding, { addBOM: model.writeBOM, stripBOM: undefined, defaultEncoding: undefined }));
 
         const encodingResult = getFileEncoding(file);
         logger.debug(`Verify file encoding: ${encodingResult}`);
@@ -329,7 +312,7 @@ function insertAttribute(file: string, content: string, name: string, value: str
 function replaceAttribute(content: string, name: string, regEx: string, value: string, isVersionNumber: boolean): models.ReplaceResult {
     logger.info(`${name} --> ${value}`);
 
-    let newVersion = '';
+    let newVersion = value;
 
     if (isVersionNumber) {
         let existingVersionNumberResult = content.match(new RegExp(`${name}\\s*\\w*\\(${regEx}\\)`, 'gi')) as RegExpMatchArray;

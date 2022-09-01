@@ -9,7 +9,7 @@ export class RequestModel {
 
         this.tmr = new tmrm.TaskMockRunner(taskPath);
 
-        this.tmr.setInput('PATH', 'H:\\DEV\\GIT\\vsts-assemblyinfo-task\\tests\\projects');
+        this.tmr.setInput('PATH', 'X:\\DEV\\GIT\\vsts-assemblyinfo-task\\tests\\projects');
         this.tmr.setInput('FILENAMES', '\n**\\AssemblyInfo.cs');
         this.tmr.setInput('INSERTATTRIBUTES', 'true');
         this.tmr.setInput('FILEENCODING', 'auto');
