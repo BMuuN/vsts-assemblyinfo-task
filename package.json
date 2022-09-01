@@ -57,7 +57,7 @@
     "mocha-junit-reporter": "2.0.0",
     "nyc": "15.1.0",
     "sync-request": "6.1.0",
-    "tfx-cli": "0.11.0",
+    "tfx-cli": "0.12.0",
     "ts-node": "9.1.1"
   },
   "dependencies": {
