@@ -672,15 +672,19 @@ function setOutputVariables(model: models.NetCore) {
 
 function setTaggingOptions(model: models.NetCore) {
 
-    logger.debug(`Tagging build...`);
+    logger.debug(`##[group]Updating build...`);
 
     if (model.buildNumber) {
         tl.updateBuildNumber(model.buildNumber);
+        logger.debug(`Renamed Build: ${model.buildNumber}`);
     }
 
     if (model.buildTag) {
         tl.addBuildTag(model.buildTag);
+        logger.debug(`Added Tag: ${model.buildTag}`);
     }
+    
+    logger.debug('##[endgroup]');
 }
 
 run();
