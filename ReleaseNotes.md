@@ -1,4 +1,14 @@
 # Release Notes
+> **v3.2.3**
+> - Added additional message grouping to task output.
+> - Bug fix for multiline Description attribute in .Net Framework task.
+
+> **v3.2.2**
+> - Bug fix for output variables in .Net Framework task when multiple `AssemblyInfo.cs` files specified as source files.
+
+> **v3.2.1**
+> - Bug fix for output variables.
+
 > **v3.2.0**
 > - Added message grouping to task output.
 > - Added new check to skip .Net Framework project from the Net Core task.
