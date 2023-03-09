@@ -270,7 +270,7 @@ function processAttribute(file: string, fileContent: string, attributeName: stri
         if (insertAttributes) {
             result = insertAttribute(file, result.fileContent, attributeName, result.value);
         }
-        result = replaceAttribute(result.fileContent, attributeName, regex, result.value, isVersionNumber);
+        result = replaceAttribute(file, result.fileContent, attributeName, regex, result.value, isVersionNumber);
     }
 
     return result;
@@ -309,7 +309,7 @@ function insertAttribute(file: string, content: string, name: string, value: str
     return new models.ReplaceResult(content, value);
 }
 
-function replaceAttribute(content: string, name: string, regEx: string, value: string, isVersionNumber: boolean): models.ReplaceResult {
+function replaceAttribute(file: string, content: string, name: string, regEx: string, value: string, isVersionNumber: boolean): models.ReplaceResult {
     logger.info(`${name} --> ${value}`);
 
     let newVersion = value;
@@ -324,7 +324,14 @@ function replaceAttribute(content: string, name: string, regEx: string, value: s
             });
         }
     } else {
-        content = content.replace(new RegExp(`${name}\\s*\\w*\\(${regEx}\\)`, 'gi'), `${name}("${value}")`);
+
+        let attribute = `${name}("${value}")`;
+
+        if(file.endsWith('.cs') && name === "AssemblyDescription" && isMultiline(value)) {
+            attribute = `${name}(@"${value}")`;
+        }
+
+        content = content.replace(new RegExp(`${name}\\s*\\w*\\(${regEx}\\)`, 'gi'), attribute);
     }
 
     return new models.ReplaceResult(content, newVersion);
@@ -347,15 +354,23 @@ function setOutputVariables(model: models.NetFramework) {
 
 function setTaggingOptions(model: models.NetFramework) {
 
-    logger.debug(`Tagging build...`);
+    logger.debug(`##[group]Updating build...`);
 
     if (model.buildNumber) {
         tl.updateBuildNumber(`${model.buildNumber}`);
+        logger.debug(`Renamed Build: ${model.buildNumber}`);
     }
 
     if (model.buildTag) {
         tl.addBuildTag(`${model.buildTag}`);
+        logger.debug(`Added Tag: ${model.buildTag}`);
     }
+
+    logger.debug('##[endgroup]');
+}
+
+function isMultiline(value: string) {
+    return value.indexOf('\n') > 0;
 }
 
 run();

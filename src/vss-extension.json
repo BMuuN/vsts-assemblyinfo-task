@@ -10,7 +10,7 @@
             "id": "Microsoft.VisualStudio.Services"
         }
     ],
-    "description": "Set assembly information such as Version, Copyright and Trademark etc from Azure DevOps build pipeline.",
+    "description": "Set assembly information such as Version, Copyright and Trademark from Azure DevOps build pipeline.",
     "icons": {
         "default": "images/Logo128x128.png"
     },
