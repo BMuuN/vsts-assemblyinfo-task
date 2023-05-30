@@ -1,4 +1,7 @@
 # Release Notes
+> **v3.3.0**
+> - Added support for `.fsproj` projects to the .Net Core task.
+
 > **v3.2.3**
 > - Added additional message grouping to task output.
 > - Bug fix for multiline Description attribute in .Net Framework task.

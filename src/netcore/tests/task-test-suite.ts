@@ -12,16 +12,16 @@ describe('Net Core - Task Tests', function() {
         // Uncomment on errors to diagnose
         // process.env['TASK_TEST_TRACE'] = '1';
 
-        console.log('');
+        //console.log('');
         rootDir = process.cwd();
         // console.log(`Dir Name: ${__dirname}`);
-        console.log(`Dir Name: \t${rootDir}`);
+        //console.log(`Dir Name: \t${rootDir}`);
 
         testDir = path.join(rootDir, 'src/netcore/tests/task-runners');
-        console.log(`Test Dir: \t${testDir}`);
+        //console.log(`Test Dir: \t${testDir}`);
 
         projectDir = path.join(rootDir, '/tests/projects');
-        console.log(`Project Dir: \t${projectDir}`);
+        //console.log(`Project Dir: \t${projectDir}`);
     });
 
     it('should succeed and print input task parameters', (done: Mocha.Done) => {
@@ -167,7 +167,7 @@ describe('Net Core - Task Tests', function() {
         assert.strictEqual(tr.succeeded, false, 'should have failed');
         assert.strictEqual(tr.warningIssues.length, 0, 'should have no warnings');
         assert.strictEqual(tr.errorIssues.length, 1, 'should have 1 error issue');
-        assert.strictEqual(tr.errorIssues[0], 'Invalid file.  Only the following file extensions are supported: .csproj, .vbproj, .props', 'file is not correct extension');
+        assert.strictEqual(tr.errorIssues[0], 'Invalid file.  Only the following file extensions are supported: .csproj, .vbproj, .fsproj, .props', 'file is not correct extension');
         // assert.strictEqual(tr.stdout.indexOf(`Processing: ${projectDir}`), -1, 'NetCoreLib.csproj was not processed');
 
         done();

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29613.14
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreLib", "NetCoreLib\NetCoreLib.csproj", "{3DFDD84A-A604-442C-A194-2535F99F0CB2}"
 EndProject
@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreWebApp", "NetCoreWeb
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCoreConsoleApp", "NetCoreConsoleApp\NetCoreConsoleApp.csproj", "{8E914A64-E8F4-404D-B3F8-FE91EE265CE2}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "NetCoreVB", "NetCoreVB\NetCoreVB.vbproj", "{FD355AA7-C0A3-4C31-9E3A-CF3F731150DC}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "NetCoreVB", "NetCoreVB\NetCoreVB.vbproj", "{FD355AA7-C0A3-4C31-9E3A-CF3F731150DC}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "NetCoreFSharp", "NetCoreFSharp\NetCoreFSharp.fsproj", "{DB05151B-380D-44ED-AB23-5BA0F7F505B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{FD355AA7-C0A3-4C31-9E3A-CF3F731150DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD355AA7-C0A3-4C31-9E3A-CF3F731150DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD355AA7-C0A3-4C31-9E3A-CF3F731150DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB05151B-380D-44ED-AB23-5BA0F7F505B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB05151B-380D-44ED-AB23-5BA0F7F505B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB05151B-380D-44ED-AB23-5BA0F7F505B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB05151B-380D-44ED-AB23-5BA0F7F505B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
