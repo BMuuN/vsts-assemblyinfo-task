@@ -10,15 +10,9 @@ describe('Net Core - Boolean Pick List Tests', function() {
     let projectDir: string = '';
 
     before(() => {
-        console.log('');
         rootDir = process.cwd();
-        console.log(`Dir Name: \t${rootDir}`);
-
         testDir = path.join(rootDir, 'src/netcore/tests/task-runners');
-        console.log(`Test Dir: \t${testDir}`);
-
         projectDir = path.join(rootDir, '/tests/projects');
-        console.log(`Project Dir: \t${projectDir}`);
     });
 
     it(`should succeed and set all fields to 'true'`, (done: Mocha.Done) => {

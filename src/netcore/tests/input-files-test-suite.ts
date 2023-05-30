@@ -18,19 +18,9 @@ describe('Net Core - Input Files Tests', function() {
     let projectDir: string = '';
 
     before(() => {
-        // Uncomment on errors to diagnose
-        // process.env['TASK_TEST_TRACE'] = '1';
-
-        console.log('');
         rootDir = process.cwd();
-        // console.log(`Dir Name: ${__dirname}`);
-        console.log(`Dir Name: \t${rootDir}`);
-
         testDir = path.join(rootDir, 'src/netcore/tests/task-runners');
-        console.log(`Test Dir: \t${testDir}`);
-
         projectDir = path.join(rootDir, '/tests/projects');
-        console.log(`Project Dir: \t${projectDir}`);
     });
 
     it('should succeed and update assembly data (NetCoreLib.csproj)', (done: Mocha.Done) => {
