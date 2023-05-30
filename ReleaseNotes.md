@@ -1,10 +1,13 @@
 # Release Notes
+> **v3.3.1**
+> - Updated dependency packages
+
 > **v3.3.0**
 > - Added support for `.fsproj` projects to the .Net Core task.
 
 > **v3.2.3**
 > - Added additional message grouping to task output.
-> - Bug fix for multiline Description attribute in .Net Framework task.
+> - Bug fix for multiline Description attribute in .Net Framework task [#309](https://github.com/BMuuN/vsts-assemblyinfo-task/issues/309).
 
 > **v3.2.2**
 > - Bug fix for output variables in .Net Framework task when multiple `AssemblyInfo.cs` files specified as source files.

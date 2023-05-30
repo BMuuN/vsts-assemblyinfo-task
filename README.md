@@ -8,6 +8,8 @@
 # Introduction
 Assembly Info is an extension for Azure DevOps that populates assembly information metadata from a build pipeline.
 
+The extension contains 2 tasks: - one which targets .Net Framework projects and another task which targets .Net Core / .Net Standard projects.
+
 ## Details
 For information relating to the extension please see the [overview](./src/Overview.md).  
 
