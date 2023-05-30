@@ -201,8 +201,8 @@ function setManifestData(model: models.NetCore, regEx: models.RegEx): void {
         // Reset flag to control if our own <PropertyGroup> was created.
         hasCreatedPropertyGroup = false;
 
-        if (path.extname(file) !== '.csproj' && path.extname(file) !== '.vbproj' && path.extname(file) !== '.props') {
-            logger.warning('Invalid file.  Only the following file extensions are supported: .csproj, .vbproj, .props');
+        if (path.extname(file) !== '.csproj' && path.extname(file) !== '.vbproj' && path.extname(file) !== '.fsproj' && path.extname(file) !== '.props') {
+            logger.warning('Invalid file.  Only the following file extensions are supported: .csproj, .vbproj, .fsproj, .props');
             return;
         }
 
