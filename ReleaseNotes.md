@@ -1,6 +1,9 @@
 # Release Notes
-> **v3.3.0**
+> **v3.3.1**
 > - Updated dependency packages
+
+> **v3.3.0**
+> - Added support for `.fsproj` projects to the .Net Core task.
 
 > **v3.2.3**
 > - Added additional message grouping to task output.

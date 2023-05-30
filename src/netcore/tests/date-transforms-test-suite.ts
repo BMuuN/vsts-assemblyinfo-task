@@ -10,15 +10,9 @@ describe('Net Core - Date Transforms Tests', function() {
     let projectDir: string = '';
 
     before(() => {
-        console.log('');
         rootDir = process.cwd();
-        console.log(`Dir Name: \t${rootDir}`);
-
         testDir = path.join(rootDir, 'src/netcore/tests/task-runners');
-        console.log(`Test Dir: \t${testDir}`);
-
         projectDir = path.join(rootDir, '/tests/projects');
-        console.log(`Project Dir: \t${projectDir}`);
     });
 
     it(`should succeed with date transforms for 'Copyright' field`, (done: Mocha.Done) => {

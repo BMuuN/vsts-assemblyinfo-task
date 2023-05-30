@@ -16,15 +16,9 @@ describe('Net Framework - Version Tests', function() {
     let projectDir: string = '';
 
     before(() => {
-        console.log('');
         rootDir = process.cwd();
-        console.log(`Dir Name: \t${rootDir}`);
-
         testDir = path.join(rootDir, 'src/netframework/tests/task-runners');
-        console.log(`Test Dir: \t${testDir}`);
-
         projectDir = path.join(rootDir, '/tests/projects');
-        console.log(`Project Dir: \t${projectDir}`);
     });
 
     it('should succeed with version number wildcard', (done: Mocha.Done) => {

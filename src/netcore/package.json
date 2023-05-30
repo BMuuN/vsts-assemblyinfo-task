@@ -8,12 +8,12 @@
     "author": "Bleddyn Richards",
     "license": "MIT",
     "dependencies": {
-        "applicationinsights": "2.5.0",
-        "azure-pipelines-task-lib": "4.3.0",
+        "applicationinsights": "2.6.0",
+        "azure-pipelines-task-lib": "4.3.1",
         "chardet": "1.5.1",
         "iconv-lite": "0.6.3",
         "moment": "2.29.1",
-        "xml2js": "0.4.23"
+        "xml2js": "0.5.0"
     },
     "devDependencies": {
         "sync-request": "6.1.0"
