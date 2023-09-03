@@ -315,7 +315,7 @@ function replaceAttribute(file: string, content: string, name: string, regEx: st
     let newVersion = value;
 
     if (isVersionNumber) {
-        let existingVersionNumberResult = content.match(new RegExp(`${name}\\s*\\w*\\(${regEx}\\)`, 'gi')) as RegExpMatchArray;
+        let existingVersionNumberResult = content.match(new RegExp(`${name}(Attribute)?\\s*\\w*\\(${regEx}\\)`, 'gi')) as RegExpMatchArray;
         if (existingVersionNumberResult && existingVersionNumberResult.length >= 1) {
             existingVersionNumberResult.forEach((val: string, index: number, array: string[]) => {
                 let existingVersionNumber = val.substring(val.indexOf('("') + 2, val.indexOf('")'));
@@ -331,7 +331,7 @@ function replaceAttribute(file: string, content: string, name: string, regEx: st
             attribute = `${name}(@"${value}")`;
         }
 
-        content = content.replace(new RegExp(`${name}\\s*\\w*\\(${regEx}\\)`, 'gi'), attribute);
+        content = content.replace(new RegExp(`${name}(Attribute)?\\s*\\w*\\(${regEx}\\)`, 'gi'), attribute);
     }
 
     return new models.ReplaceResult(content, newVersion);
