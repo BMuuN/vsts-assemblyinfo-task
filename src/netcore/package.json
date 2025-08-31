@@ -10,9 +10,9 @@
     "dependencies": {
         "applicationinsights": "2.7.0",
         "azure-pipelines-task-lib": "4.4.0",
-        "chardet": "1.6.0",
-        "iconv-lite": "0.6.3",
-        "moment": "2.29.1",
+        "chardet": "2.1.0",
+        "iconv-lite": "0.7.0",
+        "moment": "2.30.1",
         "xml2js": "0.6.2"
     },
     "devDependencies": {
