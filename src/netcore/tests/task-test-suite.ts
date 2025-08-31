@@ -30,7 +30,7 @@ describe('Net Core - Task Tests', function() {
         const tp = path.join(testDir, 'success.js');
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
-        tr.run();
+        tr.runAsync();
 
         assert.strictEqual(tr.succeeded, true, 'should have succeeded');
         assert.strictEqual(tr.invokedToolCount, 0, 'should not invoke any tooling');
@@ -75,7 +75,7 @@ describe('Net Core - Task Tests', function() {
         const tp = path.join(testDir, 'success.js');
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
-        tr.run();
+        tr.runAsync();
 
         assert.strictEqual(tr.succeeded, true, 'should have succeeded');
         assert.strictEqual(tr.invokedToolCount, 0, 'should not invoke any tooling');
@@ -116,7 +116,7 @@ describe('Net Core - Task Tests', function() {
         const tp = path.join(testDir, 'success.js');
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
-        tr.run();
+        tr.runAsync();
 
         assert.strictEqual(tr.succeeded, true, 'should have succeeded');
         assert.strictEqual(tr.invokedToolCount, 0, 'should not invoke any tooling');
@@ -137,7 +137,7 @@ describe('Net Core - Task Tests', function() {
         const tp = path.join(testDir, 'failure-source-dir-not-found.js');
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
-        tr.run();
+        tr.runAsync();
 
         assert.strictEqual(tr.succeeded, false, 'should have failed');
         assert.strictEqual(tr.warningIssues.length, 0, 'should have no warnings');
@@ -162,7 +162,7 @@ describe('Net Core - Task Tests', function() {
         const tp = path.join(testDir, 'failure.js');
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
-        tr.run();
+        tr.runAsync();
 
         assert.strictEqual(tr.succeeded, false, 'should have failed');
         assert.strictEqual(tr.warningIssues.length, 0, 'should have no warnings');
