@@ -1,6 +1,9 @@
 # Release Notes
-> **v3.3.1**
-> - Updated dependency packages
+> **v3.4.1**
+> - Updated dependency packages.
+
+> **v3.4.0**
+> - Node version update.
 
 > **v3.3.0**
 > - Added support for `.fsproj` projects to the .Net Core task.
