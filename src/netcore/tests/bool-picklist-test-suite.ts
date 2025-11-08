@@ -15,13 +15,13 @@ describe('Net Core - Boolean Pick List Tests', function() {
         projectDir = path.join(rootDir, '/tests/projects');
     });
 
-    it(`should succeed and set all fields to 'true'`, (done: Mocha.Done) => {
+    it(`should succeed and set all fields to 'true'`, async () => {
         this.timeout(1000);
 
         const tp = path.join(testDir, 'success-bool-picklist-true.js');
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
-        tr.runAsync();
+        await tr.runAsync();
 
         assert.strictEqual(tr.succeeded, true, 'should have succeeded');
         assert.strictEqual(tr.invokedToolCount, 0, 'should not invoke any tooling');
@@ -38,17 +38,15 @@ describe('Net Core - Boolean Pick List Tests', function() {
 
         const packageRequireLicenseAcceptance = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageRequireLicenseAcceptance');
         assert.strictEqual(packageRequireLicenseAcceptance, 'true', 'PackageRequireLicenseAcceptance is not set to true');
-
-        done();
     });
 
-    it(`should succeed and set all fields to 'false'`, (done: Mocha.Done) => {
+    it(`should succeed and set all fields to 'false'`, async () => {
         this.timeout(1000);
 
         const tp = path.join(testDir, 'success-bool-picklist-false.js');
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
-        tr.runAsync();
+        await tr.runAsync();
 
         assert.strictEqual(tr.succeeded, true, 'should have succeeded');
         assert.strictEqual(tr.invokedToolCount, 0, 'should not invoke any tooling');
@@ -65,17 +63,15 @@ describe('Net Core - Boolean Pick List Tests', function() {
 
         const packageRequireLicenseAcceptance = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'PackageRequireLicenseAcceptance');
         assert.strictEqual(packageRequireLicenseAcceptance, 'false', 'PackageRequireLicenseAcceptance is not set to false');
-
-        done();
     });
 
-    it(`should succeed and skip all fields when set to 'ignore'`, (done: Mocha.Done) => {
+    it(`should succeed and skip all fields when set to 'ignore'`, async () => {
         this.timeout(1000);
 
         const tp = path.join(testDir, 'success-bool-picklist-ignore.js');
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
-        tr.runAsync();
+        await tr.runAsync();
 
         assert.strictEqual(tr.succeeded, true, 'should have succeeded');
         assert.strictEqual(tr.invokedToolCount, 0, 'should not invoke any tooling');
@@ -92,7 +88,5 @@ describe('Net Core - Boolean Pick List Tests', function() {
 
         const packageRequireLicenseAcceptance = TestUtils.elementExists(netCoreLibProject, 'PackageRequireLicenseAcceptance');
         assert.strictEqual(`${packageRequireLicenseAcceptance}`, 'false', 'PackageRequireLicenseAcceptance has not been ignored');
-
-        done();
     });
 });

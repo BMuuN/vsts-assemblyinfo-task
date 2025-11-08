@@ -15,13 +15,13 @@ describe('Net Core - Date Transforms Tests', function() {
         projectDir = path.join(rootDir, '/tests/projects');
     });
 
-    it(`should succeed with date transforms for 'Copyright' field`, (done: Mocha.Done) => {
+    it(`should succeed with date transforms for 'Copyright' field`, async () => {
         this.timeout(1000);
 
         const tp = path.join(testDir, 'success-date-transforms.js');
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
-        tr.runAsync();
+        await tr.runAsync();
 
         assert.strictEqual(tr.succeeded, true, 'should have succeeded');
         assert.strictEqual(tr.invokedToolCount, 0, 'should not invoke any tooling');
@@ -36,17 +36,15 @@ describe('Net Core - Date Transforms Tests', function() {
 
         assert.notStrictEqual(result, null, 'Copyright field is not empty');
         assert.strictEqual(result.length, 1, 'Dates not transformed for copyright field');
-
-        done();
     });
 
-    it(`should succeed with date transforms for 'Company' field`, (done: Mocha.Done) => {
+    it(`should succeed with date transforms for 'Company' field`, async () => {
         this.timeout(1000);
 
         const tp = path.join(testDir, 'success-date-transforms.js');
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
-        tr.runAsync();
+        await tr.runAsync();
 
         assert.strictEqual(tr.succeeded, true, 'should have succeeded');
         assert.strictEqual(tr.invokedToolCount, 0, 'should not invoke any tooling');
@@ -61,17 +59,15 @@ describe('Net Core - Date Transforms Tests', function() {
 
         assert.notStrictEqual(result, null, 'Company field is not empty');
         assert.strictEqual(result.length, 1, 'Dates not transformed for company field');
-
-        done();
     });
 
-    it('should succeed with date transforms for `Description` field', (done: Mocha.Done) => {
+    it('should succeed with date transforms for `Description` field', async () => {
         this.timeout(1000);
 
         const tp = path.join(testDir, 'success-date-transforms.js');
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
-        tr.runAsync();
+        await tr.runAsync();
 
         assert.strictEqual(tr.succeeded, true, 'should have succeeded');
         assert.strictEqual(tr.invokedToolCount, 0, 'should not invoke any tooling');
@@ -86,7 +82,5 @@ describe('Net Core - Date Transforms Tests', function() {
 
         assert.notStrictEqual(result, null, 'Description field is not empty');
         assert.strictEqual(result.length, 1, 'Dates not transformed for description field');
-
-        done();
     });
 });

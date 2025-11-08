@@ -22,13 +22,13 @@ describe('Net Core - Version Tests', function() {
         projectDir = path.join(rootDir, '/tests/projects');
     });
 
-    it('should succeed with version number wildcard', (done: Mocha.Done) => {
+    it('should succeed with version number wildcard', async () => {
         this.timeout(1000);
 
         const tp = path.join(testDir, 'success-version-wildcard.js');
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
-        tr.runAsync();
+        await tr.runAsync();
 
         assert.strictEqual(tr.succeeded, true, 'should have succeeded');
         assert.strictEqual(tr.invokedToolCount, 0, 'should not invoke any tooling');
@@ -56,17 +56,15 @@ describe('Net Core - Version Tests', function() {
         const packageVersionResult = packageVersion.match(TestRegEx.packageVersion) as RegExpMatchArray;
         assert.notStrictEqual(packageVersionResult, null, 'Package version field is empty');
         assert.strictEqual(packageVersionResult.length, 1, 'Package version is not set');
-
-        done();
     });
 
-    it('should succeed and keep parts of existing version', (done: Mocha.Done) => {
+    it('should succeed and keep parts of existing version', async () => {
         this.timeout(1000);
 
         const tp = path.join(testDir, 'success-version-keep.js');
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
-        tr.runAsync();
+        await tr.runAsync();
 
         assert.strictEqual(tr.succeeded, true, 'should have succeeded');
         assert.strictEqual(tr.invokedToolCount, 0, 'should not invoke any tooling');
@@ -97,8 +95,5 @@ describe('Net Core - Version Tests', function() {
         const packageVersionResult = packageVersion.match(/^(\d{1,4}\.\d{1,4}\.2-beta1)/g) as RegExpMatchArray;
         assert.notStrictEqual(packageVersionResult, null, 'Packave version field is empty');
         assert.strictEqual(packageVersionResult.length, 1, 'Package version is not set');
-
-        done();
     });
-
 });

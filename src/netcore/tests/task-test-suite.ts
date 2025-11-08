@@ -24,13 +24,13 @@ describe('Net Core - Task Tests', function() {
         //console.log(`Project Dir: \t${projectDir}`);
     });
 
-    it('should succeed and print input task parameters', (done: Mocha.Done) => {
+    it('should succeed and print input task parameters', async () => {
         this.timeout(1000);
 
         const tp = path.join(testDir, 'success.js');
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
-        tr.runAsync();
+        await tr.runAsync();
 
         assert.strictEqual(tr.succeeded, true, 'should have succeeded');
         assert.strictEqual(tr.invokedToolCount, 0, 'should not invoke any tooling');
@@ -65,17 +65,15 @@ describe('Net Core - Task Tests', function() {
         assert.strictEqual(tr.stdout.indexOf('Informational version: 2.3.4-prerelease') > -1, true, `'Informational version' input printed`);
         assert.strictEqual(tr.stdout.indexOf('Log Level: verbose') > -1, true, `'Log Level' input printed`);
         assert.strictEqual(tr.stdout.indexOf('Fail on Warning: true') > -1, true, `'Fail on Warning' input printed`);
-
-        done();
     });
 
-    it('should succeed and print transformations', (done: Mocha.Done) => {
+    it('should succeed and print transformations', async () => {
         this.timeout(1000);
 
         const tp = path.join(testDir, 'success.js');
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
-        tr.runAsync();
+        await tr.runAsync();
 
         assert.strictEqual(tr.succeeded, true, 'should have succeeded');
         assert.strictEqual(tr.invokedToolCount, 0, 'should not invoke any tooling');
@@ -106,17 +104,15 @@ describe('Net Core - Task Tests', function() {
         assert.strictEqual(tr.stdout.indexOf('AssemblyVersion --> 2018.11.') > -1, true, 'AssemblyVersion is set');
         assert.strictEqual(tr.stdout.indexOf('FileVersion --> 1990.03.') > -1, true, 'FileVersion is set');
         assert.strictEqual(tr.stdout.indexOf('InformationalVersion --> 2.3.4-prerelease') > -1, true, 'InformationalVersion is set');
-
-        done();
     });
 
-    it('should succeed and set output variables', (done: Mocha.Done) => {
+    it('should succeed and set output variables', async () => {
         this.timeout(1000);
 
         const tp = path.join(testDir, 'success.js');
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
-        tr.runAsync();
+        await tr.runAsync();
 
         assert.strictEqual(tr.succeeded, true, 'should have succeeded');
         assert.strictEqual(tr.invokedToolCount, 0, 'should not invoke any tooling');
@@ -127,17 +123,15 @@ describe('Net Core - Task Tests', function() {
         assert.strictEqual(tr.stdout.indexOf('##vso[task.setvariable variable=AssemblyInfo.FileVersion;isOutput=true;issecret=false;]1990.03.') > -1, true, 'AssemblyInfo.FileVersion output variable set');
         assert.strictEqual(tr.stdout.indexOf('##vso[task.setvariable variable=AssemblyInfo.InformationalVersion;isOutput=true;issecret=false;]2.3.4-prerelease') > -1, true, 'AssemblyInfo.InformationalVersion output variable set');
         assert.strictEqual(tr.stdout.indexOf('##vso[task.setvariable variable=AssemblyInfo.PackageVersion;isOutput=true;issecret=false;]9.8.7-beta5') > -1, true, 'PackageVersion output variable set');
-
-        done();
     });
     
-    it('should fail instantly when source directory does not exist', (done: Mocha.Done) => {
+    it('should fail instantly when source directory does not exist', async () => {
         this.timeout(1000);
 
         const tp = path.join(testDir, 'failure-source-dir-not-found.js');
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
-        tr.runAsync();
+        await tr.runAsync();
 
         assert.strictEqual(tr.succeeded, false, 'should have failed');
         assert.strictEqual(tr.warningIssues.length, 0, 'should have no warnings');
@@ -152,24 +146,20 @@ describe('Net Core - Task Tests', function() {
         assert.strictEqual(tr.stdout.indexOf('Authors: Bleddyn Richards') === -1, true, `'Authors' input not printed`);
         assert.strictEqual(tr.stdout.indexOf('Company: Bleddyn Richards Inc') === -1, true, `'Company' input not printed`);
         assert.strictEqual(tr.stdout.indexOf('Product: Azure DevOps Assembly Info') === -1, true, `'Product' input not printed`);
-
-        done();
     });
 
-    it('should fail instantly on warning file not csproj or vbproj or props', (done: Mocha.Done) => {
+    it('should fail instantly on warning file not csproj or vbproj or props', async () => {
         this.timeout(1000);
 
         const tp = path.join(testDir, 'failure.js');
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
-        tr.runAsync();
+        await tr.runAsync();
 
         assert.strictEqual(tr.succeeded, false, 'should have failed');
         assert.strictEqual(tr.warningIssues.length, 0, 'should have no warnings');
         assert.strictEqual(tr.errorIssues.length, 1, 'should have 1 error issue');
         assert.strictEqual(tr.errorIssues[0], 'Invalid file.  Only the following file extensions are supported: .csproj, .vbproj, .fsproj, .props', 'file is not correct extension');
         // assert.strictEqual(tr.stdout.indexOf(`Processing: ${projectDir}`), -1, 'NetCoreLib.csproj was not processed');
-
-        done();
     });
 });
