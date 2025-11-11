@@ -23,13 +23,13 @@ describe('Net Core - Input Files Tests', function() {
         projectDir = path.join(rootDir, '/tests/projects');
     });
 
-    it('should succeed and update assembly data (NetCoreLib.csproj)', (done: Mocha.Done) => {
+    it('should succeed and update assembly data (NetCoreLib.csproj)', async () => {
         this.timeout(1000);
 
         const tp = path.join(testDir, 'success-file-utf8.js');
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
-        tr.run();
+        await tr.runAsync();
 
         assert.strictEqual(tr.succeeded, true, 'should have succeeded');
         assert.strictEqual(tr.invokedToolCount, 0, 'should not invoke any tooling');
@@ -106,17 +106,15 @@ describe('Net Core - Input Files Tests', function() {
 
         const informationalVersion = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'InformationalVersion');
         assert.strictEqual(informationalVersion, '2.3.4-prerelease', 'InformationalVersion is not set');
-
-        done();
     });
 
-    it('should succeed and update assembly data (Directory.Build.props)', (done: Mocha.Done) => {
+    it('should succeed and update assembly data (Directory.Build.props)', async () => {
         this.timeout(1000);
 
         const tp = path.join(testDir, 'success-file-props-utf8.js');
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
-        tr.run();
+        await tr.runAsync();
 
         assert.strictEqual(tr.succeeded, true, 'should have succeeded');
         assert.strictEqual(tr.invokedToolCount, 0, 'should not invoke any tooling');
@@ -193,17 +191,15 @@ describe('Net Core - Input Files Tests', function() {
 
         const informationalVersion = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'InformationalVersion');
         assert.strictEqual(informationalVersion, '2.3.4-prerelease', 'InformationalVersion is not set');
-
-        done();
     });
 
-    it('should succeed and update assembly data (EmptyDirectory.Build.props)', (done: Mocha.Done) => {
+    it('should succeed and update assembly data (EmptyDirectory.Build.props)', async () => {
         this.timeout(1000);
 
         const tp = path.join(testDir, 'success-file-empty-props-utf8.js');
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
-        tr.run();
+        await tr.runAsync();
 
         assert.strictEqual(tr.succeeded, true, 'should have succeeded');
         assert.strictEqual(tr.invokedToolCount, 0, 'should not invoke any tooling');
@@ -280,7 +276,5 @@ describe('Net Core - Input Files Tests', function() {
 
         const informationalVersion = TestUtils.getAssemblyInfoValue(netCoreLibProject, 'InformationalVersion');
         assert.strictEqual(informationalVersion, '2.3.4-prerelease', 'InformationalVersion is not set');
-
-        done();
     });
 });

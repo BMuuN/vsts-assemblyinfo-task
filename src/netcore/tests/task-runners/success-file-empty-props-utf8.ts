@@ -7,4 +7,5 @@ new models.RequestModel(taskPath)
     .withFileNames('\n**/EmptyDirectory.Build.props')
     .withFailOnWarning(false)
     .withFileEncoding('utf-8')
+    .withWriteBom(true)
     .build();

@@ -21,13 +21,13 @@ describe('Net Framework - Input Files Tests', function() {
         projectDir = path.join(rootDir, '/tests/projects');
     });
 
-    it('should succeed and update assembly data (AssemblyInfo.cs)', (done: Mocha.Done) => {
+    it('should succeed and update assembly data (AssemblyInfo.cs)', async () => {
         this.timeout(1000);
 
         const tp = path.join(testDir, 'success-file-utf8.js');
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
-        tr.run();
+        await tr.runAsync();
 
         assert.strictEqual(tr.succeeded, true, 'should have succeeded');
         assert.strictEqual(tr.invokedToolCount, 0, 'should not invoke any tooling');
@@ -76,17 +76,15 @@ describe('Net Framework - Input Files Tests', function() {
         const informationalVersionResult = informationalVersion.match(TestRegEx.informationalVersion) as RegExpMatchArray;
         assert.notStrictEqual(informationalVersionResult, null, 'AssemblyInformationalVersion field is empty');
         assert.strictEqual(informationalVersionResult.length, 1, 'AssemblyInformationalVersion is not set');
-
-        done();
     });
 
-    it('should succeed and update assembly data (AssemblyInfo.cpp)', (done: Mocha.Done) => {
+    it('should succeed and update assembly data (AssemblyInfo.cpp)', async () => {
         this.timeout(1000);
 
         const tp = path.join(testDir, 'success-file-cplus-utf8.js');
         const tr: ttm.MockTestRunner = new ttm.MockTestRunner(tp);
 
-        tr.run();
+        await tr.runAsync();
 
         assert.strictEqual(tr.succeeded, true, 'should have succeeded');
         assert.strictEqual(tr.invokedToolCount, 0, 'should not invoke any tooling');
@@ -135,7 +133,5 @@ describe('Net Framework - Input Files Tests', function() {
         const informationalVersionResult = informationalVersion.match(TestRegEx.informationalVersion) as RegExpMatchArray;
         assert.notStrictEqual(informationalVersionResult, null, 'AssemblyInformationalVersion field is empty');
         assert.strictEqual(informationalVersionResult.length, 1, 'AssemblyInformationalVersion is not set');
-
-        done();
     });
 });
