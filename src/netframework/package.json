@@ -11,7 +11,7 @@
         "applicationinsights": "2.7.0",
         "azure-pipelines-task-lib": "4.17.3",
         "chardet": "2.1.0",
-        "iconv-lite": "0.7.0",
+        "iconv-lite": "0.7.2",
         "moment": "2.30.1"
     }
 }
